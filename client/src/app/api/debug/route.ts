@@ -11,10 +11,13 @@ export async function GET() {
   const productsExists = fs.existsSync(productsDir);
   const productFiles = productsExists ? fs.readdirSync(productsDir).slice(0, 5) : [];
 
+  const contentFiles = contentExists ? fs.readdirSync(contentDir) : [];
+
   return NextResponse.json({
     cwd,
     contentDir,
     contentExists,
+    contentFiles,
     productsExists,
     productFiles,
   });
