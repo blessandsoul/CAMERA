@@ -108,7 +108,6 @@ export async function Header({ locale }: HeaderProps) {
                   home: t('nav.home'),
                   catalog: t('nav.catalog'),
                   contact: t('nav.contact'),
-                  favorites: t('nav.favorites'),
                 }}
               />
             </div>

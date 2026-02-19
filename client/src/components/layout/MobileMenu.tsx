@@ -11,7 +11,6 @@ interface MobileMenuProps {
     home: string;
     catalog: string;
     contact: string;
-    favorites: string;
   };
 }
 
@@ -38,7 +37,6 @@ export function MobileMenu({ locale, labels }: MobileMenuProps): React.ReactElem
     { href: `/${locale}`, label: labels.home },
     { href: `/${locale}/catalog`, label: labels.catalog },
     { href: `/${locale}/contact`, label: labels.contact },
-    { href: `/${locale}/favorites`, label: labels.favorites },
   ];
 
   return (
