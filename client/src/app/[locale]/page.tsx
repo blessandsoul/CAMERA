@@ -190,6 +190,55 @@ export default async function HomePage({ params }: HomePageProps) {
 
       </section>
 
+      {/* ── TRUST STATS ── */}
+      <section className="py-6 bg-background">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+            <div className="flex items-center gap-3 p-4 rounded-xl border border-border/50 bg-card hover:border-primary/30 hover:shadow-md transition-all duration-200">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <ShieldCheck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xl font-black text-foreground tabular-nums leading-none">500+</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('home.about_install')}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl border border-primary/20 bg-primary/5 hover:border-primary/40 hover:shadow-md transition-all duration-200">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <ShieldCheck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xl font-black text-foreground tabular-nums leading-none">2 {locale === 'ru' ? 'года' : locale === 'en' ? 'years' : 'წელი'}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('home.about_guarantee')}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl border border-border/50 bg-card hover:border-primary/30 hover:shadow-md transition-all duration-200">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <Wrench size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xl font-black text-foreground tabular-nums leading-none">24/7</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('home.about_install_desc').slice(0, 28)}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl border border-border/50 bg-card hover:border-primary/30 hover:shadow-md transition-all duration-200">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <Truck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xl font-black text-foreground tabular-nums leading-none">{locale === 'ru' ? 'Быстро' : locale === 'en' ? 'Fast' : 'სწრაფი'}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('home.about_delivery')}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
         <section className="py-10 lg:py-14 bg-background" aria-labelledby="featured-heading">
