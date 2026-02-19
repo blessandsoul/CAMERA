@@ -7,7 +7,7 @@ import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
 import { HeroSection } from '@/components/home/HeroSection';
-import { CategoryGrid } from '@/components/common/CategoryGrid';
+import { CategoryProductsBlock } from '@/components/common/CategoryProductsBlock';
 import type { Locale } from '@/types/product.types';
 
 interface HomePageProps {
@@ -172,56 +172,52 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
       </section>
 
-      {/* ── FEATURED PRODUCTS + CATEGORIES ── */}
+      {/* ── CATEGORIES + MINI PRODUCTS ── */}
+      <section className="py-8 bg-background">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <CategoryProductsBlock products={allProducts} locale={locale as Locale} />
+        </div>
+      </section>
+
+      {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
         <section className="py-10 lg:py-14 bg-background" aria-labelledby="featured-heading">
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
-            <div className="rounded-2xl border border-border/50 bg-card shadow-sm p-6 space-y-6">
 
-              {/* Section header */}
-              <div className="flex items-end justify-between">
-                <div>
-                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-                    {t('home.featured_subtitle')}
-                  </span>
-                  <h2 id="featured-heading" className="text-2xl md:text-3xl font-bold text-foreground">
-                    {t('home.featured_title')}
-                  </h2>
-                </div>
-                <Link
-                  href={`/${locale}/catalog`}
-                  className="hidden md:flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg px-2 py-1 mb-0.5"
-                >
-                  {t('home.hero_cta')}
-                  <ArrowRight size={14} weight="bold" aria-hidden="true" />
-                </Link>
+            {/* Section header */}
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
+                  {t('home.featured_subtitle')}
+                </span>
+                <h2 id="featured-heading" className="text-2xl md:text-3xl font-bold text-foreground">
+                  {t('home.featured_title')}
+                </h2>
               </div>
-
-              <FeaturedSectionToggle
-                products={featured}
-                locale={locale as Locale}
-                priceOnRequest={t('catalog.price_on_request')}
-                variantALabel={t('home.slider_cards')}
-                variantBLabel={t('home.slider_showcase')}
+              <Link
+                href={`/${locale}/catalog`}
+                className="hidden md:flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg px-2 py-1 mb-0.5"
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {featured.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              </FeaturedSectionToggle>
-
-              {/* Categories inside the same card */}
-              <CategoryGrid
-                locale={locale}
-                counts={allProducts.reduce<Record<string, number>>((acc, p) => {
-                  acc[p.category] = (acc[p.category] ?? 0) + 1;
-                  return acc;
-                }, {})}
-              />
-
+                {t('home.hero_cta')}
+                <ArrowRight size={14} weight="bold" aria-hidden="true" />
+              </Link>
             </div>
+
+            <FeaturedSectionToggle
+              products={featured}
+              locale={locale as Locale}
+              priceOnRequest={t('catalog.price_on_request')}
+              variantALabel={t('home.slider_cards')}
+              variantBLabel={t('home.slider_showcase')}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {featured.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </FeaturedSectionToggle>
+
           </div>
         </section>
       )}
