@@ -12,6 +12,8 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN ls -la /app/content || echo "content dir missing in builder"
+RUN ls -la /app/content/products | head -5 || echo "products missing in builder"
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -30,9 +32,7 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Copy content directly from source (not from standalone — Next.js doesn't include fs-read dirs)
-COPY --chown=nextjs:nodejs content ./content
+COPY --from=builder --chown=nextjs:nodejs /app/content ./content
 
 USER nextjs
 
