@@ -198,6 +198,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [page, setPage] = useState(0);
   const [cols, setCols] = useState(COLS_LG);
+  const [animKey, setAnimKey] = useState(0);
 
   useEffect(() => {
     const update = (): void => { setCols(getColCount()); };
@@ -217,6 +218,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
   const handleCategoryChange = useCallback((cat: string) => {
     setActiveCategory(cat);
     setPage(0);
+    setAnimKey((k) => k + 1);
   }, []);
 
   const visibleTabs = CATEGORY_ORDER
@@ -269,7 +271,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
 
       {/* ── Category tabs ───────────────────────────────────────────────── */}
       <div
-        className="flex items-center gap-1 px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3 overflow-x-auto"
+        className="flex items-center justify-center gap-1 px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3 overflow-x-auto"
         style={{ scrollbarWidth: 'none' }}
       >
         {visibleTabs.map((tab) => {

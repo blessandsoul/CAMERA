@@ -51,8 +51,8 @@ export function BlogSection({ locale }: BlogSectionProps): React.ReactElement | 
                   className="flex flex-col rounded-xl overflow-hidden border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-0.5 hover:border-primary/20 h-full"
                 >
                   {/* Image */}
-                  {article.coverImage && (
-                    <div className="relative h-48 overflow-hidden bg-muted shrink-0">
+                  <div className="relative h-48 overflow-hidden bg-muted shrink-0">
+                    {article.coverImage ? (
                       <Image
                         src={article.coverImage}
                         alt={article.title}
@@ -61,19 +61,27 @@ export function BlogSection({ locale }: BlogSectionProps): React.ReactElement | 
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
-                      <div
-                        className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"
-                        aria-hidden="true"
-                      />
-                      {/* Category badge */}
-                      <div className="absolute top-3 left-3">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                          <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
-                          {article.category}
-                        </span>
+                    ) : (
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-muted to-muted flex items-center justify-center">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" className="text-border" aria-hidden="true">
+                          <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
+                          <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" />
+                          <path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </div>
+                    )}
+                    <div
+                      className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none"
+                      aria-hidden="true"
+                    />
+                    {/* Category badge */}
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                        <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
+                        {article.category}
+                      </span>
                     </div>
-                  )}
+                  </div>
 
                   {/* Body */}
                   <div className="flex flex-col flex-1 p-5 gap-3">
