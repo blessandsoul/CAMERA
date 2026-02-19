@@ -269,13 +269,14 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       {filtered.length > 0 ? (
         <div
           ref={trackRef}
-          className="flex gap-2.5 px-4 pb-5 pt-1 overflow-x-auto scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-2.5 pb-5 pt-1 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollPaddingInline: '1rem' }}
           aria-label="Product cards"
           role="list"
         >
+          <div className="flex-none w-4 shrink-0" aria-hidden="true" />
           {filtered.map((product) => (
-            <div key={product.id} role="listitem" className="flex-none">
+            <div key={product.id} role="listitem" className="flex-none snap-start">
               <ProductCard
                 product={product}
                 locale={locale}
@@ -285,7 +286,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               />
             </div>
           ))}
-          <div className="flex-none w-0.5 shrink-0" aria-hidden="true" />
+          <div className="flex-none w-4 shrink-0" aria-hidden="true" />
         </div>
       ) : (
         <div className="flex items-center justify-center h-28 px-4 pb-4">

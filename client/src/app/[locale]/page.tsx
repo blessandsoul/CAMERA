@@ -155,8 +155,8 @@ export default async function HomePage({ params }: HomePageProps) {
 
         <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 pt-28 pb-10 md:pt-32 md:pb-12">
 
-          {/* Badge — HUD status indicator */}
-          <div className="flex justify-center mb-6">
+          {/* Badge — HUD status indicator (hidden on mobile) */}
+          <div className="hidden sm:flex justify-center mb-6">
             <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-foreground/4 border border-foreground/8 backdrop-blur-sm">
               <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-online opacity-50 motion-safe:animate-ping" />
@@ -170,7 +170,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
           {/* Headline */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground leading-tight text-wrap-balance">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-wrap-balance text-hero-shimmer">
               {t('home.hero_title')}
             </h1>
           </div>
