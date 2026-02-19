@@ -7,11 +7,6 @@ import { ArrowRight, Phone } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import {
   SecurityCamera,
-  HardDrive,
-  Wrench,
-  Package,
-  Cpu,
-  Star,
   CaretLeft,
   CaretRight,
 } from '@phosphor-icons/react';
@@ -39,36 +34,20 @@ interface HeroSectionProps {
   };
 }
 
-type Category = 'all' | 'cameras' | 'nvr-kits' | 'storage' | 'accessories' | 'services';
-
-const CATEGORY_ICONS: Record<Category, React.ElementType> = {
-  all: Star,
-  cameras: SecurityCamera,
-  'nvr-kits': Cpu,
-  storage: HardDrive,
-  accessories: Package,
-  services: Wrench,
-};
-
 // ── Carousel ───────────────────────────────────────────────────────────────────
 
 function Carousel({
   products,
   locale,
-  priceOnRequest,
-  viewProduct,
   currentIndex,
   onNavigate,
 }: {
   products: Product[];
   locale: Locale;
-  priceOnRequest: string;
-  viewProduct: string;
   currentIndex: number;
   onNavigate: (i: number) => void;
 }) {
   const [dir, setDir] = useState(1);
-  const [isHovered, setIsHovered] = useState(false);
 
   const go = useCallback((next: number) => {
     setDir(next > currentIndex ? 1 : -1);
@@ -80,7 +59,6 @@ function Carousel({
 
   const product = products[currentIndex];
   const name = product.name[locale] ?? product.name['en'] ?? '';
-  const isService = product.category === 'services';
   const imageSrc = product.images.length > 0
     ? product.images[0].startsWith('http')
       ? product.images[0]
@@ -88,11 +66,7 @@ function Carousel({
     : null;
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="relative">
       <AnimatePresence mode="wait">
         <motion.div
           key={product.id}
@@ -103,7 +77,7 @@ function Carousel({
         >
           <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
 
-            {/* Image */}
+            {/* Image only */}
             <div className="aspect-video bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
                 <Image
@@ -118,12 +92,12 @@ function Carousel({
                 <SecurityCamera size={64} weight="duotone" className="text-border/30" />
               )}
 
-              {/* Gradient */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+              {/* Subtle gradient */}
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
 
               {/* Counter */}
               {products.length > 1 && (
-                <div className="absolute top-14 right-4 z-20 bg-black/60 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full tabular-nums pointer-events-none">
+                <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full tabular-nums pointer-events-none">
                   {currentIndex + 1} / {products.length}
                 </div>
               )}
@@ -131,44 +105,42 @@ function Carousel({
               {/* Arrows */}
               {products.length > 1 && (
                 <>
-                  <button onClick={(e) => { e.preventDefault(); prev(); }} className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg" aria-label="Previous">
+                  <button
+                    onClick={(e) => { e.preventDefault(); prev(); }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
+                    aria-label="Previous"
+                  >
                     <CaretLeft size={22} weight="bold" />
                   </button>
-                  <button onClick={(e) => { e.preventDefault(); next(); }} className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg" aria-label="Next">
+                  <button
+                    onClick={(e) => { e.preventDefault(); next(); }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
+                    aria-label="Next"
+                  >
                     <CaretRight size={22} weight="bold" />
                   </button>
                 </>
               )}
             </div>
 
-            {/* Text */}
-            <div className="p-5 space-y-3">
-              <h3 className="text-lg font-bold leading-tight line-clamp-2 group-hover:text-primary transition-colors duration-200">
-                {name}
-              </h3>
-              <div className="flex items-center justify-between pt-1">
-                <Link href={`/${locale}/catalog/${product.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 focus-visible:outline-none group/link">
-                  {viewProduct}
-                  <ArrowRight size={14} weight="bold" className="motion-safe:group-hover/link:translate-x-0.5 transition-transform" />
-                </Link>
-                <div className="flex items-center gap-3">
-                  {!isService ? (
-                    <span className="text-base font-black tabular-nums">
-                      {product.price}<span className="text-primary ml-0.5 text-xs font-bold">₾</span>
-                    </span>
-                  ) : (
-                    <span className="text-xs text-muted-foreground italic">{priceOnRequest}</span>
-                  )}
-                  {products.length > 1 && (
-                    <div className="flex items-center gap-1.5">
-                      {products.map((_, i) => (
-                        <button key={i} onClick={() => go(i)} className={cn('h-2 rounded-full motion-safe:transition-all duration-300 cursor-pointer', i === currentIndex ? 'w-6 bg-primary' : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50')} aria-label={`Slide ${i + 1}`} />
-                      ))}
-                    </div>
-                  )}
-                </div>
+            {/* Dots — bottom-right under the photo */}
+            {products.length > 1 && (
+              <div className="flex items-center justify-end gap-1.5 px-4 py-3">
+                {products.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => go(i)}
+                    className={cn(
+                      'h-2 rounded-full motion-safe:transition-all duration-300 cursor-pointer',
+                      i === currentIndex
+                        ? 'w-6 bg-primary'
+                        : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    )}
+                    aria-label={`Slide ${i + 1}`}
+                  />
+                ))}
               </div>
-            </div>
+            )}
 
           </div>
         </motion.div>
@@ -214,52 +186,43 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
 
   const currentProduct = products[currentIndex];
 
-  const cats: { id: Category; label: string }[] = [
-    { id: 'all', label: labels.all },
-    { id: 'cameras', label: labels.cameras },
-    { id: 'nvr-kits', label: labels.nvrKits },
-    { id: 'storage', label: labels.storage },
-    { id: 'accessories', label: labels.accessories },
-    { id: 'services', label: labels.services },
-  ];
-
   return (
     <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
 
       {/* ── LEFT ── */}
       <div className="space-y-5 max-w-2xl">
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-wrap-balance animate-in fade-in slide-in-from-bottom-4 duration-700 text-hero-shimmer">
-          {labels.heroTitle}
-        </h1>
+        <AnimatePresence mode="wait">
+          <motion.h1
+            key={currentProduct.id + '-title'}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-wrap-balance text-hero-shimmer"
+          >
+            {(currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle).slice(0, 15)}
+          </motion.h1>
+        </AnimatePresence>
 
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-            {labels.heroSubtitle}
-          </p>
-
-          {/* Category tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-secondary/30 backdrop-blur-sm rounded-xl border border-primary/10 w-fit">
-            {cats.map((cat) => {
-              const Icon = CATEGORY_ICONS[cat.id];
-              const isActive = currentProduct.category === cat.id || (cat.id === 'all');
-              return (
-                <Link
-                  key={cat.id}
-                  href={cat.id === 'all' ? `/${locale}/catalog` : `/${locale}/catalog?category=${cat.id}`}
-                  className={cn(
-                    'relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-200',
-                    cat.id !== 'all' && currentProduct.category === cat.id
-                      ? 'bg-primary text-primary-foreground shadow-md'
-                      : 'text-muted-foreground hover:text-foreground'
-                  )}
-                >
-                  <Icon size={14} weight="duotone" />
-                  {cat.label}
-                </Link>
-              );
-            })}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentProduct.id + '-desc'}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="text-lg sm:text-xl text-muted-foreground leading-relaxed"
+            >
+              {(() => {
+                const fullName = currentProduct.name[locale] ?? currentProduct.name['en'] ?? '';
+                const tail = fullName.length > 15 ? fullName.slice(15).trimStart() : '';
+                const body = currentProduct.content?.trim() ?? '';
+                return tail && body ? `${tail} — ${body}` : tail || body || labels.heroSubtitle;
+              })()}
+            </motion.p>
+          </AnimatePresence>
 
           {/* Current product specs */}
           <motion.div
@@ -298,8 +261,6 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
         <Carousel
           products={products}
           locale={locale}
-          priceOnRequest={labels.priceOnRequest}
-          viewProduct={labels.viewProduct}
           currentIndex={currentIndex}
           onNavigate={handleNavigate}
         />
