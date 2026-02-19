@@ -1,20 +1,13 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import {
-  ArrowRight,
-  Phone,
-  ShieldCheck,
-  Wrench,
-  Truck,
-} from '@phosphor-icons/react/dist/ssr';
+import { ArrowRight, Phone, ShieldCheck, Wrench, Truck } from '@phosphor-icons/react/dist/ssr';
 import { getFeaturedProducts, getAllProducts, getSiteSettings } from '@/lib/content';
 import { ProductCard } from '@/components/common/ProductCard';
 import { CategoryGrid } from '@/components/common/CategoryGrid';
-import { TopProductsSlider } from '@/components/common/TopMatchesSlider';
 import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
-import { HeroTags } from '@/components/home/HeroTags';
+import { HeroSection } from '@/components/home/HeroSection';
 import type { Locale } from '@/types/product.types';
 
 interface HomePageProps {
@@ -158,99 +151,24 @@ export default async function HomePage({ params }: HomePageProps) {
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-8 md:pt-28 lg:pt-8 lg:pb-12">
-          {/* ── Two-column grid — AndrewAltair ── */}
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-
-            {/* ── LEFT: Title + description + tags + CTA ── */}
-            <div className="space-y-5 max-w-2xl">
-
-              {/* Headline */}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-wrap-balance animate-in fade-in slide-in-from-bottom-4 duration-700 text-hero-shimmer">
-                {t('home.hero_title')}
-              </h1>
-
-              {/* Description */}
-              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-                <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-                  {t('home.hero_subtitle')}
-                </p>
-
-                {/* HeroTags — category filter + badges */}
-                <div className="pt-1">
-                  <HeroTags
-                    locale={locale as Locale}
-                    labels={{
-                      all: t('catalog.all'),
-                      cameras: t('catalog.cameras'),
-                      'nvr-kits': t('catalog.nvr_kits'),
-                      storage: t('catalog.storage'),
-                      accessories: t('catalog.accessories'),
-                      services: t('catalog.services'),
-                    }}
-                    productsByCategory={{
-                      cameras: allProducts.filter(p => p.category === 'cameras'),
-                      'nvr-kits': allProducts.filter(p => p.category === 'nvr-kits'),
-                      storage: allProducts.filter(p => p.category === 'storage'),
-                      accessories: allProducts.filter(p => p.category === 'accessories'),
-                      services: allProducts.filter(p => p.category === 'services'),
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-1">
-                <Link
-                  href={`/${locale}/catalog`}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                >
-                  {t('home.hero_cta')}
-                  <ArrowRight size={18} weight="bold" />
-                </Link>
-                <a
-                  href={`https://wa.me/995${phone}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-base motion-safe:transition-all duration-200 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-                >
-                  <Phone size={18} weight="fill" />
-                  {phone}
-                </a>
-              </div>
-
-            </div>
-
-            {/* ── RIGHT: Products Carousel — AndrewAltair style ── */}
-            {allProducts.length > 0 && (
-              <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
-                {/* Blur glow behind card */}
-                <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
-                <TopProductsSlider
-                  products={allProducts}
-                  locale={locale as Locale}
-                  labels={{
-                    title: t('home.featured_title'),
-                    inStock: t('catalog.in_stock'),
-                    priceOnRequest: t('catalog.price_on_request'),
-                    viewAll: t('home.hero_cta'),
-                    viewAllHref: `/${locale}/catalog`,
-                    noProducts: t('catalog.no_products'),
-                    categoryLabels: {
-                      all: t('catalog.all'),
-                      cameras: t('catalog.cameras'),
-                      'nvr-kits': t('catalog.nvr_kits'),
-                      storage: t('catalog.storage'),
-                      services: t('catalog.services'),
-                      accessories: t('catalog.accessories'),
-                    },
-                    variantCards: t('home.slider_cards'),
-                    variantShowcase: t('home.slider_showcase'),
-                  }}
-                />
-              </div>
-            )}
-
-          </div>
+          <HeroSection
+            products={allProducts}
+            locale={locale as Locale}
+            phone={phone}
+            labels={{
+              heroTitle: t('home.hero_title'),
+              heroSubtitle: t('home.hero_subtitle'),
+              heroCta: t('home.hero_cta'),
+              all: t('catalog.all'),
+              cameras: t('catalog.cameras'),
+              nvrKits: t('catalog.nvr_kits'),
+              storage: t('catalog.storage'),
+              accessories: t('catalog.accessories'),
+              services: t('catalog.services'),
+              priceOnRequest: t('catalog.price_on_request'),
+              viewProduct: locale === 'ka' ? 'სრულად ნახვა' : locale === 'ru' ? 'Подробнее' : 'View product',
+            }}
+          />
         </div>
       </section>
 
