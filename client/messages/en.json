@@ -30,7 +30,11 @@
     "cta_subtitle": "Contact us and we will help you",
     "cta_button": "Call Now",
     "slider_cards": "Cards",
-    "slider_showcase": "Showcase"
+    "slider_showcase": "Showcase",
+    "popular_products": "Popular Products",
+    "popular_products_subtitle": "Best Sellers",
+    "recently_viewed": "Recently Viewed",
+    "recently_viewed_empty": "You haven't viewed any products yet"
   },
   "catalog": {
     "title": "Catalog",

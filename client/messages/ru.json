@@ -30,7 +30,11 @@
     "cta_subtitle": "Свяжитесь с нами и мы поможем",
     "cta_button": "Позвонить сейчас",
     "slider_cards": "Карточки",
-    "slider_showcase": "Витрина"
+    "slider_showcase": "Витрина",
+    "popular_products": "Популярные товары",
+    "popular_products_subtitle": "Самые продаваемые",
+    "recently_viewed": "Недавно просмотренные",
+    "recently_viewed_empty": "Вы ещё не просматривали товары"
   },
   "catalog": {
     "title": "Каталог",

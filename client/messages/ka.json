@@ -30,7 +30,11 @@
     "cta_subtitle": "დაგვიკავშირდით და ჩვენ დაგეხმარებით",
     "cta_button": "დარეკე ახლა",
     "slider_cards": "ბარათები",
-    "slider_showcase": "ვიტრინა"
+    "slider_showcase": "ვიტრინა",
+    "popular_products": "პოპულარული პროდუქტები",
+    "popular_products_subtitle": "ყველაზე გაყიდვადი",
+    "recently_viewed": "ბოლოს ნანახი",
+    "recently_viewed_empty": "ჯერ არ გინახავთ პროდუქტები"
   },
   "catalog": {
     "title": "კატალოგი",
