@@ -22,35 +22,35 @@ const CATEGORIES: Category[] = [
     labelKa: 'კამერები',
     labelRu: 'Камеры',
     labelEn: 'Cameras',
-    icon: <SecurityCamera size={48} weight="duotone" aria-hidden="true" />,
+    icon: <SecurityCamera size={28} weight="duotone" aria-hidden="true" />,
   },
   {
     value: 'nvr-kits',
     labelKa: 'NVR კომპლექტი',
     labelRu: 'NVR Комплект',
     labelEn: 'NVR Kits',
-    icon: <Package size={48} weight="duotone" aria-hidden="true" />,
+    icon: <Package size={28} weight="duotone" aria-hidden="true" />,
   },
   {
     value: 'storage',
     labelKa: 'მეხსიერება',
     labelRu: 'Хранилище',
     labelEn: 'Storage',
-    icon: <HardDrive size={48} weight="duotone" aria-hidden="true" />,
+    icon: <HardDrive size={28} weight="duotone" aria-hidden="true" />,
   },
   {
     value: 'accessories',
     labelKa: 'აქსესუარები',
     labelRu: 'Аксессуары',
     labelEn: 'Accessories',
-    icon: <Toolbox size={48} weight="duotone" aria-hidden="true" />,
+    icon: <Toolbox size={28} weight="duotone" aria-hidden="true" />,
   },
   {
     value: 'services',
     labelKa: 'სერვისი',
     labelRu: 'Сервис',
     labelEn: 'Services',
-    icon: <Wrench size={48} weight="duotone" aria-hidden="true" />,
+    icon: <Wrench size={28} weight="duotone" aria-hidden="true" />,
   },
 ];
 
@@ -61,7 +61,7 @@ interface CategoryGridProps {
 
 export function CategoryGrid({ locale, counts = {} }: CategoryGridProps) {
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+    <div className="grid grid-cols-5 gap-2">
       {CATEGORIES.map((cat) => {
         const label =
           locale === 'ru' ? cat.labelRu :
@@ -74,12 +74,12 @@ export function CategoryGrid({ locale, counts = {} }: CategoryGridProps) {
           <Link
             key={cat.value}
             href={`/${locale}/catalog?category=${cat.value}`}
-            className="group flex flex-col items-center gap-3 p-6 rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm shadow-sm hover:shadow-md motion-safe:hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
+            className="group flex flex-col items-center gap-2 p-3 rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm shadow-sm hover:shadow-md motion-safe:hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
           >
             <div className="text-primary/70 group-hover:text-primary transition-colors duration-200">
               {cat.icon}
             </div>
-            <span className="text-base font-semibold text-foreground text-center leading-tight group-hover:text-primary transition-colors duration-200">
+            <span className="text-xs font-semibold text-foreground text-center leading-tight group-hover:text-primary transition-colors duration-200">
               {label}
             </span>
             {count !== undefined && count > 0 && (
