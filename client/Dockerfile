@@ -30,8 +30,9 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# content/ is inside client/ — process.cwd() = /app, reads /app/content
-COPY --from=builder --chown=nextjs:nodejs /app/content ./content
+
+# Copy content directly from source (not from standalone — Next.js doesn't include fs-read dirs)
+COPY --chown=nextjs:nodejs content ./content
 
 USER nextjs
 
