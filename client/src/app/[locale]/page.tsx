@@ -172,7 +172,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
 
           {/* Headline */}
-          <div className="text-center -mt-6 sm:mt-0 mb-3 md:mb-8">
+          <div className="text-center mt-4 sm:mt-0 mb-3 md:mb-8">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-wrap-balance text-hero-shimmer">
               {t('home.hero_title')}
             </h1>
@@ -180,6 +180,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
           {/* Products Slider */}
           {allProducts.length > 0 && (
+            <div className="mt-4 md:mt-0">
             <TopProductsSlider
               products={allProducts}
               locale={locale as Locale}
@@ -200,13 +201,14 @@ export default async function HomePage({ params }: HomePageProps) {
                 },
               }}
             />
+            </div>
           )}
 
         </div>
       </section>
 
       {/* ── CATEGORIES ── */}
-      <section className="pt-8 pb-36 md:py-8 bg-background">
+      <section className="pt-14 pb-36 md:py-8 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <CategoryGrid
             locale={locale}
