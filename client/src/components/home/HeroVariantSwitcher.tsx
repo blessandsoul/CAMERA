@@ -12,7 +12,6 @@ interface HeroVariantSwitcherProps {
 }
 
 export function HeroVariantSwitcher({ value, onChange }: HeroVariantSwitcherProps) {
-  if (process.env.NODE_ENV === 'production') return null;
   return (
     <div className="flex items-center gap-2 mt-4" role="group" aria-label="Hero variant switcher">
       <span className="text-xs font-bold text-muted-foreground">ვარიანტი:</span>
