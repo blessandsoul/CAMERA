@@ -43,28 +43,28 @@ export function ChatButton({ onClick, characterState, onWakeUp }: ChatButtonProp
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative w-16 h-16 rounded-2xl bg-background shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex items-center justify-center border border-border overflow-visible"
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.93 }}
+        className="relative w-18 h-18 rounded-full bg-transparent cursor-pointer flex items-center justify-center overflow-visible"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.92 }}
         initial={{ opacity: 0, scale: 0, rotate: -15 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ type: 'spring', stiffness: 260, damping: 18 }}
         aria-label="კამერა-ასისტენტი"
       >
-        {/* Pulse ring */}
+        {/* Pulse ring — subtle glow under camera */}
         <motion.div
-          className="absolute inset-0 rounded-2xl bg-primary"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-3 rounded-full bg-primary/20 blur-md"
           animate={
             isSleeping
-              ? { scale: [1, 1.06, 1], opacity: [0.15, 0.22, 0.15] }
+              ? { opacity: [0.1, 0.18, 0.1], scaleX: [1, 1.1, 1] }
               : isHovered
-                ? { scale: [1, 1.18, 1], opacity: [0.4, 0, 0.4] }
-                : { scale: [1, 1.12, 1], opacity: [0.3, 0, 0.3] }
+                ? { opacity: [0.4, 0.7, 0.4], scaleX: [1, 1.3, 1] }
+                : { opacity: [0.2, 0.35, 0.2], scaleX: [1, 1.15, 1] }
           }
           transition={{ duration: isSleeping ? 3 : 2, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <Character state={displayState} size={56} />
+        <Character state={displayState} size={68} />
       </motion.button>
     </div>
   );
