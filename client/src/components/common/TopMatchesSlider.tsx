@@ -110,18 +110,16 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
           </div>
         )}
 
-        {/* In-stock badge */}
-        <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-background/90 backdrop-blur-sm rounded-md px-2 py-1 border border-border/60">
-          <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-online" />
-          </span>
-          <span className="text-[10px] font-bold text-online leading-none">{inStockLabel}</span>
-        </div>
-
-        {/* Category chip */}
-        <div className="absolute top-2 right-2">
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm text-muted-foreground border border-border/60">
-            <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
+        {/* Badges row — in-stock + category on the same line */}
+        <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
+          <div className="flex items-center gap-1.5 bg-background/90 backdrop-blur-sm rounded-md px-2 py-1 border border-border/60 shrink-0">
+            <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-online" />
+            </span>
+            <span className="text-[10px] font-bold text-online leading-none">{inStockLabel}</span>
+          </div>
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm text-muted-foreground border border-border/60 shrink-0 max-w-22.5 truncate">
+            <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden="true" />
             {categoryLabels[product.category] ?? product.category}
           </span>
         </div>
@@ -203,7 +201,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
     }));
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-border bg-card shadow-sm">
+    <div className="rounded-2xl border border-border bg-card shadow-sm">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between px-4 pt-4 pb-0 gap-3">
@@ -271,7 +269,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       {filtered.length > 0 ? (
         <div
           ref={trackRef}
-          className="flex gap-2.5 px-4 pb-4 overflow-x-auto scroll-smooth"
+          className="flex gap-2.5 px-4 pb-5 pt-1 overflow-x-auto scroll-smooth"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           aria-label="Product cards"
           role="list"

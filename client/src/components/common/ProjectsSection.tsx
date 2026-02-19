@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MapPin, Buildings, House, Storefront } from '@phosphor-icons/react/dist/ssr';
+import { MapPin, Buildings, House, Storefront, SecurityCamera } from '@phosphor-icons/react/dist/ssr';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { getSiteSettings, getAllProjects } from '@/lib/content';
 import type { Locale } from '@/types/product.types';
@@ -99,13 +99,19 @@ export async function ProjectsSection(): Promise<React.JSX.Element> {
               >
                 {/* Image */}
                 <div className="relative h-44 overflow-hidden bg-muted">
-                  <Image
-                    src={project.image}
-                    alt={title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                      <SecurityCamera size={36} weight="duotone" className="text-border/60" aria-hidden="true" />
+                    </div>
+                  )}
                   <div
                     className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent pointer-events-none"
                     aria-hidden="true"

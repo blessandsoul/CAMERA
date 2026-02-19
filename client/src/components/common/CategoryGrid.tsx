@@ -48,9 +48,10 @@ const CATEGORIES: Category[] = [
 
 interface CategoryGridProps {
   locale: string;
+  counts?: Record<string, number>;
 }
 
-export function CategoryGrid({ locale }: CategoryGridProps) {
+export function CategoryGrid({ locale, counts = {} }: CategoryGridProps) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
       {CATEGORIES.map((cat) => {
@@ -58,6 +59,8 @@ export function CategoryGrid({ locale }: CategoryGridProps) {
           locale === 'ru' ? cat.labelRu :
           locale === 'en' ? cat.labelEn :
           cat.labelKa;
+
+        const count = counts[cat.value];
 
         return (
           <Link
@@ -71,6 +74,11 @@ export function CategoryGrid({ locale }: CategoryGridProps) {
             <span className="text-base font-semibold text-foreground text-center leading-tight group-hover:text-primary transition-colors duration-200">
               {label}
             </span>
+            {count !== undefined && count > 0 && (
+              <span className="text-[11px] font-bold tabular-nums text-muted-foreground bg-muted/80 border border-border/60 px-2 py-0.5 rounded-full leading-none">
+                {count}
+              </span>
+            )}
           </Link>
         );
       })}
