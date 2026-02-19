@@ -66,7 +66,8 @@ function Carousel({
     : null;
 
   return (
-    <div className="relative">
+    <div className="flex flex-col gap-3">
+      {/* Card */}
       <AnimatePresence mode="wait">
         <motion.div
           key={product.id}
@@ -76,8 +77,6 @@ function Carousel({
           transition={{ duration: 0.45, ease: 'easeOut' }}
         >
           <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
-
-            {/* Image only */}
             <div className="aspect-video bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
                 <Image
@@ -91,60 +90,34 @@ function Carousel({
               ) : (
                 <SecurityCamera size={64} weight="duotone" className="text-border/30" />
               )}
-
-              {/* Subtle gradient */}
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-
-              {/* Counter */}
-              {products.length > 1 && (
-                <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full tabular-nums pointer-events-none">
-                  {currentIndex + 1} / {products.length}
-                </div>
-              )}
-
-              {/* Arrows */}
-              {products.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => { e.preventDefault(); prev(); }}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
-                    aria-label="Previous"
-                  >
-                    <CaretLeft size={22} weight="bold" />
-                  </button>
-                  <button
-                    onClick={(e) => { e.preventDefault(); next(); }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
-                    aria-label="Next"
-                  >
-                    <CaretRight size={22} weight="bold" />
-                  </button>
-                </>
-              )}
             </div>
-
-            {/* Dots — bottom-right under the photo */}
-            {products.length > 1 && (
-              <div className="flex items-center justify-end gap-1.5 px-4 py-3">
-                {products.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => go(i)}
-                    className={cn(
-                      'h-2 rounded-full motion-safe:transition-all duration-300 cursor-pointer',
-                      i === currentIndex
-                        ? 'w-6 bg-primary'
-                        : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
-                    )}
-                    aria-label={`Slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-            )}
-
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Nav controls — outside the card */}
+      {products.length > 1 && (
+        <div className="flex items-center justify-end gap-2">
+          <span className="text-sm text-muted-foreground tabular-nums mr-auto">
+            {currentIndex + 1} / {products.length}
+          </span>
+          <button
+            onClick={(e) => { e.preventDefault(); prev(); }}
+            className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm"
+            aria-label="Previous"
+          >
+            <CaretLeft size={18} weight="bold" />
+          </button>
+          <button
+            onClick={(e) => { e.preventDefault(); next(); }}
+            className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm"
+            aria-label="Next"
+          >
+            <CaretRight size={18} weight="bold" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
