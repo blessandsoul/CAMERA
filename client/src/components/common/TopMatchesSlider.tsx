@@ -238,12 +238,12 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
         <div className="flex items-center gap-1.5">
           <Link
             href={labels.viewAllHref}
-            className="text-[11px] text-primary hover:text-primary/80 font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded px-1"
+            className="hidden sm:inline text-[11px] text-primary hover:text-primary/80 font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded px-1"
           >
             {labels.viewAll}
           </Link>
 
-          <div className="h-3 w-px bg-border" aria-hidden="true" />
+          <div className="hidden sm:block h-3 w-px bg-border" aria-hidden="true" />
 
           <button
             onClick={() => setPage((p) => Math.max(0, p - 1))}
