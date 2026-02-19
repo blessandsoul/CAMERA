@@ -4,21 +4,19 @@ import path from 'path';
 
 export async function GET() {
   const cwd = process.cwd();
-  const contentDir = path.join(cwd, 'content');
-  const productsDir = path.join(contentDir, 'products');
 
-  const contentExists = fs.existsSync(contentDir);
-  const productsExists = fs.existsSync(productsDir);
-  const productFiles = productsExists ? fs.readdirSync(productsDir).slice(0, 5) : [];
+  const list = (dir: string) => {
+    try { return fs.readdirSync(dir); } catch { return `ERROR: not readable`; }
+  };
 
-  const contentFiles = contentExists ? fs.readdirSync(contentDir) : [];
+  const exists = (p: string) => fs.existsSync(p);
 
   return NextResponse.json({
     cwd,
-    contentDir,
-    contentExists,
-    contentFiles,
-    productsExists,
-    productFiles,
+    appFiles: list(cwd),
+    contentExists: exists(path.join(cwd, 'content')),
+    contentFiles: list(path.join(cwd, 'content')),
+    productsExists: exists(path.join(cwd, 'content', 'products')),
+    productsFiles: list(path.join(cwd, 'content', 'products')),
   });
 }
