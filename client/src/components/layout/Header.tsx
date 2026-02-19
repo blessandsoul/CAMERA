@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Phone } from '@phosphor-icons/react/dist/ssr';
 import { getTranslations } from 'next-intl/server';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { CartIcon } from '@/components/common/CartIcon';
@@ -57,9 +56,9 @@ export async function Header({ locale }: HeaderProps) {
             </nav>
 
             {/* Right */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1 md:gap-3">
 
-              {/* Desktop — premium signal chip */}
+              {/* Desktop only — premium signal chip */}
               <a
                 href={`https://wa.me/995${phone}`}
                 target="_blank"
@@ -81,21 +80,6 @@ export async function Header({ locale }: HeaderProps) {
                   <span className="text-sm font-bold text-foreground tabular-nums tracking-wide">
                     {phone}
                   </span>
-                </span>
-              </a>
-
-              {/* Mobile — icon chip */}
-              <a
-                href={`https://wa.me/995${phone}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="md:hidden relative flex items-center justify-center w-9 h-9 rounded-full border border-border/60 bg-background hover:border-online/40 hover:bg-online/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-online/40"
-                aria-label={`WhatsApp ${phone}`}
-              >
-                <Phone size={17} weight="fill" className="text-online" aria-hidden="true" />
-                <span className="absolute top-1.5 right-1.5 flex h-2 w-2" aria-hidden="true">
-                  <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-online opacity-50" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-online" />
                 </span>
               </a>
 

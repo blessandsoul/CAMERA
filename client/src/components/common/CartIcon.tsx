@@ -13,7 +13,7 @@ export function CartIcon({ locale }: CartIconProps) {
   return (
     <Link
       href={`/${locale}/cart`}
-      className="relative flex items-center justify-center w-11 h-11 rounded-xl hover:bg-surface transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+      className="relative flex items-center justify-center w-9 h-9 md:w-11 md:h-11 rounded-xl hover:bg-accent transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
       aria-label={`Cart (${totalItems} items)`}
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} className="text-foreground" aria-hidden="true">
