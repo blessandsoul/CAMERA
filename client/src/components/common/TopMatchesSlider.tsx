@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -17,6 +17,7 @@ import {
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import type { Product, Locale } from '@/types/product.types';
+import { ProductShowcaseSlider } from './ProductShowcaseSlider';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -31,6 +32,8 @@ interface TopProductsSliderProps {
     viewAllHref: string;
     noProducts: string;
     categoryLabels: Record<string, string>;
+    variantCards?: string;
+    variantShowcase?: string;
   };
 }
 
@@ -213,6 +216,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
   const [animKey, setAnimKey] = useState(0);
   const [sliding, setSliding] = useState(false);
   const [slideDir, setSlideDir] = useState<'left' | 'right'>('right');
+  const [variant, setVariant] = useState<'cards' | 'showcase'>('cards');
 
   useEffect(() => {
     const update = (): void => { setCols(getColCount()); };
@@ -225,6 +229,9 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
   const safePage = Math.min(page, maxPage);
   const visible = products.slice(safePage * cols, safePage * cols + cols);
 
+  const variantALabel = labels.variantCards ?? 'Cards';
+  const variantBLabel = labels.variantShowcase ?? 'Showcase';
+
   return (
     <div className="rounded-2xl border border-border bg-card shadow-sm">
 
@@ -235,6 +242,35 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
         </h2>
 
         <div className="flex items-center gap-1.5">
+
+          {/* Variant toggle */}
+          <div className="inline-flex items-center rounded-md border border-border/50 bg-muted/50 p-0.5">
+            <button
+              onClick={() => setVariant('cards')}
+              className={cn(
+                'px-2.5 py-1 text-[10px] font-semibold rounded transition-all duration-200 cursor-pointer leading-none',
+                variant === 'cards'
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {variantALabel}
+            </button>
+            <button
+              onClick={() => setVariant('showcase')}
+              className={cn(
+                'px-2.5 py-1 text-[10px] font-semibold rounded transition-all duration-200 cursor-pointer leading-none',
+                variant === 'showcase'
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {variantBLabel}
+            </button>
+          </div>
+
+          <div className="hidden sm:block h-3 w-px bg-border" aria-hidden="true" />
+
           <Link
             href={labels.viewAllHref}
             className="hidden sm:inline text-[11px] text-primary hover:text-primary/80 font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded px-1"
@@ -242,61 +278,76 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
             {labels.viewAll}
           </Link>
 
-          <div className="hidden sm:block h-3 w-px bg-border" aria-hidden="true" />
+          {variant === 'cards' && (
+            <>
+              <div className="hidden sm:block h-3 w-px bg-border" aria-hidden="true" />
 
-          <button
-            onClick={() => { setSlideDir('left'); setSliding(true); setTimeout(() => { setPage((p) => Math.max(0, p - 1)); setAnimKey((k) => k + 1); setSliding(false); }, 260); }}
-            disabled={safePage === 0}
-            aria-label="Previous"
-            className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
-          >
-            <CaretLeft size={12} weight="bold" className="md:hidden" />
-            <CaretLeft size={14} weight="bold" className="hidden md:block" />
-          </button>
-          <button
-            onClick={() => { setSlideDir('right'); setSliding(true); setTimeout(() => { setPage((p) => Math.min(maxPage, p + 1)); setAnimKey((k) => k + 1); setSliding(false); }, 260); }}
-            disabled={safePage >= maxPage}
-            aria-label="Next"
-            className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
-          >
-            <CaretRight size={12} weight="bold" className="md:hidden" />
-            <CaretRight size={14} weight="bold" className="hidden md:block" />
-          </button>
+              <button
+                onClick={() => { setSlideDir('left'); setSliding(true); setTimeout(() => { setPage((p) => Math.max(0, p - 1)); setAnimKey((k) => k + 1); setSliding(false); }, 260); }}
+                disabled={safePage === 0}
+                aria-label="Previous"
+                className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
+              >
+                <CaretLeft size={12} weight="bold" className="md:hidden" />
+                <CaretLeft size={14} weight="bold" className="hidden md:block" />
+              </button>
+              <button
+                onClick={() => { setSlideDir('right'); setSliding(true); setTimeout(() => { setPage((p) => Math.min(maxPage, p + 1)); setAnimKey((k) => k + 1); setSliding(false); }, 260); }}
+                disabled={safePage >= maxPage}
+                aria-label="Next"
+                className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
+              >
+                <CaretRight size={12} weight="bold" className="md:hidden" />
+                <CaretRight size={14} weight="bold" className="hidden md:block" />
+              </button>
+            </>
+          )}
         </div>
       </div>
 
-      {/* ── Cards grid — equal columns, 100% width ─────────────────── */}
-      <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4 overflow-hidden">
-        {visible.length > 0 ? (
-          <div
-            className="grid gap-2.5"
-            style={{
-              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-              transform: sliding ? (slideDir === 'right' ? 'translateX(-40px)' : 'translateX(40px)') : 'translateX(0)',
-              opacity: sliding ? 0 : 1,
-              transition: sliding ? 'transform 0.26s cubic-bezier(0.4,0,0.2,1), opacity 0.26s ease' : 'none',
-            }}
-            role="list"
-            aria-label="Product cards"
-          >
-            {visible.map((product) => (
-              <div key={product.id} role="listitem" className="min-w-0">
-                <ProductCard
-                  product={product}
-                  locale={locale}
-                  inStockLabel={labels.inStock}
-                  priceOnRequestLabel={labels.priceOnRequest}
-                  categoryLabels={labels.categoryLabels}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="flex items-center justify-center h-28">
-            <p className="text-[11px] text-muted-foreground">{labels.noProducts}</p>
-          </div>
-        )}
-      </div>
+      {/* ── Content ────────────────────────────────────────────────────── */}
+      {variant === 'showcase' ? (
+        <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4">
+          <ProductShowcaseSlider
+            products={products}
+            locale={locale}
+            priceOnRequest={labels.priceOnRequest}
+          />
+        </div>
+      ) : (
+        /* ── Cards grid — equal columns, 100% width ─────────────────── */
+        <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4 overflow-hidden">
+          {visible.length > 0 ? (
+            <div
+              className="grid gap-2.5"
+              style={{
+                gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+                transform: sliding ? (slideDir === 'right' ? 'translateX(-40px)' : 'translateX(40px)') : 'translateX(0)',
+                opacity: sliding ? 0 : 1,
+                transition: sliding ? 'transform 0.26s cubic-bezier(0.4,0,0.2,1), opacity 0.26s ease' : 'none',
+              }}
+              role="list"
+              aria-label="Product cards"
+            >
+              {visible.map((product) => (
+                <div key={product.id} role="listitem" className="min-w-0">
+                  <ProductCard
+                    product={product}
+                    locale={locale}
+                    inStockLabel={labels.inStock}
+                    priceOnRequestLabel={labels.priceOnRequest}
+                    categoryLabels={labels.categoryLabels}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-28">
+              <p className="text-[11px] text-muted-foreground">{labels.noProducts}</p>
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
   );

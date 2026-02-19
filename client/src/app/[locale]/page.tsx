@@ -200,6 +200,8 @@ export default async function HomePage({ params }: HomePageProps) {
                   services: t('catalog.services'),
                   accessories: t('catalog.accessories'),
                 },
+                variantCards: t('home.slider_cards'),
+                variantShowcase: t('home.slider_showcase'),
               }}
             />
             </div>
