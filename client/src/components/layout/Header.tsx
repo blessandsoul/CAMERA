@@ -3,7 +3,6 @@ import { Phone } from '@phosphor-icons/react/dist/ssr';
 import { getTranslations } from 'next-intl/server';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { CartIcon } from '@/components/common/CartIcon';
-import { FavoritesIcon } from '@/features/favorites/components/FavoritesIcon';
 import { HeaderScrollWrapper } from './HeaderScrollWrapper';
 import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
@@ -102,7 +101,6 @@ export async function Header({ locale }: HeaderProps) {
 
               <div className="h-5 w-px bg-border/60 hidden md:block" />
               <LocaleSwitcher />
-              <FavoritesIcon locale={locale} />
               <CartIcon locale={locale} />
               <MobileMenu
                 locale={locale}
