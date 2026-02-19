@@ -79,7 +79,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
     <Link
       href={`/${locale}/catalog/${product.id}`}
       className={cn(
-        'group relative flex-none w-[200px] rounded-xl border flex flex-col overflow-hidden',
+        'group relative flex-none w-37.5 sm:w-50 rounded-xl border flex flex-col overflow-hidden',
         'transition-all duration-300 ease-out cursor-pointer',
         'border-border bg-card',
         'hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/8',
@@ -89,7 +89,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
     >
 
       {/* ── Image ── */}
-      <div className="relative h-[108px] bg-muted overflow-hidden shrink-0">
+      <div className="relative h-20 sm:h-27 bg-muted overflow-hidden shrink-0">
         {imageSrc ? (
           <>
             <Image
@@ -97,7 +97,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
               alt={name}
               fill
               className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-              sizes="200px"
+              sizes="(max-width: 639px) 150px, 200px"
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"
@@ -185,7 +185,8 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
 
   const scroll = useCallback((dir: 'left' | 'right') => {
     if (!trackRef.current) return;
-    trackRef.current.scrollBy({ left: dir === 'left' ? -220 : 220, behavior: 'smooth' });
+    const step = window.innerWidth < 640 ? 160 : 220;
+    trackRef.current.scrollBy({ left: dir === 'left' ? -step : step, behavior: 'smooth' });
   }, []);
 
   const filtered = activeCategory === 'all'
@@ -201,7 +202,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
     }));
 
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-sm">
+    <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between px-4 pt-4 pb-0 gap-3">
@@ -269,7 +270,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       {filtered.length > 0 ? (
         <div
           ref={trackRef}
-          className="flex gap-2.5 pb-5 pt-1 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+          className="flex gap-2.5 pb-5 pt-1 overflow-x-auto scroll-smooth snap-x"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollPaddingInline: '1rem' }}
           aria-label="Product cards"
           role="list"
