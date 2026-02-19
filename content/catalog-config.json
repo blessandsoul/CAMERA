@@ -1,0 +1,103 @@
+{
+  "categories": [
+    {
+      "id": "all",
+      "parentCategory": null,
+      "label": { "ka": "ყველა", "ru": "Все", "en": "All" }
+    },
+    {
+      "id": "cameras",
+      "parentCategory": "cameras",
+      "label": { "ka": "კამერები", "ru": "Камеры", "en": "Cameras" },
+      "children": [
+        {
+          "id": "cameras-ip",
+          "parentCategory": "cameras",
+          "label": { "ka": "IP კამერები", "ru": "IP камеры", "en": "IP Cameras" },
+          "specFilter": { "kaKey": "კამერის ტიპი", "value": "IP" }
+        },
+        {
+          "id": "cameras-analog",
+          "parentCategory": "cameras",
+          "label": { "ka": "ანალოგური კამერები", "ru": "Аналоговые камеры", "en": "Analog Cameras" },
+          "specFilter": { "kaKey": "კამერის ტიპი", "value": "ანალოგური" }
+        },
+        {
+          "id": "cameras-wifi",
+          "parentCategory": "cameras",
+          "label": { "ka": "Wi-Fi კამერები", "ru": "Wi-Fi камеры", "en": "Wi-Fi Cameras" },
+          "specFilter": { "kaKey": "Wi-Fi", "value": "კი" }
+        },
+        {
+          "id": "cameras-ptz",
+          "parentCategory": "cameras",
+          "label": { "ka": "PTZ კამერები", "ru": "PTZ камеры", "en": "PTZ Cameras" },
+          "specFilter": { "kaKey": "PTZ / PT", "value": "PTZ" }
+        },
+        {
+          "id": "cameras-pt",
+          "parentCategory": "cameras",
+          "label": { "ka": "PT კამერები", "ru": "PT камеры", "en": "PT Cameras" },
+          "specFilter": { "kaKey": "PTZ / PT", "value": "PT" }
+        }
+      ]
+    },
+    {
+      "id": "nvr-kits",
+      "parentCategory": "nvr-kits",
+      "label": { "ka": "NVR კომპლექტები", "ru": "Комплекты NVR", "en": "NVR Kits" }
+    },
+    {
+      "id": "accessories",
+      "parentCategory": "accessories",
+      "label": { "ka": "აქსესუარები", "ru": "Аксессуары", "en": "Accessories" }
+    },
+    {
+      "id": "storage",
+      "parentCategory": "storage",
+      "label": { "ka": "შენახვა", "ru": "Накопители", "en": "Storage" }
+    },
+    {
+      "id": "services",
+      "parentCategory": "services",
+      "label": { "ka": "სერვისი", "ru": "Услуги", "en": "Services" }
+    }
+  ],
+  "filters": {
+    "cameras": [
+      { "id": "brand", "specKaKey": "ბრენდი", "label": { "ka": "ბრენდი", "ru": "Бренд", "en": "Brand" }, "priority": 1, "defaultExpanded": true },
+      { "id": "resolution", "specKaKey": "რეზოლუცია", "label": { "ka": "რეზოლუცია", "ru": "Разрешение", "en": "Resolution" }, "priority": 2, "defaultExpanded": true },
+      { "id": "bodyType", "specKaKey": "კორპუსის ტიპი", "label": { "ka": "კორპუსის ტიპი", "ru": "Тип корпуса", "en": "Body Type" }, "priority": 3, "defaultExpanded": true },
+      { "id": "nightVision", "specKaKey": "ღამის ხედვა", "label": { "ka": "ღამის ხედვა", "ru": "Ночное видение", "en": "Night Vision" }, "priority": 4, "defaultExpanded": true },
+      { "id": "nightVisionRange", "specKaKey": "ღამის ხედვა (მანძილი)", "label": { "ka": "ღამის ხედვა (მანძილი)", "ru": "Дальность ночного видения", "en": "Night Vision Range" }, "priority": 5 },
+      { "id": "lens", "specKaKey": "ლინზა", "label": { "ka": "ლინზა", "ru": "Объектив", "en": "Lens" }, "priority": 6 },
+      { "id": "wifi", "specKaKey": "Wi-Fi", "label": { "ka": "Wi-Fi", "ru": "Wi-Fi", "en": "Wi-Fi" }, "priority": 7 },
+      { "id": "ptz", "specKaKey": "PTZ / PT", "label": { "ka": "PTZ / PT", "ru": "PTZ / PT", "en": "PTZ / PT" }, "priority": 8 },
+      { "id": "microphone", "specKaKey": "მიკროფონი", "label": { "ka": "მიკროფონი", "ru": "Микрофон", "en": "Microphone" }, "priority": 9 },
+      { "id": "microSD", "specKaKey": "Micro SD", "label": { "ka": "Micro SD", "ru": "Micro SD", "en": "Micro SD" }, "priority": 10 },
+      { "id": "protectionClass", "specKaKey": "დაცვის კლასი", "label": { "ka": "დაცვის კლასი", "ru": "Класс защиты", "en": "Protection Class" }, "priority": 11 },
+      { "id": "cmosSensor", "specKaKey": "CMOS სენსორი", "label": { "ka": "CMOS სენსორი", "ru": "CMOS сенсор", "en": "CMOS Sensor" }, "priority": 12 },
+      { "id": "aiDetection", "specKaKey": "ადამიანის და ავტომობილის სილუეტის ამოცნობა", "label": { "ka": "AI ამოცნობა", "ru": "AI распознавание", "en": "AI Detection" }, "priority": 13 }
+    ],
+    "nvr-kits": [
+      { "id": "channels", "specKaKey": "არხები", "label": { "ka": "არხები", "ru": "Каналы", "en": "Channels" }, "priority": 1, "defaultExpanded": true },
+      { "id": "nvrResolution", "specKaKey": "გარჩევადობა", "label": { "ka": "რეზოლუცია", "ru": "Разрешение", "en": "Resolution" }, "priority": 2, "defaultExpanded": true },
+      { "id": "hdd", "specKaKey": "HDD", "label": { "ka": "HDD", "ru": "HDD", "en": "HDD" }, "priority": 3 },
+      { "id": "connectivity", "specKaKey": "კავშირი", "label": { "ka": "კავშირი", "ru": "Подключение", "en": "Connectivity" }, "priority": 4 },
+      { "id": "poe", "specKaKey": "PoE", "label": { "ka": "PoE", "ru": "PoE", "en": "PoE" }, "priority": 5 },
+      { "id": "codec", "specKaKey": "კოდეკი", "label": { "ka": "კოდეკი", "ru": "Кодек", "en": "Codec" }, "priority": 6 }
+    ],
+    "accessories": [
+      { "id": "accType", "specKaKey": "ტიპი", "label": { "ka": "ტიპი", "ru": "Тип", "en": "Type" }, "priority": 1, "defaultExpanded": true },
+      { "id": "voltage", "specKaKey": "ძაბვა", "label": { "ka": "ძაბვა", "ru": "Напряжение", "en": "Voltage" }, "priority": 2 },
+      { "id": "power", "specKaKey": "სიმძლავრე", "label": { "ka": "სიმძლავრე", "ru": "Мощность", "en": "Power" }, "priority": 3 },
+      { "id": "material", "specKaKey": "მასალა", "label": { "ka": "მასალა", "ru": "Материал", "en": "Material" }, "priority": 4 }
+    ],
+    "storage": [
+      { "id": "capacity", "specKaKey": "მოცულობა", "label": { "ka": "მოცულობა", "ru": "Ёмкость", "en": "Capacity" }, "priority": 1, "defaultExpanded": true },
+      { "id": "interface", "specKaKey": "ინტერფეისი", "label": { "ka": "ინტერფეისი", "ru": "Интерфейс", "en": "Interface" }, "priority": 2 },
+      { "id": "rpm", "specKaKey": "RPM", "label": { "ka": "RPM", "ru": "RPM", "en": "RPM" }, "priority": 3 }
+    ],
+    "services": []
+  }
+}

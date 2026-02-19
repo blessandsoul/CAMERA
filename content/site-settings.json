@@ -1,0 +1,46 @@
+{
+  "contact": {
+    "phone": "597470518",
+    "whatsapp": "",
+    "email": ""
+  },
+  "business": {
+    "companyName": "TechBrain",
+    "address": {
+      "city": "Tbilisi",
+      "region": "Tbilisi",
+      "country": "GE"
+    },
+    "geo": {
+      "latitude": 41.6938,
+      "longitude": 44.8015
+    }
+  },
+  "hours": {
+    "weekdays": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "sunday": {
+      "open": "11:00",
+      "close": "17:00"
+    }
+  },
+  "stats": {
+    "camerasInstalled": "500+",
+    "projectsCompleted": "120+",
+    "yearsExperience": "5+",
+    "warrantyYears": "2"
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "tiktok": ""
+  },
+  "announcement": {
+    "enabled": false,
+    "text_ka": "",
+    "text_ru": "",
+    "text_en": ""
+  }
+}
