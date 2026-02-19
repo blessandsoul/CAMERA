@@ -104,13 +104,13 @@ body {
   /* Light brand gradient: near-white ↔ light-blue ↔ light-violet — subtle, airy */
   background: linear-gradient(
     -45deg,
-    #f8fafc,
-    #eff6ff,
-    #f0f7ff,
-    #f5f3ff,
-    #f8fafc,
-    #eff6ff,
-    #f0f9ff
+    #ffffff,
+    #f8fbfe,
+    #f9fbff,
+    #faf9ff,
+    #ffffff,
+    #f8fbff,
+    #f9fbff
   );
   background-size: 400% 400%;
 }
