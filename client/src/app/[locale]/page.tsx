@@ -172,19 +172,6 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
       </section>
 
-      {/* ── CATEGORIES ── */}
-      <section className="py-8 bg-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <CategoryGrid
-            locale={locale}
-            counts={allProducts.reduce<Record<string, number>>((acc, p) => {
-              acc[p.category] = (acc[p.category] ?? 0) + 1;
-              return acc;
-            }, {})}
-          />
-        </div>
-      </section>
-
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
         <section className="py-10 lg:py-14 bg-background" aria-labelledby="featured-heading">
@@ -227,6 +214,19 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
         </section>
       )}
+
+      {/* ── CATEGORIES ── */}
+      <section className="py-8 bg-background">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <CategoryGrid
+            locale={locale}
+            counts={allProducts.reduce<Record<string, number>>((acc, p) => {
+              acc[p.category] = (acc[p.category] ?? 0) + 1;
+              return acc;
+            }, {})}
+          />
+        </div>
+      </section>
 
       {/* ── PROJECTS ── */}
       <ProjectsSection />
