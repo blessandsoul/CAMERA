@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 import { ArrowRight, Phone, ShieldCheck, Wrench, Truck } from '@phosphor-icons/react/dist/ssr';
 import { getFeaturedProducts, getAllProducts, getSiteSettings } from '@/lib/content';
 import { ProductCard } from '@/components/common/ProductCard';
-import { CategoryGrid } from '@/components/common/CategoryGrid';
 import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
@@ -155,6 +154,10 @@ export default async function HomePage({ params }: HomePageProps) {
             products={allProducts}
             locale={locale as Locale}
             phone={phone}
+            categoryCounts={allProducts.reduce<Record<string, number>>((acc, p) => {
+              acc[p.category] = (acc[p.category] ?? 0) + 1;
+              return acc;
+            }, {})}
             labels={{
               heroTitle: t('home.hero_title'),
               heroSubtitle: t('home.hero_subtitle'),
@@ -168,19 +171,6 @@ export default async function HomePage({ params }: HomePageProps) {
               priceOnRequest: t('catalog.price_on_request'),
               viewProduct: locale === 'ka' ? 'სრულად ნახვა' : locale === 'ru' ? 'Подробнее' : 'View product',
             }}
-          />
-        </div>
-      </section>
-
-      {/* ── CATEGORIES ── */}
-      <section className="py-8 bg-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <CategoryGrid
-            locale={locale}
-            counts={allProducts.reduce<Record<string, number>>((acc, p) => {
-              acc[p.category] = (acc[p.category] ?? 0) + 1;
-              return acc;
-            }, {})}
           />
         </div>
       </section>

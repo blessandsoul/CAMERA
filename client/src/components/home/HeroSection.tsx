@@ -12,6 +12,7 @@ import {
 } from '@phosphor-icons/react';
 import Image from 'next/image';
 import type { Product, Locale } from '@/types/product.types';
+import { CategoryGrid } from '@/components/common/CategoryGrid';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -19,6 +20,7 @@ interface HeroSectionProps {
   products: Product[];
   locale: Locale;
   phone: string;
+  categoryCounts?: Record<string, number>;
   labels: {
     heroTitle: string;
     heroSubtitle: string;
@@ -148,7 +150,7 @@ function ProductSpecTags({ product, locale }: { product: Product; locale: Locale
 
 // ── Main HeroSection ───────────────────────────────────────────────────────────
 
-export function HeroSection({ products, locale, phone, labels }: HeroSectionProps) {
+export function HeroSection({ products, locale, phone, labels, categoryCounts = {} }: HeroSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNavigate = useCallback((i: number) => {
@@ -178,13 +180,33 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
           </motion.h1>
         </AnimatePresence>
 
-        {/* Current product specs */}
-        <motion.div
-          className="flex flex-wrap items-center gap-2 min-h-14 content-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200"
-          layout
-        >
-          <ProductSpecTags product={currentProduct} locale={locale} />
-        </motion.div>
+        <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentProduct.id + '-desc'}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="text-lg sm:text-xl text-muted-foreground leading-relaxed"
+            >
+              {(() => {
+                const fullName = currentProduct.name[locale] ?? currentProduct.name['en'] ?? '';
+                const tail = fullName.length > 15 ? fullName.slice(15).trimStart() : '';
+                const body = currentProduct.content?.trim() ?? '';
+                return tail && body ? `${tail} — ${body}` : tail || body || labels.heroSubtitle;
+              })()}
+            </motion.p>
+          </AnimatePresence>
+
+          {/* Current product specs */}
+          <motion.div
+            className="flex flex-wrap items-center gap-2 min-h-14 content-start"
+            layout
+          >
+            <ProductSpecTags product={currentProduct} locale={locale} />
+          </motion.div>
+        </div>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-1">
@@ -208,8 +230,8 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
 
       </div>
 
-      {/* ── RIGHT: Carousel ── */}
-      <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
+      {/* ── RIGHT: Carousel + Categories ── */}
+      <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300 flex flex-col gap-4">
         <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
         <Carousel
           products={products}
@@ -217,6 +239,7 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
           currentIndex={currentIndex}
           onNavigate={handleNavigate}
         />
+        <CategoryGrid locale={locale} counts={categoryCounts} />
       </div>
 
     </div>
