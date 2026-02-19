@@ -1,14 +1,12 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
   CaretLeft,
   CaretRight,
   SecurityCamera,
-  HardDrive,
-  Wrench,
   Package,
   ArrowRight,
 } from '@phosphor-icons/react';
@@ -30,19 +28,6 @@ interface TopProductsSliderProps {
     categoryLabels: Record<string, string>;
   };
 }
-
-// ── Category tabs config ───────────────────────────────────────────────────────
-
-const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  all: <Package size={13} weight="duotone" aria-hidden="true" />,
-  cameras: <SecurityCamera size={13} weight="duotone" aria-hidden="true" />,
-  'nvr-kits': <Package size={13} weight="duotone" aria-hidden="true" />,
-  storage: <HardDrive size={13} weight="duotone" aria-hidden="true" />,
-  services: <Wrench size={13} weight="duotone" aria-hidden="true" />,
-  accessories: <Package size={13} weight="duotone" aria-hidden="true" />,
-};
-
-const CATEGORY_ORDER = ['all', 'cameras', 'nvr-kits', 'storage', 'services', 'accessories'];
 
 // ── Spec badge ─────────────────────────────────────────────────────────────────
 
@@ -195,7 +180,6 @@ function getColCount(): number {
 }
 
 export function TopProductsSlider({ products, locale, labels }: TopProductsSliderProps) {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [page, setPage] = useState(0);
   const [cols, setCols] = useState(COLS_LG);
   const [animKey, setAnimKey] = useState(0);
@@ -207,27 +191,9 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  const filtered = activeCategory === 'all'
-    ? products
-    : products.filter((p) => p.category === activeCategory);
-
-  const maxPage = Math.max(0, Math.ceil(filtered.length / cols) - 1);
+  const maxPage = Math.max(0, Math.ceil(products.length / cols) - 1);
   const safePage = Math.min(page, maxPage);
-  const visible = filtered.slice(safePage * cols, safePage * cols + cols);
-
-  const handleCategoryChange = useCallback((cat: string) => {
-    setActiveCategory(cat);
-    setPage(0);
-    setAnimKey((k) => k + 1);
-  }, []);
-
-  const visibleTabs = CATEGORY_ORDER
-    .filter((id) => id === 'all' || products.some((p) => p.category === id))
-    .map((id) => ({
-      id,
-      label: labels.categoryLabels[id] ?? id,
-      icon: CATEGORY_ICONS[id] ?? <Package size={13} weight="duotone" aria-hidden="true" />,
-    }));
+  const visible = products.slice(safePage * cols, safePage * cols + cols);
 
   return (
     <div className="rounded-2xl border border-border bg-card shadow-sm">
@@ -269,38 +235,8 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
         </div>
       </div>
 
-      {/* ── Category tabs ───────────────────────────────────────────────── */}
-      <div
-        className="overflow-x-auto px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3"
-        style={{ scrollbarWidth: 'none' }}
-      >
-        <div className="flex items-center justify-center gap-1 w-max mx-auto">
-        {visibleTabs.map((tab) => {
-          const isActive = activeCategory === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => handleCategoryChange(tab.id)}
-              className={cn(
-                'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold whitespace-nowrap',
-                'transition-all duration-150 cursor-pointer shrink-0',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
-                'active:scale-[0.95]',
-                isActive
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'bg-secondary text-muted-foreground border border-border hover:bg-accent hover:text-foreground'
-              )}
-              aria-pressed={isActive}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-        </div>
-      </div>
-
       {/* ── Cards grid — equal columns, 100% width ─────────────────── */}
-      <div className="px-3 pb-4 pt-1 md:px-4 md:pb-5">
+      <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4">
         {visible.length > 0 ? (
           <div
             key={animKey}
