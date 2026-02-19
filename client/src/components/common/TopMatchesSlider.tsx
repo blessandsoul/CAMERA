@@ -9,6 +9,11 @@ import {
   SecurityCamera,
   Package,
   ArrowRight,
+  CheckCircle,
+  Camera,
+  HardDrive,
+  Wrench,
+  Cpu,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import type { Product, Locale } from '@/types/product.types';
@@ -28,6 +33,16 @@ interface TopProductsSliderProps {
     categoryLabels: Record<string, string>;
   };
 }
+
+// ── Category card icons ────────────────────────────────────────────────────────
+
+const CATEGORY_CARD_ICONS: Record<string, React.ReactNode> = {
+  cameras:     <Camera    size={11} weight="duotone" aria-hidden="true" />,
+  'nvr-kits':  <Cpu       size={11} weight="duotone" aria-hidden="true" />,
+  storage:     <HardDrive size={11} weight="duotone" aria-hidden="true" />,
+  accessories: <Package   size={11} weight="duotone" aria-hidden="true" />,
+  services:    <Wrench    size={11} weight="duotone" aria-hidden="true" />,
+};
 
 // ── Spec badge ─────────────────────────────────────────────────────────────────
 
@@ -59,6 +74,8 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
       ? product.images[0]
       : `/images/products/${product.images[0]}`
     : null;
+  const categoryIcon = CATEGORY_CARD_ICONS[product.category] ?? <Package size={11} weight="duotone" aria-hidden="true" />;
+  const categoryLabel = categoryLabels[product.category] ?? product.category;
 
   return (
     <Link
@@ -97,16 +114,27 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
 
         {/* Badges row — in-stock + category on the same line */}
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
-          <div className="flex items-center gap-1.5 bg-background/90 backdrop-blur-sm rounded-md px-2 py-1 border border-border/60 shrink-0">
-            <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-online" />
-            </span>
-            <span className="text-[10px] font-bold text-online leading-none">{inStockLabel}</span>
+
+          {/* In-stock: icon-only on mobile, icon+text on sm+ */}
+          <div
+            className="flex items-center gap-1 bg-background/90 backdrop-blur-sm rounded-md border border-border/60 shrink-0 px-1.5 py-1 sm:gap-1.5 sm:px-2"
+            title={inStockLabel}
+          >
+            <CheckCircle size={12} weight="fill" className="text-online shrink-0" aria-hidden="true" />
+            <span className="hidden sm:inline text-[10px] font-bold text-online leading-none">{inStockLabel}</span>
           </div>
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm text-muted-foreground border border-border/60 shrink-0 max-w-22.5 truncate">
-            <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden="true" />
-            {categoryLabels[product.category] ?? product.category}
-          </span>
+
+          {/* Category: icon-only on mobile, icon+text on sm+ */}
+          <div
+            className="inline-flex items-center gap-1 bg-background/90 backdrop-blur-sm rounded-md border border-border/60 shrink-0 px-1.5 py-1 sm:px-2"
+            title={categoryLabel}
+          >
+            <span className="text-muted-foreground shrink-0">{categoryIcon}</span>
+            <span className="hidden sm:inline text-[10px] font-bold uppercase tracking-widest text-muted-foreground leading-none max-w-22.5 truncate">
+              {categoryLabel}
+            </span>
+          </div>
+
         </div>
       </div>
 
