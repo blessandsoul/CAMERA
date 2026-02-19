@@ -35,7 +35,7 @@ export function ChatButton({ onClick, characterState, onWakeUp }: ChatButtonProp
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 6 }}
         transition={{ duration: 0.18 }}
       >
-        {isSleeping ? 'გაღვიძება! 📷' : 'კამერა-ასისტენტი'}
+        {isSleeping ? 'გაღვიძება! 📷' : 'გხედავ!'}
         <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45" />
       </motion.div>
 
