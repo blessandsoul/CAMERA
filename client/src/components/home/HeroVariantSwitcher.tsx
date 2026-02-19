@@ -14,17 +14,13 @@ interface HeroVariantSwitcherProps {
 export function HeroVariantSwitcher({ value, onChange }: HeroVariantSwitcherProps) {
   if (process.env.NODE_ENV === 'production') return null;
   return (
-    <div
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-1 p-1 rounded-xl bg-background/90 backdrop-blur-md border border-border shadow-xl"
-      role="group"
-      aria-label="Hero variant switcher"
-    >
-      <span className="text-xs font-bold text-muted-foreground px-2">Hero:</span>
+    <div className="flex items-center gap-2 mt-4" role="group" aria-label="Hero variant switcher">
+      <span className="text-xs font-bold text-muted-foreground">Вариант:</span>
       {VARIANTS.map(v => (
         <button
           key={v}
           onClick={() => onChange(v)}
-          className={`w-9 h-9 rounded-lg text-sm font-black transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${value === v ? 'bg-primary text-primary-foreground shadow-md' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`}
+          className={`w-9 h-9 rounded-lg text-sm font-black transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${value === v ? 'bg-primary text-primary-foreground shadow-md' : 'border border-border text-muted-foreground hover:bg-muted hover:text-foreground'}`}
           aria-pressed={value === v}
           aria-label={`Variant ${v}`}
         >
