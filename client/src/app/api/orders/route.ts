@@ -70,7 +70,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     if (!tgRes.ok) {
-      return NextResponse.json({ success: false, error: 'Telegram error' }, { status: 502 });
+      const tgError = await tgRes.json() as unknown;
+      console.error('[orders] Telegram error:', JSON.stringify(tgError));
+      return NextResponse.json({ success: false, error: 'Telegram error', tgError }, { status: 502 });
     }
 
     return NextResponse.json({ success: true });

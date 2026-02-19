@@ -1,0 +1,22 @@
+[  154688ms] [ERROR] ./src/app/[locale]/page.tsx:204:12
+Parsing ecmascript source code failed
+  202 |               }}
+  203 |             />
+> 204 |           )}
+      |            ^
+  205 |
+  206 |         </div>
+  207 |       </section>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`? @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:3127
+[  154688ms] [ERROR] ./src/app/[locale]/page.tsx:207:8
+Parsing ecmascript source code failed
+  205 |
+  206 |         </div>
+> 207 |       </section>
+      |        ^^^^^^^^^
+  208 |
+  209 |       {/* ── CATEGORIES ── */}
+  210 |       <section className="pt-8 pb-36 md:py-8 bg-background">
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:3127

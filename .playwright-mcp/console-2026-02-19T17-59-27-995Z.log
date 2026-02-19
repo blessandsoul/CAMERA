@@ -1,0 +1,3 @@
+[   63001ms] [ERROR] Error: <circle> attribute r: Expected length, "undefined". @ http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:3800
+[   63004ms] [ERROR] Error: <circle> attribute r: Expected length, "undefined". @ http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:3800
+[   63008ms] [WARNING] You are trying to animate opacity from "undefined" to "0.15". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
