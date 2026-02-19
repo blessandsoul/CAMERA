@@ -8,6 +8,7 @@ import {
   Truck,
 } from '@phosphor-icons/react/dist/ssr';
 import { getFeaturedProducts, getAllProducts, getSiteSettings } from '@/lib/content';
+import { ProductCard } from '@/components/common/ProductCard';
 import { CategoryGrid } from '@/components/common/CategoryGrid';
 import { TopProductsSlider } from '@/components/common/TopMatchesSlider';
 import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle';
@@ -253,7 +254,13 @@ export default async function HomePage({ params }: HomePageProps) {
               priceOnRequest={t('catalog.price_on_request')}
               variantALabel={t('home.slider_cards')}
               variantBLabel={t('home.slider_showcase')}
-            />
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {featured.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </FeaturedSectionToggle>
 
           </div>
         </section>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ProductCard } from './ProductCard';
+import type { ReactNode } from 'react';
 import { ProductShowcaseSlider } from './ProductShowcaseSlider';
 import { cn } from '@/lib/utils';
 import type { Product, Locale } from '@/types/product.types';
@@ -12,6 +12,7 @@ interface FeaturedSectionToggleProps {
   priceOnRequest: string;
   variantALabel: string;
   variantBLabel: string;
+  children: ReactNode;
 }
 
 export function FeaturedSectionToggle({
@@ -20,6 +21,7 @@ export function FeaturedSectionToggle({
   priceOnRequest,
   variantALabel,
   variantBLabel,
+  children,
 }: FeaturedSectionToggleProps) {
   const [variant, setVariant] = useState<'A' | 'B'>('A');
 
@@ -53,13 +55,9 @@ export function FeaturedSectionToggle({
         </div>
       </div>
 
-      {/* Variant A: Original product cards grid */}
+      {/* Variant A: Server-rendered product cards (passed as children) */}
       {variant === 'A' ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <>{children}</>
       ) : (
         <ProductShowcaseSlider
           products={products}
