@@ -61,7 +61,8 @@ export function CategoryProductsBlock({
   const [active, setActive] = useState<ProductCategory | 'recent'>('cameras');
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // Ref on the cards container — arrows scroll the product row, not the tabs
+  const cardsRef = useRef<HTMLDivElement>(null);
 
   const recentIds = useRecentlyViewedStore((s) => s.ids);
   const recentProducts = recentIds
@@ -70,14 +71,20 @@ export function CategoryProductsBlock({
     .slice(0, 5);
 
   const checkScroll = useCallback(() => {
-    const el = scrollRef.current;
+    const el = cardsRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
   }, []);
 
+  // Re-check when active tab changes (different card count → different scrollability)
   useEffect(() => {
-    const el = scrollRef.current;
+    const t = setTimeout(checkScroll, 50);
+    return () => clearTimeout(t);
+  }, [active, checkScroll]);
+
+  useEffect(() => {
+    const el = cardsRef.current;
     if (!el) return;
     checkScroll();
     el.addEventListener('scroll', checkScroll, { passive: true });
@@ -90,9 +97,9 @@ export function CategoryProductsBlock({
   }, [checkScroll]);
 
   const scroll = (dir: 'left' | 'right') => {
-    const el = scrollRef.current;
+    const el = cardsRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir === 'left' ? -180 : 180, behavior: 'smooth' });
+    el.scrollBy({ left: dir === 'left' ? -280 : 280, behavior: 'smooth' });
   };
 
   const activeProducts =
@@ -106,89 +113,54 @@ export function CategoryProductsBlock({
   return (
     <div className="rounded-2xl border border-border/50 bg-card shadow-sm overflow-hidden">
 
-      {/* Tab bar: scrollable tabs + arrows + recently viewed button */}
-      <div className="flex items-stretch border-b border-border/50">
+      {/* Tab bar */}
+      <div className="flex items-stretch border-b border-border/50 overflow-x-auto scrollbar-none">
+        {CATEGORIES.map((cat) => {
+          const label = cat.labels[locale] ?? cat.labels['en'];
+          const count = products.filter((p) => p.category === cat.value).length;
+          const isActive = active === cat.value;
 
-        {/* Left arrow */}
-        <button
-          onClick={() => scroll('left')}
-          aria-label="Scroll left"
-          className={cn(
-            'shrink-0 flex items-center justify-center w-8 border-r border-border/50 text-muted-foreground transition-all duration-150 cursor-pointer',
-            'hover:text-foreground hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
-            canScrollLeft ? 'opacity-100' : 'opacity-30 pointer-events-none'
-          )}
-        >
-          <CaretLeft size={14} weight="bold" aria-hidden="true" />
-        </button>
-
-        {/* Scrollable tabs */}
-        <div
-          ref={scrollRef}
-          className="flex items-center gap-0 overflow-x-auto scrollbar-none flex-1"
-        >
-          {CATEGORIES.map((cat) => {
-            const label = cat.labels[locale] ?? cat.labels['en'];
-            const count = products.filter((p) => p.category === cat.value).length;
-            const isActive = active === cat.value;
-
-            return (
-              <button
-                key={cat.value}
-                onClick={() => setActive(cat.value)}
-                className={cn(
-                  'relative flex items-center gap-2 px-4 py-3.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shrink-0',
+          return (
+            <button
+              key={cat.value}
+              onClick={() => setActive(cat.value)}
+              className={cn(
+                'relative flex items-center gap-2 px-4 py-3.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shrink-0',
+                isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              <span className={cn('transition-colors duration-200', isActive ? 'text-primary' : 'text-muted-foreground/70')}>
+                {cat.icon}
+              </span>
+              {label}
+              {count > 0 && (
+                <span className={cn(
+                  'text-[10px] font-bold tabular-nums px-1.5 py-px rounded-full leading-none border transition-colors duration-200',
                   isActive
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                )}
-              >
-                <span className={cn('transition-colors duration-200', isActive ? 'text-primary' : 'text-muted-foreground/70')}>
-                  {cat.icon}
+                    ? 'bg-primary/10 text-primary border-primary/20'
+                    : 'bg-muted text-muted-foreground border-border/50'
+                )}>
+                  {count}
                 </span>
-                {label}
-                {count > 0 && (
-                  <span className={cn(
-                    'text-[10px] font-bold tabular-nums px-1.5 py-px rounded-full leading-none border transition-colors duration-200',
-                    isActive
-                      ? 'bg-primary/10 text-primary border-primary/20'
-                      : 'bg-muted text-muted-foreground border-border/50'
-                  )}>
-                    {count}
-                  </span>
-                )}
-                {isActive && (
-                  <motion.span
-                    layoutId="cat-underline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full"
-                    transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
+              )}
+              {isActive && (
+                <motion.span
+                  layoutId="cat-underline"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full"
+                  transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                />
+              )}
+            </button>
+          );
+        })}
 
-        {/* Right arrow */}
-        <button
-          onClick={() => scroll('right')}
-          aria-label="Scroll right"
-          className={cn(
-            'shrink-0 flex items-center justify-center w-8 border-l border-border/50 text-muted-foreground transition-all duration-150 cursor-pointer',
-            'hover:text-foreground hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
-            canScrollRight ? 'opacity-100' : 'opacity-30 pointer-events-none'
-          )}
-        >
-          <CaretRight size={14} weight="bold" aria-hidden="true" />
-        </button>
-
-        {/* Recently viewed toggle */}
+        {/* Recently viewed toggle — pinned right */}
         <button
           onClick={() => setActive(active === 'recent' ? 'cameras' : 'recent')}
           aria-label={RECENT_LABELS[locale] ?? RECENT_LABELS['en']}
           aria-pressed={active === 'recent'}
           className={cn(
-            'relative shrink-0 flex items-center gap-1.5 px-3 py-3.5 text-xs font-semibold whitespace-nowrap border-l border-border/50 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+            'relative ml-auto shrink-0 flex items-center gap-1.5 px-3 py-3.5 text-xs font-semibold whitespace-nowrap border-l border-border/50 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
             active === 'recent'
               ? 'text-primary bg-primary/5'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
@@ -219,41 +191,82 @@ export function CategoryProductsBlock({
             />
           )}
         </button>
-
       </div>
 
-      {/* Products grid */}
-      <div className="p-4 md:p-5">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-          >
-            {activeProducts.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {activeProducts.map((product) => (
-                  <ProductMiniCard
-                    key={product.id}
-                    product={product}
-                    locale={locale}
-                    inStockLabel={inStockLabel}
-                    priceOnRequestLabel={priceOnRequestLabel}
-                    categoryLabels={categoryLabels}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="flex items-center justify-center h-32 text-sm text-muted-foreground">
-                {active === 'recent'
-                  ? (RECENT_EMPTY_LABELS[locale] ?? RECENT_EMPTY_LABELS['en'])
-                  : noProductsLabel}
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+      {/* Products area with floating nav arrows */}
+      <div className="relative">
+
+        {/* Left arrow — floats over the cards area */}
+        <button
+          onClick={() => scroll('left')}
+          aria-label="Scroll left"
+          className={cn(
+            'absolute left-2 top-1/2 -translate-y-1/2 z-10',
+            'flex items-center justify-center w-7 h-7 rounded-full',
+            'bg-card border border-border/70 shadow-md',
+            'text-muted-foreground transition-all duration-150 cursor-pointer',
+            'hover:text-foreground hover:shadow-lg',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+            canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          )}
+        >
+          <CaretLeft size={13} weight="bold" aria-hidden="true" />
+        </button>
+
+        {/* Scrollable cards */}
+        <div
+          ref={cardsRef}
+          className="p-4 md:p-5 overflow-x-auto scrollbar-none"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+            >
+              {activeProducts.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {activeProducts.map((product) => (
+                    <ProductMiniCard
+                      key={product.id}
+                      product={product}
+                      locale={locale}
+                      inStockLabel={inStockLabel}
+                      priceOnRequestLabel={priceOnRequestLabel}
+                      categoryLabels={categoryLabels}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-32 text-sm text-muted-foreground">
+                  {active === 'recent'
+                    ? (RECENT_EMPTY_LABELS[locale] ?? RECENT_EMPTY_LABELS['en'])
+                    : noProductsLabel}
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Right arrow — floats over the cards area */}
+        <button
+          onClick={() => scroll('right')}
+          aria-label="Scroll right"
+          className={cn(
+            'absolute right-2 top-1/2 -translate-y-1/2 z-10',
+            'flex items-center justify-center w-7 h-7 rounded-full',
+            'bg-card border border-border/70 shadow-md',
+            'text-muted-foreground transition-all duration-150 cursor-pointer',
+            'hover:text-foreground hover:shadow-lg',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+            canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          )}
+        >
+          <CaretRight size={13} weight="bold" aria-hidden="true" />
+        </button>
+
       </div>
 
     </div>
