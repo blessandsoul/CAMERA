@@ -322,11 +322,9 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
           priceOnRequest={labels.priceOnRequest}
         />
       ) : (
-        /* ── Single card, centered, max width ───────────────────────── */
         <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4 overflow-hidden">
           {visible.length > 0 ? (
             <div
-              className="flex justify-center"
               style={{
                 transform: sliding ? (slideDir === 'right' ? 'translateX(-40px)' : 'translateX(40px)') : 'translateX(0)',
                 opacity: sliding ? 0 : 1,
@@ -336,7 +334,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               aria-label="Product cards"
             >
               {visible.map((product) => (
-                <div key={product.id} role="listitem" className="w-full max-w-sm">
+                <div key={product.id} role="listitem">
                   <ProductCard
                     product={product}
                     locale={locale}
