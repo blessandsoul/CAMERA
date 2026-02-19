@@ -11,9 +11,7 @@ export function MobileCallBar({ phone, label }: MobileCallBarProps) {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden pb-[env(safe-area-inset-bottom)]">
       <a
-        href={`https://wa.me/995${phone}`}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={`tel:+995${phone}`}
         className="flex items-center justify-center gap-3 bg-online hover:bg-online/90 transition-colors h-16 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         aria-label={`${label} ${phone}`}
       >

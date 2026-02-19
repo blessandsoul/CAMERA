@@ -1,5 +1,26 @@
 [
   {
+    "id": "order-1771524623913",
+    "name": "გიორგი გიორგაძე",
+    "phone": "555 555 555",
+    "locale": "ka",
+    "items": [
+      {
+        "name": "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG",
+        "quantity": 1,
+        "price": 79
+      },
+      {
+        "name": "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN",
+        "quantity": 1,
+        "price": 129
+      }
+    ],
+    "total": 208,
+    "status": "new",
+    "createdAt": "2026-02-19T18:10:23.913Z"
+  },
+  {
     "id": "order-1771520946110",
     "name": "w5s335s35s35",
     "phone": "34243234234",

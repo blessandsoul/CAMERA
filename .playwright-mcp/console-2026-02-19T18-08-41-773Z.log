@@ -1,0 +1,19 @@
+[    6318ms] [ERROR] Error: <circle> attribute r: Expected length, "undefined". @ http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:3800
+[    6319ms] [ERROR] Error: <circle> attribute r: Expected length, "undefined". @ http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:3800
+[    6319ms] [ERROR] Error: <circle> attribute r: Expected length, "undefined". @ http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:3800
+[    6319ms] [ERROR] Error: <circle> attribute r: Expected length, "undefined". @ http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:3800
+[    6326ms] Error: Only two keyframes currently supported with spring and inertia animations. Trying to animate 0,-10,10,-5,0. For more information and steps for solving, visit https://motion.dev/troubleshooting/spring-two-frames
+    at invariant (http://localhost:3000/_next/static/chunks/node_modules_0303d1c1._.js:7173:19)
+    at JSAnimation.initAnimation (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:5700:186)
+    at new JSAnimation (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:5689:14)
+    at AsyncMotionValueAnimation.onKeyframesResolved (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:6315:14)
+    at DOMKeyframesResolver.onComplete (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:6270:116)
+    at DOMKeyframesResolver.complete (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:1442:14)
+    at http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:1360:44
+    at Set.forEach (<anonymous>)
+    at measureAllKeyframes (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:1360:15)
+    at triggerCallback (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:1144:9)
+    at Set.forEach (<anonymous>)
+    at Object.process (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:1180:23)
+    at processBatch (http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_a32516cd._.js:1241:26)
+    at http://localhost:3000/_next/static/chunks/node_modules_agentation_dist_index_mjs_a4d7dd5f._.js:1374:17
