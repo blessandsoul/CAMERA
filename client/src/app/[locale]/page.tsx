@@ -150,7 +150,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-3 md:pt-28 lg:pt-8 lg:pb-3">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-3 md:pt-28 lg:pt-24 lg:pb-3">
           <HeroSection
             products={allProducts}
             locale={locale as Locale}
