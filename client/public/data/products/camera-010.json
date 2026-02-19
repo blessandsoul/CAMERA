@@ -1,0 +1,121 @@
+{
+  "id": "camera-010",
+  "slug": "uniview-8-outdoor-camera-4",
+  "category": "cameras",
+  "price": 169,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": true,
+  "images": [
+    "Untitled-570.jpg"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, 8mp, 4mm, Uniview, IPC2128LE-ADF40KM-G",
+    "ru": "Uniview 8 მპ уличная камера 4 მმ",
+    "en": "Uniview 8 მპ outdoor Camera 4 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, 8mp, 4mm, Uniview, IPC2128LE-ADF40KM-G. გარე გამოყენების გამოყენება. რეზოლუცია: 8 მპ. ლინზა: 4 მმ.",
+    "ru": "Uniview 8 მპ уличная камера видеонаблюдения. Объектив 4 მმ. Ночное видение 50 მეტრი.",
+    "en": "Uniview 8 მპ outdoor security camera. 4 მმ lens. Night vision 50 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Uniview"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "CMOS სენსორი",
+        "en": "CMOS Sensor",
+        "ru": "CMOS сенсор"
+      },
+      "value": "1/2.7\" CMOS"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "4 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "112.9°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "50 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "8 მპ"
+    },
+    {
+      "key": {
+        "ka": "მიკროფონი",
+        "en": "Microphone",
+        "ru": "Микрофон"
+      },
+      "value": "კი"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "256 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    }
+  ],
+  "createdAt": "2026-02-18T11:55:02.852Z"
+}

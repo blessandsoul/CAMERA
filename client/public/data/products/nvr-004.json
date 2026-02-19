@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T15:05:13.913Z",
+  "id": "nvr-004",
+  "slug": "8ch-nvr-8mp-4k-kit",
+  "category": "nvr-kits",
+  "price": 899,
+  "isFeatured": true,
+  "images": [
+    "eac16318-c98a-481f-9e34-384ac6d69ee1.jpg"
+  ],
+  "name": {
+    "ka": "8 არხიანი NVR 4K კომპლექტი",
+    "ru": "Комплект NVR 8CH 4K",
+    "en": "8CH NVR 4K Kit"
+  },
+  "description": {
+    "ka": "8 კამერის 4K კომპლექტი NVR-ით, 2TB HDD, PoE.",
+    "ru": "4K комплект из 8 камер с NVR, 2TB HDD, PoE.",
+    "en": "4K 8-camera kit with NVR, 2TB HDD, PoE."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "არხები",
+        "ru": "Каналы",
+        "en": "Channels"
+      },
+      "value": "8CH"
+    },
+    {
+      "key": {
+        "ka": "გარჩევადობა",
+        "ru": "Разрешение",
+        "en": "Resolution"
+      },
+      "value": "8MP / 4K"
+    },
+    {
+      "key": {
+        "ka": "HDD",
+        "ru": "HDD",
+        "en": "HDD"
+      },
+      "value": "2TB"
+    },
+    {
+      "key": {
+        "ka": "კავშირი",
+        "ru": "Подключение",
+        "en": "Connectivity"
+      },
+      "value": "PoE"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T02:05:13.918Z",
+  "id": "acc-003",
+  "slug": "utp-cable-305m",
+  "category": "accessories",
+  "price": 69,
+  "isFeatured": false,
+  "images": [
+    "4b8215c3-4dc0-4f79-87db-4aa50bc43aff.jpg"
+  ],
+  "name": {
+    "ka": "UTP კაბელი Cat5e 305მ (ბობინა)",
+    "ru": "UTP кабель Cat5e 305м (бухта)",
+    "en": "UTP Cable Cat5e 305m (Roll)"
+  },
+  "description": {
+    "ka": "UTP Cat5e კაბელი 305მ, შეიფერებული, IP კამერებისთვის.",
+    "ru": "UTP Cat5e кабель 305м, экранированный, для IP камер.",
+    "en": "UTP Cat5e cable 305m roll for IP cameras."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ტიპი",
+        "ru": "Тип",
+        "en": "Type"
+      },
+      "value": "UTP Cat5e"
+    },
+    {
+      "key": {
+        "ka": "სიგრძე",
+        "ru": "Длина",
+        "en": "Length"
+      },
+      "value": "305m"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-13T23:05:13.920Z",
+  "id": "acc-006",
+  "slug": "power-adapter-12v2a",
+  "category": "accessories",
+  "price": 15,
+  "isFeatured": false,
+  "images": [
+    "17cacbf4-9c6e-4720-8ef1-a93c09945c46.jpg"
+  ],
+  "name": {
+    "ka": "12V 2A კამერის ბლოკი",
+    "ru": "Блок питания 12V 2A для камеры",
+    "en": "12V 2A Camera Power Adapter"
+  },
+  "description": {
+    "ka": "12V 2A სტაბილიზირებული კვების ბლოკი ანალოგური კამერებისთვის.",
+    "ru": "12V 2A стабилизированный блок питания для аналоговых камер.",
+    "en": "12V 2A stabilized power adapter for analog cameras."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ძაბვა",
+        "ru": "Напряжение",
+        "en": "Voltage"
+      },
+      "value": "12V DC"
+    },
+    {
+      "key": {
+        "ka": "დენი",
+        "ru": "Ток",
+        "en": "Current"
+      },
+      "value": "2A"
+    }
+  ]
+}

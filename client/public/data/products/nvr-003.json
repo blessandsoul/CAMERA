@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T16:05:13.912Z",
+  "id": "nvr-003",
+  "slug": "16ch-nvr-4mp-kit",
+  "category": "nvr-kits",
+  "price": 749,
+  "isFeatured": false,
+  "images": [
+    "8a68aea7-2acf-4f03-ad6b-b3d50b6828c0.jpg"
+  ],
+  "name": {
+    "ka": "16 არხიანი NVR 4MP კომპლექტი",
+    "ru": "Комплект NVR 16CH 4MP",
+    "en": "16CH NVR 4MP Kit"
+  },
+  "description": {
+    "ka": "16 კამერის კომპლექტი NVR-ით, 4TB HDD, PoE კავშირი.",
+    "ru": "Комплект из 16 камер с NVR, 4TB HDD, PoE подключение.",
+    "en": "16-camera kit with NVR, 4TB HDD, PoE connectivity."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "არხები",
+        "ru": "Каналы",
+        "en": "Channels"
+      },
+      "value": "16CH"
+    },
+    {
+      "key": {
+        "ka": "გარჩევადობა",
+        "ru": "Разрешение",
+        "en": "Resolution"
+      },
+      "value": "4MP"
+    },
+    {
+      "key": {
+        "ka": "HDD",
+        "ru": "HDD",
+        "en": "HDD"
+      },
+      "value": "4TB"
+    },
+    {
+      "key": {
+        "ka": "კავშირი",
+        "ru": "Подключение",
+        "en": "Connectivity"
+      },
+      "value": "PoE + IP"
+    }
+  ]
+}

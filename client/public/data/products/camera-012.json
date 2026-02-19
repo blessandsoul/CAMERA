@@ -1,0 +1,113 @@
+{
+  "id": "camera-012",
+  "slug": "uniview-2-outdoor-camera-4",
+  "category": "cameras",
+  "price": 89,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": true,
+  "images": [
+    "Untitled-569.jpg"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, 2mp, 4.0mm, Uniview, IPC2222ER5-DUPF40-C",
+    "ru": "Uniview 2 მპ уличная камера 4 მმ",
+    "en": "Uniview 2 მპ outdoor Camera 4 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, 2mp, 4.0mm, Uniview, IPC2222ER5-DUPF40-C. გარე გამოყენების გამოყენება. რეზოლუცია: 2 მპ. ლინზა: 4 მმ.",
+    "ru": "Uniview 2 მპ уличная камера видеонаблюдения. Объектив 4 მმ. Ночное видение 50 მეტრი.",
+    "en": "Uniview 2 მპ outdoor security camera. 4 მმ lens. Night vision 50 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Uniview"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "CMOS სენსორი",
+        "en": "CMOS Sensor",
+        "ru": "CMOS сенсор"
+      },
+      "value": "1/2.8\" CMOS"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "4 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "84.3°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "50 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "2 მპ"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "128 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67 / IK10"
+    }
+  ],
+  "createdAt": "2026-02-18T09:55:02.853Z"
+}

@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T17:05:13.911Z",
+  "id": "nvr-002",
+  "slug": "4ch-nvr-4mp-kit",
+  "category": "nvr-kits",
+  "price": 299,
+  "isFeatured": true,
+  "images": [
+    "b50db9b7-3c9e-4da0-996c-172a2774fdc5.jpg"
+  ],
+  "name": {
+    "ka": "4 არხიანი NVR 4MP კომპლექტი",
+    "ru": "Комплект NVR 4CH 4MP",
+    "en": "4CH NVR 4MP Kit"
+  },
+  "description": {
+    "ka": "4 კამერის კომპლექტი NVR-ით, 1TB HDD, IP დაკავშირება.",
+    "ru": "Комплект из 4 камер с NVR, 1TB HDD, IP подключение.",
+    "en": "4-camera kit with NVR, 1TB HDD, IP connectivity."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "არხები",
+        "ru": "Каналы",
+        "en": "Channels"
+      },
+      "value": "4CH"
+    },
+    {
+      "key": {
+        "ka": "გარჩევადობა",
+        "ru": "Разрешение",
+        "en": "Resolution"
+      },
+      "value": "4MP"
+    },
+    {
+      "key": {
+        "ka": "HDD",
+        "ru": "HDD",
+        "en": "HDD"
+      },
+      "value": "1TB"
+    },
+    {
+      "key": {
+        "ka": "კავშირი",
+        "ru": "Подключение",
+        "en": "Connectivity"
+      },
+      "value": "IP"
+    }
+  ]
+}

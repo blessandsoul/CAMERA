@@ -1,0 +1,113 @@
+{
+  "id": "camera-049",
+  "slug": "dahua-8-outdoor-camera-2-7-13-5",
+  "category": "cameras",
+  "price": 189,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "Untitled-781_1.png"
+  ],
+  "name": {
+    "ka": "Dahua IP კამერა 8MP Vari-focal Bullet",
+    "ru": "Dahua 8 მპ уличная камера 2.7 - 13.5 მმ",
+    "en": "Dahua 8 მპ outdoor Camera 2.7 - 13.5 მმ"
+  },
+  "description": {
+    "ka": "Dahua IP კამერა 8MP Vari-focal Bullet. გარე გამოყენების გამოყენება. რეზოლუცია: 8 მპ. ლინზა: 2.7 - 13.5 მმ.",
+    "ru": "Dahua 8 მპ уличная камера видеонаблюдения. Объектив 2.7 - 13.5 მმ. Ночное видение 60 მეტრი.",
+    "en": "Dahua 8 მპ outdoor security camera. 2.7 - 13.5 მმ lens. Night vision 60 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Dahua"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "2.7 - 13.5 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "97° to 31°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "60 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "8 მპ"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "256 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    },
+    {
+      "key": {
+        "ka": "ადამიანის და ავტომობილის სილუეტის ამოცნობა",
+        "en": "Human & Vehicle Detection",
+        "ru": "Распознавание людей и авто"
+      },
+      "value": "კი"
+    }
+  ],
+  "createdAt": "2026-02-16T20:55:02.873Z"
+}

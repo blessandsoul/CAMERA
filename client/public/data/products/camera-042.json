@@ -1,0 +1,97 @@
+{
+  "id": "camera-042",
+  "slug": "hikvision-2-outdoor-camera-2-8",
+  "category": "cameras",
+  "price": 99,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "Untitled-115_7zoa-e7.jpg"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, IP, 2.8mm, 2mp, Hikvision, DS-2CD2T23G0-I5",
+    "ru": "Hikvision 2 მპ уличная камера 2.8 მმ",
+    "en": "Hikvision 2 მპ outdoor Camera 2.8 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, IP, 2.8mm, 2mp, Hikvision, DS-2CD2T23G0-I5. გარე გამოყენების გამოყენება. რეზოლუცია: 2 მპ. ლინზა: 2.8 მმ.",
+    "ru": "Hikvision 2 მპ уличная камера видеонаблюдения. Объектив 2.8 მმ. Ночное видение 50 მეტრი.",
+    "en": "Hikvision 2 მპ outdoor security camera. 2.8 მმ lens. Night vision 50 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Hikvision"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "2.8 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "108°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "50 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "2 მპ"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    }
+  ],
+  "createdAt": "2026-02-17T03:55:02.869Z"
+}

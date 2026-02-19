@@ -1,0 +1,105 @@
+{
+  "id": "camera-019",
+  "slug": "uniview-2-outdoor-camera-4",
+  "category": "cameras",
+  "price": 79,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "Untitled-585.jpg"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122SR3-PF40-C",
+    "ru": "Uniview 2 მპ уличная камера 4 მმ",
+    "en": "Uniview 2 მპ outdoor Camera 4 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122SR3-PF40-C. გარე გამოყენების გამოყენება. რეზოლუცია: 2 მპ. ლინზა: 4 მმ.",
+    "ru": "Uniview 2 მპ уличная камера видеонаблюдения. Объектив 4 მმ. Ночное видение 30 მეტრი.",
+    "en": "Uniview 2 მპ outdoor security camera. 4 მმ lens. Night vision 30 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Uniview"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "CMOS სენსორი",
+        "en": "CMOS Sensor",
+        "ru": "CMOS сенсор"
+      },
+      "value": "1/2.7\" CMOS"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "4 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "86.5°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "30 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "2 მპ"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    }
+  ],
+  "createdAt": "2026-02-18T02:55:02.857Z"
+}

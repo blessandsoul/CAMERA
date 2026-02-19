@@ -1,0 +1,121 @@
+{
+  "id": "camera-021",
+  "slug": "uniview-2-outdoor-camera-2-8",
+  "category": "cameras",
+  "price": 89,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "1_h1yc-8t.png"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, 2mp, 2.8mm, Uniview, Uho-B1R-M2F4",
+    "ru": "Uniview 2 მპ уличная камера 2.8 მმ",
+    "en": "Uniview 2 მპ outdoor Camera 2.8 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, 2mp, 2.8mm, Uniview, Uho-B1R-M2F4. გარე გამოყენების გამოყენება. რეზოლუცია: 2 მპ. ლინზა: 2.8 მმ.",
+    "ru": "Uniview 2 მპ уличная камера видеонаблюдения. Объектив 2.8 მმ. Ночное видение 30 მეტრი.",
+    "en": "Uniview 2 მპ outdoor security camera. 2.8 მმ lens. Night vision 30 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Uniview"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "CMOS სენსორი",
+        "en": "CMOS Sensor",
+        "ru": "CMOS сенсор"
+      },
+      "value": "1/2.9\" CMOS"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "2.8 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "101.1°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "30 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "2 მპ"
+    },
+    {
+      "key": {
+        "ka": "მიკროფონი",
+        "en": "Microphone",
+        "ru": "Микрофон"
+      },
+      "value": "კი"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "128 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    },
+    {
+      "key": {
+        "ka": "ადამიანის და ავტომობილის სილუეტის ამოცნობა",
+        "en": "Human & Vehicle Detection",
+        "ru": "Распознавание людей и авто"
+      },
+      "value": "კი"
+    }
+  ],
+  "createdAt": "2026-02-18T00:55:02.858Z"
+}

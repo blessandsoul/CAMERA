@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T12:05:13.914Z",
+  "id": "hdd-002",
+  "slug": "surveillance-hdd-2tb",
+  "category": "storage",
+  "price": 109,
+  "isFeatured": false,
+  "images": [
+    "a7da6607-2d13-4282-bc42-51033c748f0e.jpg"
+  ],
+  "name": {
+    "ka": "2TB სათვალთვალო HDD",
+    "ru": "2TB HDD для видеонаблюдения",
+    "en": "2TB Surveillance HDD"
+  },
+  "description": {
+    "ka": "სპეციალური HDD ვიდეო სათვალთვალო სისტემებისთვის. 24/7 მუშაობა.",
+    "ru": "HDD для систем видеонаблюдения. Работа 24/7.",
+    "en": "Dedicated HDD for video surveillance. 24/7 operation."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "მოცულობა",
+        "ru": "Ёмкость",
+        "en": "Capacity"
+      },
+      "value": "2TB"
+    },
+    {
+      "key": {
+        "ka": "ინტერფეისი",
+        "ru": "Интерфейс",
+        "en": "Interface"
+      },
+      "value": "SATA 6Gb/s"
+    },
+    {
+      "key": {
+        "ka": "მუშაობა",
+        "ru": "Работа",
+        "en": "Operation"
+      },
+      "value": "24/7"
+    },
+    {
+      "key": {
+        "ka": "RPM",
+        "ru": "RPM",
+        "en": "RPM"
+      },
+      "value": "5400"
+    }
+  ]
+}

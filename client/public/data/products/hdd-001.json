@@ -1,0 +1,30 @@
+{
+  "id": "hdd-001",
+  "slug": "surveillance-hdd-4tb",
+  "category": "storage",
+  "price": 180,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "a7da6607-2d13-4282-bc42-51033c748f0e.jpg",
+    "9b1629dd-4098-448e-8988-ed036c52d25a.jpg"
+  ],
+  "name": {
+    "ka": "4TB სათვალთვალო HDD",
+    "ru": "4TB HDD для видеонаблюдения",
+    "en": "4TB Surveillance HDD"
+  },
+  "description": {
+    "ka": "სპეციალური HDD ვიდეო სათვალთვალო სისტემებისთვის. 24/7 მუშაობა, მაღალი საიმედოობა.",
+    "ru": "Специальный HDD для систем видеонаблюдения. Работа 24/7, высокая надёжность.",
+    "en": "Dedicated HDD for video surveillance systems. 24/7 operation, high reliability."
+  },
+  "specs": [
+    { "key": { "ka": "მოცულობა", "ru": "Ёмкость", "en": "Capacity" }, "value": "4TB" },
+    { "key": { "ka": "ინტერფეისი", "ru": "Интерфейс", "en": "Interface" }, "value": "SATA 6Gb/s" },
+    { "key": { "ka": "მუშაობა", "ru": "Работа", "en": "Operation" }, "value": "24/7" },
+    { "key": { "ka": "RPM", "ru": "RPM", "en": "RPM" }, "value": "5400" }
+  ],
+  "createdAt": "2026-02-15T00:00:00Z"
+}

@@ -1,0 +1,49 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T04:05:13.917Z",
+  "id": "acc-001",
+  "slug": "poe-switch-8port",
+  "category": "accessories",
+  "price": 89,
+  "isFeatured": false,
+  "images": [
+    "33dc5b1d-cf5d-45d7-9624-a4ab889d38e1.jpg"
+  ],
+  "name": {
+    "ka": "8 პორტიანი PoE Switch",
+    "ru": "PoE коммутатор 8 портов",
+    "en": "8-Port PoE Switch"
+  },
+  "description": {
+    "ka": "8 პორტიანი PoE კომუტატორი IP კამერებისთვის, 48V, max 120W.",
+    "ru": "8-портовый PoE коммутатор для IP камер, 48V, max 120W.",
+    "en": "8-port PoE switch for IP cameras, 48V, max 120W."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "პორტები",
+        "ru": "Порты",
+        "en": "Ports"
+      },
+      "value": "8"
+    },
+    {
+      "key": {
+        "ka": "ძაბვა",
+        "ru": "Напряжение",
+        "en": "Voltage"
+      },
+      "value": "48V"
+    },
+    {
+      "key": {
+        "ka": "სიმძლავრე",
+        "ru": "Мощность",
+        "en": "Power"
+      },
+      "value": "120W"
+    }
+  ]
+}

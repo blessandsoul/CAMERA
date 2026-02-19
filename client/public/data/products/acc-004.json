@@ -1,0 +1,41 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T01:05:13.919Z",
+  "id": "acc-004",
+  "slug": "camera-mount-bracket",
+  "category": "accessories",
+  "price": 12,
+  "isFeatured": false,
+  "images": [
+    "bf1e3d48-75e1-4bd1-8f3d-5510097868f0.jpg"
+  ],
+  "name": {
+    "ka": "კამერის საკიდი კრონშტეინი",
+    "ru": "Кронштейн для камеры",
+    "en": "Camera Mounting Bracket"
+  },
+  "description": {
+    "ka": "უნივერსალური კამერის კრონშტეინი, ლითონი, კედლისა და ჭერის მონტაჟისთვის.",
+    "ru": "Универсальный кронштейн для камеры, металл, настенный и потолочный монтаж.",
+    "en": "Universal camera bracket, metal, for wall and ceiling mounting."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "მასალა",
+        "ru": "Материал",
+        "en": "Material"
+      },
+      "value": "Metal"
+    },
+    {
+      "key": {
+        "ka": "მონტაჟი",
+        "ru": "Монтаж",
+        "en": "Mount"
+      },
+      "value": "Wall / Ceiling"
+    }
+  ]
+}

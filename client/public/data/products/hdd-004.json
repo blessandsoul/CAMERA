@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T10:05:13.915Z",
+  "id": "hdd-004",
+  "slug": "surveillance-hdd-8tb",
+  "category": "storage",
+  "price": 329,
+  "isFeatured": false,
+  "images": [
+    "a7da6607-2d13-4282-bc42-51033c748f0e.jpg"
+  ],
+  "name": {
+    "ka": "8TB სათვალთვალო HDD",
+    "ru": "8TB HDD для видеонаблюдения",
+    "en": "8TB Surveillance HDD"
+  },
+  "description": {
+    "ka": "8TB სათვალთვალო HDD მაქსიმალური ჩაწერის ხანგრძლივობისთვის.",
+    "ru": "8TB HDD для максимального времени записи.",
+    "en": "8TB surveillance HDD for maximum recording duration."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "მოცულობა",
+        "ru": "Ёмкость",
+        "en": "Capacity"
+      },
+      "value": "8TB"
+    },
+    {
+      "key": {
+        "ka": "ინტერფეისი",
+        "ru": "Интерфейс",
+        "en": "Interface"
+      },
+      "value": "SATA 6Gb/s"
+    },
+    {
+      "key": {
+        "ka": "მუშაობა",
+        "ru": "Работа",
+        "en": "Operation"
+      },
+      "value": "24/7"
+    },
+    {
+      "key": {
+        "ka": "RPM",
+        "ru": "RPM",
+        "en": "RPM"
+      },
+      "value": "7200"
+    }
+  ]
+}

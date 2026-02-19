@@ -1,0 +1,129 @@
+{
+  "id": "camera-014",
+  "slug": "uniview-5-outdoor-camera-2-8",
+  "category": "cameras",
+  "price": 129,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "Untitled-587.jpg"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, 5mp, 2.8mm, Uniview, IPC2125LE-ADF40KM-G",
+    "ru": "Uniview 5 მპ уличная камера 2.8 მმ",
+    "en": "Uniview 5 მპ outdoor Camera 2.8 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, 5mp, 2.8mm, Uniview, IPC2125LE-ADF40KM-G. გარე გამოყენების გამოყენება. რეზოლუცია: 5 მპ. ლინზა: 2.8 მმ.",
+    "ru": "Uniview 5 მპ уличная камера видеонаблюдения. Объектив 2.8 მმ. Ночное видение 50 მეტრი.",
+    "en": "Uniview 5 მპ outdoor security camera. 2.8 მმ lens. Night vision 50 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Uniview"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "CMOS სენსორი",
+        "en": "CMOS Sensor",
+        "ru": "CMOS сенсор"
+      },
+      "value": "1/2.7\" CMOS"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "2.8 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "112.9°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "50 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "5 მპ"
+    },
+    {
+      "key": {
+        "ka": "მიკროფონი",
+        "en": "Microphone",
+        "ru": "Микрофон"
+      },
+      "value": "კი"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "256 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    },
+    {
+      "key": {
+        "ka": "ადამიანის და ავტომობილის სილუეტის ამოცნობა",
+        "en": "Human & Vehicle Detection",
+        "ru": "Распознавание людей и авто"
+      },
+      "value": "კი"
+    }
+  ],
+  "createdAt": "2026-02-18T07:55:02.854Z"
+}

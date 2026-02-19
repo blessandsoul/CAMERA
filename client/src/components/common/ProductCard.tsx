@@ -1,0 +1,110 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { SecurityCamera } from '@phosphor-icons/react/dist/ssr';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { cn } from '@/lib/utils';
+import type { Product, Locale } from '@/types/product.types';
+import { AddToCartButton } from '@/features/cart/components/AddToCartButton';
+import { FavoriteButton } from '@/features/favorites/components/FavoriteButton';
+
+interface ProductCardProps {
+  product: Product;
+}
+
+const CATEGORY_KEYS: Record<string, string> = {
+  cameras: 'catalog.cameras',
+  'nvr-kits': 'catalog.nvr_kits',
+  storage: 'catalog.storage',
+  services: 'catalog.services',
+  accessories: 'catalog.accessories',
+};
+
+export async function ProductCard({ product }: ProductCardProps) {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations();
+  const name = product.name[locale];
+  const hasImage = product.images.length > 0;
+  const isService = product.category === 'services';
+  const categoryLabel = t(CATEGORY_KEYS[product.category] ?? product.category);
+  const imgSrc = hasImage
+    ? (product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}`)
+    : '';
+
+  return (
+    <article className="group flex flex-col rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-border/80 hover:shadow-lg hover:shadow-black/8 hover:-translate-y-0.5">
+
+      {/* Image */}
+      <Link
+        href={`/${locale}/catalog/${product.id}`}
+        className="block relative aspect-4/3 overflow-hidden bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+        aria-label={name}
+      >
+        {hasImage ? (
+          <>
+            <Image
+              src={imgSrc}
+              alt={name}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-card/80 to-transparent pointer-events-none" aria-hidden="true" />
+          </>
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            <SecurityCamera size={36} weight="duotone" className="text-border/60" aria-hidden="true" />
+            <span className="text-[9px] font-mono text-muted-foreground/40 tracking-[0.25em] uppercase">
+              {t('catalog.no_signal')}
+            </span>
+          </div>
+        )}
+
+        {/* Category badge */}
+        <div className={cn('absolute top-3 left-3', !hasImage && 'hidden')}>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+            <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
+            {categoryLabel}
+          </span>
+        </div>
+      </Link>
+
+      {/* Favorite button */}
+      <div className="absolute top-3 right-3 z-10">
+        <FavoriteButton productId={product.id} />
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5 gap-4">
+
+        <Link href={`/${locale}/catalog/${product.id}`} className="focus-visible:outline-none">
+          <h3 className="font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 text-base">
+            {name}
+          </h3>
+        </Link>
+
+        {/* Price + CTA */}
+        <div className="mt-auto flex items-center justify-between gap-3">
+          {isService ? (
+            <span className="text-base text-muted-foreground italic">
+              {t('catalog.price_on_request')}
+            </span>
+          ) : (
+            <div className="flex flex-col leading-none">
+              <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1">{t('catalog.price')}</span>
+              <span className="font-bold text-2xl text-foreground tabular-nums">
+                {product.price}<span className="text-primary ml-1 text-lg">₾</span>
+              </span>
+            </div>
+          )}
+
+          {!isService && (
+            <div className="shrink-0">
+              <AddToCartButton product={product} />
+            </div>
+          )}
+        </div>
+
+      </div>
+    </article>
+  );
+}

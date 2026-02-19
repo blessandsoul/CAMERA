@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T11:05:13.914Z",
+  "id": "hdd-003",
+  "slug": "surveillance-hdd-6tb",
+  "category": "storage",
+  "price": 239,
+  "isFeatured": false,
+  "images": [
+    "9b1629dd-4098-448e-8988-ed036c52d25a.jpg"
+  ],
+  "name": {
+    "ka": "6TB სათვალთვალო HDD",
+    "ru": "6TB HDD для видеонаблюдения",
+    "en": "6TB Surveillance HDD"
+  },
+  "description": {
+    "ka": "6TB სათვალთვალო HDD 24/7 მუშაობისთვის, მაღალი საიმედოობა.",
+    "ru": "6TB HDD для видеонаблюдения 24/7, высокая надёжность.",
+    "en": "6TB surveillance HDD for 24/7 operation, high reliability."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "მოცულობა",
+        "ru": "Ёмкость",
+        "en": "Capacity"
+      },
+      "value": "6TB"
+    },
+    {
+      "key": {
+        "ka": "ინტერფეისი",
+        "ru": "Интерфейс",
+        "en": "Interface"
+      },
+      "value": "SATA 6Gb/s"
+    },
+    {
+      "key": {
+        "ka": "მუშაობა",
+        "ru": "Работа",
+        "en": "Operation"
+      },
+      "value": "24/7"
+    },
+    {
+      "key": {
+        "ka": "RPM",
+        "ru": "RPM",
+        "en": "RPM"
+      },
+      "value": "7200"
+    }
+  ]
+}

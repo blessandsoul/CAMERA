@@ -1,0 +1,22 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T05:05:13.917Z",
+  "id": "service-005",
+  "slug": "maintenance-service",
+  "category": "services",
+  "price": 0,
+  "isFeatured": false,
+  "images": [],
+  "name": {
+    "ka": "სისტემის ტექნიკური მომსახურება",
+    "ru": "Техническое обслуживание системы",
+    "en": "System Maintenance"
+  },
+  "description": {
+    "ka": "პერიოდული ტექნიკური შემოწმება, კამერების გაწმენდა, პროგრამული განახლება.",
+    "ru": "Периодическая диагностика, очистка камер, обновление ПО.",
+    "en": "Periodic diagnostics, camera cleaning, firmware updates."
+  },
+  "specs": []
+}

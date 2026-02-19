@@ -1,0 +1,31 @@
+{
+  "id": "nvr-001",
+  "slug": "8ch-nvr-3mp-kit",
+  "category": "nvr-kits",
+  "price": 450,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": true,
+  "images": [
+    "b50db9b7-3c9e-4da0-996c-172a2774fdc5.jpg",
+    "8a68aea7-2acf-4f03-ad6b-b3d50b6828c0.jpg",
+    "eac16318-c98a-481f-9e34-384ac6d69ee1.jpg"
+  ],
+  "name": {
+    "ka": "8 არხიანი NVR 3MP კომპლექტი",
+    "ru": "Комплект NVR 8CH 3MP",
+    "en": "8CH NVR 3MP Kit"
+  },
+  "description": {
+    "ka": "8 კამერის კომპლექტი NVR-ით, 4TB HDD, WiFi კავშირი, ღამის ხედვა.",
+    "ru": "Комплект из 8 камер с NVR, 4TB HDD, WiFi подключение, ночное видение.",
+    "en": "8-camera kit with NVR, 4TB HDD, WiFi connectivity, night vision."
+  },
+  "specs": [
+    { "key": { "ka": "არხები", "ru": "Каналы", "en": "Channels" }, "value": "8CH" },
+    { "key": { "ka": "გარჩევადობა", "ru": "Разрешение", "en": "Resolution" }, "value": "3MP" },
+    { "key": { "ka": "HDD", "ru": "HDD", "en": "HDD" }, "value": "4TB" },
+    { "key": { "ka": "კავშირი", "ru": "Подключение", "en": "Connectivity" }, "value": "WiFi + IP" }
+  ],
+  "createdAt": "2026-02-16T00:00:00Z"
+}

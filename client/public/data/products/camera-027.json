@@ -1,0 +1,121 @@
+{
+  "id": "camera-027",
+  "slug": "hikvision-4-outdoor-camera-2-8-12",
+  "category": "cameras",
+  "price": 129,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "Untitled-146_uzzt-zo.jpg"
+  ],
+  "name": {
+    "ka": "კამერა, IP, 2.8-12mm, 4mp, Dome, IR40m, MVFL, AcuSense, Hikvision, DS-2CD2743G2-IZS",
+    "ru": "Hikvision 4 მპ уличная камера 2.8 - 12 მმ",
+    "en": "Hikvision 4 მპ outdoor Camera 2.8 - 12 მმ"
+  },
+  "description": {
+    "ka": "კამერა, IP, 2.8-12mm, 4mp, Dome, IR40m, MVFL, AcuSense, Hikvision, DS-2CD2743G2-IZS. გარე გამოყენების გამოყენება. რეზოლუცია: 4 მპ. ლინზა: 2.8 - 12 მმ.",
+    "ru": "Hikvision 4 მპ уличная камера видеонаблюдения. Объектив 2.8 - 12 მმ. Ночное видение 40 მეტრი.",
+    "en": "Hikvision 4 მპ outdoor security camera. 2.8 - 12 მმ lens. Night vision 40 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "101 დადგენილება",
+        "en": "101 Regulation",
+        "ru": "Регламент 101"
+      },
+      "value": "კი"
+    },
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Hikvision"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "2.8 - 12 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "101° to 32°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "40 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "4 მპ"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "256 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    },
+    {
+      "key": {
+        "ka": "ადამიანის და ავტომობილის სილუეტის ამოცნობა",
+        "en": "Human & Vehicle Detection",
+        "ru": "Распознавание людей и авто"
+      },
+      "value": "კი"
+    }
+  ],
+  "createdAt": "2026-02-17T18:55:02.861Z"
+}

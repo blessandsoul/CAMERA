@@ -1,0 +1,49 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T03:05:13.918Z",
+  "id": "acc-002",
+  "slug": "poe-switch-4port",
+  "category": "accessories",
+  "price": 49,
+  "isFeatured": false,
+  "images": [
+    "33dc5b1d-cf5d-45d7-9624-a4ab889d38e1.jpg"
+  ],
+  "name": {
+    "ka": "4 პორტიანი PoE Switch",
+    "ru": "PoE коммутатор 4 порта",
+    "en": "4-Port PoE Switch"
+  },
+  "description": {
+    "ka": "4 პორტიანი PoE კომუტატორი IP კამერებისთვის, 48V, max 60W.",
+    "ru": "4-портовый PoE коммутатор для IP камер, 48V, max 60W.",
+    "en": "4-port PoE switch for IP cameras, 48V, max 60W."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "პორტები",
+        "ru": "Порты",
+        "en": "Ports"
+      },
+      "value": "4"
+    },
+    {
+      "key": {
+        "ka": "ძაბვა",
+        "ru": "Напряжение",
+        "en": "Voltage"
+      },
+      "value": "48V"
+    },
+    {
+      "key": {
+        "ka": "სიმძლავრე",
+        "ru": "Мощность",
+        "en": "Power"
+      },
+      "value": "60W"
+    }
+  ]
+}

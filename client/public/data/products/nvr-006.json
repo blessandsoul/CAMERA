@@ -1,0 +1,57 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T13:05:13.914Z",
+  "id": "nvr-006",
+  "slug": "8ch-poe-nvr-standalone",
+  "category": "nvr-kits",
+  "price": 349,
+  "isFeatured": false,
+  "images": [
+    "8a68aea7-2acf-4f03-ad6b-b3d50b6828c0.jpg"
+  ],
+  "name": {
+    "ka": "8 არხიანი PoE NVR რეგისტრატორი",
+    "ru": "PoE NVR регистратор 8CH",
+    "en": "8CH PoE NVR Recorder"
+  },
+  "description": {
+    "ka": "NVR ვიდეო რეგისტრატორი 8 PoE პორტით, H.265+, max 8TB.",
+    "ru": "NVR видеорегистратор с 8 PoE портами, H.265+, max 8TB.",
+    "en": "NVR recorder with 8 PoE ports, H.265+, max 8TB."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "არხები",
+        "ru": "Каналы",
+        "en": "Channels"
+      },
+      "value": "8CH"
+    },
+    {
+      "key": {
+        "ka": "PoE",
+        "ru": "PoE",
+        "en": "PoE"
+      },
+      "value": "8 ports"
+    },
+    {
+      "key": {
+        "ka": "კოდეკი",
+        "ru": "Кодек",
+        "en": "Codec"
+      },
+      "value": "H.265+"
+    },
+    {
+      "key": {
+        "ka": "max HDD",
+        "ru": "max HDD",
+        "en": "max HDD"
+      },
+      "value": "8TB"
+    }
+  ]
+}

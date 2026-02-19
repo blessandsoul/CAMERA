@@ -1,0 +1,41 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T00:05:13.919Z",
+  "id": "acc-005",
+  "slug": "rj45-connectors-100pack",
+  "category": "accessories",
+  "price": 8,
+  "isFeatured": false,
+  "images": [
+    "f449409c-085d-47aa-89db-6e0e31b17fb7.jpg"
+  ],
+  "name": {
+    "ka": "RJ45 კონექტორი 100 ცალი",
+    "ru": "Разъёмы RJ45 100 штук",
+    "en": "RJ45 Connectors 100pcs"
+  },
+  "description": {
+    "ka": "RJ45 კონექტორები Cat5e/Cat6 კაბელებისთვის, 100 ცალი პაკეტი.",
+    "ru": "Разъёмы RJ45 для Cat5e/Cat6 кабелей, упаковка 100 штук.",
+    "en": "RJ45 connectors for Cat5e/Cat6 cables, pack of 100."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "სტანდარტი",
+        "ru": "Стандарт",
+        "en": "Standard"
+      },
+      "value": "Cat5e/Cat6"
+    },
+    {
+      "key": {
+        "ka": "რაოდენობა",
+        "ru": "Количество",
+        "en": "Quantity"
+      },
+      "value": "100 pcs"
+    }
+  ]
+}

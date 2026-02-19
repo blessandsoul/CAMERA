@@ -1,0 +1,24 @@
+{
+  "id": "service-001",
+  "slug": "camera-installation-service",
+  "category": "services",
+  "price": 0,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [],
+  "name": {
+    "ka": "კამერების მონტაჟი",
+    "ru": "Монтаж камер",
+    "en": "Camera Installation"
+  },
+  "description": {
+    "ka": "პროფესიონალური კამერების მონტაჟი გარანტიით. სახლი, ბიზნესი, საწყობი. ფასი ინდივიდუალური.",
+    "ru": "Профессиональный монтаж камер с гарантией. Дом, бизнес, склад. Цена индивидуальная.",
+    "en": "Professional camera installation with warranty. Home, business, warehouse. Price on request."
+  },
+  "specs": [
+    { "key": { "ka": "გარანტია", "ru": "Гарантия", "en": "Warranty" }, "value": "1 year" }
+  ],
+  "createdAt": "2026-02-14T00:00:00Z"
+}

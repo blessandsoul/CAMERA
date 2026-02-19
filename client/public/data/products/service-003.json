@@ -1,0 +1,22 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T07:05:13.916Z",
+  "id": "service-003",
+  "slug": "cable-installation-service",
+  "category": "services",
+  "price": 0,
+  "isFeatured": false,
+  "images": [],
+  "name": {
+    "ka": "კაბელის გაყვანა",
+    "ru": "Прокладка кабеля",
+    "en": "Cable Installation"
+  },
+  "description": {
+    "ka": "UTP/COAX კაბელის ჩამალული ან ღია გაყვანა. ფასი მეტრაჟის მიხედვით.",
+    "ru": "Скрытая или открытая прокладка UTP/COAX кабеля. Цена по метражу.",
+    "en": "Concealed or open UTP/COAX cable routing. Price per meter."
+  },
+  "specs": []
+}

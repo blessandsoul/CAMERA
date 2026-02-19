@@ -1,0 +1,121 @@
+{
+  "id": "camera-022",
+  "slug": "uniview-4-outdoor-camera-2-8",
+  "category": "cameras",
+  "price": 119,
+  "currency": "GEL",
+  "isActive": true,
+  "isFeatured": false,
+  "images": [
+    "Untitled-578.jpg"
+  ],
+  "name": {
+    "ka": "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SR3-ADPF40M-F",
+    "ru": "Uniview 4 მპ уличная камера 2.8 მმ",
+    "en": "Uniview 4 მპ outdoor Camera 2.8 მმ"
+  },
+  "description": {
+    "ka": "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SR3-ADPF40M-F. გარე გამოყენების გამოყენება. რეზოლუცია: 4 მპ. ლინზა: 2.8 მმ.",
+    "ru": "Uniview 4 მპ уличная камера видеонаблюдения. Объектив 2.8 მმ. Ночное видение 30 მეტრი.",
+    "en": "Uniview 4 მპ outdoor security camera. 2.8 მმ lens. Night vision 30 მეტრი."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "ბრენდი",
+        "en": "Brand",
+        "ru": "Бренд"
+      },
+      "value": "Uniview"
+    },
+    {
+      "key": {
+        "ka": "კამერის ტიპი",
+        "en": "Camera Type",
+        "ru": "Тип камеры"
+      },
+      "value": "IP"
+    },
+    {
+      "key": {
+        "ka": "კორპუსის ტიპი",
+        "en": "Body Type",
+        "ru": "Тип корпуса"
+      },
+      "value": "გარე გამოყენების"
+    },
+    {
+      "key": {
+        "ka": "CMOS სენსორი",
+        "en": "CMOS Sensor",
+        "ru": "CMOS сенсор"
+      },
+      "value": "1/3\" CMOS"
+    },
+    {
+      "key": {
+        "ka": "ლინზა",
+        "en": "Lens",
+        "ru": "Объектив"
+      },
+      "value": "2.8 მმ"
+    },
+    {
+      "key": {
+        "ka": "ხედვის კუთხე",
+        "en": "View Angle",
+        "ru": "Угол обзора"
+      },
+      "value": "107.8°"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა",
+        "en": "Night Vision",
+        "ru": "Ночное видение"
+      },
+      "value": "ჭკვიანი"
+    },
+    {
+      "key": {
+        "ka": "ღამის ხედვა (მანძილი)",
+        "en": "Night Vision Range",
+        "ru": "Дальность ночного видения"
+      },
+      "value": "30 მეტრი"
+    },
+    {
+      "key": {
+        "ka": "რეზოლუცია",
+        "en": "Resolution",
+        "ru": "Разрешение"
+      },
+      "value": "4 მპ"
+    },
+    {
+      "key": {
+        "ka": "მიკროფონი",
+        "en": "Microphone",
+        "ru": "Микрофон"
+      },
+      "value": "კი"
+    },
+    {
+      "key": {
+        "ka": "Micro SD",
+        "en": "Micro SD",
+        "ru": "Micro SD"
+      },
+      "value": "256 GB"
+    },
+    {
+      "key": {
+        "ka": "დაცვის კლასი",
+        "en": "Protection Class",
+        "ru": "Класс защиты"
+      },
+      "value": "IP 67"
+    }
+  ],
+  "createdAt": "2026-02-17T23:55:02.859Z"
+}

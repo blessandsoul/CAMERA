@@ -1,0 +1,31 @@
+{
+  "currency": "GEL",
+  "isActive": true,
+  "createdAt": "2026-02-14T08:05:13.916Z",
+  "id": "service-002",
+  "slug": "nvr-dvr-setup-service",
+  "category": "services",
+  "price": 0,
+  "isFeatured": false,
+  "images": [],
+  "name": {
+    "ka": "NVR/DVR კონფიგურაცია",
+    "ru": "Настройка NVR/DVR",
+    "en": "NVR/DVR Configuration"
+  },
+  "description": {
+    "ka": "NVR ან DVR ჩამწერის კონფიგურაცია, ჩაწერის, მოძრაობის სენსორისა და ქსელური წვდომის დაყენება.",
+    "ru": "Настройка NVR или DVR регистратора, записи, датчика движения и сетевого доступа.",
+    "en": "NVR or DVR recorder configuration, recording, motion detection and remote access setup."
+  },
+  "specs": [
+    {
+      "key": {
+        "ka": "გარანტია",
+        "ru": "Гарантия",
+        "en": "Warranty"
+      },
+      "value": "6 months"
+    }
+  ]
+}
