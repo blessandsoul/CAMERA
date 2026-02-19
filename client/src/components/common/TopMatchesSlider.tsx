@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -79,7 +79,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
     <Link
       href={`/${locale}/catalog/${product.id}`}
       className={cn(
-        'group relative flex-none w-37.5 sm:w-50 rounded-xl border flex flex-col overflow-hidden',
+        'group relative rounded-xl border flex flex-col overflow-hidden min-w-0',
         'transition-all duration-300 ease-out cursor-pointer',
         'border-border bg-card',
         'hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/8',
@@ -89,7 +89,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
     >
 
       {/* ── Image ── */}
-      <div className="relative h-20 sm:h-27 bg-muted overflow-hidden shrink-0">
+      <div className="relative aspect-16/10 bg-muted overflow-hidden shrink-0">
         {imageSrc ? (
           <>
             <Image
@@ -97,7 +97,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
               alt={name}
               fill
               className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-              sizes="(max-width: 639px) 150px, 200px"
+              sizes="(max-width: 639px) 33vw, 20vw"
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"
@@ -179,39 +179,40 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
 
 // ── TopProductsSlider ─────────────────────────────────────────────────────────
 
-// Card width + gap constants (must match Tailwind classes below)
-const CARD_W_MOBILE = 150; // w-37.5
-const CARD_W_DESKTOP = 200; // sm:w-50
-const GAP = 10; // gap-2.5
+// Cards per page by breakpoint
+const COLS_MOBILE = 2;
+const COLS_SM = 3;
+const COLS_MD = 4;
+const COLS_LG = 5;
+
+function getColCount(): number {
+  if (typeof window === 'undefined') return COLS_LG;
+  const w = window.innerWidth;
+  if (w < 640) return COLS_MOBILE;
+  if (w < 768) return COLS_SM;
+  if (w < 1024) return COLS_MD;
+  return COLS_LG;
+}
 
 export function TopProductsSlider({ products, locale, labels }: TopProductsSliderProps) {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [page, setPage] = useState(0);
-  const [perPage, setPerPage] = useState(5);
-  const viewportRef = useRef<HTMLDivElement>(null);
-
-  // Calculate how many full cards fit in the viewport
-  const calcPerPage = useCallback((): number => {
-    if (!viewportRef.current) return 5;
-    const w = viewportRef.current.clientWidth;
-    const cardW = window.innerWidth < 640 ? CARD_W_MOBILE : CARD_W_DESKTOP;
-    return Math.max(1, Math.floor((w + GAP) / (cardW + GAP)));
-  }, []);
+  const [cols, setCols] = useState(COLS_LG);
 
   useEffect(() => {
-    const update = (): void => { setPerPage(calcPerPage()); };
+    const update = (): void => { setCols(getColCount()); };
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
-  }, [calcPerPage]);
+  }, []);
 
   const filtered = activeCategory === 'all'
     ? products
     : products.filter((p) => p.category === activeCategory);
 
-  const maxPage = Math.max(0, Math.ceil(filtered.length / perPage) - 1);
+  const maxPage = Math.max(0, Math.ceil(filtered.length / cols) - 1);
   const safePage = Math.min(page, maxPage);
-  const visible = filtered.slice(safePage * perPage, safePage * perPage + perPage);
+  const visible = filtered.slice(safePage * cols, safePage * cols + cols);
 
   const handleCategoryChange = useCallback((cat: string) => {
     setActiveCategory(cat);
@@ -295,12 +296,17 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
         })}
       </div>
 
-      {/* ── Cards viewport — only full cards shown ────────────────────── */}
-      <div ref={viewportRef} className="px-3 pb-4 pt-1 md:px-4 md:pb-5">
+      {/* ── Cards grid — equal columns, 100% width ─────────────────── */}
+      <div className="px-3 pb-4 pt-1 md:px-4 md:pb-5">
         {visible.length > 0 ? (
-          <div className="flex gap-2.5" role="list" aria-label="Product cards">
+          <div
+            className="grid gap-2.5"
+            style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+            role="list"
+            aria-label="Product cards"
+          >
             {visible.map((product) => (
-              <div key={product.id} role="listitem" className="flex-none">
+              <div key={product.id} role="listitem" className="min-w-0">
                 <ProductCard
                   product={product}
                   locale={locale}
