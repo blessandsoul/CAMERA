@@ -40,7 +40,7 @@ function useCountdown(): { h: number; m: number; s: number } {
 function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-foreground text-background flex items-center justify-center font-black text-xl sm:text-2xl tabular-nums shadow-lg">
+      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-foreground text-background flex items-center justify-center font-black text-sm sm:text-xl tabular-nums shadow-lg">
         {String(value).padStart(2, '0')}
       </div>
       <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{label}</span>
@@ -69,10 +69,10 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
 
   return (
     <div className="relative w-full rounded-3xl overflow-hidden border border-border/50 shadow-xl bg-card">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-125 lg:min-h-120">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-120">
 
         {/* ── LEFT: Image — top on mobile ── */}
-        <div className="relative overflow-hidden bg-muted min-h-56 lg:min-h-0 order-1">
+        <div className="relative overflow-hidden bg-muted min-h-44 lg:min-h-0 order-1">
           {imgSrc ? (
             <Image
               src={imgSrc}
@@ -119,17 +119,17 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
         </div>
 
         {/* ── RIGHT: Deal details — bottom on mobile ── */}
-        <div className="flex flex-col justify-center gap-4 p-6 lg:p-10 order-2 lg:border-l border-t lg:border-t-0 border-border/30">
+        <div className="flex flex-col justify-center gap-3 p-4 sm:p-6 lg:p-10 order-2 lg:border-l border-t lg:border-t-0 border-border/30">
 
           {/* Product name */}
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight text-wrap-balance">
+          <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight text-wrap-balance">
             {name}
           </h2>
 
           {/* Price */}
           {deal.price > 0 ? (
             <div className="flex items-baseline gap-3 flex-wrap">
-              <span className="text-3xl lg:text-4xl font-black text-primary tabular-nums">
+              <span className="text-2xl lg:text-4xl font-black text-primary tabular-nums">
                 {deal.price}
                 <span className="text-base font-bold ml-1 text-primary/70">{deal.currency}</span>
               </span>
@@ -144,11 +144,11 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
             <p className="text-lg font-semibold text-muted-foreground">{labels.priceOnRequest}</p>
           )}
 
-          {/* Specs */}
+          {/* Specs — 2 on mobile, 4 on sm+ */}
           {topSpecs.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {topSpecs.map((spec, i) => (
-                <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-medium border border-border/60 bg-muted/50">
+                <span key={i} className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border border-border/60 bg-muted/50 ${i >= 2 ? 'hidden sm:inline-flex' : ''}`}>
                   <span className="text-muted-foreground/70">{spec.key[locale] ?? spec.key['en']}:</span>
                   <span className="font-semibold">{spec.value}</span>
                 </span>
@@ -157,14 +157,14 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
           )}
 
           {/* CTA — pulsing ring */}
-          <div className="flex flex-col gap-3 pt-1">
+          <div className="flex flex-col gap-2 pt-0.5">
             <div className="relative self-stretch sm:self-start">
               <span className="absolute -inset-1 rounded-xl bg-destructive/25 motion-safe:animate-ping" aria-hidden="true" />
               <Link
                 href={`/${locale}/catalog/${deal.slug}`}
-                className="relative inline-flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl bg-destructive hover:bg-destructive/90 text-destructive-foreground font-black text-sm shadow-lg shadow-destructive/20 transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/50 active:scale-[0.98] cursor-pointer"
+                className="relative inline-flex items-center justify-center gap-2 w-full px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-destructive hover:bg-destructive/90 text-destructive-foreground font-black text-sm shadow-lg shadow-destructive/20 transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/50 active:scale-[0.98] cursor-pointer"
               >
-                {locale === 'ru' ? 'Срочно заказать' : locale === 'en' ? 'Order Now' : 'შეკვეთა'}
+                {locale === 'ru' ? 'Срочно заказать' : locale === 'ka' ? 'შეკვეთა' : 'Order Now'}
                 <ArrowRight size={16} weight="bold" />
               </Link>
             </div>

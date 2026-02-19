@@ -83,10 +83,10 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
           animate="center"
           exit="exit"
           transition={{ duration: 0.38, ease: 'easeOut' }}
-          className="grid grid-cols-1 lg:grid-cols-2 min-h-125 lg:min-h-120"
+          className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-120"
         >
           {/* Image — top on mobile, left on desktop */}
-          <div className="relative overflow-hidden bg-muted min-h-52 lg:min-h-0">
+          <div className="relative overflow-hidden bg-muted min-h-44 lg:min-h-0">
             {imgSrc ? (
               <Image
                 src={imgSrc}
@@ -113,27 +113,27 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
           </div>
 
           {/* Info panel — bottom on mobile, right on desktop */}
-          <div className="flex flex-col justify-center gap-4 p-6 lg:p-10">
+          <div className="flex flex-col justify-center gap-3 p-4 sm:p-6 lg:p-10">
             {/* In stock */}
             <div className="inline-flex items-center gap-2 self-start">
               <Dot size={12} className="text-green-500 animate-pulse" weight="fill" />
               <span className="text-xs font-semibold text-green-600 uppercase tracking-wide">
-                {locale === 'ru' ? 'В наличии' : locale === 'en' ? 'In Stock' : 'მარაგშია'}
+                {locale === 'ru' ? 'В наличии' : locale === 'ka' ? 'მარაგშია' : 'In Stock'}
               </span>
             </div>
 
             {/* Product name */}
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight text-wrap-balance">
+            <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight text-wrap-balance">
               {name}
             </h2>
 
             {/* Price */}
             {p.price > 0 ? (
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-3xl lg:text-4xl font-black text-primary tabular-nums">
+                <span className="text-2xl lg:text-4xl font-black text-primary tabular-nums">
                   {p.price} {p.currency}
                 </span>
-                <span className="text-base text-muted-foreground line-through tabular-nums">
+                <span className="text-sm text-muted-foreground line-through tabular-nums">
                   {fakeOldPrice} {p.currency}
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-bold">
@@ -144,11 +144,11 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
               <p className="text-lg font-semibold text-muted-foreground">{labels.priceOnRequest}</p>
             )}
 
-            {/* Spec pills */}
+            {/* Spec pills — 2 on mobile, 3 on sm+ */}
             {topSpecs.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {topSpecs.map((spec, i) => (
-                  <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-medium border border-border/60 bg-muted/50">
+                  <span key={i} className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border border-border/60 bg-muted/50 ${i >= 2 ? 'hidden sm:inline-flex' : ''}`}>
                     <span className="text-muted-foreground/70">{spec.key[locale] ?? spec.key['en']}:</span>
                     <span className="font-semibold">{spec.value}</span>
                   </span>
@@ -157,17 +157,17 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
             )}
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-0.5">
               <Link
                 href={`/${locale}/catalog/${p.slug}`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-lg transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-lg transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
               >
-                {locale === 'ru' ? 'Купить сейчас' : locale === 'en' ? 'Buy Now' : 'შეძენა'}
+                {locale === 'ru' ? 'Купить сейчас' : locale === 'ka' ? 'შეძენა' : 'Buy Now'}
                 <ArrowRight size={16} weight="bold" />
               </Link>
               <Link
                 href={`/${locale}/catalog`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border hover:border-primary/40 font-medium text-sm transition-colors duration-200 hover:bg-primary/5 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl border border-border hover:border-primary/40 font-medium text-sm transition-colors duration-200 hover:bg-primary/5 cursor-pointer"
               >
                 {labels.heroCta}
               </Link>
