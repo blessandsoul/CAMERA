@@ -5,7 +5,7 @@ import type { Order } from '@/lib/content';
 
 const OrderSchema = z.object({
   name: z.string().min(2).max(100),
-  phone: z.string().min(6).max(20),
+  phone: z.string().min(1).max(30),
   locale: z.enum(['ka', 'ru', 'en']),
   items: z.array(
     z.object({

@@ -224,8 +224,8 @@ export function CartPage({ locale, phone }: CartPageProps) {
                 id="order-phone"
                 type="tel"
                 required
-                minLength={6}
-                maxLength={20}
+                minLength={1}
+                maxLength={30}
                 value={form.phone}
                 onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                 placeholder={t('cart.phone_placeholder')}
