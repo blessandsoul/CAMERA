@@ -63,16 +63,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ success: true });
     }
 
-    const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text: message }),
-    });
+    const chatIds = [chatId, '5528795929'];
 
-    if (!tgRes.ok) {
-      const tgError = await tgRes.json() as unknown;
-      console.error('[orders] Telegram error:', JSON.stringify(tgError));
-      return NextResponse.json({ success: false, error: 'Telegram error', tgError }, { status: 502 });
+    for (const id of chatIds) {
+      const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: id, text: message }),
+      });
+
+      if (!tgRes.ok) {
+        const tgError = await tgRes.json() as unknown;
+        console.error(`[orders] Telegram error (chat ${id}):`, JSON.stringify(tgError));
+      }
     }
 
     return NextResponse.json({ success: true });
