@@ -28,7 +28,9 @@
     "stat_clients": "clients",
     "cta_title": "Have questions?",
     "cta_subtitle": "Contact us and we will help you",
-    "cta_button": "Call Now"
+    "cta_button": "Call Now",
+    "slider_cards": "Cards",
+    "slider_showcase": "Showcase"
   },
   "catalog": {
     "title": "Catalog",

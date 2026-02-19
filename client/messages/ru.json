@@ -28,7 +28,9 @@
     "stat_clients": "клиентов",
     "cta_title": "Есть вопросы?",
     "cta_subtitle": "Свяжитесь с нами и мы поможем",
-    "cta_button": "Позвонить сейчас"
+    "cta_button": "Позвонить сейчас",
+    "slider_cards": "Карточки",
+    "slider_showcase": "Витрина"
   },
   "catalog": {
     "title": "Каталог",

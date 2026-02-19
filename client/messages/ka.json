@@ -28,7 +28,9 @@
     "stat_clients": "კლიენტი",
     "cta_title": "გაქვთ კითხვები?",
     "cta_subtitle": "დაგვიკავშირდით და ჩვენ დაგეხმარებით",
-    "cta_button": "დარეკე ახლა"
+    "cta_button": "დარეკე ახლა",
+    "slider_cards": "ბარათები",
+    "slider_showcase": "ვიტრინა"
   },
   "catalog": {
     "title": "კატალოგი",
