@@ -183,34 +183,36 @@ export default async function HomePage({ params }: HomePageProps) {
           {/* Category grid */}
           <CategoryGrid locale={locale} />
 
-          {/* Products slider */}
-          {allProducts.length > 0 && (
-            <div className="mt-10">
-              <TopProductsSlider
-                products={allProducts}
-                locale={locale as Locale}
-                labels={{
-                  title: t('home.featured_title'),
-                  inStock: t('catalog.in_stock'),
-                  priceOnRequest: t('catalog.price_on_request'),
-                  viewAll: t('home.hero_cta'),
-                  viewAllHref: `/${locale}/catalog`,
-                  noProducts: t('catalog.no_products'),
-                  categoryLabels: {
-                    all: t('catalog.all'),
-                    cameras: t('catalog.cameras'),
-                    'nvr-kits': t('catalog.nvr_kits'),
-                    storage: t('catalog.storage'),
-                    services: t('catalog.services'),
-                    accessories: t('catalog.accessories'),
-                  },
-                }}
-              />
-            </div>
-          )}
-
         </div>
       </section>
+
+      {/* ── PRODUCTS SLIDER ── */}
+      {allProducts.length > 0 && (
+        <section className="bg-secondary/30 border-y border-border/40 py-6">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
+            <TopProductsSlider
+              products={allProducts}
+              locale={locale as Locale}
+              labels={{
+                title: t('home.featured_title'),
+                inStock: t('catalog.in_stock'),
+                priceOnRequest: t('catalog.price_on_request'),
+                viewAll: t('home.hero_cta'),
+                viewAllHref: `/${locale}/catalog`,
+                noProducts: t('catalog.no_products'),
+                categoryLabels: {
+                  all: t('catalog.all'),
+                  cameras: t('catalog.cameras'),
+                  'nvr-kits': t('catalog.nvr_kits'),
+                  storage: t('catalog.storage'),
+                  services: t('catalog.services'),
+                  accessories: t('catalog.accessories'),
+                },
+              }}
+            />
+          </div>
+        </section>
+      )}
 
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
