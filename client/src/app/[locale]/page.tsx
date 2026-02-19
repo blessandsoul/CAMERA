@@ -172,7 +172,7 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
 
         {/* ── CATEGORIES + MINI PRODUCTS — inside same screen ── */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-6">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 pb-6">
           {/* Section heading */}
           <div className="flex items-center gap-3 mb-3">
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
