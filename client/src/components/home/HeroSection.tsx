@@ -168,7 +168,7 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
       {heroVariant === 'E' && <HeroVariantE products={products} locale={locale} phone={phone} labels={labels} currentIndex={currentIndex} onNavigate={handleNavigate} />}
 
       {showSwitcher && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-background/95 backdrop-blur-sm border border-border shadow-xl text-xs font-mono">
+        <div className="fixed top-20 right-4 z-50 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-background/95 backdrop-blur-sm border border-border shadow-xl text-xs font-mono">
           <span className="text-muted-foreground mr-1 select-none">Hero:</span>
           {(['A', 'B', 'C', 'D', 'E'] as HeroVariant[]).map((v) => (
             <button key={v} onClick={() => handleVariantChange(v)} className={cn('px-2.5 py-1 rounded-lg font-bold transition-all duration-150 cursor-pointer', heroVariant === v ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-accent')}>
