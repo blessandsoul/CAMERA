@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CaretLeft, CaretRight, SecurityCamera } from '@phosphor-icons/react';
@@ -11,25 +12,40 @@ interface ProductShowcaseSliderProps {
   products: Product[];
   locale: Locale;
   priceOnRequest: string;
+  autoPlayInterval?: number;
 }
 
-type Direction = 'left' | 'right';
+export function ProductShowcaseSlider({
+  products,
+  locale,
+  priceOnRequest,
+  autoPlayInterval = 5000,
+}: ProductShowcaseSliderProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-// ── Single slide: entire thing is a <Link> ───────────────────────────────────
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % products.length);
+  }, [products.length]);
 
-interface ShowcaseSlidePanelProps {
-  product: Product;
-  locale: Locale;
-  priceOnRequest: string;
-  current: number;
-  total: number;
-}
+  const goToPrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
+  }, [products.length]);
 
-function ShowcaseSlidePanel({ product, locale, priceOnRequest, current, total }: ShowcaseSlidePanelProps) {
+  // Auto-play
+  useEffect(() => {
+    if (isHovered || products.length <= 1) return;
+    const interval = setInterval(goToNext, autoPlayInterval);
+    return () => clearInterval(interval);
+  }, [isHovered, goToNext, autoPlayInterval, products.length]);
+
+  if (products.length === 0) return null;
+
+  const product = products[currentIndex];
   const name = product.name[locale];
   const description = product.description[locale];
-  const hasImage = product.images.length > 0;
   const isService = product.category === 'services';
+  const hasImage = product.images.length > 0;
   const imageSrc = hasImage
     ? product.images[0].startsWith('http')
       ? product.images[0]
@@ -37,219 +53,125 @@ function ShowcaseSlidePanel({ product, locale, priceOnRequest, current, total }:
     : null;
 
   return (
-    <div className="w-full shrink-0">
-      <Link
-        href={`/${locale}/catalog/${product.id}`}
-        className="group block rounded-2xl overflow-hidden border border-border/40 bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-      >
-        {/* Mobile: vertical layout. Desktop: horizontal 45/55 split */}
-        <div className="flex flex-col md:flex-row md:min-h-[340px] lg:min-h-[400px]">
-
-          {/* ── Left: Text content ── */}
-          <div className="order-2 md:order-1 md:w-[45%] p-6 md:p-8 lg:p-10 flex flex-col justify-between gap-4">
-
-            <div className="flex flex-col gap-3">
-              {/* Category badge + counter */}
-              <div className="flex items-center justify-between">
-                <span className="inline-block text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 border-l-2 border-primary/70 bg-primary/5 text-muted-foreground">
-                  {product.category}
-                </span>
-                <span className="text-[10px] font-mono text-muted-foreground/60 tabular-nums">
-                  {current + 1} / {total}
-                </span>
-              </div>
-
-              {/* Product name */}
-              <h3 className="text-xl md:text-2xl lg:text-[1.7rem] font-bold text-foreground leading-snug text-wrap-balance group-hover:text-primary transition-colors duration-200">
-                {name}
-              </h3>
-
-              {/* Description */}
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-3">
-                {description}
-              </p>
-            </div>
-
-            {/* Price */}
-            <div className="pt-2 border-t border-border/30">
-              {isService ? (
-                <span className="text-sm text-muted-foreground italic">{priceOnRequest}</span>
-              ) : (
-                <span className="text-2xl md:text-3xl font-bold text-foreground tabular-nums">
-                  {product.price}
-                  <span className="text-primary ml-1.5 text-lg font-semibold">₾</span>
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* ── Right: Large product image ── */}
-          <div className="order-1 md:order-2 md:w-[55%] relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted">
-            {imageSrc ? (
-              <>
+    <div
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={product.id}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <Link
+            href={`/${locale}/catalog/${product.id}`}
+            className="group block rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-border/80 hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+          >
+            {/* ── Image ── */}
+            <div className="relative aspect-video overflow-hidden bg-muted">
+              {imageSrc ? (
                 <Image
                   src={imageSrc}
                   alt={name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 100vw, 55vw"
-                  priority={current === 0}
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={currentIndex === 0}
                 />
-                {/* Subtle gradient overlay on mobile */}
-                <div
-                  className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent md:bg-linear-to-l md:from-transparent md:via-transparent md:to-card/10 pointer-events-none"
-                  aria-hidden="true"
-                />
-              </>
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <SecurityCamera size={56} weight="duotone" className="text-border/40" aria-hidden="true" />
-                <span className="text-[9px] font-mono text-muted-foreground/40 tracking-[0.25em] uppercase">
-                  No Signal
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                  <SecurityCamera size={48} weight="duotone" className="text-border/40" aria-hidden="true" />
+                  <span className="text-[9px] font-mono text-muted-foreground/40 tracking-[0.25em] uppercase">No Signal</span>
+                </div>
+              )}
+
+              {/* Dark gradient overlay */}
+              {imageSrc && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+              )}
+
+              {/* Category badge — top left */}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/90">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden="true" />
+                  {product.category}
                 </span>
               </div>
-            )}
-          </div>
 
-        </div>
-      </Link>
-    </div>
-  );
-}
-
-// ── ProductShowcaseSlider ─────────────────────────────────────────────────────
-
-export function ProductShowcaseSlider({ products, locale, priceOnRequest }: ProductShowcaseSliderProps) {
-  const [current, setCurrent] = useState(0);
-  const [sliding, setSliding] = useState(false);
-  const [direction, setDirection] = useState<Direction>('right');
-  const [nextIndex, setNextIndex] = useState<number | null>(null);
-  const lockRef = useRef(false);
-
-  const slideTo = useCallback((targetIndex: number, dir: Direction) => {
-    if (lockRef.current) return;
-    lockRef.current = true;
-    setDirection(dir);
-    setNextIndex(targetIndex);
-    setSliding(true);
-
-    setTimeout(() => {
-      setCurrent(targetIndex);
-      setSliding(false);
-      setNextIndex(null);
-      lockRef.current = false;
-    }, 360);
-  }, []);
-
-  const prev = useCallback(() => {
-    const target = current === 0 ? products.length - 1 : current - 1;
-    slideTo(target, 'left');
-  }, [current, products.length, slideTo]);
-
-  const next = useCallback(() => {
-    const target = current === products.length - 1 ? 0 : current + 1;
-    slideTo(target, 'right');
-  }, [current, products.length, slideTo]);
-
-  const goTo = useCallback((i: number) => {
-    if (i === current) return;
-    slideTo(i, i > current ? 'right' : 'left');
-  }, [current, slideTo]);
-
-  if (products.length === 0) return null;
-
-  const showNext = sliding && nextIndex !== null;
-  const translateX = !showNext
-    ? '0%'
-    : direction === 'right'
-    ? '-100%'
-    : '100%';
-
-  const displayedProducts = showNext
-    ? direction === 'right'
-      ? [products[current], products[nextIndex!]]
-      : [products[nextIndex!], products[current]]
-    : [products[current]];
-
-  const activeIndex = showNext ? nextIndex! : current;
-
-  return (
-    <div className="relative">
-
-      {/* Slide track */}
-      <div className="relative overflow-hidden rounded-2xl">
-
-        {/* Arrow buttons — overlaid on the slide */}
-        {products.length > 1 && (
-          <>
-            <button
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); prev(); }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-xl bg-background/80 backdrop-blur-sm border border-border/40 flex items-center justify-center text-foreground hover:bg-background transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 shadow-sm hover:shadow-md"
-              aria-label="Previous product"
-            >
-              <CaretLeft size={20} weight="bold" />
-            </button>
-            <button
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); next(); }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-xl bg-background/80 backdrop-blur-sm border border-border/40 flex items-center justify-center text-foreground hover:bg-background transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 shadow-sm hover:shadow-md"
-              aria-label="Next product"
-            >
-              <CaretRight size={20} weight="bold" />
-            </button>
-          </>
-        )}
-
-        {/* Sliding panels */}
-        <div
-          className="flex"
-          style={{
-            transform: `translateX(${translateX})`,
-            transition: sliding ? 'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-            willChange: 'transform',
-          }}
-        >
-          {displayedProducts.map((product, i) => (
-            <ShowcaseSlidePanel
-              key={`${product.id}-${i}`}
-              product={product}
-              locale={locale}
-              priceOnRequest={priceOnRequest}
-              current={showNext
-                ? direction === 'right'
-                  ? i === 0 ? current : nextIndex!
-                  : i === 0 ? nextIndex! : current
-                : current
-              }
-              total={products.length}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Dot pagination */}
-      {products.length > 1 && (
-        <div
-          className="flex items-center gap-2 justify-center mt-4"
-          role="tablist"
-          aria-label="Slide navigation"
-        >
-          {products.map((_, i) => (
-            <button
-              key={i}
-              role="tab"
-              aria-selected={i === activeIndex}
-              aria-label={`Go to slide ${i + 1}`}
-              onClick={() => goTo(i)}
-              className={cn(
-                'transition-all duration-300 cursor-pointer rounded-full',
-                i === activeIndex
-                  ? 'w-7 h-1.5 bg-primary rounded-sm'
-                  : 'w-1.5 h-1.5 bg-border hover:bg-muted-foreground'
+              {/* Counter — top right */}
+              {products.length > 1 && (
+                <div className="absolute top-4 right-4 z-10 bg-black/60 backdrop-blur-sm text-white text-xs font-mono px-3 py-1.5 rounded-full pointer-events-none tabular-nums">
+                  {currentIndex + 1} / {products.length}
+                </div>
               )}
-            />
-          ))}
-        </div>
-      )}
+
+              {/* Navigation arrows */}
+              {products.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); goToPrev(); }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110 shadow-lg cursor-pointer focus-visible:outline-none"
+                    aria-label="Previous product"
+                  >
+                    <CaretLeft size={20} weight="bold" />
+                  </button>
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); goToNext(); }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110 shadow-lg cursor-pointer focus-visible:outline-none"
+                    aria-label="Next product"
+                  >
+                    <CaretRight size={20} weight="bold" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* ── Text content ── */}
+            <div className="p-5 space-y-3">
+              <h3 className="text-base font-bold leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200">
+                {name}
+              </h3>
+              <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                {description}
+              </p>
+
+              <div className="flex items-center justify-between pt-1">
+                {/* Price */}
+                {isService ? (
+                  <span className="text-sm text-muted-foreground italic">{priceOnRequest}</span>
+                ) : (
+                  <span className="text-2xl font-black text-foreground tabular-nums leading-none">
+                    {product.price}
+                    <span className="text-primary ml-1 text-base font-bold">₾</span>
+                  </span>
+                )}
+
+                {/* Dots */}
+                {products.length > 1 && (
+                  <div className="flex items-center gap-1.5">
+                    {products.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex(i); }}
+                        className={cn(
+                          'h-1.5 rounded-full transition-all duration-300 cursor-pointer',
+                          i === currentIndex
+                            ? 'w-6 bg-primary'
+                            : 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                        )}
+                        aria-label={`Go to slide ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
