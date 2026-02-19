@@ -139,9 +139,9 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* ══════════════════════════════════════════════════════════════════
           HERO — AndrewAltair layout: left text + right slider
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="hero-bg relative -mt-17 min-h-[auto] lg:min-h-[80vh] flex items-center overflow-hidden">
+      <section className="hero-bg relative -mt-17 flex flex-col overflow-hidden">
 
-        {/* Animated background blobs — same as AndrewAltair */}
+        {/* Animated background blobs */}
         <div className="absolute inset-0 noise-overlay pointer-events-none" aria-hidden="true">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl motion-safe:animate-pulse" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl motion-safe:animate-pulse motion-safe:[animation-delay:1000ms]" />
@@ -150,7 +150,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-4 md:pt-28 lg:pt-8 lg:pb-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-3 md:pt-28 lg:pt-8 lg:pb-3">
           <HeroSection
             products={allProducts}
             locale={locale as Locale}
@@ -170,11 +170,9 @@ export default async function HomePage({ params }: HomePageProps) {
             }}
           />
         </div>
-      </section>
 
-      {/* ── CATEGORIES + MINI PRODUCTS ── */}
-      <section className="pt-0 pb-8 bg-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        {/* ── CATEGORIES + MINI PRODUCTS — inside same screen ── */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-6">
           <CategoryProductsBlock
             products={allProducts}
             locale={locale as Locale}
@@ -190,6 +188,7 @@ export default async function HomePage({ params }: HomePageProps) {
             viewAllLabel={t('home.hero_cta')}
           />
         </div>
+
       </section>
 
       {/* ── FEATURED PRODUCTS ── */}
