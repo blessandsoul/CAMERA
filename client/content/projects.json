@@ -1,0 +1,46 @@
+[
+  {
+    "id": "p1",
+    "title": { "ka": "სავაჭრო ცენტრი \"გალერეა\"", "ru": "ТЦ \"Галерея\"", "en": "Shopping Center \"Gallery\"" },
+    "location": { "ka": "თბილისი, ვაკე", "ru": "Тбилиси, Ваке", "en": "Tbilisi, Vake" },
+    "type": "commercial",
+    "cameras": 48,
+    "image": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&q=80",
+    "year": "2024",
+    "isActive": true,
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "p2",
+    "title": { "ka": "საცხოვრებელი კომპლექსი \"ნიუ სითი\"", "ru": "ЖК \"Нью Сити\"", "en": "Residential Complex \"New City\"" },
+    "location": { "ka": "თბილისი, საბურთალო", "ru": "Тбилиси, Сабуртало", "en": "Tbilisi, Saburtalo" },
+    "type": "residential",
+    "cameras": 24,
+    "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80",
+    "year": "2024",
+    "isActive": true,
+    "createdAt": "2024-03-20T10:00:00.000Z"
+  },
+  {
+    "id": "p3",
+    "title": { "ka": "ოფისური ცენტრი \"სითი ტაუერი\"", "ru": "Офисный центр \"Сити Тауэр\"", "en": "Office Center \"City Tower\"" },
+    "location": { "ka": "თბილისი, მთაწმინდა", "ru": "Тбилиси, Мтацминда", "en": "Tbilisi, Mtatsminda" },
+    "type": "office",
+    "cameras": 32,
+    "image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    "year": "2025",
+    "isActive": true,
+    "createdAt": "2025-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p4",
+    "title": { "ka": "სუპერმარკეტების ქსელი \"სმარტი\"", "ru": "Сеть супермаркетов \"Смарт\"", "en": "Supermarket Chain \"Smart\"" },
+    "location": { "ka": "მთელი საქართველო", "ru": "Вся Грузия", "en": "Across Georgia" },
+    "type": "retail",
+    "cameras": 120,
+    "image": "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80",
+    "year": "2025",
+    "isActive": true,
+    "createdAt": "2025-02-01T10:00:00.000Z"
+  }
+]

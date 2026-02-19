@@ -110,7 +110,7 @@ export interface Project {
 }
 
 // ── Paths ──────────────────────────────────────────────
-const CONTENT_DIR = path.join(process.cwd(), '..', 'content');
+const CONTENT_DIR = path.join(process.cwd(), 'content');
 const PRODUCTS_DIR = path.join(CONTENT_DIR, 'products');
 const ARTICLES_DIR = path.join(CONTENT_DIR, 'articles');
 const CATALOG_CONFIG_PATH = path.join(CONTENT_DIR, 'catalog-config.json');
