@@ -30,35 +30,37 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Store content as backup — entrypoint copies to volume if empty
-COPY --from=builder --chown=nextjs:nodejs /app/content ./content.default
 
-# entrypoint: copy defaults into volumes if empty, then start
-COPY --chown=nextjs:nodejs <<'EOF' /app/entrypoint.sh
+# Store defaults for seeding volumes on first run
+COPY --from=builder --chown=nextjs:nodejs /app/content ./content.default
+COPY --from=builder --chown=nextjs:nodejs /app/public/images/products ./public.default/images/products
+
+# entrypoint runs as root to fix permissions, then drops to nextjs
+COPY <<'EOF' /app/entrypoint.sh
 #!/bin/sh
 set -e
 
-# content
+# Seed content volume if empty
 if [ -z "$(ls -A /app/content 2>/dev/null)" ]; then
-  echo "Initializing /app/content from defaults..."
+  echo "Seeding /app/content..."
+  mkdir -p /app/content
   cp -r /app/content.default/. /app/content/
+  chown -R nextjs:nodejs /app/content
 fi
 
-# images
+# Seed images volume if empty
 if [ -z "$(ls -A /app/public/images/products 2>/dev/null)" ]; then
-  echo "Initializing /app/public/images/products from defaults..."
+  echo "Seeding /app/public/images/products..."
   mkdir -p /app/public/images/products
   cp -r /app/public.default/images/products/. /app/public/images/products/ 2>/dev/null || true
+  chown -R nextjs:nodejs /app/public/images/products
 fi
 
-exec node server.js
+exec su-exec nextjs node server.js
 EOF
 
-COPY --from=builder --chown=nextjs:nodejs /app/public/images/products ./public.default/images/products
-
-RUN chmod +x /app/entrypoint.sh
-
-USER nextjs
+RUN chmod +x /app/entrypoint.sh && \
+    apk add --no-cache su-exec
 
 EXPOSE 3000
 ENV PORT=3000
