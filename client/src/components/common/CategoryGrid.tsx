@@ -4,6 +4,7 @@ import {
   HardDrive,
   Wrench,
   Package,
+  Toolbox,
 } from '@phosphor-icons/react/dist/ssr';
 import type { ProductCategory } from '@/types/product.types';
 
@@ -38,6 +39,13 @@ const CATEGORIES: Category[] = [
     icon: <HardDrive size={48} weight="duotone" aria-hidden="true" />,
   },
   {
+    value: 'accessories',
+    labelKa: 'აქსესუარები',
+    labelRu: 'Аксессуары',
+    labelEn: 'Accessories',
+    icon: <Toolbox size={48} weight="duotone" aria-hidden="true" />,
+  },
+  {
     value: 'services',
     labelKa: 'სერვისი',
     labelRu: 'Сервис',
@@ -53,7 +61,7 @@ interface CategoryGridProps {
 
 export function CategoryGrid({ locale, counts = {} }: CategoryGridProps) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
       {CATEGORIES.map((cat) => {
         const label =
           locale === 'ru' ? cat.labelRu :
@@ -75,7 +83,7 @@ export function CategoryGrid({ locale, counts = {} }: CategoryGridProps) {
               {label}
             </span>
             {count !== undefined && count > 0 && (
-              <span className="text-[11px] font-bold tabular-nums text-muted-foreground bg-muted/80 border border-border/60 px-2 py-0.5 rounded-full leading-none">
+              <span className="text-[9px] font-bold tabular-nums text-muted-foreground bg-muted/70 border border-border/50 px-1.5 py-px rounded-full leading-none">
                 {count}
               </span>
             )}
