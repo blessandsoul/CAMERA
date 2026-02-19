@@ -6,7 +6,7 @@ import { ProductCard } from '@/components/common/ProductCard';
 import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
-import { HeroRouter } from '@/components/home/HeroRouter';
+import { HeroSectionD } from '@/components/home/HeroSectionD';
 import { CategoryProductsBlock } from '@/components/common/CategoryProductsBlock';
 import type { Locale } from '@/types/product.types';
 
@@ -151,7 +151,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-3 md:pt-28 lg:pt-24 lg:pb-3">
-          <HeroRouter
+          <HeroSectionD
             products={allProducts}
             locale={locale as Locale}
             phone={phone}
