@@ -15,16 +15,16 @@ interface ProductShowcaseSliderProps {
   autoPlayInterval?: number;
 }
 
-const TEXT_VARIANTS: Variants = {
-  enter: (dir: number) => ({ opacity: 0, y: dir > 0 ? 20 : -20, filter: 'blur(3px)' }),
-  center: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 } },
-  exit: (dir: number) => ({ opacity: 0, y: dir > 0 ? -20 : 20, filter: 'blur(3px)', transition: { duration: 0.25, ease: [0.55, 0, 1, 0.45] } }),
+const SLIDE_VARIANTS: Variants = {
+  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 60 : -60 }),
+  center: { opacity: 1, x: 0, transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] } },
+  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -60 : 60, transition: { duration: 0.3, ease: [0.55, 0, 1, 0.45] } }),
 };
 
-const IMAGE_VARIANTS: Variants = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 60 : -60, scale: 1.05 }),
-  center: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
-  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -60 : 60, scale: 0.96, transition: { duration: 0.28, ease: [0.55, 0, 1, 0.45] } }),
+const TEXT_VARIANTS: Variants = {
+  enter: { opacity: 0, y: 12 },
+  center: { opacity: 1, y: 0, transition: { duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
 };
 
 export function ProductShowcaseSlider({
@@ -72,111 +72,40 @@ export function ProductShowcaseSlider({
       ? product.images[0]
       : `/images/products/${product.images[0]}`
     : null;
-  const topSpecs = product.specs.slice(0, 4);
+  const topSpecs = product.specs.slice(0, 3);
 
   return (
     <div
-      className="flex flex-row gap-3"
+      className="rounded-2xl overflow-hidden border border-border/50 bg-card shadow-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
 
-      {/* ══ LEFT BLOCK: Text ══════════════════════════════════════════════ */}
-      <div className="w-[42%] rounded-2xl border border-border/50 bg-card overflow-hidden relative h-44 sm:h-56 md:h-72">
-        <AnimatePresence mode="popLayout" custom={dir}>
-          <motion.div
-            key={`text-${animKey}`}
-            custom={dir}
-            variants={TEXT_VARIANTS}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0 flex flex-col justify-between p-3 sm:p-5 md:p-6"
-          >
-            <div className="flex flex-col gap-2.5">
-              {/* Category badge */}
-              <span className="inline-flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold uppercase tracking-widest text-primary">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                {product.category}
-              </span>
+      {/* ── TOP: Image area ─────────────────────────────────────────────── */}
+      <div className="relative aspect-video bg-muted overflow-hidden">
 
-              {/* Product name */}
-              <h3 className="text-sm md:text-base font-bold leading-snug line-clamp-3">
-                {name}
-              </h3>
-
-              {/* Description */}
-              <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
-                {description}
-              </p>
-
-              {/* Specs */}
-              {topSpecs.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {topSpecs.map((spec, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted border border-border text-[10px] font-mono font-semibold text-muted-foreground"
-                    >
-                      <span className="text-muted-foreground/50">
-                        {spec.key[locale] ?? spec.key['en'] ?? spec.key['ka']}:
-                      </span>
-                      {spec.value}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Price + link */}
-            <div className="flex items-center justify-between gap-3 pt-3 border-t border-border/30">
-              {isService ? (
-                <span className="text-xs text-muted-foreground italic">{priceOnRequest}</span>
-              ) : (
-                <span className="text-2xl font-black text-foreground tabular-nums leading-none">
-                  {product.price}
-                  <span className="text-primary ml-1 text-base font-bold">₾</span>
-                </span>
-              )}
-
-              <Link
-                href={`/${locale}/catalog/${product.id}`}
-                className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:gap-2 transition-all duration-200 focus-visible:outline-none"
-              >
-                {locale === 'ka' ? 'ნახვა' : locale === 'ru' ? 'Подробнее' : 'View'}
-                <ArrowRight size={12} weight="bold" />
-              </Link>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* ══ RIGHT BLOCK: Image ═══════════════════════════════════════════ */}
-      <div className="w-[58%] rounded-2xl overflow-hidden relative h-44 sm:h-56 md:h-72 bg-muted">
+        {/* Sliding image */}
         <AnimatePresence mode="popLayout" custom={dir}>
           <motion.div
             key={`img-${animKey}`}
             custom={dir}
-            variants={IMAGE_VARIANTS}
+            variants={SLIDE_VARIANTS}
             initial="enter"
             animate="center"
             exit="exit"
             className="absolute inset-0"
           >
             {imageSrc ? (
-              <>
-                <Image
-                  src={imageSrc}
-                  alt={name}
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, 58vw"
-                  priority={currentIndex === 0}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent pointer-events-none" />
-              </>
+              <Image
+                src={imageSrc}
+                alt={name}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 600px"
+                priority={currentIndex === 0}
+              />
             ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-muted">
                 <SecurityCamera size={48} weight="duotone" className="text-border/40" aria-hidden="true" />
                 <span className="text-[9px] font-mono text-muted-foreground/40 tracking-[0.25em] uppercase">No Signal</span>
               </div>
@@ -184,14 +113,40 @@ export function ProductShowcaseSlider({
           </motion.div>
         </AnimatePresence>
 
-        {/* Counter */}
+        {/* Dark gradient at bottom — like AndrewAltair */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+
+        {/* Category badge — top left */}
+        <div className="absolute top-3 left-3 z-10">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-white border border-white/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+            {product.category}
+          </span>
+        </div>
+
+        {/* Counter — top right */}
         {products.length > 1 && (
           <div className="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm text-white text-xs font-mono px-2.5 py-1 rounded-full pointer-events-none tabular-nums">
             {currentIndex + 1} / {products.length}
           </div>
         )}
 
-        {/* Arrows */}
+        {/* Specs row — bottom left, over gradient */}
+        {topSpecs.length > 0 && (
+          <div className="absolute bottom-3 left-3 right-14 z-10 flex flex-wrap gap-1.5">
+            {topSpecs.map((spec, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm border border-white/10 text-[10px] font-mono font-semibold text-white/90"
+              >
+                <span className="text-white/50">{spec.key[locale] ?? spec.key['en'] ?? spec.key['ka']}:</span>
+                {spec.value}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Nav arrows */}
         {products.length > 1 && (
           <>
             <button
@@ -210,25 +165,66 @@ export function ProductShowcaseSlider({
             </button>
           </>
         )}
+      </div>
 
-        {/* Dots */}
-        {products.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5">
-            {products.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => navigate(i)}
-                className={cn(
-                  'h-1.5 rounded-full motion-safe:transition-all duration-300 cursor-pointer',
-                  i === currentIndex
-                    ? 'w-5 bg-white'
-                    : 'w-1.5 bg-white/40 hover:bg-white/60'
-                )}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
+      {/* ── BOTTOM: Text area ───────────────────────────────────────────── */}
+      <div className="p-4 space-y-3">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`text-${animKey}`}
+            variants={TEXT_VARIANTS}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="space-y-1.5"
+          >
+            <h3 className="text-sm font-bold leading-snug line-clamp-2 text-foreground">
+              {name}
+            </h3>
+            <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
+              {description}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Price + link + dots */}
+        <div className="flex items-center justify-between gap-2 pt-1">
+          <Link
+            href={`/${locale}/catalog/${product.id}`}
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:gap-2 transition-all duration-200 focus-visible:outline-none shrink-0"
+          >
+            {locale === 'ka' ? 'სრულად ნახვა' : locale === 'ru' ? 'Подробнее' : 'View product'}
+            <ArrowRight size={12} weight="bold" />
+          </Link>
+
+          <div className="flex items-center gap-2">
+            {!isService && (
+              <span className="text-sm font-black text-foreground tabular-nums leading-none">
+                {product.price}
+                <span className="text-primary ml-0.5 text-xs font-bold">₾</span>
+              </span>
+            )}
+
+            {/* Dots */}
+            {products.length > 1 && (
+              <div className="flex items-center gap-1.5">
+                {products.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => navigate(i)}
+                    className={cn(
+                      'h-1.5 rounded-full motion-safe:transition-all duration-300 cursor-pointer',
+                      i === currentIndex
+                        ? 'w-5 bg-primary'
+                        : 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    )}
+                    aria-label={`Slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
     </div>

@@ -233,19 +233,10 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
   const variantBLabel = labels.variantShowcase ?? 'Showcase';
 
   return (
-    <div className={cn(
-      variant === 'cards'
-        ? 'rounded-2xl border border-border bg-card shadow-sm'
-        : ''
-    )}>
+    <div className="rounded-2xl border border-border bg-card shadow-sm">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className={cn(
-        'flex items-center justify-between gap-2',
-        variant === 'cards'
-          ? 'px-3 pt-3 pb-0 md:px-4 md:pt-4 md:gap-3'
-          : 'mb-3 md:gap-3'
-      )}>
+      <div className="flex items-center justify-between px-3 pt-3 pb-0 gap-2 md:px-4 md:pt-4 md:gap-3">
         <h2 className="text-[13px] font-bold text-foreground tracking-tight shrink-0">
           {labels.title}
         </h2>
@@ -316,11 +307,13 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
 
       {/* ── Content ────────────────────────────────────────────────────── */}
       {variant === 'showcase' ? (
-        <ProductShowcaseSlider
-          products={products}
-          locale={locale}
-          priceOnRequest={labels.priceOnRequest}
-        />
+        <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4">
+          <ProductShowcaseSlider
+            products={products}
+            locale={locale}
+            priceOnRequest={labels.priceOnRequest}
+          />
+        </div>
       ) : (
         /* ── Cards grid — equal columns, 100% width ─────────────────── */
         <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4 overflow-hidden">
