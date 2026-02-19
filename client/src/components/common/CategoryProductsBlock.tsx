@@ -105,7 +105,7 @@ export function CategoryProductsBlock({
   const activeProducts =
     active === 'recent'
       ? recentProducts
-      : products.filter((p) => p.category === active).slice(0, 5);
+      : products.filter((p) => p.category === active);
 
   const noProductsLabel =
     locale === 'ru' ? 'Нет продуктов' : locale === 'en' ? 'No products' : 'პროდუქტი არ არის';
