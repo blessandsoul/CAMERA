@@ -14,6 +14,7 @@ import { TopProductsSlider } from '@/components/common/TopMatchesSlider';
 import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
+import { HeroTags } from '@/components/home/HeroTags';
 import type { Locale } from '@/types/product.types';
 
 interface HomePageProps {
@@ -142,76 +143,112 @@ export default async function HomePage({ params }: HomePageProps) {
       />
     <div>
 
-      {/* ── ABOVE FOLD (mobile): Hero + Slider + Categories ── */}
-      <div>
+      {/* ══════════════════════════════════════════════════════════════════
+          HERO — AndrewAltair layout: left text + right slider
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="hero-bg relative -mt-17 min-h-[auto] lg:min-h-[80vh] flex items-center overflow-hidden">
 
-      {/* ── HERO ── */}
-      <section className="hero-bg relative -mt-17 flex items-center">
-
-        {/* Ambient blur blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/4 -left-24 w-125 h-125 bg-primary/10 rounded-full blur-3xl motion-safe:animate-pulse" />
-          <div className="absolute bottom-1/3 -right-24 w-100 h-100 bg-brand-purple/8 rounded-full blur-3xl motion-safe:animate-pulse motion-safe:[animation-delay:1000ms]" />
+        {/* Animated background blobs — same as AndrewAltair */}
+        <div className="absolute inset-0 noise-overlay pointer-events-none" aria-hidden="true">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl motion-safe:animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl motion-safe:animate-pulse motion-safe:[animation-delay:1000ms]" />
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 pt-20 pb-4 md:pt-32 md:pb-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-8 md:pt-28 lg:pt-8 lg:pb-12">
+          {/* ── Two-column grid — AndrewAltair ── */}
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
 
-          {/* Badge — HUD status indicator (hidden on mobile) */}
-          <div className="hidden sm:flex justify-center mb-4 md:mb-6">
-            <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-foreground/4 border border-foreground/8 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-online opacity-50 motion-safe:animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-online" />
-              </span>
-              <span className="text-xs font-semibold text-foreground/70 tracking-wide uppercase">
-                {t('home.hero_badge')}
-              </span>
-            </span>
-          </div>
+            {/* ── LEFT: Title + description + tags + CTA ── */}
+            <div className="space-y-5 max-w-2xl">
 
-          {/* Headline */}
-          <div className="text-center mt-4 sm:mt-0 mb-3 md:mb-8">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-wrap-balance text-hero-shimmer">
-              {t('home.hero_title')}
-            </h1>
-          </div>
+              {/* Headline */}
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-wrap-balance animate-in fade-in slide-in-from-bottom-4 duration-700 text-hero-shimmer">
+                {t('home.hero_title')}
+              </h1>
 
-          {/* Products Slider */}
-          {allProducts.length > 0 && (
-            <div className="mt-[10%] md:mt-0">
-            <TopProductsSlider
-              products={allProducts}
-              locale={locale as Locale}
-              labels={{
-                title: t('home.featured_title'),
-                inStock: t('catalog.in_stock'),
-                priceOnRequest: t('catalog.price_on_request'),
-                viewAll: t('home.hero_cta'),
-                viewAllHref: `/${locale}/catalog`,
-                noProducts: t('catalog.no_products'),
-                categoryLabels: {
-                  all: t('catalog.all'),
-                  cameras: t('catalog.cameras'),
-                  'nvr-kits': t('catalog.nvr_kits'),
-                  storage: t('catalog.storage'),
-                  services: t('catalog.services'),
-                  accessories: t('catalog.accessories'),
-                },
-                variantCards: t('home.slider_cards'),
-                variantShowcase: t('home.slider_showcase'),
-              }}
-            />
+              {/* Description */}
+              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+                <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+                  {t('home.hero_subtitle')}
+                </p>
+
+                {/* HeroTags — category filter + badges */}
+                <div className="pt-1">
+                  <HeroTags
+                    locale={locale as Locale}
+                    labels={{
+                      all: t('catalog.all'),
+                      cameras: t('catalog.cameras'),
+                      'nvr-kits': t('catalog.nvr_kits'),
+                      storage: t('catalog.storage'),
+                      accessories: t('catalog.accessories'),
+                      services: t('catalog.services'),
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-1">
+                <Link
+                  href={`/${locale}/catalog`}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                >
+                  {t('home.hero_cta')}
+                  <ArrowRight size={18} weight="bold" />
+                </Link>
+                <a
+                  href={`https://wa.me/995${phone}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-base motion-safe:transition-all duration-200 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                >
+                  <Phone size={18} weight="fill" />
+                  {phone}
+                </a>
+              </div>
+
             </div>
-          )}
 
+            {/* ── RIGHT: Products Carousel — AndrewAltair style ── */}
+            {allProducts.length > 0 && (
+              <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
+                {/* Blur glow behind card */}
+                <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
+                <TopProductsSlider
+                  products={allProducts}
+                  locale={locale as Locale}
+                  labels={{
+                    title: t('home.featured_title'),
+                    inStock: t('catalog.in_stock'),
+                    priceOnRequest: t('catalog.price_on_request'),
+                    viewAll: t('home.hero_cta'),
+                    viewAllHref: `/${locale}/catalog`,
+                    noProducts: t('catalog.no_products'),
+                    categoryLabels: {
+                      all: t('catalog.all'),
+                      cameras: t('catalog.cameras'),
+                      'nvr-kits': t('catalog.nvr_kits'),
+                      storage: t('catalog.storage'),
+                      services: t('catalog.services'),
+                      accessories: t('catalog.accessories'),
+                    },
+                    variantCards: t('home.slider_cards'),
+                    variantShowcase: t('home.slider_showcase'),
+                  }}
+                />
+              </div>
+            )}
+
+          </div>
         </div>
       </section>
 
       {/* ── CATEGORIES ── */}
-      <section className="pt-14 pb-36 md:py-8 bg-background">
+      <section className="py-8 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <CategoryGrid
             locale={locale}
@@ -222,8 +259,6 @@ export default async function HomePage({ params }: HomePageProps) {
           />
         </div>
       </section>
-
-      </div>
 
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
