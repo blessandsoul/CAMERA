@@ -76,13 +76,13 @@ export function ProductShowcaseSlider({
 
   return (
     <div
-      className="flex flex-col md:flex-row gap-3"
+      className="flex flex-row gap-3"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
 
       {/* ══ LEFT BLOCK: Text ══════════════════════════════════════════════ */}
-      <div className="md:w-[42%] rounded-2xl border border-border/50 bg-card overflow-hidden relative h-56 md:h-72">
+      <div className="w-[42%] rounded-2xl border border-border/50 bg-card overflow-hidden relative h-44 sm:h-56 md:h-72">
         <AnimatePresence mode="popLayout" custom={dir}>
           <motion.div
             key={`text-${animKey}`}
@@ -91,7 +91,7 @@ export function ProductShowcaseSlider({
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 flex flex-col justify-between p-5 md:p-6"
+            className="absolute inset-0 flex flex-col justify-between p-3 sm:p-5 md:p-6"
           >
             <div className="flex flex-col gap-2.5">
               {/* Category badge */}
@@ -152,7 +152,7 @@ export function ProductShowcaseSlider({
       </div>
 
       {/* ══ RIGHT BLOCK: Image ═══════════════════════════════════════════ */}
-      <div className="md:w-[58%] rounded-2xl overflow-hidden relative h-56 md:h-72 bg-muted">
+      <div className="w-[58%] rounded-2xl overflow-hidden relative h-44 sm:h-56 md:h-72 bg-muted">
         <AnimatePresence mode="popLayout" custom={dir}>
           <motion.div
             key={`img-${animKey}`}
