@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import { Camera, Aperture, Package, HelpCircle } from 'lucide-react';
+import { Camera, HardDrive, Wrench, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { QuickAction } from '../types';
 
 const QUICK_ACTIONS: QuickAction[] = [
   { id: 'cameras', label: 'კამერები', icon: Camera, category: 'cameras' },
-  { id: 'lenses', label: 'ობიექტივები', icon: Aperture, category: 'lenses' },
-  { id: 'accessories', label: 'აქსესუარები', icon: Package, category: 'accessories' },
+  { id: 'lenses', label: 'NVR / სისტემა', icon: HardDrive, category: 'lenses' },
+  { id: 'accessories', label: 'მონტაჟი', icon: Wrench, category: 'accessories' },
   { id: 'support', label: 'დახმარება', icon: HelpCircle, category: 'support' },
 ];
 

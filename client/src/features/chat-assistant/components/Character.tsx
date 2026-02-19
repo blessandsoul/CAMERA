@@ -11,9 +11,8 @@ interface CharacterProps {
 }
 
 /**
- * CCTV Bullet Camera — horizontal cylinder on L-bracket,
- * classic surveillance camera shape (like Hikvision/Dahua).
- * Rotates left/right from the bracket pivot.
+ * Minimalist dome CCTV camera — clean, instantly recognizable.
+ * Half-sphere dome on a flat base, big lens eye that tracks the mouse.
  */
 export function Character({ state, size = 48, className }: CharacterProps) {
   const [mouseOffset, setMouseOffset] = React.useState({ x: 0, y: 0 });
@@ -22,11 +21,11 @@ export function Character({ state, size = 48, className }: CharacterProps) {
 
   // IR LED pulse
   React.useEffect(() => {
-    const t = setInterval(() => setIrBlink((v) => !v), 800);
+    const t = setInterval(() => setIrBlink((v) => !v), 900);
     return () => clearInterval(t);
   }, []);
 
-  // Mouse tracking for iris
+  // Mouse tracking for lens
   React.useEffect(() => {
     if (state === 'sleeping') return;
     const fn = (e: MouseEvent) => {
@@ -37,10 +36,10 @@ export function Character({ state, size = 48, className }: CharacterProps) {
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
       const d = Math.sqrt(dx * dx + dy * dy);
-      const m = 3;
+      const m = 4;
       setMouseOffset({
-        x: d > 0 ? (dx / d) * Math.min(d / 60, 1) * m : 0,
-        y: d > 0 ? (dy / d) * Math.min(d / 60, 1) * m : 0,
+        x: d > 0 ? (dx / d) * Math.min(d / 50, 1) * m : 0,
+        y: d > 0 ? (dy / d) * Math.min(d / 50, 1) * (m * 0.6) : 0,
       });
     };
     window.addEventListener('mousemove', fn);
@@ -49,182 +48,180 @@ export function Character({ state, size = 48, className }: CharacterProps) {
 
   const bodyVariants: Variants = {
     idle: {
-      rotate: [0, -4, 4, 0],
-      transition: { repeat: Infinity, duration: 5, ease: 'easeInOut' },
+      rotate: [0, -3, 3, 0],
+      transition: { repeat: Infinity, duration: 4.5, ease: 'easeInOut' },
     },
     listening: {
-      rotate: [-12, 12],
-      transition: { repeat: Infinity, duration: 1.2, ease: 'easeInOut', repeatType: 'mirror' },
+      rotate: [-8, 8],
+      transition: { repeat: Infinity, duration: 1, ease: 'easeInOut', repeatType: 'mirror' },
     },
     thinking: {
-      rotate: [-8, 8],
-      transition: { repeat: Infinity, duration: 0.8, ease: 'easeInOut', repeatType: 'mirror' },
+      rotate: [-6, 6],
+      transition: { repeat: Infinity, duration: 0.7, ease: 'easeInOut', repeatType: 'mirror' },
     },
     talking: {
-      rotate: [0, -3, 3, 0],
-      transition: { repeat: Infinity, duration: 0.4 },
+      rotate: [-2, 2],
+      transition: { repeat: Infinity, duration: 0.3, ease: 'easeInOut', repeatType: 'mirror' },
     },
     happy: {
-      rotate: [0, -10, 10, -5, 0],
-      scale: 1.06,
-      transition: { duration: 0.6, type: 'spring', stiffness: 300 },
+      scale: 1.08,
+      rotate: [-8, 8],
+      transition: { duration: 0.5, ease: 'easeInOut', repeatType: 'mirror', repeat: 2 },
     },
     sleeping: {
-      rotate: 20,
-      y: 3,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      rotate: 15,
+      y: 2,
+      transition: { duration: 1, ease: 'easeOut' },
     },
     flash: {
-      scale: [1, 1.08, 1],
-      transition: { duration: 0.25 },
+      scale: [1, 1.1, 1],
+      transition: { duration: 0.25, ease: 'easeOut' },
     },
   };
 
   const isSleeping = state === 'sleeping';
-  const irisR = isSleeping ? 2 : state === 'listening' ? 8 : state === 'happy' ? 7.5 : 6.5;
-  const pupilR = isSleeping ? 1 : state === 'happy' ? 4 : 3.5;
+  const lensX = 50 + (isSleeping ? 0 : mouseOffset.x);
+  const lensY = 58 + (isSleeping ? 0 : mouseOffset.y);
+  const pupilX = 50 + (isSleeping ? 0 : mouseOffset.x * 0.5);
+  const pupilY = 58 + (isSleeping ? 0 : mouseOffset.y * 0.5);
+
+  const irisSize = isSleeping ? 4 : state === 'listening' ? 13 : state === 'happy' ? 12 : 10;
+  const pupilSize = isSleeping ? 2 : state === 'happy' ? 6 : 5;
+
+  // Iris color
+  const irisColor =
+    state === 'happy'
+      ? 'hsl(var(--primary))'
+      : state === 'flash'
+        ? 'hsl(var(--warning))'
+        : state === 'listening'
+          ? 'hsl(var(--info))'
+          : 'hsl(var(--primary)/0.85)';
 
   return (
     <motion.svg
       ref={svgRef}
-      viewBox="0 0 120 90"
+      viewBox="0 0 100 100"
       width={size}
-      height={size * (90 / 120)}
+      height={size}
       className={className}
       animate={state}
       variants={bodyVariants}
-      style={{ transformOrigin: '60px 10px' }}
+      style={{ transformOrigin: '50px 40px' }}
     >
-      {/* ── WALL MOUNT BRACKET ── */}
-      {/* Ceiling/wall plate */}
-      <rect x="48" y="2" width="24" height="6" rx="2" fill="#c0c8d0" stroke="#a0a8b0" strokeWidth="0.8" />
-      <circle cx="55" cy="5" r="1.2" fill="#909aa4" />
-      <circle cx="65" cy="5" r="1.2" fill="#909aa4" />
+      {/* ── BASE PLATE ── */}
+      <rect x="20" y="72" width="60" height="8" rx="4" fill="#bcc4d0" stroke="#a0a8b4" strokeWidth="0.8" />
+      {/* Screw holes */}
+      <circle cx="28" cy="76" r="1.5" fill="#9098a4" />
+      <circle cx="72" cy="76" r="1.5" fill="#9098a4" />
 
-      {/* Vertical arm */}
-      <rect x="56" y="7" width="8" height="18" rx="2" fill="#b0b8c4" stroke="#9098a4" strokeWidth="0.6" />
-
-      {/* Pivot joint */}
-      <circle cx="60" cy="26" r="5" fill="#b8c0cc" stroke="#8890a0" strokeWidth="1" />
-      <circle cx="60" cy="26" r="2.5" fill="#a0a8b4" />
-
-      {/* ── CAMERA BODY — horizontal cylinder ── */}
-      {/* Main barrel — rounded rectangle (horizontal) */}
-      <rect x="22" y="32" width="76" height="32" rx="16" ry="16"
-        fill="#e4e8ec" stroke="#bcc4d0" strokeWidth="1"
+      {/* ── DOME BODY — half sphere ── */}
+      {/* Main dome shape */}
+      <path
+        d="M20 72 Q20 30 50 24 Q80 30 80 72 Z"
+        fill="#e8ecf0"
+        stroke="#c0c8d4"
+        strokeWidth="1.2"
       />
 
-      {/* Barrel highlight (top surface) */}
-      <rect x="30" y="33" width="60" height="8" rx="4"
-        fill="white" opacity={0.2}
+      {/* Dome highlight — top gloss */}
+      <path
+        d="M32 42 Q42 28 58 28 Q64 30 68 38"
+        fill="none"
+        stroke="white"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        opacity={0.35}
       />
 
-      {/* Barrel bottom shadow */}
-      <rect x="30" y="54" width="60" height="6" rx="3"
-        fill="#a0a8b4" opacity={0.15}
+      {/* Dome lower ring / seam */}
+      <ellipse cx="50" cy="72" rx="30" ry="4" fill="#d0d6de" stroke="#b8c0cc" strokeWidth="0.6" />
+
+      {/* ── DARK LENS WINDOW (tinted glass) ── */}
+      <ellipse
+        cx="50" cy="56"
+        rx="22" ry="16"
+        fill="#1a1e28"
+        stroke="#2a3040"
+        strokeWidth="1"
+        opacity={0.85}
       />
 
-      {/* Side seam line */}
-      <line x1="38" y1="34" x2="38" y2="62" stroke="#c0c8d4" strokeWidth="0.6" />
-
-      {/* Sun shield / visor over lens end */}
-      <path d="M16 30 Q14 48 16 64 L26 60 L26 34 Z"
-        fill="#d0d6de" stroke="#b0b8c4" strokeWidth="0.8"
+      {/* Lens glass reflection arc */}
+      <path
+        d="M34 48 Q50 38 66 48"
+        fill="none"
+        stroke="white"
+        strokeWidth="1"
+        opacity={0.15}
       />
 
-      {/* ── LENS FRONT FACE ── */}
-      {/* Lens bezel ring */}
-      <circle cx="26" cy="48" r="14" fill="#6e7888" stroke="#5a6270" strokeWidth="1" />
+      {/* ── LENS (the eye) ── */}
+      {/* Outer lens ring */}
+      <circle cx={lensX} cy={lensY} r="14" fill="#0c1018" stroke="#2a3040" strokeWidth="0.8" />
 
-      {/* Lens body */}
-      <circle cx="26" cy="48" r="12" fill="#1a1e28" />
+      {/* Inner lens body */}
+      <circle cx={lensX} cy={lensY} r="11" fill="#080c14" />
 
-      {/* Lens glass layers */}
-      <circle cx="26" cy="48" r="10" fill="#0c1018" />
-      <circle cx="26" cy="48" r="8.5" fill="#080c14"
-        stroke="#1a2030" strokeWidth="0.5"
-      />
-
-      {/* ── IRIS (eye-like) ── */}
-      <motion.circle
-        cx={26 + (isSleeping ? 0 : mouseOffset.x)}
-        cy={48 + (isSleeping ? 0 : mouseOffset.y)}
-        r={irisR}
-        fill={
-          state === 'happy'
-            ? 'hsl(var(--primary))'
-            : state === 'flash'
-              ? 'hsl(var(--warning))'
-              : state === 'listening'
-                ? 'hsl(var(--info))'
-                : 'hsl(var(--primary)/0.85)'
-        }
-        animate={{ r: irisR }}
-        transition={{ duration: 0.12 }}
-      />
+      {/* Iris — colored ring */}
+      <circle cx={lensX} cy={lensY} r={irisSize} fill={irisColor} />
 
       {/* Pupil */}
-      <motion.circle
-        cx={26 + (isSleeping ? 0 : mouseOffset.x * 0.5)}
-        cy={48 + (isSleeping ? 0 : mouseOffset.y * 0.5)}
-        r={pupilR}
-        fill="#020406"
-        animate={{ r: pupilR }}
-        transition={{ duration: 0.1 }}
-      />
+      <circle cx={pupilX} cy={pupilY} r={pupilSize} fill="#020406" />
 
       {/* Lens glare */}
       {!isSleeping && (
         <>
           <ellipse
-            cx={21 + mouseOffset.x * 0.2}
-            cy={43 + mouseOffset.y * 0.2}
-            rx="2.5" ry="1.8"
-            fill="white" opacity={0.7}
-            transform={`rotate(-30, ${21 + mouseOffset.x * 0.2}, ${43 + mouseOffset.y * 0.2})`}
+            cx={lensX - 4}
+            cy={lensY - 4}
+            rx="3" ry="2"
+            fill="white"
+            opacity={0.65}
+            transform={`rotate(-25, ${lensX - 4}, ${lensY - 4})`}
           />
-          <circle
-            cx={30 + mouseOffset.x * 0.1}
-            cy={53 + mouseOffset.y * 0.1}
-            r="0.8" fill="white" opacity={0.3}
-          />
+          <circle cx={lensX + 3} cy={lensY + 4} r="1" fill="white" opacity={0.25} />
         </>
       )}
 
-      {/* ── IR LEDs (around lens) ── */}
-      {[
-        { cx: 16, cy: 40 },
-        { cx: 16, cy: 56 },
-        { cx: 36, cy: 40 },
-        { cx: 36, cy: 56 },
-      ].map((dot, i) => (
-        <g key={i}>
-          {irBlink && !isSleeping && (
-            <circle cx={dot.cx} cy={dot.cy} r="3.5" fill="#ff0000" opacity={0.2} />
-          )}
-          <circle
-            cx={dot.cx} cy={dot.cy} r="1.8"
-            fill={irBlink && !isSleeping ? '#ff2828' : '#4a0a0a'}
-            stroke="#2a0404" strokeWidth="0.4"
-          />
-          {irBlink && !isSleeping && (
-            <circle cx={dot.cx - 0.4} cy={dot.cy - 0.4} r="0.5" fill="white" opacity={0.5} />
-          )}
-        </g>
-      ))}
+      {/* ── IR LEDs — two small dots on dark window ── */}
+      <circle
+        cx="33" cy="52" r="2"
+        fill={irBlink && !isSleeping ? '#ff2828' : '#3a0a0a'}
+        stroke="#2a0404" strokeWidth="0.3"
+      />
+      {irBlink && !isSleeping && (
+        <circle cx="33" cy="52" r="4" fill="#ff0000" opacity={0.2} />
+      )}
+      <circle
+        cx="67" cy="52" r="2"
+        fill={irBlink && !isSleeping ? '#ff2828' : '#3a0a0a'}
+        stroke="#2a0404" strokeWidth="0.3"
+      />
+      {irBlink && !isSleeping && (
+        <circle cx="67" cy="52" r="4" fill="#ff0000" opacity={0.2} />
+      )}
 
-      {/* ── STATUS LED (back end) ── */}
+      {/* ── STATUS LED (recording) ── */}
       <motion.circle
-        cx="92" cy="44" r="2"
+        cx="72" cy="68" r="2"
         fill="hsl(var(--destructive))"
-        animate={{ opacity: isSleeping ? 0.1 : [0.3, 1, 0.3] }}
+        animate={{ opacity: isSleeping ? 0.15 : [0.3, 1, 0.3] }}
         transition={{ duration: 1, repeat: Infinity }}
       />
 
-      {/* ── CABLE (rear) ── */}
-      <path d="M96 48 Q104 48 106 52 Q108 56 110 56"
-        fill="none" stroke="#808890" strokeWidth="2" strokeLinecap="round"
-      />
+      {/* ── FLASH burst ── */}
+      {state === 'flash' && (
+        <motion.circle
+          cx="50" cy="58" r="18"
+          fill="none"
+          stroke="hsl(var(--warning)/0.5)"
+          strokeWidth="3"
+          initial={{ scale: 0.7, opacity: 1 }}
+          animate={{ scale: 1.5, opacity: 0 }}
+          transition={{ duration: 0.4 }}
+        />
+      )}
 
       {/* ── Thinking dots ── */}
       {state === 'thinking' && (
@@ -232,28 +229,15 @@ export function Character({ state, size = 48, className }: CharacterProps) {
           {[0, 1, 2].map((i) => (
             <motion.circle
               key={i}
-              cx={6 - i * 4}
-              cy={38 - i * 4}
+              cx={82 + i * 5}
+              cy={40 - i * 5}
               r={2.5 - i * 0.4}
               fill="hsl(var(--warning)/0.9)"
               animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.3, 0.8] }}
-              transition={{ repeat: Infinity, duration: 0.85, delay: i * 0.15 }}
+              transition={{ repeat: Infinity, duration: 0.85, delay: i * 0.15, ease: 'easeInOut' }}
             />
           ))}
         </>
-      )}
-
-      {/* ── Flash burst ── */}
-      {state === 'flash' && (
-        <motion.circle
-          cx="26" cy="48" r="16"
-          fill="none"
-          stroke="hsl(var(--warning)/0.6)"
-          strokeWidth="2.5"
-          initial={{ scale: 0.8, opacity: 1 }}
-          animate={{ scale: 1.6, opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        />
       )}
 
       {/* ── ZZZ sleeping ── */}
@@ -262,13 +246,13 @@ export function Character({ state, size = 48, className }: CharacterProps) {
           {[0, 1, 2].map((_, i) => (
             <motion.text
               key={i}
-              x={8 + i * 5}
-              y={28 - i * 6}
+              x={72 + i * 6}
+              y={30 - i * 7}
               fill="hsl(var(--muted-foreground)/0.6)"
-              fontSize={9 - i * 2}
+              fontSize={10 - i * 2}
               fontWeight="bold"
               fontFamily="sans-serif"
-              animate={{ opacity: [0, 1, 0], y: [28 - i * 6, 20 - i * 6, 12 - i * 6] }}
+              animate={{ opacity: [0, 1, 0], y: [30 - i * 7, 22 - i * 7, 14 - i * 7] }}
               transition={{ repeat: Infinity, duration: 2.5, delay: i * 0.4 }}
             >
               z
