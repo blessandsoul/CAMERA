@@ -187,6 +187,13 @@ export default async function HomePage({ params }: HomePageProps) {
                       accessories: t('catalog.accessories'),
                       services: t('catalog.services'),
                     }}
+                    productsByCategory={{
+                      cameras: allProducts.filter(p => p.category === 'cameras'),
+                      'nvr-kits': allProducts.filter(p => p.category === 'nvr-kits'),
+                      storage: allProducts.filter(p => p.category === 'storage'),
+                      accessories: allProducts.filter(p => p.category === 'accessories'),
+                      services: allProducts.filter(p => p.category === 'services'),
+                    }}
                   />
                 </div>
               </div>
