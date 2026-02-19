@@ -110,6 +110,19 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
           </div>
         )}
 
+        {/* Badges row — in-stock + category on the same line */}
+        <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
+          <div className="flex items-center gap-1.5 bg-background/90 backdrop-blur-sm rounded-md px-2 py-1 border border-border/60 shrink-0">
+            <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-online" />
+            </span>
+            <span className="text-[10px] font-bold text-online leading-none">{inStockLabel}</span>
+          </div>
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm text-muted-foreground border border-border/60 shrink-0 max-w-22.5 truncate">
+            <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden="true" />
+            {categoryLabels[product.category] ?? product.category}
+          </span>
+        </div>
       </div>
 
       {/* ── Body ── */}
@@ -257,8 +270,11 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       </div>
 
       {/* ── Category tabs ───────────────────────────────────────────────── */}
-      <div className="px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3">
-        <div className="flex items-center justify-center gap-1 flex-wrap">
+      <div
+        className="overflow-x-auto px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3"
+        style={{ scrollbarWidth: 'none' }}
+      >
+        <div className="flex items-center justify-center gap-1 w-max mx-auto">
         {visibleTabs.map((tab) => {
           const isActive = activeCategory === tab.id;
           return (
@@ -276,7 +292,6 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               )}
               aria-pressed={isActive}
             >
-              <span className="shrink-0">{tab.icon}</span>
               {tab.label}
             </button>
           );
