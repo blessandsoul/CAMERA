@@ -141,8 +141,11 @@ export default async function HomePage({ params }: HomePageProps) {
       />
     <div>
 
+      {/* ── ABOVE FOLD (mobile): Hero + Slider + Categories ── */}
+      <div className="min-h-dvh md:min-h-0 flex flex-col">
+
       {/* ── HERO ── */}
-      <section className="hero-bg relative -mt-17 flex items-center min-h-[100dvh] md:min-h-0">
+      <section className="hero-bg relative -mt-17 flex items-center flex-1">
 
         {/* Ambient blur blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
@@ -214,6 +217,8 @@ export default async function HomePage({ params }: HomePageProps) {
           />
         </div>
       </section>
+
+      </div>{/* /above-fold */}
 
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
