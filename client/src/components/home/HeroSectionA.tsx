@@ -23,11 +23,11 @@ interface HeroSectionAProps {
 const AUTOPLAY_DELAY = 4000;
 
 const CATEGORY_LABELS: Record<string, Record<string, string>> = {
-  cameras:     { ka: 'კამერები',   ru: 'Камеры',    en: 'Cameras' },
-  'nvr-kits':  { ka: 'NVR კომპლ.', ru: 'NVR Кит',   en: 'NVR Kit' },
-  storage:     { ka: 'შენახვა',    ru: 'Накопители', en: 'Storage' },
-  accessories: { ka: 'აქსეს.',     ru: 'Аксессуары', en: 'Accessories' },
-  services:    { ka: 'სერვისი',    ru: 'Сервис',     en: 'Services' },
+  cameras:     { ka: 'კამერები',    ru: 'Камеры',     en: 'Cameras' },
+  'nvr-kits':  { ka: 'NVR კომპლ.', ru: 'NVR Кит',    en: 'NVR Kit' },
+  storage:     { ka: 'შენახვა',     ru: 'Накопители', en: 'Storage' },
+  accessories: { ka: 'აქსეს.',      ru: 'Аксессуары', en: 'Accessories' },
+  services:    { ka: 'სერვისი',     ru: 'Сервис',      en: 'Services' },
 };
 
 export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
@@ -54,24 +54,26 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
 
   const p = products[idx];
   const name = p.name[locale] ?? p.name['en'] ?? '';
-  const imgSrc = p.images[0] ? (p.images[0].startsWith('http') ? p.images[0] : `/images/products/${p.images[0]}`) : null;
+  const imgSrc = p.images[0]
+    ? p.images[0].startsWith('http') ? p.images[0] : `/images/products/${p.images[0]}`
+    : null;
   const fakeOldPrice = Math.round(p.price * 1.25);
   const catLabel = CATEGORY_LABELS[p.category]?.[locale] ?? p.category;
   const topSpecs = p.specs.slice(0, 3);
 
   const slideVariants = {
-    enter: (d: number) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
+    enter: (d: number) => ({ x: d > 0 ? 40 : -40, opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({ x: d > 0 ? -60 : 60, opacity: 0 }),
+    exit: (d: number) => ({ x: d > 0 ? -40 : 40, opacity: 0 }),
   };
 
   return (
     <div
       className="relative w-full rounded-3xl overflow-hidden border border-border/50 shadow-xl bg-card"
-      style={{ minHeight: '480px' }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
+      {/* Animated slide content — flow layout (not absolute) so mobile height works */}
       <AnimatePresence mode="wait" custom={dir}>
         <motion.div
           key={p.id}
@@ -80,31 +82,38 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2"
+          transition={{ duration: 0.38, ease: 'easeOut' }}
+          className="grid grid-cols-1 lg:grid-cols-2 min-h-125 lg:min-h-120"
         >
-          {/* Left: image */}
-          <div className="relative overflow-hidden bg-muted min-h-[220px] lg:min-h-0">
+          {/* Image — top on mobile, left on desktop */}
+          <div className="relative overflow-hidden bg-muted min-h-52 lg:min-h-0">
             {imgSrc ? (
-              <Image src={imgSrc} alt={name} fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" priority={idx === 0} />
+              <Image
+                src={imgSrc}
+                alt={name}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority={idx === 0}
+              />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
                 <SecurityCamera size={80} weight="duotone" className="text-border/30" />
               </div>
             )}
-            {/* Gradient overlay */}
+            {/* fade to card — desktop right edge, mobile bottom edge */}
             <div className="absolute inset-0 bg-linear-to-r from-transparent via-transparent to-card/80 hidden lg:block" />
-            <div className="absolute inset-0 bg-linear-to-t from-card/70 to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-linear-to-t from-card/80 to-transparent lg:hidden" />
 
             {/* Category badge */}
-            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-md">
+            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-md z-10">
               <Tag size={12} weight="bold" />
               {catLabel}
             </span>
           </div>
 
-          {/* Right: offer details */}
-          <div className="flex flex-col justify-center gap-5 p-6 lg:p-10 z-10">
+          {/* Info panel — bottom on mobile, right on desktop */}
+          <div className="flex flex-col justify-center gap-4 p-6 lg:p-10">
             {/* In stock */}
             <div className="inline-flex items-center gap-2 self-start">
               <Dot size={12} className="text-green-500 animate-pulse" weight="fill" />
@@ -114,17 +123,17 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
             </div>
 
             {/* Product name */}
-            <h2 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight text-wrap-balance">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight text-wrap-balance">
               {name}
             </h2>
 
             {/* Price */}
             {p.price > 0 ? (
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-4xl lg:text-5xl font-black text-primary tabular-nums">
+                <span className="text-3xl lg:text-4xl font-black text-primary tabular-nums">
                   {p.price} {p.currency}
                 </span>
-                <span className="text-lg text-muted-foreground line-through tabular-nums">
+                <span className="text-base text-muted-foreground line-through tabular-nums">
                   {fakeOldPrice} {p.currency}
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-bold">
@@ -132,14 +141,14 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
                 </span>
               </div>
             ) : (
-              <p className="text-xl font-semibold text-muted-foreground">{labels.priceOnRequest}</p>
+              <p className="text-lg font-semibold text-muted-foreground">{labels.priceOnRequest}</p>
             )}
 
             {/* Spec pills */}
             {topSpecs.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {topSpecs.map((spec, i) => (
-                  <span key={i} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border border-border/60 bg-muted/50">
+                  <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-medium border border-border/60 bg-muted/50">
                     <span className="text-muted-foreground/70">{spec.key[locale] ?? spec.key['en']}:</span>
                     <span className="font-semibold">{spec.value}</span>
                   </span>
@@ -151,14 +160,14 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
             <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <Link
                 href={`/${locale}/catalog/${p.slug}`}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-lg transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
               >
                 {locale === 'ru' ? 'Купить сейчас' : locale === 'en' ? 'Buy Now' : 'შეძენა'}
-                <ArrowRight size={18} weight="bold" />
+                <ArrowRight size={16} weight="bold" />
               </Link>
               <Link
                 href={`/${locale}/catalog`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-border hover:border-primary/40 font-medium text-sm transition-colors duration-200 hover:bg-primary/5"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border hover:border-primary/40 font-medium text-sm transition-colors duration-200 hover:bg-primary/5 cursor-pointer"
               >
                 {labels.heroCta}
               </Link>
@@ -167,15 +176,26 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation */}
+      {/* Arrows — sit over the slide */}
       {products.length > 1 && (
         <>
-          {/* Arrows */}
-          <button onClick={(e) => { e.preventDefault(); prev(); }} className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card shadow-md transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50" aria-label="Previous"><CaretLeft size={16} weight="bold" /></button>
-          <button onClick={(e) => { e.preventDefault(); next(); }} className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card shadow-md transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50" aria-label="Next"><CaretRight size={16} weight="bold" /></button>
+          <button
+            onClick={(e) => { e.preventDefault(); prev(); }}
+            className="absolute left-3 top-[30%] lg:top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card shadow-md transition-all motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
+            aria-label="Previous"
+          >
+            <CaretLeft size={15} weight="bold" />
+          </button>
+          <button
+            onClick={(e) => { e.preventDefault(); next(); }}
+            className="absolute right-3 top-[30%] lg:top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card shadow-md transition-all motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
+            aria-label="Next"
+          >
+            <CaretRight size={15} weight="bold" />
+          </button>
 
           {/* Progress bar */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-border/30 z-20">
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border/30 z-20">
             <motion.div
               key={`${idx}-${paused}`}
               className="h-full bg-primary"
