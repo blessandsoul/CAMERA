@@ -142,7 +142,7 @@ export default async function HomePage({ params }: HomePageProps) {
     <div>
 
       {/* ── HERO ── */}
-      <section className="hero-bg relative -mt-17 flex items-center">
+      <section className="hero-bg relative -mt-17 flex items-center min-h-[100dvh] md:min-h-0">
 
         {/* Ambient blur blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
