@@ -271,9 +271,10 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
 
       {/* ── Category tabs ───────────────────────────────────────────────── */}
       <div
-        className="flex items-center justify-center gap-1 px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3 overflow-x-auto"
+        className="overflow-x-auto px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3"
         style={{ scrollbarWidth: 'none' }}
       >
+        <div className="flex items-center justify-center gap-1 w-max mx-auto">
         {visibleTabs.map((tab) => {
           const isActive = activeCategory === tab.id;
           return (
@@ -296,6 +297,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
             </button>
           );
         })}
+        </div>
       </div>
 
       {/* ── Cards grid — equal columns, 100% width ─────────────────── */}
