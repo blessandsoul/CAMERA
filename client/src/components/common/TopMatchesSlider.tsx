@@ -257,11 +257,8 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       </div>
 
       {/* ── Category tabs ───────────────────────────────────────────────── */}
-      <div
-        className="overflow-x-auto px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3"
-        style={{ scrollbarWidth: 'none' }}
-      >
-        <div className="flex items-center justify-center gap-1 w-max mx-auto">
+      <div className="px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3">
+        <div className="flex items-center justify-center gap-1 flex-wrap">
         {visibleTabs.map((tab) => {
           const isActive = activeCategory === tab.id;
           return (
