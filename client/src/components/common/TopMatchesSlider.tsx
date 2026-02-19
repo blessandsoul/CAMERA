@@ -179,14 +179,46 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
 
 // ── TopProductsSlider ─────────────────────────────────────────────────────────
 
+// Card width + gap constants (must match Tailwind classes)
+const CARD_W_MOBILE = 150; // w-37.5
+const CARD_W_DESKTOP = 200; // sm:w-50
+const GAP = 10; // gap-2.5
+const PAD = 16; // px-4
+
 export function TopProductsSlider({ products, locale, labels }: TopProductsSliderProps) {
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [idx, setIdx] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  const getCardWidth = useCallback((): number => {
+    return typeof window !== 'undefined' && window.innerWidth < 640
+      ? CARD_W_MOBILE
+      : CARD_W_DESKTOP;
+  }, []);
 
   const scroll = useCallback((dir: 'left' | 'right') => {
     if (!trackRef.current) return;
-    const step = window.innerWidth < 640 ? 160 : 220;
-    trackRef.current.scrollBy({ left: dir === 'left' ? -step : step, behavior: 'smooth' });
+    const cardW = getCardWidth();
+    const visibleArea = trackRef.current.clientWidth - PAD * 2;
+    const visibleCards = Math.floor((visibleArea + GAP) / (cardW + GAP));
+    const totalCards = trackRef.current.querySelectorAll('[role="listitem"]').length;
+    const maxIdx = Math.max(0, totalCards - visibleCards);
+
+    setIdx((prev) => {
+      const next = dir === 'right'
+        ? Math.min(prev + 1, maxIdx)
+        : Math.max(prev - 1, 0);
+      const scrollPos = next * (cardW + GAP);
+      trackRef.current?.scrollTo({ left: scrollPos, behavior: 'smooth' });
+      return next;
+    });
+  }, [getCardWidth]);
+
+  // Reset scroll position when category changes
+  const handleCategoryChange = useCallback((cat: string) => {
+    setActiveCategory(cat);
+    setIdx(0);
+    trackRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
   }, []);
 
   const filtered = activeCategory === 'all'
@@ -247,7 +279,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveCategory(tab.id)}
+              onClick={() => handleCategoryChange(tab.id)}
               className={cn(
                 'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold whitespace-nowrap',
                 'transition-all duration-150 cursor-pointer shrink-0',
@@ -270,14 +302,12 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       {filtered.length > 0 ? (
         <div
           ref={trackRef}
-          className="flex gap-2.5 pb-5 pt-1 overflow-x-auto scroll-smooth snap-x"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollPaddingInline: '1rem' }}
+          className="flex gap-2.5 px-4 pb-5 pt-1 overflow-hidden"
           aria-label="Product cards"
           role="list"
         >
-          <div className="flex-none w-4 shrink-0" aria-hidden="true" />
           {filtered.map((product) => (
-            <div key={product.id} role="listitem" className="flex-none snap-start">
+            <div key={product.id} role="listitem" className="flex-none">
               <ProductCard
                 product={product}
                 locale={locale}
@@ -287,7 +317,6 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               />
             </div>
           ))}
-          <div className="flex-none w-4 shrink-0" aria-hidden="true" />
         </div>
       ) : (
         <div className="flex items-center justify-center h-28 px-4 pb-4">
