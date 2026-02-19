@@ -15,16 +15,26 @@ interface FeaturedSliderProps {
   priceOnRequest: string;
 }
 
+type Direction = 'left' | 'right';
+
 export function FeaturedSlider({ products, locale, viewLabel, priceOnRequest }: FeaturedSliderProps) {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<Direction>('right');
 
   const prev = useCallback(() => {
+    setDirection('left');
     setCurrent((i) => (i === 0 ? products.length - 1 : i - 1));
   }, [products.length]);
 
   const next = useCallback(() => {
+    setDirection('right');
     setCurrent((i) => (i === products.length - 1 ? 0 : i + 1));
   }, [products.length]);
+
+  const goTo = useCallback((i: number) => {
+    setDirection(i > current ? 'right' : 'left');
+    setCurrent(i);
+  }, [current]);
 
   if (products.length === 0) return null;
 
@@ -34,11 +44,15 @@ export function FeaturedSlider({ products, locale, viewLabel, priceOnRequest }: 
   const hasImage = product.images.length > 0;
   const isService = product.category === 'services';
 
+  const slideAnim = direction === 'right'
+    ? 'motion-safe:animate-[slide-from-right_0.3s_ease-out]'
+    : 'motion-safe:animate-[slide-from-left_0.3s_ease-out]';
+
   return (
     <div className="rounded-2xl overflow-hidden border border-border/40 bg-card shadow-2xl shadow-black/10">
 
       {/* ── Image (top) ── */}
-      <div key={`img-${current}`} className="relative aspect-video overflow-hidden bg-muted motion-safe:animate-[slide-fade-in_0.35s_ease-out]">
+      <div key={`img-${current}`} className={cn('relative aspect-video overflow-hidden bg-muted', slideAnim)}>
         {hasImage ? (
           <>
             <Image
@@ -99,7 +113,7 @@ export function FeaturedSlider({ products, locale, viewLabel, priceOnRequest }: 
       </div>
 
       {/* ── Info (bottom) ── */}
-      <div key={`info-${current}`} className="p-6 flex flex-col gap-4 motion-safe:animate-[slide-fade-in_0.35s_ease-out]">
+      <div key={`info-${current}`} className={cn('p-6 flex flex-col gap-4', slideAnim)}>
 
         <div className="flex flex-col gap-1.5">
           <h3 className="text-lg font-bold text-foreground leading-snug">
@@ -138,7 +152,7 @@ export function FeaturedSlider({ products, locale, viewLabel, priceOnRequest }: 
               role="tab"
               aria-selected={i === current}
               aria-label={`Go to slide ${i + 1}`}
-              onClick={() => setCurrent(i)}
+              onClick={() => goTo(i)}
               className={cn(
                 'transition-all duration-300 cursor-pointer',
                 i === current

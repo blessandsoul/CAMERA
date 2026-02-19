@@ -249,7 +249,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
           <div className="hidden sm:block h-3 w-px bg-border" aria-hidden="true" />
 
           <button
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            onClick={() => { setPage((p) => Math.max(0, p - 1)); setAnimKey((k) => k + 1); }}
             disabled={safePage === 0}
             aria-label="Previous"
             className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
@@ -258,7 +258,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
             <CaretLeft size={14} weight="bold" className="hidden md:block" />
           </button>
           <button
-            onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
+            onClick={() => { setPage((p) => Math.min(maxPage, p + 1)); setAnimKey((k) => k + 1); }}
             disabled={safePage >= maxPage}
             aria-label="Next"
             className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
@@ -302,7 +302,8 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       <div className="px-3 pb-4 pt-1 md:px-4 md:pb-5">
         {visible.length > 0 ? (
           <div
-            className="grid gap-2.5"
+            key={animKey}
+            className="grid gap-2.5 motion-safe:animate-[slide-cards-in_0.25s_ease-out]"
             style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
             role="list"
             aria-label="Product cards"
