@@ -11,7 +11,7 @@ interface HeroVariantSwitcherProps {
   onChange: (v: Variant) => void;
 }
 
-export function HeroVariantSwitcher({ value, onChange }: HeroVariantSwitcherProps): JSX.Element | null {
+export function HeroVariantSwitcher({ value, onChange }: HeroVariantSwitcherProps) {
   if (process.env.NODE_ENV === 'production') return null;
   return (
     <div

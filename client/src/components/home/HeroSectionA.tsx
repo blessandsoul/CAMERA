@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, SecurityCamera, CircleFill, CaretLeft, CaretRight, Tag } from '@phosphor-icons/react';
+import { ArrowRight, SecurityCamera, Dot, CaretLeft, CaretRight, Tag } from '@phosphor-icons/react';
 import type { Product, Locale } from '@/types/product.types';
 
 interface HeroSectionAProps {
@@ -107,7 +107,7 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
           <div className="flex flex-col justify-center gap-5 p-6 lg:p-10 z-10">
             {/* In stock */}
             <div className="inline-flex items-center gap-2 self-start">
-              <CircleFill size={8} className="text-green-500 animate-pulse" weight="fill" />
+              <Dot size={12} className="text-green-500 animate-pulse" weight="fill" />
               <span className="text-xs font-semibold text-green-600 uppercase tracking-wide">
                 {locale === 'ru' ? 'В наличии' : locale === 'en' ? 'In Stock' : 'მარაგშია'}
               </span>

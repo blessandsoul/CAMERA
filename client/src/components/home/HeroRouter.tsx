@@ -26,7 +26,7 @@ interface HeroRouterProps {
   };
 }
 
-export function HeroRouter({ products, locale, phone, labels }: HeroRouterProps): JSX.Element {
+export function HeroRouter({ products, locale, phone, labels }: HeroRouterProps) {
   const { variant, handleChange } = useHeroVariant();
 
   const sharedProps = { products, locale, phone, labels };
