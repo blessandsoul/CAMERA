@@ -30,20 +30,20 @@ export function ChatButton({ onClick, characterState, onWakeUp }: ChatButtonProp
     <div className="relative">
       {/* Tooltip */}
       <motion.div
-        className="absolute -top-12 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg pointer-events-none"
+        className="absolute -top-12 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-3 py-1.5 rounded-lg whitespace-nowrap shadow-md border border-border pointer-events-none"
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 6 }}
         transition={{ duration: 0.18 }}
       >
         {isSleeping ? 'გაღვიძება! 📷' : 'გხედავ!'}
-        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45" />
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary border-r border-b border-border rotate-45" />
       </motion.div>
 
       <motion.button
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative w-16 h-16 rounded-2xl bg-foreground shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex items-center justify-center border border-border/20 overflow-visible"
+        className="relative w-16 h-16 rounded-2xl bg-background shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex items-center justify-center border border-border overflow-visible"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.93 }}
         initial={{ opacity: 0, scale: 0, rotate: -15 }}

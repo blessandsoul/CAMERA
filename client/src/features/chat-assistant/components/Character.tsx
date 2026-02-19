@@ -12,35 +12,35 @@ interface CharacterProps {
 
 export function Character({ state, size = 48, className }: CharacterProps) {
   const [isBlinking, setIsBlinking] = React.useState(false);
+  const [scanAngle, setScanAngle] = React.useState(0);
   const [mouseOffset, setMouseOffset] = React.useState({ x: 0, y: 0 });
-  const [apertureBlades, setApertureBlades] = React.useState(0);
   const svgRef = React.useRef<SVGSVGElement>(null);
 
-  // Blinking as shutter
+  // IR LED blink
   React.useEffect(() => {
     if (state === 'idle' || state === 'talking') {
       const interval = setInterval(
         () => {
           setIsBlinking(true);
-          setTimeout(() => setIsBlinking(false), 120);
+          setTimeout(() => setIsBlinking(false), 80);
         },
-        2500 + Math.random() * 2000
+        3000 + Math.random() * 2000
       );
       return () => clearInterval(interval);
     }
   }, [state]);
 
-  // Aperture rotation when thinking
+  // Scan beam rotation when thinking
   React.useEffect(() => {
-    if (state === 'thinking') {
+    if (state === 'thinking' || state === 'listening') {
       const interval = setInterval(() => {
-        setApertureBlades((prev) => (prev + 15) % 360);
-      }, 50);
+        setScanAngle((prev) => (prev + 3) % 360);
+      }, 30);
       return () => clearInterval(interval);
     }
   }, [state]);
 
-  // Mouse tracking for lens pupil
+  // Mouse tracking — lens follows cursor
   React.useEffect(() => {
     if (state === 'sleeping') return;
     const handleMouseMove = (e: MouseEvent) => {
@@ -51,55 +51,60 @@ export function Character({ state, size = 48, className }: CharacterProps) {
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const max = 4;
-      const nx = dist > 0 ? (dx / dist) * Math.min(dist / 60, 1) * max : 0;
-      const ny = dist > 0 ? (dy / dist) * Math.min(dist / 60, 1) * max : 0;
+      const max = 5;
+      const nx = dist > 0 ? (dx / dist) * Math.min(dist / 50, 1) * max : 0;
+      const ny = dist > 0 ? (dy / dist) * Math.min(dist / 50, 1) * max : 0;
       setMouseOffset({ x: nx, y: ny });
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [state]);
 
+  // Body sway variants — camera on bracket rotates/pans
   const bodyVariants: Variants = {
     idle: {
-      y: [0, -2, 0],
-      transition: { repeat: Infinity, duration: 2.5, ease: 'easeInOut' },
+      rotate: [0, -4, 4, 0],
+      transition: { repeat: Infinity, duration: 4, ease: 'easeInOut' },
     },
     listening: {
-      scale: 1.03,
-      transition: { duration: 0.2 },
+      rotate: [-8, 8],
+      transition: { repeat: Infinity, duration: 1.2, ease: 'easeInOut', repeatType: 'mirror' },
     },
     thinking: {
-      rotate: [-3, 3, -3],
-      transition: { repeat: Infinity, duration: 0.6, ease: 'easeInOut' },
+      rotate: [-12, 12],
+      transition: { repeat: Infinity, duration: 0.9, ease: 'easeInOut', repeatType: 'mirror' },
     },
     talking: {
-      y: [0, -3, 0, -1, 0],
-      transition: { repeat: Infinity, duration: 0.5 },
+      y: [0, -2, 0],
+      transition: { repeat: Infinity, duration: 0.4 },
     },
     happy: {
-      y: -6,
+      rotate: [0, -10, 10, -6, 0],
       scale: 1.08,
-      transition: { type: 'spring', stiffness: 400, damping: 15 },
+      transition: { duration: 0.6, type: 'spring', stiffness: 300 },
     },
     sleeping: {
-      y: [0, 3, 0],
-      rotate: [0, 5, 0],
-      transition: { repeat: Infinity, duration: 3.5, ease: 'easeInOut' },
+      rotate: 25,
+      y: 4,
+      transition: { duration: 0.8, ease: 'easeOut' },
     },
     flash: {
-      scale: [1, 1.15, 1],
+      scale: [1, 1.12, 1],
       transition: { duration: 0.3, ease: 'easeOut' },
     },
   };
 
   const isSleeping = state === 'sleeping';
-  const lensRadius = isBlinking ? 2 : state === 'listening' ? 17 : state === 'happy' ? 18 : 15;
-  const pupilRadius = isSleeping ? 0 : state === 'happy' ? 10 : state === 'listening' ? 11 : 8;
 
-  // Aperture blade count
-  const bladeCount = 8;
-  const bladeAngles = Array.from({ length: bladeCount }, (_, i) => i * (360 / bladeCount) + apertureBlades);
+  // Lens iris size
+  const irisR = isBlinking ? 1 : state === 'happy' ? 11 : state === 'listening' ? 12 : 9;
+  const pupilR = isSleeping ? 0 : state === 'happy' ? 6 : 5;
+
+  // Scan beam tip
+  const scanRad = (scanAngle * Math.PI) / 180;
+  const beamLen = 18;
+  const bx = 50 + Math.cos(scanRad) * beamLen;
+  const by = 50 + Math.sin(scanRad) * beamLen;
 
   return (
     <motion.svg
@@ -110,104 +115,59 @@ export function Character({ state, size = 48, className }: CharacterProps) {
       className={className}
       animate={state}
       variants={bodyVariants}
+      style={{ transformOrigin: '50px 18px' }} // rotate from mount point
     >
-      {/* Drop shadow */}
-      <ellipse cx="50" cy="93" rx="26" ry="4" fill="hsl(var(--foreground)/0.12)" />
+      {/* ── MOUNT / BRACKET ── */}
+      {/* Wall plate */}
+      <rect x="38" y="6" width="24" height="8" rx="3" fill="hsl(var(--muted-foreground)/0.25)" />
+      {/* Bracket arm */}
+      <rect x="48" y="13" width="4" height="14" rx="2" fill="hsl(var(--muted-foreground)/0.3)" />
+      {/* Pivot joint */}
+      <circle cx="50" cy="27" r="4" fill="hsl(var(--secondary-foreground)/0.4)" />
+      <circle cx="50" cy="27" r="2" fill="hsl(var(--muted-foreground)/0.5)" />
 
-      {/* Camera body — main rectangle */}
-      <motion.rect
-        x="12" y="30" width="76" height="52" rx="8" ry="8"
-        fill="hsl(var(--foreground))"
+      {/* ── CAMERA HOUSING ── */}
+      {/* Main dome / bullet body */}
+      <motion.ellipse
+        cx="50" cy="58"
+        rx="28" ry="18"
+        fill="hsl(var(--secondary))"
         stroke="hsl(var(--border))"
-        strokeWidth="0"
-      />
-
-      {/* Body detail — front face plate */}
-      <rect x="15" y="33" width="70" height="46" rx="6" fill="hsl(var(--foreground)/0.9)" />
-
-      {/* Top grip / pentaprism hump */}
-      <motion.rect
-        x="26" y="20" width="36" height="14" rx="5"
-        fill="hsl(var(--foreground))"
-      />
-
-      {/* Hot shoe (top accessory rail) */}
-      <rect x="38" y="17" width="16" height="4" rx="2" fill="hsl(var(--foreground)/0.6)" />
-
-      {/* Shutter button */}
-      <motion.circle
-        cx="58" cy="23" r="4"
-        fill="hsl(var(--primary))"
-        animate={
-          state === 'flash'
-            ? { scale: [1, 1.4, 1], fill: ['hsl(var(--primary))', 'hsl(var(--warning))', 'hsl(var(--primary))'] }
-            : { scale: 1 }
-        }
-        transition={{ duration: 0.3 }}
-      />
-
-      {/* Mode dial */}
-      <circle cx="40" cy="22" r="5" fill="hsl(var(--foreground)/0.7)" stroke="hsl(var(--border)/0.3)" strokeWidth="1" />
-      <line x1="40" y1="18" x2="40" y2="20" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" />
-
-      {/* Grip texture ridges (left side) */}
-      {[0, 1, 2].map((i) => (
-        <rect key={i} x="14" y={38 + i * 7} width="5" height="4" rx="1.5" fill="hsl(var(--foreground)/0.5)" />
-      ))}
-
-      {/* ---- LENS BARREL ---- */}
-      {/* Outer lens ring */}
-      <motion.circle
-        cx="50" cy="57" r="26"
-        fill="hsl(var(--foreground)/0.6)"
-        stroke="hsl(var(--foreground)/0.4)"
         strokeWidth="1.5"
       />
+      {/* Bottom shade visor */}
+      <ellipse cx="50" cy="68" rx="28" ry="6" fill="hsl(var(--muted-foreground)/0.12)" />
+      {/* Housing highlight */}
+      <ellipse cx="42" cy="50" rx="10" ry="5" fill="white" opacity={0.18} transform="rotate(-20, 42, 50)" />
 
-      {/* Lens focus ring (rotating) */}
+      {/* ── LENS ASSEMBLY ── */}
+      {/* Outer lens bezel */}
+      <circle cx="50" cy="58" r="17" fill="hsl(var(--foreground)/0.12)" stroke="hsl(var(--border))" strokeWidth="1" />
+      {/* Lens ring detail */}
+      <circle cx="50" cy="58" r="14" fill="hsl(var(--foreground)/0.08)" stroke="hsl(var(--muted-foreground)/0.3)" strokeWidth="0.8" strokeDasharray="2 2" />
+      {/* Glass inner */}
+      <circle cx="50" cy="58" r="11" fill="hsl(215 40% 12%)" />
+      <circle cx="50" cy="58" r="9" fill="hsl(215 50% 9%)" />
+
+      {/* Scan / detection beam (thinking + listening) */}
+      {(state === 'thinking' || state === 'listening') && (
+        <motion.line
+          x1="50" y1="58"
+          x2={bx} y2={by}
+          stroke={state === 'listening' ? 'hsl(var(--primary)/0.7)' : 'hsl(var(--warning)/0.6)'}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 0.6, repeat: Infinity }}
+        />
+      )}
+
+      {/* ── IRIS ── */}
       <motion.circle
-        cx="50" cy="57" r="22"
-        fill="none"
-        stroke="hsl(var(--foreground)/0.35)"
-        strokeWidth="3"
-        strokeDasharray="4 3"
-        animate={{ rotate: state === 'thinking' ? 360 : 0 }}
-        transition={{ duration: 2, repeat: state === 'thinking' ? Infinity : 0, ease: 'linear' }}
-        style={{ originX: '50px', originY: '57px', transformOrigin: '50px 57px' }}
-      />
-
-      {/* Inner lens body */}
-      <circle cx="50" cy="57" r="18" fill="hsl(222.2 84% 8%)" />
-
-      {/* Aperture blades (visible when thinking) */}
-      {state === 'thinking' &&
-        bladeAngles.map((angle, i) => {
-          const rad = (angle * Math.PI) / 180;
-          const bx = 50 + Math.cos(rad) * 10;
-          const by = 57 + Math.sin(rad) * 10;
-          return (
-            <ellipse
-              key={i}
-              cx={bx}
-              cy={by}
-              rx="5"
-              ry="2"
-              fill="hsl(var(--foreground)/0.5)"
-              transform={`rotate(${angle}, ${bx}, ${by})`}
-            />
-          );
-        })}
-
-      {/* Glass reflection layers */}
-      <circle cx="50" cy="57" r="14" fill="hsl(210 60% 12%)" />
-      <circle cx="50" cy="57" r="11" fill="hsl(215 70% 8%)" />
-
-      {/* --- IRIS / PUPIL --- */}
-      {/* Iris */}
-      <motion.circle
-        cx="50"
-        cy="57"
-        r={lensRadius}
+        cx={50 + (isSleeping ? 0 : mouseOffset.x)}
+        cy={58 + (isSleeping ? 0 : mouseOffset.y)}
+        r={irisR}
         fill={
           state === 'happy'
             ? 'hsl(var(--primary))'
@@ -215,164 +175,151 @@ export function Character({ state, size = 48, className }: CharacterProps) {
               ? 'hsl(var(--warning))'
               : state === 'listening'
                 ? 'hsl(var(--info))'
-                : 'hsl(var(--primary)/0.8)'
+                : 'hsl(var(--primary)/0.85)'
         }
-        animate={{ r: lensRadius }}
-        transition={{ duration: 0.15, ease: 'easeOut' }}
+        animate={{ r: irisR }}
+        transition={{ duration: 0.12, ease: 'easeOut' }}
       />
 
       {/* Pupil */}
       <motion.circle
-        cx={50 + (isSleeping ? 0 : mouseOffset.x)}
-        cy={57 + (isSleeping ? 0 : mouseOffset.y)}
-        r={pupilRadius}
+        cx={50 + (isSleeping ? 0 : mouseOffset.x * 0.6)}
+        cy={58 + (isSleeping ? 0 : mouseOffset.y * 0.6)}
+        r={pupilR}
         fill="hsl(222.2 84% 4%)"
-        animate={{ r: pupilRadius }}
+        animate={{ r: pupilR }}
         transition={{ duration: 0.1 }}
       />
 
-      {/* Lens glare highlight */}
+      {/* Lens glare */}
       {!isSleeping && (
         <>
           <ellipse
-            cx={44 + mouseOffset.x * 0.3}
-            cy={51 + mouseOffset.y * 0.3}
-            rx="3.5"
-            ry="2.5"
-            fill="white"
-            opacity={0.7}
-            transform={`rotate(-20, ${44 + mouseOffset.x * 0.3}, ${51 + mouseOffset.y * 0.3})`}
+            cx={44 + mouseOffset.x * 0.25}
+            cy={52 + mouseOffset.y * 0.25}
+            rx="3" ry="2"
+            fill="white" opacity={0.65}
+            transform={`rotate(-25, ${44 + mouseOffset.x * 0.25}, ${52 + mouseOffset.y * 0.25})`}
           />
-          <circle
-            cx={55 + mouseOffset.x * 0.2}
-            cy={63 + mouseOffset.y * 0.2}
-            r="1"
-            fill="white"
-            opacity={0.35}
-          />
+          <circle cx={55 + mouseOffset.x * 0.15} cy={63 + mouseOffset.y * 0.15} r="1" fill="white" opacity={0.3} />
         </>
       )}
 
-      {/* Shutter blink overlay */}
+      {/* IR blink overlay */}
       {isBlinking && (
-        <motion.rect
-          x="24" y="43"
-          width="52" height="28"
-          rx="14"
-          fill="hsl(var(--foreground))"
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: [0, 1, 0] }}
-          transition={{ duration: 0.12, ease: 'easeInOut' }}
-          style={{ transformOrigin: '50px 57px' }}
-        />
-      )}
-
-      {/* Flash unit (top right) */}
-      <motion.rect
-        x="68" y="25" width="12" height="8" rx="2"
-        fill={state === 'flash' ? 'hsl(var(--warning))' : 'hsl(var(--foreground)/0.5)'}
-        animate={
-          state === 'flash'
-            ? { opacity: [0, 1, 0.8, 1, 0], fill: ['hsl(var(--warning))', 'white', 'hsl(var(--warning))'] }
-            : { opacity: 1 }
-        }
-        transition={{ duration: 0.4 }}
-      />
-      {/* Flash glow */}
-      {state === 'flash' && (
         <motion.circle
-          cx="74" cy="29" r="10"
-          fill="hsl(var(--warning)/0.4)"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0, 1.5, 0], opacity: [0, 0.8, 0] }}
-          transition={{ duration: 0.5 }}
+          cx="50" cy="58" r="11"
+          fill="hsl(var(--foreground)/0.85)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ duration: 0.08 }}
         />
       )}
 
-      {/* Viewfinder (small square top-right of body) */}
-      <rect x="70" y="36" width="10" height="7" rx="2" fill="hsl(var(--foreground)/0.4)" />
-      <rect x="71" y="37" width="8" height="5" rx="1" fill="hsl(210 60% 15%)" />
+      {/* ── IR LED dots (4 corners of lens) ── */}
+      {[
+        { cx: 36, cy: 45 },
+        { cx: 64, cy: 45 },
+        { cx: 36, cy: 71 },
+        { cx: 64, cy: 71 },
+      ].map((dot, i) => (
+        <motion.circle
+          key={i}
+          cx={dot.cx} cy={dot.cy} r="2"
+          fill={state === 'flash' ? 'hsl(var(--warning))' : 'hsl(var(--destructive)/0.8)'}
+          animate={{
+            opacity: state === 'sleeping'
+              ? [0.1, 0.2, 0.1]
+              : state === 'flash'
+                ? [0, 1, 0]
+                : [0.5, 1, 0.5],
+            scale: state === 'flash' ? [1, 1.6, 1] : 1,
+          }}
+          transition={{ duration: state === 'flash' ? 0.3 : 1.5, repeat: Infinity, delay: i * 0.2 }}
+        />
+      ))}
 
-      {/* Happy mouth — curved bottom of lens */}
+      {/* Recording dot (top right housing) */}
+      <motion.circle
+        cx="71" cy="46" r="2.5"
+        fill="hsl(var(--destructive))"
+        animate={{ opacity: isSleeping ? 0.15 : [0.4, 1, 0.4] }}
+        transition={{ duration: 1, repeat: Infinity }}
+      />
+
+      {/* Connector cable bump (back) */}
+      <rect x="46" y="73" width="8" height="5" rx="2" fill="hsl(var(--muted-foreground)/0.25)" />
+
+      {/* ── Happy expression: scan sweep arc ── */}
       {(state === 'happy' || state === 'talking') && (
         <motion.path
-          d="M40 72 Q50 79 60 72"
+          d="M36 76 Q50 84 64 76"
           fill="none"
-          stroke="hsl(var(--primary-foreground)/0.6)"
+          stroke="hsl(var(--primary)/0.5)"
           strokeWidth="2"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.3 }}
         />
       )}
 
-      {/* Thinking dots */}
+      {/* ── Thinking: orbiting dots ── */}
       {state === 'thinking' && (
         <>
           {[0, 1, 2].map((i) => (
             <motion.circle
               key={i}
-              cx={78 + i * 6}
-              cy={28 - i * 4}
-              r={3 - i * 0.5}
-              fill="hsl(var(--primary)/0.7)"
-              animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.2, 0.8] }}
-              transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }}
+              cx={80 + i * 5}
+              cy={30 - i * 5}
+              r={3 - i * 0.6}
+              fill="hsl(var(--warning)/0.8)"
+              animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.3, 0.8] }}
+              transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.18 }}
             />
           ))}
         </>
       )}
 
-      {/* Sleeping ZZZ */}
+      {/* Flash burst */}
+      {state === 'flash' && (
+        <motion.circle
+          cx="50" cy="58" r="22"
+          fill="none"
+          stroke="hsl(var(--warning)/0.5)"
+          strokeWidth="3"
+          initial={{ scale: 0.6, opacity: 0.8 }}
+          animate={{ scale: 1.4, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        />
+      )}
+
+      {/* ── Sleeping ZZZ ── */}
       {isSleeping && (
         <>
-          {['z', 'z', 'z'].map((char, i) => (
+          {[0, 1, 2].map((_, i) => (
             <motion.text
               key={i}
               x={72 + i * 6}
-              y={28 - i * 6}
-              fill="hsl(var(--primary)/0.6)"
+              y={28 - i * 7}
+              fill="hsl(var(--muted-foreground)/0.7)"
               fontSize={10 - i * 2}
               fontWeight="bold"
               fontFamily="sans-serif"
               animate={{
                 opacity: [0, 1, 0],
-                y: [28 - i * 6, 22 - i * 6, 16 - i * 6],
+                y: [28 - i * 7, 20 - i * 7, 12 - i * 7],
               }}
-              transition={{ repeat: Infinity, duration: 2.5, delay: i * 0.4 }}
+              transition={{ repeat: Infinity, duration: 2.5, delay: i * 0.45 }}
             >
-              {char}
+              z
             </motion.text>
           ))}
         </>
       )}
 
-      {/* AF points (listening) */}
-      {state === 'listening' && (
-        <>
-          {[
-            { x: 35, y: 45 },
-            { x: 65, y: 45 },
-            { x: 35, y: 69 },
-            { x: 65, y: 69 },
-          ].map((pt, i) => (
-            <motion.rect
-              key={i}
-              x={pt.x - 4}
-              y={pt.y - 4}
-              width="8"
-              height="8"
-              rx="1"
-              fill="none"
-              stroke="hsl(var(--primary))"
-              strokeWidth="1.5"
-              animate={{ opacity: [0.3, 1, 0.3] }}
-              transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.15 }}
-            />
-          ))}
-        </>
-      )}
+      {/* Drop shadow */}
+      <ellipse cx="50" cy="94" rx="22" ry="3.5" fill="hsl(var(--foreground)/0.08)" />
     </motion.svg>
   );
 }
