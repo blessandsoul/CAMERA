@@ -90,7 +90,7 @@ export default async function HomePage({ params }: HomePageProps) {
         url: siteUrl,
         telephone: `+995${phone}`,
         image: [`${siteUrl}/og-image.jpg`, `${siteUrl}/logo.jpg`],
-        description: t('hero_subtitle'),
+        description: t('home.hero_subtitle'),
         areaServed: {
           '@type': 'GeoCircle',
           geoMidpoint: { '@type': 'GeoCoordinates', latitude: business.geo.latitude, longitude: business.geo.longitude },
