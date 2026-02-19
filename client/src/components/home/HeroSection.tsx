@@ -178,33 +178,13 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
           </motion.h1>
         </AnimatePresence>
 
-        <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={currentProduct.id + '-desc'}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="text-lg sm:text-xl text-muted-foreground leading-relaxed"
-            >
-              {(() => {
-                const fullName = currentProduct.name[locale] ?? currentProduct.name['en'] ?? '';
-                const tail = fullName.length > 15 ? fullName.slice(15).trimStart() : '';
-                const body = currentProduct.content?.trim() ?? '';
-                return tail && body ? `${tail} — ${body}` : tail || body || labels.heroSubtitle;
-              })()}
-            </motion.p>
-          </AnimatePresence>
-
-          {/* Current product specs */}
-          <motion.div
-            className="flex flex-wrap items-center gap-2 min-h-14 content-start"
-            layout
-          >
-            <ProductSpecTags product={currentProduct} locale={locale} />
-          </motion.div>
-        </div>
+        {/* Current product specs */}
+        <motion.div
+          className="flex flex-wrap items-center gap-2 min-h-14 content-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200"
+          layout
+        >
+          <ProductSpecTags product={currentProduct} locale={locale} />
+        </motion.div>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-1">
