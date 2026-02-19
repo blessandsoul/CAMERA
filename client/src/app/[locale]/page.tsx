@@ -173,7 +173,7 @@ export default async function HomePage({ params }: HomePageProps) {
       </section>
 
       {/* ── CATEGORIES + MINI PRODUCTS ── */}
-      <section className="pt-2 pb-8 bg-background">
+      <section className="pt-0 pb-8 bg-background -mt-4">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <CategoryProductsBlock
             products={allProducts}
