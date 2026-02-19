@@ -26,7 +26,7 @@ export function FavoriteProductCard({ product, locale }: FavoriteProductCardProp
     : '';
 
   return (
-    <article className="group relative flex flex-col rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-border/80 hover:shadow-lg hover:-translate-y-0.5">
+    <article className="group relative flex flex-col rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-border/80 hover:-translate-y-0.5">
       {/* Image */}
       <Link
         href={`/${locale}/catalog/${product.id}`}
