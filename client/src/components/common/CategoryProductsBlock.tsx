@@ -34,7 +34,6 @@ interface CategoryProductsBlockProps {
   inStockLabel: string;
   priceOnRequestLabel: string;
   categoryLabels: Record<string, string>;
-  viewAllLabel: string;
 }
 
 export function CategoryProductsBlock({
@@ -43,12 +42,10 @@ export function CategoryProductsBlock({
   inStockLabel,
   priceOnRequestLabel,
   categoryLabels,
-  viewAllLabel,
 }: CategoryProductsBlockProps) {
   const [active, setActive] = useState<ProductCategory>('cameras');
 
   const activeProducts = products.filter((p) => p.category === active).slice(0, 5);
-  const totalCount = products.filter((p) => p.category === active).length;
 
   return (
     <div className="rounded-2xl border border-border/50 bg-card shadow-sm overflow-hidden">
@@ -127,16 +124,6 @@ export function CategoryProductsBlock({
               </div>
             )}
 
-            {totalCount > 5 && (
-              <div className="mt-4 flex justify-end">
-                <Link
-                  href={`/${locale}/catalog?category=${active}`}
-                  className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors duration-150 focus-visible:outline-none"
-                >
-                  {viewAllLabel} ({totalCount})
-                </Link>
-              </div>
-            )}
           </motion.div>
         </AnimatePresence>
       </div>

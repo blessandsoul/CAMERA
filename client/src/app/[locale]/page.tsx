@@ -185,7 +185,6 @@ export default async function HomePage({ params }: HomePageProps) {
               accessories: t('catalog.accessories'),
               services:    t('catalog.services'),
             }}
-            viewAllLabel={t('home.hero_cta')}
           />
         </div>
 
