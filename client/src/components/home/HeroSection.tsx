@@ -12,7 +12,6 @@ import {
 } from '@phosphor-icons/react';
 import Image from 'next/image';
 import type { Product, Locale } from '@/types/product.types';
-import { CategoryGrid } from '@/components/common/CategoryGrid';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -20,7 +19,6 @@ interface HeroSectionProps {
   products: Product[];
   locale: Locale;
   phone: string;
-  categoryCounts?: Record<string, number>;
   labels: {
     heroTitle: string;
     heroSubtitle: string;
@@ -150,7 +148,7 @@ function ProductSpecTags({ product, locale }: { product: Product; locale: Locale
 
 // ── Main HeroSection ───────────────────────────────────────────────────────────
 
-export function HeroSection({ products, locale, phone, labels, categoryCounts = {} }: HeroSectionProps) {
+export function HeroSection({ products, locale, phone, labels }: HeroSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNavigate = useCallback((i: number) => {
@@ -230,8 +228,8 @@ export function HeroSection({ products, locale, phone, labels, categoryCounts = 
 
       </div>
 
-      {/* ── RIGHT: Carousel + Categories ── */}
-      <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300 flex flex-col gap-4">
+      {/* ── RIGHT: Carousel ── */}
+      <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
         <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
         <Carousel
           products={products}
@@ -239,7 +237,6 @@ export function HeroSection({ products, locale, phone, labels, categoryCounts = 
           currentIndex={currentIndex}
           onNavigate={handleNavigate}
         />
-        <CategoryGrid locale={locale} counts={categoryCounts} />
       </div>
 
     </div>
