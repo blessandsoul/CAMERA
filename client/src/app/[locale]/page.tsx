@@ -180,9 +180,6 @@ export default async function HomePage({ params }: HomePageProps) {
             {t('home.hero_subtitle')}
           </p>
 
-          {/* Category grid */}
-          <CategoryGrid locale={locale} />
-
         </div>
       </section>
 
@@ -213,6 +210,13 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
         </section>
       )}
+
+      {/* ── CATEGORIES ── */}
+      <section className="py-8 bg-background">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <CategoryGrid locale={locale} />
+        </div>
+      </section>
 
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
