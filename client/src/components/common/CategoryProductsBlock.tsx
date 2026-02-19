@@ -191,83 +191,62 @@ export function CategoryProductsBlock({
             />
           )}
         </button>
-      </div>
 
-      {/* Products area with floating nav arrows */}
-      <div className="relative">
-
-        {/* Left arrow — floats over the cards area */}
+        {/* Scroll arrows — always visible in the tab bar, disabled when at edge */}
         <button
           onClick={() => scroll('left')}
+          disabled={!canScrollLeft}
           aria-label="Scroll left"
-          className={cn(
-            'absolute left-2 top-1/2 -translate-y-1/2 z-10',
-            'flex items-center justify-center w-7 h-7 rounded-full',
-            'bg-card border border-border/70',
-            'text-muted-foreground transition-all duration-150 cursor-pointer',
-            'hover:text-foreground',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
-            canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          )}
+          className="shrink-0 flex items-center justify-center w-8 self-stretch border-l border-border/50 text-muted-foreground transition-colors duration-150 cursor-pointer hover:text-foreground hover:bg-muted/40 disabled:opacity-30 disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
         >
           <CaretLeft size={13} weight="bold" aria-hidden="true" />
         </button>
-
-        {/* Scrollable cards */}
-        <div
-          ref={cardsRef}
-          className="p-4 md:p-5 overflow-x-auto scrollbar-none"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18, ease: 'easeOut' }}
-            >
-              {activeProducts.length > 0 ? (
-                <div className="flex gap-3">
-                  {activeProducts.map((product) => (
-                    <div key={product.id} className="w-40 sm:w-45 shrink-0">
-                      <ProductMiniCard
-                        product={product}
-                        locale={locale}
-                        inStockLabel={inStockLabel}
-                        priceOnRequestLabel={priceOnRequestLabel}
-                        categoryLabels={categoryLabels}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-32 text-sm text-muted-foreground">
-                  {active === 'recent'
-                    ? (RECENT_EMPTY_LABELS[locale] ?? RECENT_EMPTY_LABELS['en'])
-                    : noProductsLabel}
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Right arrow — floats over the cards area */}
         <button
           onClick={() => scroll('right')}
+          disabled={!canScrollRight}
           aria-label="Scroll right"
-          className={cn(
-            'absolute right-2 top-1/2 -translate-y-1/2 z-10',
-            'flex items-center justify-center w-7 h-7 rounded-full',
-            'bg-card border border-border/70',
-            'text-muted-foreground transition-all duration-150 cursor-pointer',
-            'hover:text-foreground',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
-            canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          )}
+          className="shrink-0 flex items-center justify-center w-8 self-stretch border-l border-border/50 text-muted-foreground transition-colors duration-150 cursor-pointer hover:text-foreground hover:bg-muted/40 disabled:opacity-30 disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
         >
           <CaretRight size={13} weight="bold" aria-hidden="true" />
         </button>
+      </div>
 
+      {/* Scrollable cards */}
+      <div
+        ref={cardsRef}
+        className="p-4 md:p-5 overflow-x-auto scrollbar-none"
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            {activeProducts.length > 0 ? (
+              <div className="flex gap-3">
+                {activeProducts.map((product) => (
+                  <div key={product.id} className="w-40 sm:w-45 shrink-0">
+                    <ProductMiniCard
+                      product={product}
+                      locale={locale}
+                      inStockLabel={inStockLabel}
+                      priceOnRequestLabel={priceOnRequestLabel}
+                      categoryLabels={categoryLabels}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-32 text-sm text-muted-foreground">
+                {active === 'recent'
+                  ? (RECENT_EMPTY_LABELS[locale] ?? RECENT_EMPTY_LABELS['en'])
+                  : noProductsLabel}
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
     </div>
