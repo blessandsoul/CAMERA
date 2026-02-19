@@ -180,7 +180,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
           {/* Products Slider */}
           {allProducts.length > 0 && (
-            <div className="mt-4 md:mt-0">
+            <div className="mt-[10%] md:mt-0">
             <TopProductsSlider
               products={allProducts}
               locale={locale as Locale}
