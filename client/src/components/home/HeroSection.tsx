@@ -1,21 +1,13 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, SecurityCamera, CaretLeft, CaretRight } from '@phosphor-icons/react';
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import type { Product, Locale } from '@/types/product.types';
-import { HeroVariantA } from './hero/HeroVariantA';
-import { HeroVariantB } from './hero/HeroVariantB';
-import { HeroVariantC } from './hero/HeroVariantC';
-import { HeroVariantD } from './hero/HeroVariantD';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
-
-type HeroVariant = 'A' | 'B' | 'C' | 'D' | 'E';
 
 interface HeroSectionProps {
   products: Product[];
@@ -36,9 +28,9 @@ interface HeroSectionProps {
   };
 }
 
-// ── Variant E internals (original layout — preserved) ─────────────────────────
+// ── Carousel ───────────────────────────────────────────────────────────────────
 
-function CarouselE({ products, locale, currentIndex, onNavigate }: {
+function Carousel({ products, locale, currentIndex, onNavigate }: {
   products: Product[]; locale: Locale; currentIndex: number; onNavigate: (i: number) => void;
 }) {
   const [dir, setDir] = useState(1);
@@ -76,7 +68,9 @@ function CarouselE({ products, locale, currentIndex, onNavigate }: {
   );
 }
 
-function SpecTagsE({ product, locale }: { product: Product; locale: Locale }) {
+// ── Spec Tags ──────────────────────────────────────────────────────────────────
+
+function ProductSpecTags({ product, locale }: { product: Product; locale: Locale }) {
   return (
     <AnimatePresence mode="popLayout">
       {product.specs.map((spec, i) => (
@@ -89,10 +83,16 @@ function SpecTagsE({ product, locale }: { product: Product; locale: Locale }) {
   );
 }
 
-function HeroVariantE({ products, locale, phone, labels, currentIndex, onNavigate }: {
-  products: Product[]; locale: Locale; phone: string; labels: HeroSectionProps['labels']; currentIndex: number; onNavigate: (i: number) => void;
-}) {
+// ── Main HeroSection ───────────────────────────────────────────────────────────
+
+export function HeroSection({ products, locale, phone, labels }: HeroSectionProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const handleNavigate = useCallback((i: number) => { setCurrentIndex(i); }, []);
+
+  if (products.length === 0) return null;
+
   const currentProduct = products[currentIndex];
+
   return (
     <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
       <div className="space-y-5 max-w-2xl">
@@ -113,7 +113,7 @@ function HeroVariantE({ products, locale, phone, labels, currentIndex, onNavigat
             </motion.p>
           </AnimatePresence>
           <motion.div className="flex flex-wrap items-center gap-2 min-h-14 content-start" layout>
-            <SpecTagsE product={currentProduct} locale={locale} />
+            <ProductSpecTags product={currentProduct} locale={locale} />
           </motion.div>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-1">
@@ -127,56 +127,8 @@ function HeroVariantE({ products, locale, phone, labels, currentIndex, onNavigat
       </div>
       <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
         <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
-        <CarouselE products={products} locale={locale} currentIndex={currentIndex} onNavigate={onNavigate} />
+        <Carousel products={products} locale={locale} currentIndex={currentIndex} onNavigate={handleNavigate} />
       </div>
-    </div>
-  );
-}
-
-// ── Main HeroSection orchestrator ──────────────────────────────────────────────
-
-export function HeroSection({ products, locale, phone, labels }: HeroSectionProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [dir, setDir] = useState(1);
-  const [heroVariant, setHeroVariant] = useState<HeroVariant>('E');
-  const [showSwitcher, setShowSwitcher] = useState(false);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const VALID: HeroVariant[] = ['A', 'B', 'C', 'D', 'E'];
-    const qp = searchParams.get('heroVariant') as HeroVariant | null;
-    const stored = typeof window !== 'undefined' ? localStorage.getItem('heroVariant') as HeroVariant | null : null;
-    const isDev = process.env.NODE_ENV === 'development';
-    if (qp && VALID.includes(qp)) { setHeroVariant(qp); setShowSwitcher(true); }
-    else if (stored && VALID.includes(stored)) { setHeroVariant(stored); if (isDev) setShowSwitcher(true); }
-    else if (isDev) setShowSwitcher(true);
-  }, [searchParams]);
-
-  const handleNavigate = useCallback((i: number) => { setDir(i > currentIndex ? 1 : -1); setCurrentIndex(i); }, [currentIndex]);
-  const handleVariantChange = (v: HeroVariant) => { setHeroVariant(v); if (typeof window !== 'undefined') localStorage.setItem('heroVariant', v); };
-
-  if (products.length === 0) return null;
-
-  const vp = { products, locale, phone, labels, currentIndex, dir, onNavigate: handleNavigate };
-
-  return (
-    <div className="relative">
-      {heroVariant === 'A' && <HeroVariantA {...vp} />}
-      {heroVariant === 'B' && <HeroVariantB {...vp} />}
-      {heroVariant === 'C' && <HeroVariantC {...vp} />}
-      {heroVariant === 'D' && <HeroVariantD {...vp} />}
-      {heroVariant === 'E' && <HeroVariantE products={products} locale={locale} phone={phone} labels={labels} currentIndex={currentIndex} onNavigate={handleNavigate} />}
-
-      {showSwitcher && (
-        <div className="fixed top-20 right-4 z-50 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-background/95 backdrop-blur-sm border border-border shadow-xl text-xs font-mono">
-          <span className="text-muted-foreground mr-1 select-none">Hero:</span>
-          {(['A', 'B', 'C', 'D', 'E'] as HeroVariant[]).map((v) => (
-            <button key={v} onClick={() => handleVariantChange(v)} className={cn('px-2.5 py-1 rounded-lg font-bold transition-all duration-150 cursor-pointer', heroVariant === v ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-accent')}>
-              {v}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
