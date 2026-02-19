@@ -184,13 +184,6 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
               transition={{ duration: AUTOPLAY_DELAY / 1000, ease: 'linear' }}
             />
           </div>
-
-          {/* Dots */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
-            {products.map((_, i) => (
-              <button key={i} onClick={() => go(i, i > idx ? 1 : -1)} className={`rounded-full transition-all duration-300 ${i === idx ? 'w-6 h-2 bg-primary' : 'w-2 h-2 bg-border hover:bg-primary/50'}`} aria-label={`Slide ${i + 1}`} />
-            ))}
-          </div>
         </>
       )}
     </div>

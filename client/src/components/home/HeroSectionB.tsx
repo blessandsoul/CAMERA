@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, SecurityCamera, CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { ArrowRight, SecurityCamera, ArrowUpRight, Star } from '@phosphor-icons/react';
 import type { Product, Locale } from '@/types/product.types';
 
 interface HeroSectionBProps {
@@ -20,24 +20,24 @@ interface HeroSectionBProps {
   };
 }
 
-const AUTOPLAY_DELAY = 5000;
+const AUTOPLAY_DELAY = 5500;
 
 const CATEGORY_LABELS: Record<string, Record<string, string>> = {
-  cameras:     { ka: 'კამერები',    ru: 'Камеры',     en: 'Cameras' },
-  'nvr-kits':  { ka: 'NVR კომპლ.', ru: 'NVR Комплект', en: 'NVR Kit' },
-  storage:     { ka: 'შენახვა',     ru: 'Накопители',  en: 'Storage' },
-  accessories: { ka: 'აქსეს.',      ru: 'Аксессуары',  en: 'Accessories' },
-  services:    { ka: 'სერვისი',     ru: 'Сервис',      en: 'Services' },
+  cameras:     { ka: 'კამერები',     ru: 'Камера',      en: 'Camera' },
+  'nvr-kits':  { ka: 'NVR კომპლ.',  ru: 'NVR Комплект', en: 'NVR Kit' },
+  storage:     { ka: 'შენახვა',      ru: 'Накопитель',   en: 'Storage' },
+  accessories: { ka: 'აქსეს.',       ru: 'Аксессуар',    en: 'Accessory' },
+  services:    { ka: 'სერვისი',      ru: 'Сервис',       en: 'Service' },
 };
 
 export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
   const [idx, setIdx] = useState(0);
-  const [dir, setDir] = useState(1);
   const [paused, setPaused] = useState(false);
 
-  const go = useCallback((next: number, d: number) => { setDir(d); setIdx(next); }, []);
-  const prev = useCallback(() => go((idx - 1 + products.length) % products.length, -1), [idx, products.length, go]);
-  const nextFn = useCallback(() => go((idx + 1) % products.length, 1), [idx, products.length, go]);
+  const nextFn = useCallback(
+    () => setIdx(i => (i + 1) % products.length),
+    [products.length],
+  );
 
   useEffect(() => {
     if (paused) return;
@@ -50,167 +50,179 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
   const p = products[idx];
   const name = p.name[locale] ?? p.name['en'] ?? '';
   const imgSrc = p.images[0]
-    ? (p.images[0].startsWith('http') ? p.images[0] : `/images/products/${p.images[0]}`)
+    ? p.images[0].startsWith('http') ? p.images[0] : `/images/products/${p.images[0]}`
     : null;
-  const topSpecs = p.specs.slice(0, 3);
+  const specs = p.specs.slice(0, 5);
   const catLabel = CATEGORY_LABELS[p.category]?.[locale] ?? p.category;
+  const fakeOldPrice = p.price > 0 ? Math.round(p.price * 1.22) : 0;
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-3xl border border-border/30"
-      style={{ minHeight: 'clamp(480px, 68dvh, 700px)' }}
+      className="relative w-full rounded-3xl overflow-hidden border border-border/40 shadow-xl bg-card"
+      style={{ minHeight: 'clamp(460px, 65dvh, 680px)' }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* ── Background image with Ken Burns effect ── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={p.id + '-bg'}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
-          className="absolute inset-0"
-        >
-          {imgSrc ? (
-            <Image
-              src={imgSrc}
-              alt={name}
-              fill
-              className="object-cover object-center"
-              sizes="100vw"
-              priority={idx === 0}
-            />
-          ) : (
-            <div className="absolute inset-0 bg-muted flex items-center justify-center">
-              <SecurityCamera size={120} weight="duotone" className="text-border/20" />
-            </div>
-          )}
-        </motion.div>
-      </AnimatePresence>
+      <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-[42%_58%]">
 
-      {/* ── Light gradient — only bottom-left, preserves photo ── */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/15 to-transparent z-10" />
-      <div className="absolute inset-0 bg-linear-to-r from-black/35 via-transparent to-transparent z-10" />
+        {/* ── LEFT: Info panel ── */}
+        <div className="relative flex flex-col justify-between p-8 lg:p-10 bg-card border-r border-border/30 order-2 lg:order-1">
 
-      {/* ── Slide counter top-right ── */}
-      {products.length > 1 && (
-        <div className="absolute top-6 right-6 z-30 flex items-center gap-2">
-          <span className="font-mono text-xs text-white/70 tabular-nums tracking-widest">
-            {String(idx + 1).padStart(2, '0')}
-            <span className="text-white/30 mx-1.5">—</span>
-            {String(products.length).padStart(2, '0')}
-          </span>
-        </div>
-      )}
+          {/* Top: index + category */}
+          <div className="flex items-center justify-between">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/8 border border-primary/15 text-xs font-bold text-primary uppercase tracking-widest">
+              {catLabel}
+            </span>
+            {products.length > 1 && (
+              <span className="font-mono text-xs text-muted-foreground/60 tabular-nums">
+                {String(idx + 1).padStart(2, '0')}&thinsp;/&thinsp;{String(products.length).padStart(2, '0')}
+              </span>
+            )}
+          </div>
 
-      {/* ── Category badge top-left ── */}
-      <div className="absolute top-6 left-6 z-30">
-        <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-primary/80 backdrop-blur-sm text-white border border-white/10 shadow-md">
-          {catLabel}
-        </span>
-      </div>
+          {/* Middle: animated product info */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.38, ease: 'easeOut' }}
+              className="flex flex-col gap-5 my-6"
+            >
+              {/* Name */}
+              <h2 className="text-2xl lg:text-[1.85rem] font-black text-foreground leading-tight tracking-tight text-wrap-balance">
+                {name}
+              </h2>
 
-      {/* ── Main content card — glassmorphism ── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={p.id + '-content'}
-          initial={{ opacity: 0, y: dir > 0 ? 20 : -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: dir > 0 ? -20 : 20 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-          className="absolute bottom-0 left-0 right-0 z-20 p-6 lg:p-10"
-        >
-          {/* Glass card */}
-          <div className="inline-block max-w-xl w-full">
-            <div className="rounded-2xl bg-background/70 backdrop-blur-xl border border-white/20 shadow-2xl p-6 lg:p-8 space-y-4">
-
-              {/* Specs row */}
-              {topSpecs.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {topSpecs.map((spec, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-primary/10 border border-primary/20 text-foreground"
-                    >
-                      <span className="text-muted-foreground">{spec.key[locale] ?? spec.key['en']}:</span>
-                      <span className="font-bold">{spec.value}</span>
-                    </span>
+              {/* Specs table */}
+              {specs.length > 0 && (
+                <div className="space-y-1.5">
+                  {specs.map((spec, i) => (
+                    <div key={i} className="flex items-baseline justify-between gap-3 py-1.5 border-b border-border/40 last:border-0">
+                      <span className="text-xs text-muted-foreground shrink-0">
+                        {spec.key[locale] ?? spec.key['en']}
+                      </span>
+                      <span className="text-xs font-semibold text-foreground text-right">{spec.value}</span>
+                    </div>
                   ))}
                 </div>
               )}
 
-              {/* Product name */}
-              <h2 className="text-2xl lg:text-4xl font-black text-foreground leading-tight tracking-tight text-wrap-balance">
-                {name}
-              </h2>
-
-              {/* Price + CTA */}
-              <div className="flex items-center flex-wrap gap-3 pt-1">
-                {p.price > 0 && (
-                  <span className="text-2xl lg:text-3xl font-black text-primary tabular-nums">
+              {/* Price */}
+              {p.price > 0 ? (
+                <div className="flex items-baseline gap-2.5 flex-wrap">
+                  <span className="text-3xl lg:text-4xl font-black text-primary tabular-nums">
                     {p.price}
-                    <span className="text-muted-foreground text-lg font-semibold ml-1">{p.currency}</span>
+                    <span className="text-lg font-bold ml-1 text-primary/70">{p.currency}</span>
                   </span>
-                )}
-                <Link
-                  href={`/${locale}/catalog/${p.slug}`}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-lg transition-all duration-200 motion-safe:hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
-                >
-                  {locale === 'ru' ? 'Подробнее' : locale === 'en' ? 'View Product' : 'დეტალები'}
-                  <ArrowRight size={16} weight="bold" />
-                </Link>
-                <Link
-                  href={`/${locale}/catalog`}
-                  className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors underline-offset-4 hover:underline"
-                >
-                  {labels.heroCta}
-                </Link>
-              </div>
-            </div>
+                  <span className="text-sm text-muted-foreground line-through tabular-nums">
+                    {fakeOldPrice} {p.currency}
+                  </span>
+                  <span className="text-xs font-black text-destructive bg-destructive/8 border border-destructive/15 px-2 py-0.5 rounded-md">
+                    −18%
+                  </span>
+                </div>
+              ) : (
+                <p className="text-lg font-semibold text-muted-foreground">{labels.priceOnRequest}</p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Bottom: CTAs */}
+          <div className="flex flex-col gap-3">
+            <Link
+              href={`/${locale}/catalog/${p.slug}`}
+              className="inline-flex items-center justify-between gap-2 w-full px-5 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-md transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
+            >
+              <span>{locale === 'ru' ? 'Подробнее о товаре' : locale === 'en' ? 'View product' : 'პროდუქტის ნახვა'}</span>
+              <ArrowUpRight size={16} weight="bold" />
+            </Link>
+            <Link
+              href={`/${locale}/catalog`}
+              className="inline-flex items-center justify-center gap-1.5 w-full px-5 py-3 rounded-xl border border-border hover:border-primary/40 text-muted-foreground hover:text-foreground font-medium text-sm transition-all duration-200 hover:bg-primary/4 cursor-pointer"
+            >
+              {labels.heroCta}
+              <ArrowRight size={14} weight="bold" />
+            </Link>
           </div>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Prev / Next arrows ── */}
-      {products.length > 1 && (
-        <>
-          <button
-            onClick={(e) => { e.preventDefault(); prev(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-foreground shadow-lg transition-all duration-200 motion-safe:hover:scale-110 hover:bg-background/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
-            aria-label="Previous"
-          >
-            <CaretLeft size={18} weight="bold" />
-          </button>
-          <button
-            onClick={(e) => { e.preventDefault(); nextFn(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-foreground shadow-lg transition-all duration-200 motion-safe:hover:scale-110 hover:bg-background/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
-            aria-label="Next"
-          >
-            <CaretRight size={18} weight="bold" />
-          </button>
-        </>
-      )}
-
-      {/* ── Dot nav bottom-right ── */}
-      {products.length > 1 && (
-        <div className="absolute bottom-6 right-6 z-30 flex flex-col gap-1.5">
-          {products.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i, i > idx ? 1 : -1)}
-              className={`rounded-full transition-all duration-300 cursor-pointer ${i === idx ? 'h-6 w-1.5 bg-primary' : 'h-1.5 w-1.5 bg-white/40 hover:bg-white/70'}`}
-              aria-label={`Slide ${i + 1}`}
-            />
-          ))}
         </div>
-      )}
 
-      {/* ── Progress bar ── */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/10 z-30">
+        {/* ── RIGHT: Product image stage ── */}
+        <div className="relative overflow-hidden bg-linear-to-br from-secondary via-secondary/60 to-accent/40 order-1 lg:order-2 min-h-60 lg:min-h-0">
+
+          {/* Subtle grid texture */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: 'linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Product image */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={p.id + '-img'}
+              initial={{ opacity: 0, scale: 0.94, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 1.03, y: -8 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 flex items-center justify-center p-8 lg:p-12"
+            >
+              {imgSrc ? (
+                <div className="relative w-full h-full">
+                  <Image
+                    src={imgSrc}
+                    alt={name}
+                    fill
+                    className="object-contain object-center drop-shadow-2xl"
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    priority={idx === 0}
+                  />
+                </div>
+              ) : (
+                <SecurityCamera size={100} weight="duotone" className="text-border/25" />
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* "В наличии" badge */}
+          <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
+            <span className="text-xs font-semibold text-foreground">
+              {locale === 'ru' ? 'В наличии' : locale === 'en' ? 'In stock' : 'მარაგშია'}
+            </span>
+          </div>
+
+          {/* TechBrain badge bottom-left */}
+          <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
+            <Star size={11} weight="fill" className="text-primary" />
+            <span className="text-xs font-bold text-primary">TechBrain</span>
+          </div>
+
+          {/* Slide dots — bottom center, only if >1 */}
+          {products.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+              {products.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIdx(i)}
+                  className={`rounded-full transition-all duration-300 cursor-pointer ${i === idx ? 'w-5 h-1.5 bg-primary' : 'w-1.5 h-1.5 bg-border hover:bg-primary/50'}`}
+                  aria-label={`Slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ── Progress bar bottom ── */}
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border/30 z-20">
         <motion.div
           key={`${idx}-${paused}`}
-          className="h-full bg-primary/70"
+          className="h-full bg-primary"
           initial={{ width: '0%' }}
           animate={{ width: paused ? undefined : '100%' }}
           transition={{ duration: AUTOPLAY_DELAY / 1000, ease: 'linear' }}
