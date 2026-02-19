@@ -195,11 +195,11 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
 
 // ── TopProductsSlider ─────────────────────────────────────────────────────────
 
-// Cards per page by breakpoint
-const COLS_MOBILE = 2;
-const COLS_SM = 3;
-const COLS_MD = 4;
-const COLS_LG = 5;
+// Cards per page by breakpoint — single card always
+const COLS_MOBILE = 1;
+const COLS_SM = 1;
+const COLS_MD = 1;
+const COLS_LG = 1;
 
 function getColCount(): number {
   if (typeof window === 'undefined') return COLS_LG;
@@ -322,13 +322,12 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
           priceOnRequest={labels.priceOnRequest}
         />
       ) : (
-        /* ── Cards grid — equal columns, 100% width ─────────────────── */
+        /* ── Single card, centered, max width ───────────────────────── */
         <div className="px-3 pb-4 pt-3 md:px-4 md:pb-5 md:pt-4 overflow-hidden">
           {visible.length > 0 ? (
             <div
-              className="grid gap-2.5"
+              className="flex justify-center"
               style={{
-                gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
                 transform: sliding ? (slideDir === 'right' ? 'translateX(-40px)' : 'translateX(40px)') : 'translateX(0)',
                 opacity: sliding ? 0 : 1,
                 transition: sliding ? 'transform 0.26s cubic-bezier(0.4,0,0.2,1), opacity 0.26s ease' : 'none',
@@ -337,7 +336,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               aria-label="Product cards"
             >
               {visible.map((product) => (
-                <div key={product.id} role="listitem" className="min-w-0">
+                <div key={product.id} role="listitem" className="w-full max-w-sm">
                   <ProductCard
                     product={product}
                     locale={locale}
