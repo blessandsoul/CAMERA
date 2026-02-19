@@ -141,48 +141,6 @@ export default async function HomePage({ params }: HomePageProps) {
       />
     <div>
 
-      {/* ── HERO ── */}
-      <section className="hero-bg relative -mt-17 flex items-center">
-
-        {/* Ambient blur blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/4 -left-24 w-125 h-125 bg-primary/10 rounded-full blur-3xl motion-safe:animate-pulse" />
-          <div className="absolute bottom-1/3 -right-24 w-100 h-100 bg-brand-purple/8 rounded-full blur-3xl motion-safe:animate-pulse motion-safe:[animation-delay:1000ms]" />
-        </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
-
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 pt-28 pb-16 md:pt-32 md:pb-20">
-
-          {/* Badge — HUD status indicator */}
-          <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-foreground/[0.04] border border-foreground/[0.08] backdrop-blur-sm">
-              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-online opacity-50 motion-safe:animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-online" />
-              </span>
-              <span className="text-xs font-semibold text-foreground/70 tracking-wide uppercase">
-                {t('home.hero_badge')}
-              </span>
-            </span>
-          </div>
-
-          {/* Headline */}
-          <div className="text-center mb-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground leading-tight text-wrap-balance">
-              {t('home.hero_title')}
-            </h1>
-          </div>
-
-          {/* Subtitle */}
-          <p className="text-center text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-            {t('home.hero_subtitle')}
-          </p>
-
-        </div>
-      </section>
-
       {/* ── PRODUCTS SLIDER ── */}
       {allProducts.length > 0 && (
         <section className="bg-secondary/30 border-y border-border/40 py-6">
@@ -210,6 +168,48 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
         </section>
       )}
+
+      {/* ── HERO ── */}
+      <section className="hero-bg relative flex items-center">
+
+        {/* Ambient blur blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div className="absolute top-1/4 -left-24 w-125 h-125 bg-primary/10 rounded-full blur-3xl motion-safe:animate-pulse" />
+          <div className="absolute bottom-1/3 -right-24 w-100 h-100 bg-brand-purple/8 rounded-full blur-3xl motion-safe:animate-pulse motion-safe:[animation-delay:1000ms]" />
+        </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
+
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 py-12 md:py-16">
+
+          {/* Badge — HUD status indicator */}
+          <div className="flex justify-center mb-6">
+            <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-foreground/4 border border-foreground/8 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-online opacity-50 motion-safe:animate-ping" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-online" />
+              </span>
+              <span className="text-xs font-semibold text-foreground/70 tracking-wide uppercase">
+                {t('home.hero_badge')}
+              </span>
+            </span>
+          </div>
+
+          {/* Headline */}
+          <div className="text-center mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground leading-tight text-wrap-balance">
+              {t('home.hero_title')}
+            </h1>
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-center text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+            {t('home.hero_subtitle')}
+          </p>
+
+        </div>
+      </section>
 
       {/* ── CATEGORIES ── */}
       <section className="py-8 bg-background">
