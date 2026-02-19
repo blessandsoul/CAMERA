@@ -175,7 +175,20 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* ── CATEGORIES + MINI PRODUCTS ── */}
       <section className="py-8 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <CategoryProductsBlock products={allProducts} locale={locale as Locale} />
+          <CategoryProductsBlock
+            products={allProducts}
+            locale={locale as Locale}
+            inStockLabel={locale === 'ru' ? 'В наличии' : locale === 'en' ? 'In Stock' : 'მარაგშია'}
+            priceOnRequestLabel={t('catalog.price_on_request')}
+            categoryLabels={{
+              cameras:     t('catalog.cameras'),
+              'nvr-kits':  t('catalog.nvr_kits'),
+              storage:     t('catalog.storage'),
+              accessories: t('catalog.accessories'),
+              services:    t('catalog.services'),
+            }}
+            viewAllLabel={t('home.hero_cta')}
+          />
         </div>
       </section>
 
