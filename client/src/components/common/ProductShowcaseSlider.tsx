@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CaretLeft, CaretRight, SecurityCamera, ArrowRight } from '@phosphor-icons/react';
@@ -15,18 +15,6 @@ interface ProductShowcaseSliderProps {
   autoPlayInterval?: number;
 }
 
-const TEXT_VARIANTS: Variants = {
-  enter: (dir: number) => ({ opacity: 0, y: dir > 0 ? 20 : -20, filter: 'blur(3px)' }),
-  center: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 } },
-  exit: (dir: number) => ({ opacity: 0, y: dir > 0 ? -20 : 20, filter: 'blur(3px)', transition: { duration: 0.25, ease: [0.55, 0, 1, 0.45] } }),
-};
-
-const IMAGE_VARIANTS: Variants = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 60 : -60, scale: 1.05 }),
-  center: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
-  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -60 : 60, scale: 0.96, transition: { duration: 0.28, ease: [0.55, 0, 1, 0.45] } }),
-};
-
 export function ProductShowcaseSlider({
   products,
   locale,
@@ -36,14 +24,12 @@ export function ProductShowcaseSlider({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [dir, setDir] = useState(1);
-  const [animKey, setAnimKey] = useState(0);
-  const prevIndexRef = useRef(0);
+  const prevRef = useRef(0);
 
-  const navigate = useCallback((nextIndex: number) => {
-    setDir(nextIndex >= prevIndexRef.current ? 1 : -1);
-    setAnimKey((k) => k + 1);
-    prevIndexRef.current = nextIndex;
-    setCurrentIndex(nextIndex);
+  const navigate = useCallback((next: number) => {
+    setDir(next >= prevRef.current ? 1 : -1);
+    prevRef.current = next;
+    setCurrentIndex(next);
   }, []);
 
   const goToNext = useCallback(() => {
@@ -66,171 +52,157 @@ export function ProductShowcaseSlider({
   const name = product.name[locale];
   const description = product.description[locale];
   const isService = product.category === 'services';
-  const hasImage = product.images.length > 0;
-  const imageSrc = hasImage
+  const imageSrc = product.images.length > 0
     ? product.images[0].startsWith('http')
       ? product.images[0]
       : `/images/products/${product.images[0]}`
     : null;
-  const topSpecs = product.specs.slice(0, 4);
+  const topSpecs = product.specs.slice(0, 3);
 
   return (
     <div
-      className="flex flex-row gap-3"
+      className="relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={product.id}
+          initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          {/* Card — same structure as AndrewAltair HeroCarousel */}
+          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
 
-      {/* ══ LEFT BLOCK: Text ══════════════════════════════════════════════ */}
-      <div className="w-[42%] rounded-2xl border border-border/50 bg-card overflow-hidden relative h-44 sm:h-56 md:h-72">
-        <AnimatePresence mode="popLayout" custom={dir}>
-          <motion.div
-            key={`text-${animKey}`}
-            custom={dir}
-            variants={TEXT_VARIANTS}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0 flex flex-col justify-between p-3 sm:p-5 md:p-6"
-          >
-            <div className="flex flex-col gap-2.5">
-              {/* Category badge */}
-              <span className="inline-flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold uppercase tracking-widest text-primary">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                {product.category}
-              </span>
+            {/* ── TOP: Image (aspect-video) ── */}
+            <div className="aspect-video bg-muted relative overflow-hidden flex items-center justify-center">
+              {imageSrc ? (
+                <Image
+                  src={imageSrc}
+                  alt={name}
+                  fill
+                  className="object-cover motion-safe:group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  priority={currentIndex === 0}
+                />
+              ) : (
+                <SecurityCamera size={64} weight="duotone" className="text-border/30" aria-hidden="true" />
+              )}
 
-              {/* Product name */}
-              <h3 className="text-sm md:text-base font-bold leading-snug line-clamp-3">
-                {name}
-              </h3>
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
-              {/* Description */}
-              <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
-                {description}
-              </p>
+              {/* Category badge — top left */}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/80 backdrop-blur-md text-[11px] font-bold uppercase tracking-widest text-white border border-white/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                  {product.category}
+                </span>
+              </div>
 
-              {/* Specs */}
+              {/* Counter — top right (below arrows to match AndrewAltair) */}
+              {products.length > 1 && (
+                <div className="absolute top-14 right-4 z-20 bg-black/60 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full pointer-events-none tabular-nums">
+                  {currentIndex + 1} / {products.length}
+                </div>
+              )}
+
+              {/* Spec tags — bottom left, over gradient */}
               {topSpecs.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
+                <div className="absolute bottom-4 left-4 right-20 z-10 flex flex-wrap gap-1.5">
                   {topSpecs.map((spec, i) => (
                     <span
                       key={i}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted border border-border text-[10px] font-mono font-semibold text-muted-foreground"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm border border-white/10 text-[10px] font-mono font-semibold text-white/90"
                     >
-                      <span className="text-muted-foreground/50">
-                        {spec.key[locale] ?? spec.key['en'] ?? spec.key['ka']}:
-                      </span>
+                      <span className="text-white/50">{spec.key[locale] ?? spec.key['en'] ?? spec.key['ka']}:</span>
                       {spec.value}
                     </span>
                   ))}
                 </div>
               )}
-            </div>
 
-            {/* Price + link */}
-            <div className="flex items-center justify-between gap-3 pt-3 border-t border-border/30">
-              {isService ? (
-                <span className="text-xs text-muted-foreground italic">{priceOnRequest}</span>
-              ) : (
-                <span className="text-2xl font-black text-foreground tabular-nums leading-none">
-                  {product.price}
-                  <span className="text-primary ml-1 text-base font-bold">₾</span>
-                </span>
+              {/* Nav arrows — same as AndrewAltair */}
+              {products.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => { e.preventDefault(); goToPrev(); }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
+                    aria-label="Previous"
+                  >
+                    <CaretLeft size={22} weight="bold" />
+                  </button>
+                  <button
+                    onClick={(e) => { e.preventDefault(); goToNext(); }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
+                    aria-label="Next"
+                  >
+                    <CaretRight size={22} weight="bold" />
+                  </button>
+                </>
               )}
-
-              <Link
-                href={`/${locale}/catalog/${product.id}`}
-                className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:gap-2 transition-all duration-200 focus-visible:outline-none"
-              >
-                {locale === 'ka' ? 'ნახვა' : locale === 'ru' ? 'Подробнее' : 'View'}
-                <ArrowRight size={12} weight="bold" />
-              </Link>
             </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
 
-      {/* ══ RIGHT BLOCK: Image ═══════════════════════════════════════════ */}
-      <div className="w-[58%] rounded-2xl overflow-hidden relative h-44 sm:h-56 md:h-72 bg-muted">
-        <AnimatePresence mode="popLayout" custom={dir}>
-          <motion.div
-            key={`img-${animKey}`}
-            custom={dir}
-            variants={IMAGE_VARIANTS}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0"
-          >
-            {imageSrc ? (
-              <>
-                <Image
-                  src={imageSrc}
-                  alt={name}
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, 58vw"
-                  priority={currentIndex === 0}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent pointer-events-none" />
-              </>
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <SecurityCamera size={48} weight="duotone" className="text-border/40" aria-hidden="true" />
-                <span className="text-[9px] font-mono text-muted-foreground/40 tracking-[0.25em] uppercase">No Signal</span>
+            {/* ── BOTTOM: Text area ── */}
+            <div className="p-5 space-y-3">
+              {/* Title */}
+              <h3 className="text-lg font-bold leading-tight line-clamp-2 group-hover:text-primary transition-colors duration-200">
+                {name}
+              </h3>
+
+              {/* Description */}
+              <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                {description}
+              </p>
+
+              {/* Bottom row: link + price + dots */}
+              <div className="flex items-center justify-between pt-1">
+                <Link
+                  href={`/${locale}/catalog/${product.id}`}
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 focus-visible:outline-none group/link"
+                >
+                  {locale === 'ka' ? 'სრულად ნახვა' : locale === 'ru' ? 'Подробнее' : 'View product'}
+                  <ArrowRight size={14} weight="bold" className="motion-safe:group-hover/link:translate-x-0.5 transition-transform" />
+                </Link>
+
+                <div className="flex items-center gap-3">
+                  {/* Price */}
+                  {!isService ? (
+                    <span className="text-base font-black text-foreground tabular-nums leading-none">
+                      {product.price}
+                      <span className="text-primary ml-0.5 text-xs font-bold">₾</span>
+                    </span>
+                  ) : (
+                    <span className="text-xs text-muted-foreground italic">{priceOnRequest}</span>
+                  )}
+
+                  {/* Dots — same as AndrewAltair */}
+                  {products.length > 1 && (
+                    <div className="flex items-center gap-1.5">
+                      {products.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => navigate(i)}
+                          className={cn(
+                            'h-2 rounded-full motion-safe:transition-all duration-300 cursor-pointer',
+                            i === currentIndex
+                              ? 'w-6 bg-primary'
+                              : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                          )}
+                          aria-label={`Slide ${i + 1}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+            </div>
 
-        {/* Counter */}
-        {products.length > 1 && (
-          <div className="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm text-white text-xs font-mono px-2.5 py-1 rounded-full pointer-events-none tabular-nums">
-            {currentIndex + 1} / {products.length}
           </div>
-        )}
-
-        {/* Arrows */}
-        {products.length > 1 && (
-          <>
-            <button
-              onClick={goToPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 bg-black/50 hover:bg-black/75 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
-              aria-label="Previous"
-            >
-              <CaretLeft size={18} weight="bold" />
-            </button>
-            <button
-              onClick={goToNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 bg-black/50 hover:bg-black/75 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all duration-200 motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
-              aria-label="Next"
-            >
-              <CaretRight size={18} weight="bold" />
-            </button>
-          </>
-        )}
-
-        {/* Dots */}
-        {products.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5">
-            {products.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => navigate(i)}
-                className={cn(
-                  'h-1.5 rounded-full motion-safe:transition-all duration-300 cursor-pointer',
-                  i === currentIndex
-                    ? 'w-5 bg-white'
-                    : 'w-1.5 bg-white/40 hover:bg-white/60'
-                )}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
