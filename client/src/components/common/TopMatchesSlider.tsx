@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -179,51 +179,44 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
 
 // ── TopProductsSlider ─────────────────────────────────────────────────────────
 
-// Card width + gap constants (must match Tailwind classes)
+// Card width + gap constants (must match Tailwind classes below)
 const CARD_W_MOBILE = 150; // w-37.5
 const CARD_W_DESKTOP = 200; // sm:w-50
 const GAP = 10; // gap-2.5
-const PAD = 16; // px-4
 
 export function TopProductsSlider({ products, locale, labels }: TopProductsSliderProps) {
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const [idx, setIdx] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(5);
+  const viewportRef = useRef<HTMLDivElement>(null);
 
-  const getCardWidth = useCallback((): number => {
-    return typeof window !== 'undefined' && window.innerWidth < 640
-      ? CARD_W_MOBILE
-      : CARD_W_DESKTOP;
+  // Calculate how many full cards fit in the viewport
+  const calcPerPage = useCallback((): number => {
+    if (!viewportRef.current) return 5;
+    const w = viewportRef.current.clientWidth;
+    const cardW = window.innerWidth < 640 ? CARD_W_MOBILE : CARD_W_DESKTOP;
+    return Math.max(1, Math.floor((w + GAP) / (cardW + GAP)));
   }, []);
 
-  const scroll = useCallback((dir: 'left' | 'right') => {
-    if (!trackRef.current) return;
-    const cardW = getCardWidth();
-    const visibleArea = trackRef.current.clientWidth - PAD * 2;
-    const visibleCards = Math.floor((visibleArea + GAP) / (cardW + GAP));
-    const totalCards = trackRef.current.querySelectorAll('[role="listitem"]').length;
-    const maxIdx = Math.max(0, totalCards - visibleCards);
-
-    setIdx((prev) => {
-      const next = dir === 'right'
-        ? Math.min(prev + 1, maxIdx)
-        : Math.max(prev - 1, 0);
-      const scrollPos = next * (cardW + GAP);
-      trackRef.current?.scrollTo({ left: scrollPos, behavior: 'smooth' });
-      return next;
-    });
-  }, [getCardWidth]);
-
-  // Reset scroll position when category changes
-  const handleCategoryChange = useCallback((cat: string) => {
-    setActiveCategory(cat);
-    setIdx(0);
-    trackRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
-  }, []);
+  useEffect(() => {
+    const update = (): void => { setPerPage(calcPerPage()); };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [calcPerPage]);
 
   const filtered = activeCategory === 'all'
     ? products
     : products.filter((p) => p.category === activeCategory);
+
+  const maxPage = Math.max(0, Math.ceil(filtered.length / perPage) - 1);
+  const safePage = Math.min(page, maxPage);
+  const visible = filtered.slice(safePage * perPage, safePage * perPage + perPage);
+
+  const handleCategoryChange = useCallback((cat: string) => {
+    setActiveCategory(cat);
+    setPage(0);
+  }, []);
 
   const visibleTabs = CATEGORY_ORDER
     .filter((id) => id === 'all' || products.some((p) => p.category === id))
@@ -234,7 +227,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
     }));
 
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+    <div className="rounded-2xl border border-border bg-card shadow-sm">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between px-4 pt-4 pb-0 gap-3">
@@ -253,16 +246,18 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
           <div className="h-3 w-px bg-border" aria-hidden="true" />
 
           <button
-            onClick={() => scroll('left')}
-            aria-label="Scroll left"
-            className="w-9 h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92]"
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            disabled={safePage === 0}
+            aria-label="Previous"
+            className="w-9 h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
           >
             <CaretLeft size={14} weight="bold" />
           </button>
           <button
-            onClick={() => scroll('right')}
-            aria-label="Scroll right"
-            className="w-9 h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92]"
+            onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
+            disabled={safePage >= maxPage}
+            aria-label="Next"
+            className="w-9 h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
           >
             <CaretRight size={14} weight="bold" />
           </button>
@@ -298,31 +293,28 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
         })}
       </div>
 
-      {/* ── Cards track ─────────────────────────────────────────────────── */}
-      {filtered.length > 0 ? (
-        <div
-          ref={trackRef}
-          className="flex gap-2.5 px-4 pb-5 pt-1 overflow-hidden"
-          aria-label="Product cards"
-          role="list"
-        >
-          {filtered.map((product) => (
-            <div key={product.id} role="listitem" className="flex-none">
-              <ProductCard
-                product={product}
-                locale={locale}
-                inStockLabel={labels.inStock}
-                priceOnRequestLabel={labels.priceOnRequest}
-                categoryLabels={labels.categoryLabels}
-              />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex items-center justify-center h-28 px-4 pb-4">
-          <p className="text-[11px] text-muted-foreground">{labels.noProducts}</p>
-        </div>
-      )}
+      {/* ── Cards viewport — only full cards shown ────────────────────── */}
+      <div ref={viewportRef} className="px-4 pb-5 pt-1">
+        {visible.length > 0 ? (
+          <div className="flex gap-2.5" role="list" aria-label="Product cards">
+            {visible.map((product) => (
+              <div key={product.id} role="listitem" className="flex-none">
+                <ProductCard
+                  product={product}
+                  locale={locale}
+                  inStockLabel={labels.inStock}
+                  priceOnRequestLabel={labels.priceOnRequest}
+                  categoryLabels={labels.categoryLabels}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-28">
+            <p className="text-[11px] text-muted-foreground">{labels.noProducts}</p>
+          </div>
+        )}
+      </div>
 
     </div>
   );
