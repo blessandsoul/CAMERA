@@ -11,6 +11,7 @@ RUN npm install --prefer-offline
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+ARG CACHEBUST=1
 COPY . .
 RUN ls -la /app/content || echo "content dir missing in builder"
 RUN ls -la /app/content/products | head -5 || echo "products missing in builder"
