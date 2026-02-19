@@ -230,7 +230,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
     <div className="rounded-2xl border border-border bg-card shadow-sm">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-0 gap-3">
+      <div className="flex items-center justify-between px-3 pt-3 pb-0 gap-2 md:px-4 md:pt-4 md:gap-3">
         <h2 className="text-[13px] font-bold text-foreground tracking-tight shrink-0">
           {labels.title}
         </h2>
@@ -249,24 +249,26 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={safePage === 0}
             aria-label="Previous"
-            className="w-9 h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
+            className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
           >
-            <CaretLeft size={14} weight="bold" />
+            <CaretLeft size={12} weight="bold" className="md:hidden" />
+            <CaretLeft size={14} weight="bold" className="hidden md:block" />
           </button>
           <button
             onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
             disabled={safePage >= maxPage}
             aria-label="Next"
-            className="w-9 h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
+            className="w-7 h-7 md:w-9 md:h-9 rounded-lg flex items-center justify-center bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground hover:border-border/80 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 active:scale-[0.92] disabled:opacity-40 disabled:pointer-events-none"
           >
-            <CaretRight size={14} weight="bold" />
+            <CaretRight size={12} weight="bold" className="md:hidden" />
+            <CaretRight size={14} weight="bold" className="hidden md:block" />
           </button>
         </div>
       </div>
 
       {/* ── Category tabs ───────────────────────────────────────────────── */}
       <div
-        className="flex items-center gap-1 px-4 pt-3 pb-3 overflow-x-auto"
+        className="flex items-center gap-1 px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-3 overflow-x-auto"
         style={{ scrollbarWidth: 'none' }}
       >
         {visibleTabs.map((tab) => {
@@ -294,7 +296,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
       </div>
 
       {/* ── Cards viewport — only full cards shown ────────────────────── */}
-      <div ref={viewportRef} className="px-4 pb-5 pt-1">
+      <div ref={viewportRef} className="px-3 pb-4 pt-1 md:px-4 md:pb-5">
         {visible.length > 0 ? (
           <div className="flex gap-2.5" role="list" aria-label="Product cards">
             {visible.map((product) => (
