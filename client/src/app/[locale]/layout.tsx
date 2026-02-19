@@ -8,6 +8,7 @@ import { MobileCallBar } from '@/components/layout/MobileCallBar';
 import { getSiteSettings } from '@/lib/content';
 import { Toaster } from 'sonner';
 import { Agentation } from 'agentation';
+import { ChatAssistant } from '@/features/chat-assistant';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -27,7 +28,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="min-h-[100dvh] flex flex-col bg-background pb-16 md:pb-0">
+      <div className="min-h-dvh flex flex-col bg-background pb-16 md:pb-0">
         <Header locale={locale} />
         <main className="flex-1 pt-17">{children}</main>
         <Footer locale={locale} />
@@ -45,6 +46,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         }}
       />
       {process.env.NODE_ENV === 'development' && <Agentation />}
+      <ChatAssistant />
     </NextIntlClientProvider>
   );
 }
