@@ -153,7 +153,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 pt-20 pb-6 md:pt-32 md:pb-10">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 pt-28 pb-6 md:pt-32 md:pb-10">
 
           {/* Badge — HUD status indicator (hidden on mobile) */}
           <div className="hidden sm:flex justify-center mb-4 md:mb-6">
@@ -169,7 +169,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
 
           {/* Headline */}
-          <div className="text-center mb-5 md:mb-8">
+          <div className="text-center -mt-6 sm:mt-0 mb-5 md:mb-8">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-wrap-balance text-hero-shimmer">
               {t('home.hero_title')}
             </h1>
