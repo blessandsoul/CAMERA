@@ -77,11 +77,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+/* Scrollbar — hidden */
+* { scrollbar-width: none; }
+::-webkit-scrollbar { display: none; }
 
 @layer base {
   html, body, h1, h2, h3, h4, h5, h6 {
