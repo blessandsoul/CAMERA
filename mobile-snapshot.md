@@ -1,0 +1,1813 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e16]:
+    - banner [ref=e18]:
+      - generic [ref=e20]:
+        - link "TechBrain — მთავარი" [ref=e21] [cursor=pointer]:
+          - /url: /ka
+          - generic "TechBrain" [ref=e22]:
+            - img "TechBrain" [ref=e24]
+            - generic [ref=e25]: techbrain
+        - generic [ref=e26]:
+          - button "Select language" [ref=e28] [cursor=pointer]:
+            - img [ref=e29]
+            - generic [ref=e41]: GEO
+            - img [ref=e42]
+          - link "Cart (0 items)" [ref=e44] [cursor=pointer]:
+            - /url: /ka/cart
+            - img [ref=e45]
+          - button "Open menu" [ref=e47] [cursor=pointer]:
+            - img [ref=e48]
+    - main [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e55]:
+            - img "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [ref=e2323]
+            - generic [ref=e62]:
+              - heading "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [level=1] [ref=e2324]
+              - generic [ref=e64]:
+                - paragraph [ref=e2325]: "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG. შიდა გამოყენების გამოყენება. რეზოლუცია: 2 მპ. ლინზა: 2.7 - 13.5 მმ."
+                - generic [ref=e66]:
+                  - generic [ref=e2326]:
+                    - generic [ref=e2327]: "PTZ / PT:"
+                    - generic [ref=e2328]: PTZ
+                  - generic [ref=e2329]:
+                    - generic [ref=e2330]: "ბრენდი:"
+                    - generic [ref=e2331]: Uniview
+                  - generic [ref=e2332]:
+                    - generic [ref=e2333]: "კამერის ტიპი:"
+                    - generic [ref=e2334]: IP
+                  - generic [ref=e2335]:
+                    - generic [ref=e2336]: "კორპუსის ტიპი:"
+                    - generic [ref=e2337]: შიდა გამოყენების
+                  - generic [ref=e2338]:
+                    - generic [ref=e2339]: "CMOS სენსორი:"
+                    - generic [ref=e2340]: 1/2.9" CMOS
+                  - generic [ref=e2341]:
+                    - generic [ref=e2342]: "ლინზა:"
+                    - generic [ref=e2343]: 2.7 - 13.5 მმ
+              - generic [ref=e103]:
+                - link "კატალოგის ნახვა" [ref=e104] [cursor=pointer]:
+                  - /url: /ka/catalog
+                  - text: კატალოგის ნახვა
+                  - img [ref=e105]
+                - link "597470518" [ref=e107] [cursor=pointer]:
+                  - /url: https://wa.me/995597470518
+                  - img [ref=e108]
+                  - text: "597470518"
+              - generic [ref=e110]:
+                - button "Previous" [ref=e111] [cursor=pointer]:
+                  - img [ref=e112]
+                - generic [ref=e114]:
+                  - button "Go to slide 2" [ref=e116] [cursor=pointer]
+                  - button "Go to slide 3" [ref=e117] [cursor=pointer]
+                  - button "Go to slide 4" [ref=e118] [cursor=pointer]
+                  - button "Go to slide 5" [ref=e119] [cursor=pointer]
+                  - button "Go to slide 6" [ref=e120] [cursor=pointer]
+                  - button "Go to slide 7" [ref=e121] [cursor=pointer]
+                  - button "Go to slide 8" [ref=e122] [cursor=pointer]
+                  - button "Go to slide 9" [ref=e123] [cursor=pointer]
+                  - button "Go to slide 10" [ref=e2344] [cursor=pointer]
+                - button "Next" [ref=e124] [cursor=pointer]:
+                  - img [ref=e125]
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - generic [ref=e134]: 500+ დამონტაჟებული კამერა · 2 წლიანი გარანტია
+              - generic [ref=e135]:
+                - heading "კამერები და უსაფრთხოების სისტემები" [level=2] [ref=e136]
+                - paragraph [ref=e137]: პროფესიონალური მონიტორინგი თქვენი სახლისა და ბიზნესისთვის
+            - navigation "Product categories" [ref=e138]:
+              - link "კამერები 67" [ref=e139] [cursor=pointer]:
+                - /url: /ka/catalog?category=cameras
+                - img [ref=e141]
+                - generic [ref=e144]: კამერები
+                - generic [ref=e145]: "67"
+              - link "NVR კომპლექტი 6" [ref=e146] [cursor=pointer]:
+                - /url: /ka/catalog?category=nvr-kits
+                - img [ref=e148]
+                - generic [ref=e151]: NVR კომპლექტი
+                - generic [ref=e152]: "6"
+              - link "მეხსიერება 5" [ref=e153] [cursor=pointer]:
+                - /url: /ka/catalog?category=storage
+                - img [ref=e155]
+                - generic [ref=e158]: მეხსიერება
+                - generic [ref=e159]: "5"
+              - link "აქსესუარები 8" [ref=e160] [cursor=pointer]:
+                - /url: /ka/catalog?category=accessories
+                - img [ref=e162]
+                - generic [ref=e165]: აქსესუარები
+                - generic [ref=e166]: "8"
+              - link "სერვისი 5" [ref=e167] [cursor=pointer]:
+                - /url: /ka/catalog?category=services
+                - img [ref=e169]
+                - generic [ref=e172]: სერვისი
+                - generic [ref=e173]: "5"
+          - generic [ref=e174]:
+            - generic [ref=e175]:
+              - generic [ref=e176]: ყველაზე გაყიდვადი
+              - heading "პოპულარული პროდუქტები" [level=2] [ref=e178]
+            - generic [ref=e179]:
+              - generic [ref=e180]:
+                - button "კამერები 67" [ref=e181] [cursor=pointer]:
+                  - img [ref=e183]
+                  - text: კამერები
+                  - generic [ref=e186]: "67"
+                - button "NVR კომპლექტი 6" [ref=e188] [cursor=pointer]:
+                  - img [ref=e190]
+                  - text: NVR კომპლექტი
+                  - generic [ref=e193]: "6"
+                - button "მეხსიერება 5" [ref=e194] [cursor=pointer]:
+                  - img [ref=e196]
+                  - text: მეხსიერება
+                  - generic [ref=e199]: "5"
+                - button "აქსესუარები 8" [ref=e200] [cursor=pointer]:
+                  - img [ref=e202]
+                  - text: აქსესუარები
+                  - generic [ref=e205]: "8"
+                - button "სერვისი 5" [ref=e206] [cursor=pointer]:
+                  - img [ref=e208]
+                  - text: სერვისი
+                  - generic [ref=e211]: "5"
+                - button "ბოლოს ნანახი" [ref=e212] [cursor=pointer]:
+                  - img [ref=e213]
+                - button "Scroll left" [disabled] [ref=e216]:
+                  - img [ref=e217]
+                - button "Scroll right" [ref=e219] [cursor=pointer]:
+                  - img [ref=e220]
+              - generic [ref=e224]:
+                - link "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN" [ref=e226] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-001
+                  - generic [ref=e227]:
+                    - img "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN" [ref=e228]
+                    - generic [ref=e229]:
+                      - generic "მარაგშია" [ref=e230]:
+                        - img [ref=e231]
+                      - generic "კამერები" [ref=e233]:
+                        - img [ref=e235]
+                  - generic [ref=e238]:
+                    - paragraph [ref=e239]: IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN
+                    - generic [ref=e240]:
+                      - generic [ref=e241]: Tiandy
+                      - generic [ref=e242]: IP
+                    - generic [ref=e243]:
+                      - generic [ref=e244]:
+                        - generic [ref=e245]: "129"
+                        - generic [ref=e246]: ₾
+                      - img [ref=e248]
+                - link "IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G" [ref=e251] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-002
+                  - generic [ref=e252]:
+                    - img "IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G" [ref=e253]
+                    - generic [ref=e254]:
+                      - generic "მარაგშია" [ref=e255]:
+                        - img [ref=e256]
+                      - generic "კამერები" [ref=e258]:
+                        - img [ref=e260]
+                  - generic [ref=e263]:
+                    - paragraph [ref=e264]: IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G
+                    - generic [ref=e265]:
+                      - generic [ref=e266]: კი
+                      - generic [ref=e267]: Uniview
+                    - generic [ref=e268]:
+                      - generic [ref=e269]:
+                        - generic [ref=e270]: "169"
+                        - generic [ref=e271]: ₾
+                      - img [ref=e273]
+                - 'link "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm" [ref=e276] [cursor=pointer]':
+                  - /url: /ka/catalog/camera-003
+                  - generic [ref=e277]:
+                    - 'img "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm" [ref=e278]'
+                    - generic [ref=e279]:
+                      - generic "მარაგშია" [ref=e280]:
+                        - img [ref=e281]
+                      - generic "კამერები" [ref=e283]:
+                        - img [ref=e285]
+                  - generic [ref=e288]:
+                    - paragraph [ref=e289]: "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm"
+                    - generic [ref=e290]:
+                      - generic [ref=e291]: PT
+                      - generic [ref=e292]: Tenda
+                    - generic [ref=e293]:
+                      - generic [ref=e294]:
+                        - generic [ref=e295]: "89"
+                        - generic [ref=e296]: ₾
+                      - img [ref=e298]
+                - link "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG" [ref=e301] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-004
+                  - generic [ref=e302]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG" [ref=e303]
+                    - generic [ref=e304]:
+                      - generic "მარაგშია" [ref=e305]:
+                        - img [ref=e306]
+                      - generic "კამერები" [ref=e308]:
+                        - img [ref=e310]
+                  - generic [ref=e313]:
+                    - paragraph [ref=e314]: სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG
+                    - generic [ref=e315]:
+                      - generic [ref=e316]: PTZ
+                      - generic [ref=e317]: Uniview
+                    - generic [ref=e318]:
+                      - generic [ref=e319]:
+                        - generic [ref=e320]: "79"
+                        - generic [ref=e321]: ₾
+                      - img [ref=e323]
+                - link "კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3" [ref=e326] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-005
+                  - generic [ref=e327]:
+                    - img "კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3" [ref=e328]
+                    - generic [ref=e329]:
+                      - generic "მარაგშია" [ref=e330]:
+                        - img [ref=e331]
+                      - generic "კამერები" [ref=e333]:
+                        - img [ref=e335]
+                  - generic [ref=e338]:
+                    - paragraph [ref=e339]: კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3
+                    - generic [ref=e340]:
+                      - generic [ref=e341]: PT
+                      - generic [ref=e342]: Uniview
+                    - generic [ref=e343]:
+                      - generic [ref=e344]:
+                        - generic [ref=e345]: "89"
+                        - generic [ref=e346]: ₾
+                      - img [ref=e348]
+                - link "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [ref=e351] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-006
+                  - generic [ref=e352]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [ref=e353]
+                    - generic [ref=e354]:
+                      - generic "მარაგშია" [ref=e355]:
+                        - img [ref=e356]
+                      - generic "კამერები" [ref=e358]:
+                        - img [ref=e360]
+                  - generic [ref=e363]:
+                    - paragraph [ref=e364]: სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG
+                    - generic [ref=e365]:
+                      - generic [ref=e366]: PTZ
+                      - generic [ref=e367]: Uniview
+                    - generic [ref=e368]:
+                      - generic [ref=e369]:
+                        - generic [ref=e370]: "79"
+                        - generic [ref=e371]: ₾
+                      - img [ref=e373]
+                - link "IP კამერა - 2MP, 6MM, Bullet, IK10, IR 50M, Uniview, IPC2222EBR5-HDUPF60" [ref=e376] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-007
+                  - generic [ref=e377]:
+                    - img "IP კამერა - 2MP, 6MM, Bullet, IK10, IR 50M, Uniview, IPC2222EBR5-HDUPF60" [ref=e378]
+                    - generic [ref=e379]:
+                      - generic "მარაგშია" [ref=e380]:
+                        - img [ref=e381]
+                      - generic "კამერები" [ref=e383]:
+                        - img [ref=e385]
+                  - generic [ref=e388]:
+                    - paragraph [ref=e389]: IP კამერა - 2MP, 6MM, Bullet, IK10, IR 50M, Uniview, IPC2222EBR5-HDUPF60
+                    - generic [ref=e390]:
+                      - generic [ref=e391]: Uniview
+                      - generic [ref=e392]: IP
+                    - generic [ref=e393]:
+                      - generic [ref=e394]:
+                        - generic [ref=e395]: "79"
+                        - generic [ref=e396]: ₾
+                      - img [ref=e398]
+                - link "2MP HD IR Fixed Mini Bullet Network Camera 4.0, Uniview - IPC2122LB-SF40K-A" [ref=e401] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-008
+                  - generic [ref=e402]:
+                    - img "2MP HD IR Fixed Mini Bullet Network Camera 4.0, Uniview - IPC2122LB-SF40K-A" [ref=e403]
+                    - generic [ref=e404]:
+                      - generic "მარაგშია" [ref=e405]:
+                        - img [ref=e406]
+                      - generic "კამერები" [ref=e408]:
+                        - img [ref=e410]
+                  - generic [ref=e413]:
+                    - paragraph [ref=e414]: 2MP HD IR Fixed Mini Bullet Network Camera 4.0, Uniview - IPC2122LB-SF40K-A
+                    - generic [ref=e415]:
+                      - generic [ref=e416]: Uniview
+                      - generic [ref=e417]: IP
+                    - generic [ref=e418]:
+                      - generic [ref=e419]:
+                        - generic [ref=e420]: "79"
+                        - generic [ref=e421]: ₾
+                      - img [ref=e423]
+                - link "სამეთვალყურეო კამერა, 4mp, 4mm, SD Card, Mic, Uniview, IPC2124LB-ADF40KM-H" [ref=e426] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-009
+                  - generic [ref=e427]:
+                    - img "სამეთვალყურეო კამერა, 4mp, 4mm, SD Card, Mic, Uniview, IPC2124LB-ADF40KM-H" [ref=e428]
+                    - generic [ref=e429]:
+                      - generic "მარაგშია" [ref=e430]:
+                        - img [ref=e431]
+                      - generic "კამერები" [ref=e433]:
+                        - img [ref=e435]
+                  - generic [ref=e438]:
+                    - paragraph [ref=e439]: სამეთვალყურეო კამერა, 4mp, 4mm, SD Card, Mic, Uniview, IPC2124LB-ADF40KM-H
+                    - generic [ref=e440]:
+                      - generic [ref=e441]: Uniview
+                      - generic [ref=e442]: IP
+                    - generic [ref=e443]:
+                      - generic [ref=e444]:
+                        - generic [ref=e445]: "119"
+                        - generic [ref=e446]: ₾
+                      - img [ref=e448]
+                - link "სამეთვალყურეო კამერა, 8mp, 4mm, Uniview, IPC2128LE-ADF40KM-G" [ref=e451] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-010
+                  - generic [ref=e452]:
+                    - img "სამეთვალყურეო კამერა, 8mp, 4mm, Uniview, IPC2128LE-ADF40KM-G" [ref=e453]
+                    - generic [ref=e454]:
+                      - generic "მარაგშია" [ref=e455]:
+                        - img [ref=e456]
+                      - generic "კამერები" [ref=e458]:
+                        - img [ref=e460]
+                  - generic [ref=e463]:
+                    - paragraph [ref=e464]: სამეთვალყურეო კამერა, 8mp, 4mm, Uniview, IPC2128LE-ADF40KM-G
+                    - generic [ref=e465]:
+                      - generic [ref=e466]: Uniview
+                      - generic [ref=e467]: IP
+                    - generic [ref=e468]:
+                      - generic [ref=e469]:
+                        - generic [ref=e470]: "169"
+                        - generic [ref=e471]: ₾
+                      - img [ref=e473]
+                - link "სამეთვალყურეო კამერა, 4mp, 4mm, Uniview, IPC2124LE-ADF40KM-G" [ref=e476] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-011
+                  - generic [ref=e477]:
+                    - img "სამეთვალყურეო კამერა, 4mp, 4mm, Uniview, IPC2124LE-ADF40KM-G" [ref=e478]
+                    - generic [ref=e479]:
+                      - generic "მარაგშია" [ref=e480]:
+                        - img [ref=e481]
+                      - generic "კამერები" [ref=e483]:
+                        - img [ref=e485]
+                  - generic [ref=e488]:
+                    - paragraph [ref=e489]: სამეთვალყურეო კამერა, 4mp, 4mm, Uniview, IPC2124LE-ADF40KM-G
+                    - generic [ref=e490]:
+                      - generic [ref=e491]: Uniview
+                      - generic [ref=e492]: IP
+                    - generic [ref=e493]:
+                      - generic [ref=e494]:
+                        - generic [ref=e495]: "119"
+                        - generic [ref=e496]: ₾
+                      - img [ref=e498]
+                - link "სამეთვალყურეო კამერა, 2mp, 4.0mm, Uniview, IPC2222ER5-DUPF40-C" [ref=e501] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-012
+                  - generic [ref=e502]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 4.0mm, Uniview, IPC2222ER5-DUPF40-C" [ref=e503]
+                    - generic [ref=e504]:
+                      - generic "მარაგშია" [ref=e505]:
+                        - img [ref=e506]
+                      - generic "კამერები" [ref=e508]:
+                        - img [ref=e510]
+                  - generic [ref=e513]:
+                    - paragraph [ref=e514]: სამეთვალყურეო კამერა, 2mp, 4.0mm, Uniview, IPC2222ER5-DUPF40-C
+                    - generic [ref=e515]:
+                      - generic [ref=e516]: Uniview
+                      - generic [ref=e517]: IP
+                    - generic [ref=e518]:
+                      - generic [ref=e519]:
+                        - generic [ref=e520]: "89"
+                        - generic [ref=e521]: ₾
+                      - img [ref=e523]
+                - link "სამეთვალყურეო კამერა, 4mp, 4mm, Uniview, IPC2314SB-ADF40KM-I0" [ref=e526] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-013
+                  - generic [ref=e527]:
+                    - img "სამეთვალყურეო კამერა, 4mp, 4mm, Uniview, IPC2314SB-ADF40KM-I0" [ref=e528]
+                    - generic [ref=e529]:
+                      - generic "მარაგშია" [ref=e530]:
+                        - img [ref=e531]
+                      - generic "კამერები" [ref=e533]:
+                        - img [ref=e535]
+                  - generic [ref=e538]:
+                    - paragraph [ref=e539]: სამეთვალყურეო კამერა, 4mp, 4mm, Uniview, IPC2314SB-ADF40KM-I0
+                    - generic [ref=e540]:
+                      - generic [ref=e541]: Uniview
+                      - generic [ref=e542]: IP
+                    - generic [ref=e543]:
+                      - generic [ref=e544]:
+                        - generic [ref=e545]: "109"
+                        - generic [ref=e546]: ₾
+                      - img [ref=e548]
+                - link "სამეთვალყურეო კამერა, 5mp, 2.8mm, Uniview, IPC2125LE-ADF40KM-G" [ref=e551] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-014
+                  - generic [ref=e552]:
+                    - img "სამეთვალყურეო კამერა, 5mp, 2.8mm, Uniview, IPC2125LE-ADF40KM-G" [ref=e553]
+                    - generic [ref=e554]:
+                      - generic "მარაგშია" [ref=e555]:
+                        - img [ref=e556]
+                      - generic "კამერები" [ref=e558]:
+                        - img [ref=e560]
+                  - generic [ref=e563]:
+                    - paragraph [ref=e564]: სამეთვალყურეო კამერა, 5mp, 2.8mm, Uniview, IPC2125LE-ADF40KM-G
+                    - generic [ref=e565]:
+                      - generic [ref=e566]: Uniview
+                      - generic [ref=e567]: IP
+                    - generic [ref=e568]:
+                      - generic [ref=e569]:
+                        - generic [ref=e570]: "129"
+                        - generic [ref=e571]: ₾
+                      - img [ref=e573]
+                - link "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SB-ADF40KMC-I0" [ref=e576] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-015
+                  - generic [ref=e577]:
+                    - img "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SB-ADF40KMC-I0" [ref=e578]
+                    - generic [ref=e579]:
+                      - generic "მარაგშია" [ref=e580]:
+                        - img [ref=e581]
+                      - generic "კამერები" [ref=e583]:
+                        - img [ref=e585]
+                  - generic [ref=e588]:
+                    - paragraph [ref=e589]: სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SB-ADF40KMC-I0
+                    - generic [ref=e590]:
+                      - generic [ref=e591]: Uniview
+                      - generic [ref=e592]: IP
+                    - generic [ref=e593]:
+                      - generic [ref=e594]:
+                        - generic [ref=e595]: "109"
+                        - generic [ref=e596]: ₾
+                      - img [ref=e598]
+                - link "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122LB-ADF40KM-G" [ref=e601] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-016
+                  - generic [ref=e602]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122LB-ADF40KM-G" [ref=e603]
+                    - generic [ref=e604]:
+                      - generic "მარაგშია" [ref=e605]:
+                        - img [ref=e606]
+                      - generic "კამერები" [ref=e608]:
+                        - img [ref=e610]
+                  - generic [ref=e613]:
+                    - paragraph [ref=e614]: სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122LB-ADF40KM-G
+                    - generic [ref=e615]:
+                      - generic [ref=e616]: Uniview
+                      - generic [ref=e617]: IP
+                    - generic [ref=e618]:
+                      - generic [ref=e619]:
+                        - generic [ref=e620]: "89"
+                        - generic [ref=e621]: ₾
+                      - img [ref=e623]
+                - link "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122LB-SF40-A" [ref=e626] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-017
+                  - generic [ref=e627]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122LB-SF40-A" [ref=e628]
+                    - generic [ref=e629]:
+                      - generic "მარაგშია" [ref=e630]:
+                        - img [ref=e631]
+                      - generic "კამერები" [ref=e633]:
+                        - img [ref=e635]
+                  - generic [ref=e638]:
+                    - paragraph [ref=e639]: სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122LB-SF40-A
+                    - generic [ref=e640]:
+                      - generic [ref=e641]: Uniview
+                      - generic [ref=e642]: IP
+                    - generic [ref=e643]:
+                      - generic [ref=e644]:
+                        - generic [ref=e645]: "79"
+                        - generic [ref=e646]: ₾
+                      - img [ref=e648]
+                - link "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC314SB-ADF28K-I0" [ref=e651] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-018
+                  - generic [ref=e652]:
+                    - img "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC314SB-ADF28K-I0" [ref=e653]
+                    - generic [ref=e654]:
+                      - generic "მარაგშია" [ref=e655]:
+                        - img [ref=e656]
+                      - generic "კამერები" [ref=e658]:
+                        - img [ref=e660]
+                  - generic [ref=e663]:
+                    - paragraph [ref=e664]: სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC314SB-ADF28K-I0
+                    - generic [ref=e665]:
+                      - generic [ref=e666]: Uniview
+                      - generic [ref=e667]: IP
+                    - generic [ref=e668]:
+                      - generic [ref=e669]:
+                        - generic [ref=e670]: "109"
+                        - generic [ref=e671]: ₾
+                      - img [ref=e673]
+                - link "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122SR3-PF40-C" [ref=e676] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-019
+                  - generic [ref=e677]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122SR3-PF40-C" [ref=e678]
+                    - generic [ref=e679]:
+                      - generic "მარაგშია" [ref=e680]:
+                        - img [ref=e681]
+                      - generic "კამერები" [ref=e683]:
+                        - img [ref=e685]
+                  - generic [ref=e688]:
+                    - paragraph [ref=e689]: სამეთვალყურეო კამერა, 2mp, 4mm, Uniview, IPC2122SR3-PF40-C
+                    - generic [ref=e690]:
+                      - generic [ref=e691]: Uniview
+                      - generic [ref=e692]: IP
+                    - generic [ref=e693]:
+                      - generic [ref=e694]:
+                        - generic [ref=e695]: "79"
+                        - generic [ref=e696]: ₾
+                      - img [ref=e698]
+                - link "Tenda cp3 pro - 3MP Home Smart Wi-Fi Camera With 360° Rotation" [ref=e701] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-020
+                  - generic [ref=e702]:
+                    - img "Tenda cp3 pro - 3MP Home Smart Wi-Fi Camera With 360° Rotation" [ref=e703]
+                    - generic [ref=e704]:
+                      - generic "მარაგშია" [ref=e705]:
+                        - img [ref=e706]
+                      - generic "კამერები" [ref=e708]:
+                        - img [ref=e710]
+                  - generic [ref=e713]:
+                    - paragraph [ref=e714]: Tenda cp3 pro - 3MP Home Smart Wi-Fi Camera With 360° Rotation
+                    - generic [ref=e715]:
+                      - generic [ref=e716]: PT
+                      - generic [ref=e717]: Tenda
+                    - generic [ref=e718]:
+                      - generic [ref=e719]:
+                        - generic [ref=e720]: "79"
+                        - generic [ref=e721]: ₾
+                      - img [ref=e723]
+                - link "სამეთვალყურეო კამერა, 2mp, 2.8mm, Uniview, Uho-B1R-M2F4" [ref=e726] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-021
+                  - generic [ref=e727]:
+                    - img "სამეთვალყურეო კამერა, 2mp, 2.8mm, Uniview, Uho-B1R-M2F4" [ref=e728]
+                    - generic [ref=e729]:
+                      - generic "მარაგშია" [ref=e730]:
+                        - img [ref=e731]
+                      - generic "კამერები" [ref=e733]:
+                        - img [ref=e735]
+                  - generic [ref=e738]:
+                    - paragraph [ref=e739]: სამეთვალყურეო კამერა, 2mp, 2.8mm, Uniview, Uho-B1R-M2F4
+                    - generic [ref=e740]:
+                      - generic [ref=e741]: Uniview
+                      - generic [ref=e742]: გარე გამოყენების
+                    - generic [ref=e743]:
+                      - generic [ref=e744]:
+                        - generic [ref=e745]: "89"
+                        - generic [ref=e746]: ₾
+                      - img [ref=e748]
+                - link "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SR3-ADPF40M-F" [ref=e751] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-022
+                  - generic [ref=e752]:
+                    - img "სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SR3-ADPF40M-F" [ref=e753]
+                    - generic [ref=e754]:
+                      - generic "მარაგშია" [ref=e755]:
+                        - img [ref=e756]
+                      - generic "კამერები" [ref=e758]:
+                        - img [ref=e760]
+                  - generic [ref=e763]:
+                    - paragraph [ref=e764]: სამეთვალყურეო კამერა, 4mp, 2.8mm, Uniview, IPC2124SR3-ADPF40M-F
+                    - generic [ref=e765]:
+                      - generic [ref=e766]: Uniview
+                      - generic [ref=e767]: IP
+                    - generic [ref=e768]:
+                      - generic [ref=e769]:
+                        - generic [ref=e770]: "119"
+                        - generic [ref=e771]: ₾
+                      - img [ref=e773]
+                - link "სამეთვალყურეო კამერა, 4G, 4mm, Ezviz, CS-EB8/SP-R100" [ref=e776] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-023
+                  - generic [ref=e777]:
+                    - img "სამეთვალყურეო კამერა, 4G, 4mm, Ezviz, CS-EB8/SP-R100" [ref=e778]
+                    - generic [ref=e779]:
+                      - generic "მარაგშია" [ref=e780]:
+                        - img [ref=e781]
+                      - generic "კამერები" [ref=e783]:
+                        - img [ref=e785]
+                  - generic [ref=e788]:
+                    - paragraph [ref=e789]: სამეთვალყურეო კამერა, 4G, 4mm, Ezviz, CS-EB8/SP-R100
+                    - generic [ref=e790]:
+                      - generic [ref=e791]: PT
+                      - generic [ref=e792]: Ezviz
+                    - generic [ref=e793]:
+                      - generic [ref=e794]:
+                        - generic [ref=e795]: "89"
+                        - generic [ref=e796]: ₾
+                      - img [ref=e798]
+                - link "სამეთვალყურეო კამერა, 5mp, 2.8 - 12mm, Uniview, IPC2325LB-ADZK-H" [ref=e801] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-024
+                  - generic [ref=e802]:
+                    - img "სამეთვალყურეო კამერა, 5mp, 2.8 - 12mm, Uniview, IPC2325LB-ADZK-H" [ref=e803]
+                    - generic [ref=e804]:
+                      - generic "მარაგშია" [ref=e805]:
+                        - img [ref=e806]
+                      - generic "კამერები" [ref=e808]:
+                        - img [ref=e810]
+                  - generic [ref=e813]:
+                    - paragraph [ref=e814]: სამეთვალყურეო კამერა, 5mp, 2.8 - 12mm, Uniview, IPC2325LB-ADZK-H
+                    - generic [ref=e815]:
+                      - generic [ref=e816]: Uniview
+                      - generic [ref=e817]: IP
+                    - generic [ref=e818]:
+                      - generic [ref=e819]:
+                        - generic [ref=e820]: "139"
+                        - generic [ref=e821]: ₾
+                      - img [ref=e823]
+                - link "სამეთვალყურეო კამერა, 2.8mm, 2mp, IP, Hikvision, DS-2CD2121G0-IS" [ref=e826] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-025
+                  - generic [ref=e827]:
+                    - img "სამეთვალყურეო კამერა, 2.8mm, 2mp, IP, Hikvision, DS-2CD2121G0-IS" [ref=e828]
+                    - generic [ref=e829]:
+                      - generic "მარაგშია" [ref=e830]:
+                        - img [ref=e831]
+                      - generic "კამერები" [ref=e833]:
+                        - img [ref=e835]
+                  - generic [ref=e838]:
+                    - paragraph [ref=e839]: სამეთვალყურეო კამერა, 2.8mm, 2mp, IP, Hikvision, DS-2CD2121G0-IS
+                    - generic [ref=e840]:
+                      - generic [ref=e841]: Hikvision
+                      - generic [ref=e842]: IP
+                    - generic [ref=e843]:
+                      - generic [ref=e844]:
+                        - generic [ref=e845]: "99"
+                        - generic [ref=e846]: ₾
+                      - img [ref=e848]
+                - link "სამეთვალყურეო კამერა IP, 4 MP AcuSense Smart Hybrid Light, Hikvision, DS-2CD2347G2-LU" [ref=e851] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-026
+                  - generic [ref=e852]:
+                    - img "სამეთვალყურეო კამერა IP, 4 MP AcuSense Smart Hybrid Light, Hikvision, DS-2CD2347G2-LU" [ref=e853]
+                    - generic [ref=e854]:
+                      - generic "მარაგშია" [ref=e855]:
+                        - img [ref=e856]
+                      - generic "კამერები" [ref=e858]:
+                        - img [ref=e860]
+                  - generic [ref=e863]:
+                    - paragraph [ref=e864]: სამეთვალყურეო კამერა IP, 4 MP AcuSense Smart Hybrid Light, Hikvision, DS-2CD2347G2-LU
+                    - generic [ref=e865]:
+                      - generic [ref=e866]: კი
+                      - generic [ref=e867]: Hikvision
+                    - generic [ref=e868]:
+                      - generic [ref=e869]:
+                        - generic [ref=e870]: "139"
+                        - generic [ref=e871]: ₾
+                      - img [ref=e873]
+                - link "კამერა, IP, 2.8-12mm, 4mp, Dome, IR40m, MVFL, AcuSense, Hikvision, DS-2CD2743G2-IZS" [ref=e876] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-027
+                  - generic [ref=e877]:
+                    - img "კამერა, IP, 2.8-12mm, 4mp, Dome, IR40m, MVFL, AcuSense, Hikvision, DS-2CD2743G2-IZS" [ref=e878]
+                    - generic [ref=e879]:
+                      - generic "მარაგშია" [ref=e880]:
+                        - img [ref=e881]
+                      - generic "კამერები" [ref=e883]:
+                        - img [ref=e885]
+                  - generic [ref=e888]:
+                    - paragraph [ref=e889]: კამერა, IP, 2.8-12mm, 4mp, Dome, IR40m, MVFL, AcuSense, Hikvision, DS-2CD2743G2-IZS
+                    - generic [ref=e890]:
+                      - generic [ref=e891]: კი
+                      - generic [ref=e892]: Hikvision
+                    - generic [ref=e893]:
+                      - generic [ref=e894]:
+                        - generic [ref=e895]: "129"
+                        - generic [ref=e896]: ₾
+                      - img [ref=e898]
+                - link "Hikvision DS-2CD2046G2-IU, IP კამერა, 4mp, 2.8mm" [ref=e901] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-028
+                  - generic [ref=e902]:
+                    - img "Hikvision DS-2CD2046G2-IU, IP კამერა, 4mp, 2.8mm" [ref=e903]
+                    - generic [ref=e904]:
+                      - generic "მარაგშია" [ref=e905]:
+                        - img [ref=e906]
+                      - generic "კამერები" [ref=e908]:
+                        - img [ref=e910]
+                  - generic [ref=e913]:
+                    - paragraph [ref=e914]: Hikvision DS-2CD2046G2-IU, IP კამერა, 4mp, 2.8mm
+                    - generic [ref=e915]:
+                      - generic [ref=e916]: კი
+                      - generic [ref=e917]: Hikvision
+                    - generic [ref=e918]:
+                      - generic [ref=e919]:
+                        - generic [ref=e920]: "139"
+                        - generic [ref=e921]: ₾
+                      - img [ref=e923]
+                - link "Hiwatch კამერა, DS-T200(B), 2.8mm, HDTVI, 2mp, Bullet, Fix, IR20m" [ref=e926] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-029
+                  - generic [ref=e927]:
+                    - img "Hiwatch კამერა, DS-T200(B), 2.8mm, HDTVI, 2mp, Bullet, Fix, IR20m" [ref=e928]
+                    - generic [ref=e929]:
+                      - generic "მარაგშია" [ref=e930]:
+                        - img [ref=e931]
+                      - generic "კამერები" [ref=e933]:
+                        - img [ref=e935]
+                  - generic [ref=e938]:
+                    - paragraph [ref=e939]: Hiwatch კამერა, DS-T200(B), 2.8mm, HDTVI, 2mp, Bullet, Fix, IR20m
+                    - generic [ref=e940]:
+                      - generic [ref=e941]: HiWatch
+                      - generic [ref=e942]: ანალოგური
+                    - generic [ref=e943]:
+                      - generic [ref=e944]:
+                        - generic [ref=e945]: "89"
+                        - generic [ref=e946]: ₾
+                      - img [ref=e948]
+                - link "IP კამერა - 4მპ, 4მმ, Bullet, 4G, Mic, SD, Hikvision, DS-2CD2T47G2-L" [ref=e951] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-030
+                  - generic [ref=e952]:
+                    - img "IP კამერა - 4მპ, 4მმ, Bullet, 4G, Mic, SD, Hikvision, DS-2CD2T47G2-L" [ref=e953]
+                    - generic [ref=e954]:
+                      - generic "მარაგშია" [ref=e955]:
+                        - img [ref=e956]
+                      - generic "კამერები" [ref=e958]:
+                        - img [ref=e960]
+                  - generic [ref=e963]:
+                    - paragraph [ref=e964]: IP კამერა - 4მპ, 4მმ, Bullet, 4G, Mic, SD, Hikvision, DS-2CD2T47G2-L
+                    - generic [ref=e965]:
+                      - generic [ref=e966]: Hikvision
+                      - generic [ref=e967]: IP
+                    - generic [ref=e968]:
+                      - generic [ref=e969]:
+                        - generic [ref=e970]: "119"
+                        - generic [ref=e971]: ₾
+                      - img [ref=e973]
+                - link "IP კამერა - 4მპ, Dome, PTZ, 16x, SD, Hikvision, DS-2DE4A425IWG-E" [ref=e976] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-031
+                  - generic [ref=e977]:
+                    - img "IP კამერა - 4მპ, Dome, PTZ, 16x, SD, Hikvision, DS-2DE4A425IWG-E" [ref=e978]
+                    - generic [ref=e979]:
+                      - generic "მარაგშია" [ref=e980]:
+                        - img [ref=e981]
+                      - generic "კამერები" [ref=e983]:
+                        - img [ref=e985]
+                  - generic [ref=e988]:
+                    - paragraph [ref=e989]: IP კამერა - 4მპ, Dome, PTZ, 16x, SD, Hikvision, DS-2DE4A425IWG-E
+                    - generic [ref=e990]:
+                      - generic [ref=e991]: PTZ
+                      - generic [ref=e992]: Hikvision
+                    - generic [ref=e993]:
+                      - generic [ref=e994]:
+                        - generic [ref=e995]: "129"
+                        - generic [ref=e996]: ₾
+                      - img [ref=e998]
+                - link "კამერა, IP, 4mm, 4mp, Bullet, IR80m, AcuSense, microSD, Hikvision, DS-2CD2T47G2-L" [ref=e1001] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-032
+                  - generic [ref=e1002]:
+                    - img "კამერა, IP, 4mm, 4mp, Bullet, IR80m, AcuSense, microSD, Hikvision, DS-2CD2T47G2-L" [ref=e1003]
+                    - generic [ref=e1004]:
+                      - generic "მარაგშია" [ref=e1005]:
+                        - img [ref=e1006]
+                      - generic "კამერები" [ref=e1008]:
+                        - img [ref=e1010]
+                  - generic [ref=e1013]:
+                    - paragraph [ref=e1014]: კამერა, IP, 4mm, 4mp, Bullet, IR80m, AcuSense, microSD, Hikvision, DS-2CD2T47G2-L
+                    - generic [ref=e1015]:
+                      - generic [ref=e1016]: კი
+                      - generic [ref=e1017]: Hikvision
+                    - generic [ref=e1018]:
+                      - generic [ref=e1019]:
+                        - generic [ref=e1020]: "119"
+                        - generic [ref=e1021]: ₾
+                      - img [ref=e1023]
+                - link "კამერა, 2.8mm, IP, 4mp, Bullet, Fix, IR30m, HiWatch, DS-I400(D)" [ref=e1026] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-033
+                  - generic [ref=e1027]:
+                    - img "კამერა, 2.8mm, IP, 4mp, Bullet, Fix, IR30m, HiWatch, DS-I400(D)" [ref=e1028]
+                    - generic [ref=e1029]:
+                      - generic "მარაგშია" [ref=e1030]:
+                        - img [ref=e1031]
+                      - generic "კამერები" [ref=e1033]:
+                        - img [ref=e1035]
+                  - generic [ref=e1038]:
+                    - paragraph [ref=e1039]: კამერა, 2.8mm, IP, 4mp, Bullet, Fix, IR30m, HiWatch, DS-I400(D)
+                    - generic [ref=e1040]:
+                      - generic [ref=e1041]: HiWatch
+                      - generic [ref=e1042]: IP
+                    - generic [ref=e1043]:
+                      - generic [ref=e1044]:
+                        - generic [ref=e1045]: "119"
+                        - generic [ref=e1046]: ₾
+                      - img [ref=e1048]
+                - link "სამეთვალყურეო კამერა, 4mm, 4mp, IP, Hikvision, DS-2CD2143G2-LI" [ref=e1051] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-034
+                  - generic [ref=e1052]:
+                    - img "სამეთვალყურეო კამერა, 4mm, 4mp, IP, Hikvision, DS-2CD2143G2-LI" [ref=e1053]
+                    - generic [ref=e1054]:
+                      - generic "მარაგშია" [ref=e1055]:
+                        - img [ref=e1056]
+                      - generic "კამერები" [ref=e1058]:
+                        - img [ref=e1060]
+                  - generic [ref=e1063]:
+                    - paragraph [ref=e1064]: სამეთვალყურეო კამერა, 4mm, 4mp, IP, Hikvision, DS-2CD2143G2-LI
+                    - generic [ref=e1065]:
+                      - generic [ref=e1066]: კი
+                      - generic [ref=e1067]: Hikvision
+                    - generic [ref=e1068]:
+                      - generic [ref=e1069]:
+                        - generic [ref=e1070]: "129"
+                        - generic [ref=e1071]: ₾
+                      - img [ref=e1073]
+                - link "IP კამერა - 4მპ, 2.8მმ, Turret, Mic, SD, ColorHunter, Hikvision, DS-2CD2347G2-LU" [ref=e1076] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-035
+                  - generic [ref=e1077]:
+                    - img "IP კამერა - 4მპ, 2.8მმ, Turret, Mic, SD, ColorHunter, Hikvision, DS-2CD2347G2-LU" [ref=e1078]
+                    - generic [ref=e1079]:
+                      - generic "მარაგშია" [ref=e1080]:
+                        - img [ref=e1081]
+                      - generic "კამერები" [ref=e1083]:
+                        - img [ref=e1085]
+                  - generic [ref=e1088]:
+                    - paragraph [ref=e1089]: IP კამერა - 4მპ, 2.8მმ, Turret, Mic, SD, ColorHunter, Hikvision, DS-2CD2347G2-LU
+                    - generic [ref=e1090]:
+                      - generic [ref=e1091]: კი
+                      - generic [ref=e1092]: Hikvision
+                    - generic [ref=e1093]:
+                      - generic [ref=e1094]:
+                        - generic [ref=e1095]: "129"
+                        - generic [ref=e1096]: ₾
+                      - img [ref=e1098]
+                - link "IP კამერა - 4მპ, VF, Dome, Mic, SD, Hikvision, DS-2CD2743G2-IZS" [ref=e1101] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-036
+                  - generic [ref=e1102]:
+                    - img "IP კამერა - 4მპ, VF, Dome, Mic, SD, Hikvision, DS-2CD2743G2-IZS" [ref=e1103]
+                    - generic [ref=e1104]:
+                      - generic "მარაგშია" [ref=e1105]:
+                        - img [ref=e1106]
+                      - generic "კამერები" [ref=e1108]:
+                        - img [ref=e1110]
+                  - generic [ref=e1113]:
+                    - paragraph [ref=e1114]: IP კამერა - 4მპ, VF, Dome, Mic, SD, Hikvision, DS-2CD2743G2-IZS
+                    - generic [ref=e1115]:
+                      - generic [ref=e1116]: კი
+                      - generic [ref=e1117]: Hikvision
+                    - generic [ref=e1118]:
+                      - generic [ref=e1119]:
+                        - generic [ref=e1120]: "139"
+                        - generic [ref=e1121]: ₾
+                      - img [ref=e1123]
+                - link "კამერა, IP, 4mm, 4mp, Dome, IR30m, AcuSense, Mic, Hikvision, DS-2CD2143G2-I" [ref=e1126] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-037
+                  - generic [ref=e1127]:
+                    - img "კამერა, IP, 4mm, 4mp, Dome, IR30m, AcuSense, Mic, Hikvision, DS-2CD2143G2-I" [ref=e1128]
+                    - generic [ref=e1129]:
+                      - generic "მარაგშია" [ref=e1130]:
+                        - img [ref=e1131]
+                      - generic "კამერები" [ref=e1133]:
+                        - img [ref=e1135]
+                  - generic [ref=e1138]:
+                    - paragraph [ref=e1139]: კამერა, IP, 4mm, 4mp, Dome, IR30m, AcuSense, Mic, Hikvision, DS-2CD2143G2-I
+                    - generic [ref=e1140]:
+                      - generic [ref=e1141]: კი
+                      - generic [ref=e1142]: Hikvision
+                    - generic [ref=e1143]:
+                      - generic [ref=e1144]:
+                        - generic [ref=e1145]: "129"
+                        - generic [ref=e1146]: ₾
+                      - img [ref=e1148]
+                - link "IP კამერა - 2მპ, 4მმ, Bullet, Hikvision, DS-2CD2123G2-I" [ref=e1151] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-038
+                  - generic [ref=e1152]:
+                    - img "IP კამერა - 2მპ, 4მმ, Bullet, Hikvision, DS-2CD2123G2-I" [ref=e1153]
+                    - generic [ref=e1154]:
+                      - generic "მარაგშია" [ref=e1155]:
+                        - img [ref=e1156]
+                      - generic "კამერები" [ref=e1158]:
+                        - img [ref=e1160]
+                  - generic [ref=e1163]:
+                    - paragraph [ref=e1164]: IP კამერა - 2მპ, 4მმ, Bullet, Hikvision, DS-2CD2123G2-I
+                    - generic [ref=e1165]:
+                      - generic [ref=e1166]: კი
+                      - generic [ref=e1167]: Hikvision
+                    - generic [ref=e1168]:
+                      - generic [ref=e1169]:
+                        - generic [ref=e1170]: "109"
+                        - generic [ref=e1171]: ₾
+                      - img [ref=e1173]
+                - link "IP კამერა - 2მპ, 2.8მმ, Dome, Hikvision, DS-2CD2123G2-I" [ref=e1176] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-039
+                  - generic [ref=e1177]:
+                    - img "IP კამერა - 2მპ, 2.8მმ, Dome, Hikvision, DS-2CD2123G2-I" [ref=e1178]
+                    - generic [ref=e1179]:
+                      - generic "მარაგშია" [ref=e1180]:
+                        - img [ref=e1181]
+                      - generic "კამერები" [ref=e1183]:
+                        - img [ref=e1185]
+                  - generic [ref=e1188]:
+                    - paragraph [ref=e1189]: IP კამერა - 2მპ, 2.8მმ, Dome, Hikvision, DS-2CD2123G2-I
+                    - generic [ref=e1190]:
+                      - generic [ref=e1191]: კი
+                      - generic [ref=e1192]: Hikvision
+                    - generic [ref=e1193]:
+                      - generic [ref=e1194]:
+                        - generic [ref=e1195]: "89"
+                        - generic [ref=e1196]: ₾
+                      - img [ref=e1198]
+                - link "სამეთვალყურეო კამერა, Ezviz CB3" [ref=e1201] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-040
+                  - generic [ref=e1202]:
+                    - img "სამეთვალყურეო კამერა, Ezviz CB3" [ref=e1203]
+                    - generic [ref=e1204]:
+                      - generic "მარაგშია" [ref=e1205]:
+                        - img [ref=e1206]
+                      - generic "კამერები" [ref=e1208]:
+                        - img [ref=e1210]
+                  - generic [ref=e1213]:
+                    - paragraph [ref=e1214]: სამეთვალყურეო კამერა, Ezviz CB3
+                    - generic [ref=e1215]:
+                      - generic [ref=e1216]: Ezviz
+                      - generic [ref=e1217]: IP
+                    - generic [ref=e1218]:
+                      - generic [ref=e1219]:
+                        - generic [ref=e1220]: "79"
+                        - generic [ref=e1221]: ₾
+                      - img [ref=e1223]
+                - link "IP კამერა - 4მპ, VF, Bullet, Hikvision, DS-2CD2T47G2-L(2.8mm)" [ref=e1226] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-041
+                  - generic [ref=e1227]:
+                    - img "IP კამერა - 4მპ, VF, Bullet, Hikvision, DS-2CD2T47G2-L(2.8mm)" [ref=e1228]
+                    - generic [ref=e1229]:
+                      - generic "მარაგშია" [ref=e1230]:
+                        - img [ref=e1231]
+                      - generic "კამერები" [ref=e1233]:
+                        - img [ref=e1235]
+                  - generic [ref=e1238]:
+                    - paragraph [ref=e1239]: IP კამერა - 4მპ, VF, Bullet, Hikvision, DS-2CD2T47G2-L(2.8mm)
+                    - generic [ref=e1240]:
+                      - generic [ref=e1241]: კი
+                      - generic [ref=e1242]: Hikvision
+                    - generic [ref=e1243]:
+                      - generic [ref=e1244]:
+                        - generic [ref=e1245]: "129"
+                        - generic [ref=e1246]: ₾
+                      - img [ref=e1248]
+                - link "სამეთვალყურეო კამერა, IP, 2.8mm, 2mp, Hikvision, DS-2CD2T23G0-I5" [ref=e1251] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-042
+                  - generic [ref=e1252]:
+                    - img "სამეთვალყურეო კამერა, IP, 2.8mm, 2mp, Hikvision, DS-2CD2T23G0-I5" [ref=e1253]
+                    - generic [ref=e1254]:
+                      - generic "მარაგშია" [ref=e1255]:
+                        - img [ref=e1256]
+                      - generic "კამერები" [ref=e1258]:
+                        - img [ref=e1260]
+                  - generic [ref=e1263]:
+                    - paragraph [ref=e1264]: სამეთვალყურეო კამერა, IP, 2.8mm, 2mp, Hikvision, DS-2CD2T23G0-I5
+                    - generic [ref=e1265]:
+                      - generic [ref=e1266]: Hikvision
+                      - generic [ref=e1267]: IP
+                    - generic [ref=e1268]:
+                      - generic [ref=e1269]:
+                        - generic [ref=e1270]: "99"
+                        - generic [ref=e1271]: ₾
+                      - img [ref=e1273]
+                - link "IP კამერა - 4მპ, 4მმ, Bullet, Hikvision, DS-2CD2047G2-LU/C" [ref=e1276] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-043
+                  - generic [ref=e1277]:
+                    - img "IP კამერა - 4მპ, 4მმ, Bullet, Hikvision, DS-2CD2047G2-LU/C" [ref=e1278]
+                    - generic [ref=e1279]:
+                      - generic "მარაგშია" [ref=e1280]:
+                        - img [ref=e1281]
+                      - generic "კამერები" [ref=e1283]:
+                        - img [ref=e1285]
+                  - generic [ref=e1288]:
+                    - paragraph [ref=e1289]: IP კამერა - 4მპ, 4მმ, Bullet, Hikvision, DS-2CD2047G2-LU/C
+                    - generic [ref=e1290]:
+                      - generic [ref=e1291]: კი
+                      - generic [ref=e1292]: Hikvision
+                    - generic [ref=e1293]:
+                      - generic [ref=e1294]:
+                        - generic [ref=e1295]: "119"
+                        - generic [ref=e1296]: ₾
+                      - img [ref=e1298]
+                - link "Dahua IP კამერა 4MP Full-color Fixed-focal Bullet" [ref=e1301] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-044
+                  - generic [ref=e1302]:
+                    - img "Dahua IP კამერა 4MP Full-color Fixed-focal Bullet" [ref=e1303]
+                    - generic [ref=e1304]:
+                      - generic "მარაგშია" [ref=e1305]:
+                        - img [ref=e1306]
+                      - generic "კამერები" [ref=e1308]:
+                        - img [ref=e1310]
+                  - generic [ref=e1313]:
+                    - paragraph [ref=e1314]: Dahua IP კამერა 4MP Full-color Fixed-focal Bullet
+                    - generic [ref=e1315]:
+                      - generic [ref=e1316]: Dahua
+                      - generic [ref=e1317]: IP
+                    - generic [ref=e1318]:
+                      - generic [ref=e1319]:
+                        - generic [ref=e1320]: "119"
+                        - generic [ref=e1321]: ₾
+                      - img [ref=e1323]
+                - link "Dahua IP კამერა 4MP IR Fixed-focal Bullet" [ref=e1326] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-045
+                  - generic [ref=e1327]:
+                    - img "Dahua IP კამერა 4MP IR Fixed-focal Bullet" [ref=e1328]
+                    - generic [ref=e1329]:
+                      - generic "მარაგშია" [ref=e1330]:
+                        - img [ref=e1331]
+                      - generic "კამერები" [ref=e1333]:
+                        - img [ref=e1335]
+                  - generic [ref=e1338]:
+                    - paragraph [ref=e1339]: Dahua IP კამერა 4MP IR Fixed-focal Bullet
+                    - generic [ref=e1340]:
+                      - generic [ref=e1341]: Dahua
+                      - generic [ref=e1342]: IP
+                    - generic [ref=e1343]:
+                      - generic [ref=e1344]:
+                        - generic [ref=e1345]: "119"
+                        - generic [ref=e1346]: ₾
+                      - img [ref=e1348]
+                - link "Dahua IP კამერა 8MP IR Fixed-focal Bullet" [ref=e1351] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-046
+                  - generic [ref=e1352]:
+                    - img "Dahua IP კამერა 8MP IR Fixed-focal Bullet" [ref=e1353]
+                    - generic [ref=e1354]:
+                      - generic "მარაგშია" [ref=e1355]:
+                        - img [ref=e1356]
+                      - generic "კამერები" [ref=e1358]:
+                        - img [ref=e1360]
+                  - generic [ref=e1363]:
+                    - paragraph [ref=e1364]: Dahua IP კამერა 8MP IR Fixed-focal Bullet
+                    - generic [ref=e1365]:
+                      - generic [ref=e1366]: Dahua
+                      - generic [ref=e1367]: IP
+                    - generic [ref=e1368]:
+                      - generic [ref=e1369]:
+                        - generic [ref=e1370]: "189"
+                        - generic [ref=e1371]: ₾
+                      - img [ref=e1373]
+                - link "Dahua IP კამერა 4MP IR Fixed-focal Dome" [ref=e1376] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-047
+                  - generic [ref=e1377]:
+                    - img "Dahua IP კამერა 4MP IR Fixed-focal Dome" [ref=e1378]
+                    - generic [ref=e1379]:
+                      - generic "მარაგშია" [ref=e1380]:
+                        - img [ref=e1381]
+                      - generic "კამერები" [ref=e1383]:
+                        - img [ref=e1385]
+                  - generic [ref=e1388]:
+                    - paragraph [ref=e1389]: Dahua IP კამერა 4MP IR Fixed-focal Dome
+                    - generic [ref=e1390]:
+                      - generic [ref=e1391]: Dahua
+                      - generic [ref=e1392]: IP
+                    - generic [ref=e1393]:
+                      - generic [ref=e1394]:
+                        - generic [ref=e1395]: "119"
+                        - generic [ref=e1396]: ₾
+                      - img [ref=e1398]
+                - link "Dahua IP კამერა 4MP Full-color Fixed-focal Dome" [ref=e1401] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-048
+                  - generic [ref=e1402]:
+                    - img "Dahua IP კამერა 4MP Full-color Fixed-focal Dome" [ref=e1403]
+                    - generic [ref=e1404]:
+                      - generic "მარაგშია" [ref=e1405]:
+                        - img [ref=e1406]
+                      - generic "კამერები" [ref=e1408]:
+                        - img [ref=e1410]
+                  - generic [ref=e1413]:
+                    - paragraph [ref=e1414]: Dahua IP კამერა 4MP Full-color Fixed-focal Dome
+                    - generic [ref=e1415]:
+                      - generic [ref=e1416]: Dahua
+                      - generic [ref=e1417]: IP
+                    - generic [ref=e1418]:
+                      - generic [ref=e1419]:
+                        - generic [ref=e1420]: "119"
+                        - generic [ref=e1421]: ₾
+                      - img [ref=e1423]
+                - link "Dahua IP კამერა 8MP Vari-focal Bullet" [ref=e1426] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-049
+                  - generic [ref=e1427]:
+                    - img "Dahua IP კამერა 8MP Vari-focal Bullet" [ref=e1428]
+                    - generic [ref=e1429]:
+                      - generic "მარაგშია" [ref=e1430]:
+                        - img [ref=e1431]
+                      - generic "კამერები" [ref=e1433]:
+                        - img [ref=e1435]
+                  - generic [ref=e1438]:
+                    - paragraph [ref=e1439]: Dahua IP კამერა 8MP Vari-focal Bullet
+                    - generic [ref=e1440]:
+                      - generic [ref=e1441]: Dahua
+                      - generic [ref=e1442]: IP
+                    - generic [ref=e1443]:
+                      - generic [ref=e1444]:
+                        - generic [ref=e1445]: "189"
+                        - generic [ref=e1446]: ₾
+                      - img [ref=e1448]
+                - link "Dahua IP კამერა 2MP IR Fixed-focal Bullet" [ref=e1451] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-050
+                  - generic [ref=e1452]:
+                    - img "Dahua IP კამერა 2MP IR Fixed-focal Bullet" [ref=e1453]
+                    - generic [ref=e1454]:
+                      - generic "მარაგშია" [ref=e1455]:
+                        - img [ref=e1456]
+                      - generic "კამერები" [ref=e1458]:
+                        - img [ref=e1460]
+                  - generic [ref=e1463]:
+                    - paragraph [ref=e1464]: Dahua IP კამერა 2MP IR Fixed-focal Bullet
+                    - generic [ref=e1465]:
+                      - generic [ref=e1466]: Dahua
+                      - generic [ref=e1467]: IP
+                    - generic [ref=e1468]:
+                      - generic [ref=e1469]:
+                        - generic [ref=e1470]: "79"
+                        - generic [ref=e1471]: ₾
+                      - img [ref=e1473]
+                - link "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Bullet" [ref=e1476] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-051
+                  - generic [ref=e1477]:
+                    - img "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Bullet" [ref=e1478]
+                    - generic [ref=e1479]:
+                      - generic "მარაგშია" [ref=e1480]:
+                        - img [ref=e1481]
+                      - generic "კამერები" [ref=e1483]:
+                        - img [ref=e1485]
+                  - generic [ref=e1488]:
+                    - paragraph [ref=e1489]: Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Bullet
+                    - generic [ref=e1490]:
+                      - generic [ref=e1491]: Dahua
+                      - generic [ref=e1492]: IP
+                    - generic [ref=e1493]:
+                      - generic [ref=e1494]:
+                        - generic [ref=e1495]: "119"
+                        - generic [ref=e1496]: ₾
+                      - img [ref=e1498]
+                - link "Dahua IP კამერა 8MP Smart Dual Light Fixed-focal Dome" [ref=e1501] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-052
+                  - generic [ref=e1502]:
+                    - img "Dahua IP კამერა 8MP Smart Dual Light Fixed-focal Dome" [ref=e1503]
+                    - generic [ref=e1504]:
+                      - generic "მარაგშია" [ref=e1505]:
+                        - img [ref=e1506]
+                      - generic "კამერები" [ref=e1508]:
+                        - img [ref=e1510]
+                  - generic [ref=e1513]:
+                    - paragraph [ref=e1514]: Dahua IP კამერა 8MP Smart Dual Light Fixed-focal Dome
+                    - generic [ref=e1515]:
+                      - generic [ref=e1516]: Dahua
+                      - generic [ref=e1517]: IP
+                    - generic [ref=e1518]:
+                      - generic [ref=e1519]:
+                        - generic [ref=e1520]: "189"
+                        - generic [ref=e1521]: ₾
+                      - img [ref=e1523]
+                - link "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Dome" [ref=e1526] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-053
+                  - generic [ref=e1527]:
+                    - img "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Dome" [ref=e1528]
+                    - generic [ref=e1529]:
+                      - generic "მარაგშია" [ref=e1530]:
+                        - img [ref=e1531]
+                      - generic "კამერები" [ref=e1533]:
+                        - img [ref=e1535]
+                  - generic [ref=e1538]:
+                    - paragraph [ref=e1539]: Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Dome
+                    - generic [ref=e1540]:
+                      - generic [ref=e1541]: Dahua
+                      - generic [ref=e1542]: IP
+                    - generic [ref=e1543]:
+                      - generic [ref=e1544]:
+                        - generic [ref=e1545]: "109"
+                        - generic [ref=e1546]: ₾
+                      - img [ref=e1548]
+                - link "Dahua IP კამერა 2MP Fixed-focal Dome" [ref=e1551] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-054
+                  - generic [ref=e1552]:
+                    - img "Dahua IP კამერა 2MP Fixed-focal Dome" [ref=e1553]
+                    - generic [ref=e1554]:
+                      - generic "მარაგშია" [ref=e1555]:
+                        - img [ref=e1556]
+                      - generic "კამერები" [ref=e1558]:
+                        - img [ref=e1560]
+                  - generic [ref=e1563]:
+                    - paragraph [ref=e1564]: Dahua IP კამერა 2MP Fixed-focal Dome
+                    - generic [ref=e1565]:
+                      - generic [ref=e1566]: Dahua
+                      - generic [ref=e1567]: IP
+                    - generic [ref=e1568]:
+                      - generic [ref=e1569]:
+                        - generic [ref=e1570]: "99"
+                        - generic [ref=e1571]: ₾
+                      - img [ref=e1573]
+                - link "Dahua IP კამერა 4MP IR Fixed-focal Bullet Network" [ref=e1576] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-055
+                  - generic [ref=e1577]:
+                    - img "Dahua IP კამერა 4MP IR Fixed-focal Bullet Network" [ref=e1578]
+                    - generic [ref=e1579]:
+                      - generic "მარაგშია" [ref=e1580]:
+                        - img [ref=e1581]
+                      - generic "კამერები" [ref=e1583]:
+                        - img [ref=e1585]
+                  - generic [ref=e1588]:
+                    - paragraph [ref=e1589]: Dahua IP კამერა 4MP IR Fixed-focal Bullet Network
+                    - generic [ref=e1590]:
+                      - generic [ref=e1591]: Dahua
+                      - generic [ref=e1592]: IP
+                    - generic [ref=e1593]:
+                      - generic [ref=e1594]:
+                        - generic [ref=e1595]: "119"
+                        - generic [ref=e1596]: ₾
+                      - img [ref=e1598]
+                - link "Dahua IP კამერა 8MP IR Fixed-focal Dome" [ref=e1601] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-056
+                  - generic [ref=e1602]:
+                    - img "Dahua IP კამერა 8MP IR Fixed-focal Dome" [ref=e1603]
+                    - generic [ref=e1604]:
+                      - generic "მარაგშია" [ref=e1605]:
+                        - img [ref=e1606]
+                      - generic "კამერები" [ref=e1608]:
+                        - img [ref=e1610]
+                  - generic [ref=e1613]:
+                    - paragraph [ref=e1614]: Dahua IP კამერა 8MP IR Fixed-focal Dome
+                    - generic [ref=e1615]:
+                      - generic [ref=e1616]: Dahua
+                      - generic [ref=e1617]: IP
+                    - generic [ref=e1618]:
+                      - generic [ref=e1619]:
+                        - generic [ref=e1620]: "189"
+                        - generic [ref=e1621]: ₾
+                      - img [ref=e1623]
+                - link "Dahua IP კამერა 2MP Fixed-focal Mini Bullet" [ref=e1626] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-057
+                  - generic [ref=e1627]:
+                    - img "Dahua IP კამერა 2MP Fixed-focal Mini Bullet" [ref=e1628]
+                    - generic [ref=e1629]:
+                      - generic "მარაგშია" [ref=e1630]:
+                        - img [ref=e1631]
+                      - generic "კამერები" [ref=e1633]:
+                        - img [ref=e1635]
+                  - generic [ref=e1638]:
+                    - paragraph [ref=e1639]: Dahua IP კამერა 2MP Fixed-focal Mini Bullet
+                    - generic [ref=e1640]:
+                      - generic [ref=e1641]: Dahua
+                      - generic [ref=e1642]: IP
+                    - generic [ref=e1643]:
+                      - generic [ref=e1644]:
+                        - generic [ref=e1645]: "89"
+                        - generic [ref=e1646]: ₾
+                      - img [ref=e1648]
+                - link "Dahua IP კამერა 5MP Full-color Fixed-focal Eyeball" [ref=e1651] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-058
+                  - generic [ref=e1652]:
+                    - img "Dahua IP კამერა 5MP Full-color Fixed-focal Eyeball" [ref=e1653]
+                    - generic [ref=e1654]:
+                      - generic "მარაგშია" [ref=e1655]:
+                        - img [ref=e1656]
+                      - generic "კამერები" [ref=e1658]:
+                        - img [ref=e1660]
+                  - generic [ref=e1663]:
+                    - paragraph [ref=e1664]: Dahua IP კამერა 5MP Full-color Fixed-focal Eyeball
+                    - generic [ref=e1665]:
+                      - generic [ref=e1666]: Dahua
+                      - generic [ref=e1667]: IP
+                    - generic [ref=e1668]:
+                      - generic [ref=e1669]:
+                        - generic [ref=e1670]: "149"
+                        - generic [ref=e1671]: ₾
+                      - img [ref=e1673]
+                - link "Dahua IP კამერა 2MP IR Fixed-focal Dome Network" [ref=e1676] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-059
+                  - generic [ref=e1677]:
+                    - img "Dahua IP კამერა 2MP IR Fixed-focal Dome Network" [ref=e1678]
+                    - generic [ref=e1679]:
+                      - generic "მარაგშია" [ref=e1680]:
+                        - img [ref=e1681]
+                      - generic "კამერები" [ref=e1683]:
+                        - img [ref=e1685]
+                  - generic [ref=e1688]:
+                    - paragraph [ref=e1689]: Dahua IP კამერა 2MP IR Fixed-focal Dome Network
+                    - generic [ref=e1690]:
+                      - generic [ref=e1691]: Dahua
+                      - generic [ref=e1692]: IP
+                    - generic [ref=e1693]:
+                      - generic [ref=e1694]:
+                        - generic [ref=e1695]: "89"
+                        - generic [ref=e1696]: ₾
+                      - img [ref=e1698]
+                - link "Dahua IP კამერა 4MP IR Mini Fixed-focal Dome" [ref=e1701] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-060
+                  - generic [ref=e1702]:
+                    - img "Dahua IP კამერა 4MP IR Mini Fixed-focal Dome" [ref=e1703]
+                    - generic [ref=e1704]:
+                      - generic "მარაგშია" [ref=e1705]:
+                        - img [ref=e1706]
+                      - generic "კამერები" [ref=e1708]:
+                        - img [ref=e1710]
+                  - generic [ref=e1713]:
+                    - paragraph [ref=e1714]: Dahua IP კამერა 4MP IR Mini Fixed-focal Dome
+                    - generic [ref=e1715]:
+                      - generic [ref=e1716]: Dahua
+                      - generic [ref=e1717]: IP
+                    - generic [ref=e1718]:
+                      - generic [ref=e1719]:
+                        - generic [ref=e1720]: "109"
+                        - generic [ref=e1721]: ₾
+                      - img [ref=e1723]
+                - link "Dahua IP კამერა 4MP Vari-focal Dome" [ref=e1726] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-061
+                  - generic [ref=e1727]:
+                    - img "Dahua IP კამერა 4MP Vari-focal Dome" [ref=e1728]
+                    - generic [ref=e1729]:
+                      - generic "მარაგშია" [ref=e1730]:
+                        - img [ref=e1731]
+                      - generic "კამერები" [ref=e1733]:
+                        - img [ref=e1735]
+                  - generic [ref=e1738]:
+                    - paragraph [ref=e1739]: Dahua IP კამერა 4MP Vari-focal Dome
+                    - generic [ref=e1740]:
+                      - generic [ref=e1741]: Dahua
+                      - generic [ref=e1742]: IP
+                    - generic [ref=e1743]:
+                      - generic [ref=e1744]:
+                        - generic [ref=e1745]: "129"
+                        - generic [ref=e1746]: ₾
+                      - img [ref=e1748]
+                - link "Dahua IP კამერა 4MP Smart Dual Light PT WiFi Bullet" [ref=e1751] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-062
+                  - generic [ref=e1752]:
+                    - img "Dahua IP კამერა 4MP Smart Dual Light PT WiFi Bullet" [ref=e1753]
+                    - generic [ref=e1754]:
+                      - generic "მარაგშია" [ref=e1755]:
+                        - img [ref=e1756]
+                      - generic "კამერები" [ref=e1758]:
+                        - img [ref=e1760]
+                  - generic [ref=e1763]:
+                    - paragraph [ref=e1764]: Dahua IP კამერა 4MP Smart Dual Light PT WiFi Bullet
+                    - generic [ref=e1765]:
+                      - generic [ref=e1766]: PT
+                      - generic [ref=e1767]: Dahua
+                    - generic [ref=e1768]:
+                      - generic [ref=e1769]:
+                        - generic [ref=e1770]: "119"
+                        - generic [ref=e1771]: ₾
+                      - img [ref=e1773]
+                - link "Dahua IP კამერა 8MP Smart Dual Light Fixed-focal Bullet" [ref=e1776] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-063
+                  - generic [ref=e1777]:
+                    - img "Dahua IP კამერა 8MP Smart Dual Light Fixed-focal Bullet" [ref=e1778]
+                    - generic [ref=e1779]:
+                      - generic "მარაგშია" [ref=e1780]:
+                        - img [ref=e1781]
+                      - generic "კამერები" [ref=e1783]:
+                        - img [ref=e1785]
+                  - generic [ref=e1788]:
+                    - paragraph [ref=e1789]: Dahua IP კამერა 8MP Smart Dual Light Fixed-focal Bullet
+                    - generic [ref=e1790]:
+                      - generic [ref=e1791]: კი
+                      - generic [ref=e1792]: Dahua
+                    - generic [ref=e1793]:
+                      - generic [ref=e1794]:
+                        - generic [ref=e1795]: "199"
+                        - generic [ref=e1796]: ₾
+                      - img [ref=e1798]
+                - link "Dahua IP კამერა 5MP Smart Dual Light Fixed-focal Dome" [ref=e1801] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-064
+                  - generic [ref=e1802]:
+                    - img "Dahua IP კამერა 5MP Smart Dual Light Fixed-focal Dome" [ref=e1803]
+                    - generic [ref=e1804]:
+                      - generic "მარაგშია" [ref=e1805]:
+                        - img [ref=e1806]
+                      - generic "კამერები" [ref=e1808]:
+                        - img [ref=e1810]
+                  - generic [ref=e1813]:
+                    - paragraph [ref=e1814]: Dahua IP კამერა 5MP Smart Dual Light Fixed-focal Dome
+                    - generic [ref=e1815]:
+                      - generic [ref=e1816]: კი
+                      - generic [ref=e1817]: Dahua
+                    - generic [ref=e1818]:
+                      - generic [ref=e1819]:
+                        - generic [ref=e1820]: "129"
+                        - generic [ref=e1821]: ₾
+                      - img [ref=e1823]
+                - link "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Bullet AI" [ref=e1826] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-065
+                  - generic [ref=e1827]:
+                    - img "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Bullet AI" [ref=e1828]
+                    - generic [ref=e1829]:
+                      - generic "მარაგშია" [ref=e1830]:
+                        - img [ref=e1831]
+                      - generic "კამერები" [ref=e1833]:
+                        - img [ref=e1835]
+                  - generic [ref=e1838]:
+                    - paragraph [ref=e1839]: Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Bullet AI
+                    - generic [ref=e1840]:
+                      - generic [ref=e1841]: კი
+                      - generic [ref=e1842]: Dahua
+                    - generic [ref=e1843]:
+                      - generic [ref=e1844]:
+                        - generic [ref=e1845]: "119"
+                        - generic [ref=e1846]: ₾
+                      - img [ref=e1848]
+                - link "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Eyeball" [ref=e1851] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-066
+                  - generic [ref=e1852]:
+                    - img "Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Eyeball" [ref=e1853]
+                    - generic [ref=e1854]:
+                      - generic "მარაგშია" [ref=e1855]:
+                        - img [ref=e1856]
+                      - generic "კამერები" [ref=e1858]:
+                        - img [ref=e1860]
+                  - generic [ref=e1863]:
+                    - paragraph [ref=e1864]: Dahua IP კამერა 4MP Smart Dual Light Fixed-focal Eyeball
+                    - generic [ref=e1865]:
+                      - generic [ref=e1866]: კი
+                      - generic [ref=e1867]: Dahua
+                    - generic [ref=e1868]:
+                      - generic [ref=e1869]:
+                        - generic [ref=e1870]: "109"
+                        - generic [ref=e1871]: ₾
+                      - img [ref=e1873]
+                - link "Dahua IP კამერა 4MP Smart Dual Light PT WiFi Dome" [ref=e1876] [cursor=pointer]:
+                  - /url: /ka/catalog/camera-067
+                  - generic [ref=e1877]:
+                    - img "Dahua IP კამერა 4MP Smart Dual Light PT WiFi Dome" [ref=e1878]
+                    - generic [ref=e1879]:
+                      - generic "მარაგშია" [ref=e1880]:
+                        - img [ref=e1881]
+                      - generic "კამერები" [ref=e1883]:
+                        - img [ref=e1885]
+                  - generic [ref=e1888]:
+                    - paragraph [ref=e1889]: Dahua IP კამერა 4MP Smart Dual Light PT WiFi Dome
+                    - generic [ref=e1890]:
+                      - generic [ref=e1891]: PT
+                      - generic [ref=e1892]: Dahua
+                    - generic [ref=e1893]:
+                      - generic [ref=e1894]:
+                        - generic [ref=e1895]: "129"
+                        - generic [ref=e1896]: ₾
+                      - img [ref=e1898]
+        - region "პოპულარული პროდუქტები" [ref=e1900]:
+          - generic [ref=e1901]:
+            - generic [ref=e1903]:
+              - generic [ref=e1904]: ყველაზე გაყიდვადი პროდუქტები
+              - heading "პოპულარული პროდუქტები" [level=2] [ref=e1906]
+            - generic [ref=e1907]:
+              - generic [ref=e1909]:
+                - button "ბარათები" [ref=e1910] [cursor=pointer]
+                - button "ვიტრინა" [ref=e1911] [cursor=pointer]
+              - generic [ref=e1912]:
+                - article [ref=e1913]:
+                  - link "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN" [ref=e1914] [cursor=pointer]:
+                    - /url: /ka/catalog/camera-001
+                    - img "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN" [ref=e1915]
+                    - generic [ref=e1917]: კამერები
+                  - button "Add to favorites" [ref=e1920] [cursor=pointer]:
+                    - img [ref=e1921]
+                  - generic [ref=e1923]:
+                    - link "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN" [ref=e1924] [cursor=pointer]:
+                      - /url: /ka/catalog/camera-001
+                      - heading "IP კამერა 5მპ Fixed IR Fisheye, Tiandy - TC-C35VN" [level=3] [ref=e1925]
+                    - generic [ref=e1926]:
+                      - generic [ref=e1927]:
+                        - generic [ref=e1928]: ფასი
+                        - generic [ref=e1929]: 129₾
+                      - button "კალათაში დამატება" [ref=e1931] [cursor=pointer]:
+                        - img [ref=e1932]
+                - article [ref=e1934]:
+                  - link "IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G" [ref=e1935] [cursor=pointer]:
+                    - /url: /ka/catalog/camera-002
+                    - img "IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G" [ref=e1936]
+                    - generic [ref=e1938]: კამერები
+                  - button "Add to favorites" [ref=e1941] [cursor=pointer]:
+                    - img [ref=e1942]
+                  - generic [ref=e1944]:
+                    - link "IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G" [ref=e1945] [cursor=pointer]:
+                      - /url: /ka/catalog/camera-002
+                      - heading "IP კამერა - 8მპ 4მმ Bullet, 3-Axis, Uniview - IPC2128LB-ADF40K-G" [level=3] [ref=e1946]
+                    - generic [ref=e1947]:
+                      - generic [ref=e1948]:
+                        - generic [ref=e1949]: ფასი
+                        - generic [ref=e1950]: 169₾
+                      - button "კალათაში დამატება" [ref=e1952] [cursor=pointer]:
+                        - img [ref=e1953]
+                - article [ref=e1955]:
+                  - 'link "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm" [ref=e1956] [cursor=pointer]':
+                    - /url: /ka/catalog/camera-003
+                    - 'img "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm" [ref=e1957]'
+                    - generic [ref=e1959]: კამერები
+                  - button "Add to favorites" [ref=e1962] [cursor=pointer]:
+                    - img [ref=e1963]
+                  - generic [ref=e1965]:
+                    - 'link "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm" [ref=e1966] [cursor=pointer]':
+                      - /url: /ka/catalog/camera-003
+                      - 'heading "Tenda RH9-WCA - IP Camera with 2 lens: 3MP Fixed 4mm + 3MP PT 6mm" [level=3] [ref=e1967]'
+                    - generic [ref=e1968]:
+                      - generic [ref=e1969]:
+                        - generic [ref=e1970]: ფასი
+                        - generic [ref=e1971]: 89₾
+                      - button "კალათაში დამატება" [ref=e1973] [cursor=pointer]:
+                        - img [ref=e1974]
+                - article [ref=e1976]:
+                  - link "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG" [ref=e1977] [cursor=pointer]:
+                    - /url: /ka/catalog/camera-004
+                    - img "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG" [ref=e1978]
+                    - generic [ref=e1980]: კამერები
+                  - button "Add to favorites" [ref=e1983] [cursor=pointer]:
+                    - img [ref=e1984]
+                  - generic [ref=e1986]:
+                    - link "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG" [ref=e1987] [cursor=pointer]:
+                      - /url: /ka/catalog/camera-004
+                      - heading "სამეთვალყურეო კამერა, 2mp, 5 - 80mm, Uniview, IPC6412LR-X16-VG" [level=3] [ref=e1988]
+                    - generic [ref=e1989]:
+                      - generic [ref=e1990]:
+                        - generic [ref=e1991]: ფასი
+                        - generic [ref=e1992]: 79₾
+                      - button "კალათაში დამატება" [ref=e1994] [cursor=pointer]:
+                        - img [ref=e1995]
+                - article [ref=e1997]:
+                  - link "კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3" [ref=e1998] [cursor=pointer]:
+                    - /url: /ka/catalog/camera-005
+                    - img "კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3" [ref=e1999]
+                    - generic [ref=e2001]: კამერები
+                  - button "Add to favorites" [ref=e2004] [cursor=pointer]:
+                    - img [ref=e2005]
+                  - generic [ref=e2007]:
+                    - link "კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3" [ref=e2008] [cursor=pointer]:
+                      - /url: /ka/catalog/camera-005
+                      - heading "კამერა, 3mp, 4mm, Uniview, Uho-S2E-M3" [level=3] [ref=e2009]
+                    - generic [ref=e2010]:
+                      - generic [ref=e2011]:
+                        - generic [ref=e2012]: ფასი
+                        - generic [ref=e2013]: 89₾
+                      - button "კალათაში დამატება" [ref=e2015] [cursor=pointer]:
+                        - img [ref=e2016]
+                - article [ref=e2018]:
+                  - link "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [ref=e2019] [cursor=pointer]:
+                    - /url: /ka/catalog/camera-006
+                    - img "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [ref=e2020]
+                    - generic [ref=e2022]: კამერები
+                  - button "Add to favorites" [ref=e2025] [cursor=pointer]:
+                    - img [ref=e2026]
+                  - generic [ref=e2028]:
+                    - link "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [ref=e2029] [cursor=pointer]:
+                      - /url: /ka/catalog/camera-006
+                      - heading "სამეთვალყურეო კამერა, 2mp, 2.7-13.5mm, Uniview, IPC6412LR-X5UPW-VG" [level=3] [ref=e2030]
+                    - generic [ref=e2031]:
+                      - generic [ref=e2032]:
+                        - generic [ref=e2033]: ფასი
+                        - generic [ref=e2034]: 79₾
+                      - button "კალათაში დამატება" [ref=e2036] [cursor=pointer]:
+                        - img [ref=e2037]
+        - region "განხორციელებული პროექტები" [ref=e2039]:
+          - generic [ref=e2040]:
+            - generic [ref=e2042]:
+              - generic [ref=e2043]: ჩვენი გამოცდილება
+              - heading "განხორციელებული პროექტები" [level=2] [ref=e2045]
+            - generic [ref=e2046]:
+              - generic [ref=e2047]:
+                - generic [ref=e2048]: 500+
+                - generic [ref=e2049]: კამერა
+              - generic [ref=e2050]:
+                - generic [ref=e2051]: 120+
+                - generic [ref=e2052]: პროექტი
+              - generic [ref=e2053]:
+                - generic [ref=e2054]: 5+
+                - generic [ref=e2055]: წელი
+            - generic [ref=e2056]:
+              - article [ref=e2057]:
+                - generic [ref=e2058]:
+                  - img "სუპერმარკეტების ქსელი \"სმარტი\"" [ref=e2059]
+                  - generic [ref=e2061]: "2025"
+                  - generic [ref=e2064]:
+                    - generic [ref=e2067]: "120"
+                    - generic [ref=e2068]: კამერა
+                - generic [ref=e2069]:
+                  - generic [ref=e2070]:
+                    - img [ref=e2071]
+                    - generic [ref=e2074]: სავაჭრო
+                  - heading "სუპერმარკეტების ქსელი \"სმარტი\"" [level=3] [ref=e2075]
+                  - generic [ref=e2076]:
+                    - img [ref=e2077]
+                    - generic [ref=e2079]: მთელი საქართველო
+              - article [ref=e2080]:
+                - generic [ref=e2081]:
+                  - img "ოფისური ცენტრი \"სითი ტაუერი\"" [ref=e2082]
+                  - generic [ref=e2084]: "2025"
+                  - generic [ref=e2087]:
+                    - generic [ref=e2090]: "32"
+                    - generic [ref=e2091]: კამერა
+                - generic [ref=e2092]:
+                  - generic [ref=e2093]:
+                    - img [ref=e2094]
+                    - generic [ref=e2097]: ოფისი
+                  - heading "ოფისური ცენტრი \"სითი ტაუერი\"" [level=3] [ref=e2098]
+                  - generic [ref=e2099]:
+                    - img [ref=e2100]
+                    - generic [ref=e2102]: თბილისი, მთაწმინდა
+              - article [ref=e2103]:
+                - generic [ref=e2104]:
+                  - img "საცხოვრებელი კომპლექსი \"ნიუ სითი\"" [ref=e2105]
+                  - generic [ref=e2107]: "2024"
+                  - generic [ref=e2110]:
+                    - generic [ref=e2113]: "24"
+                    - generic [ref=e2114]: კამერა
+                - generic [ref=e2115]:
+                  - generic [ref=e2116]:
+                    - img [ref=e2117]
+                    - generic [ref=e2120]: საცხოვრებელი
+                  - heading "საცხოვრებელი კომპლექსი \"ნიუ სითი\"" [level=3] [ref=e2121]
+                  - generic [ref=e2122]:
+                    - img [ref=e2123]
+                    - generic [ref=e2125]: თბილისი, საბურთალო
+              - article [ref=e2126]:
+                - generic [ref=e2127]:
+                  - img "სავაჭრო ცენტრი \"გალერეა\"" [ref=e2128]
+                  - generic [ref=e2130]: "2024"
+                  - generic [ref=e2133]:
+                    - generic [ref=e2136]: "48"
+                    - generic [ref=e2137]: კამერა
+                - generic [ref=e2138]:
+                  - generic [ref=e2139]:
+                    - img [ref=e2140]
+                    - generic [ref=e2143]: კომერციული
+                  - heading "სავაჭრო ცენტრი \"გალერეა\"" [level=3] [ref=e2144]
+                  - generic [ref=e2145]:
+                    - img [ref=e2146]
+                    - generic [ref=e2148]: თბილისი, ვაკე
+        - region "სტატიები და რჩევები" [ref=e2149]:
+          - generic [ref=e2150]:
+            - generic [ref=e2152]:
+              - generic [ref=e2153]: სასარგებლო ინფორმაცია
+              - heading "სტატიები და რჩევები" [level=2] [ref=e2155]
+            - link [ref=e2157] [cursor=pointer]:
+              - /url: /ka/blog/rogor-aviron-sakhlis-kamera
+              - article [ref=e2158]:
+                - generic [ref=e2159]:
+                  - img [ref=e2161]
+                  - generic [ref=e2166]: guides
+                - generic [ref=e2168]:
+                  - generic [ref=e2169]:
+                    - generic [ref=e2170]: 19 თებ. 2026
+                    - generic [ref=e2172]:
+                      - img [ref=e2173]
+                      - generic [ref=e2175]: 5 წთ
+                  - heading "როგორ ავირჩიოთ სახლისთვის სათვალთვალო კამერა 2025 წელს" [level=3] [ref=e2176]
+                  - paragraph [ref=e2177]: IP კამერა, WiFi კამერა თუ ანალოგური? განვიხილოთ მთავარი განსხვავებები და ვარიანტი თქვენი ბიუჯეტისა და მოთხოვნების მიხედვით.
+                  - generic [ref=e2179]:
+                    - text: წაკითხვა
+                    - img [ref=e2180]
+            - link "ყველა სტატია" [ref=e2183] [cursor=pointer]:
+              - /url: /ka/blog
+              - text: ყველა სტატია
+              - img [ref=e2184]
+        - region "ჩვენს შესახებ" [ref=e2186]:
+          - generic [ref=e2187]:
+            - generic [ref=e2188]:
+              - generic [ref=e2189]: ჩვენი გამოცდილება და სერვისი
+              - heading "ჩვენს შესახებ" [level=2] [ref=e2191]
+            - generic [ref=e2192]:
+              - generic [ref=e2193]:
+                - img [ref=e2195]
+                - generic [ref=e2198]:
+                  - heading "მონტაჟი" [level=3] [ref=e2199]
+                  - paragraph [ref=e2200]: პროფესიონალური კამერების მონტაჟი
+              - generic [ref=e2201]:
+                - img [ref=e2203]
+                - generic [ref=e2206]:
+                  - heading "გარანტია" [level=3] [ref=e2207]
+                  - paragraph [ref=e2208]: ყველა პროდუქტზე გარანტია
+              - generic [ref=e2209]:
+                - img [ref=e2211]
+                - generic [ref=e2214]:
+                  - heading "მიტანა" [level=3] [ref=e2215]
+                  - paragraph [ref=e2216]: სწრაფი მიტანა მთელ საქართველოში
+        - region "გაქვთ კითხვები?" [ref=e2217]:
+          - generic [ref=e2218]:
+            - generic [ref=e2223]: დაგვიკავშირდით და ჩვენ დაგეხმარებით
+            - heading "გაქვთ კითხვები?" [level=2] [ref=e2224]
+            - paragraph [ref=e2225]: პროფესიონალური მონიტორინგი თქვენი სახლისა და ბიზნესისთვის
+            - link "WhatsApp — 597470518" [ref=e2226] [cursor=pointer]:
+              - /url: https://wa.me/995597470518
+              - img [ref=e2227]
+              - generic [ref=e2229]: "597470518"
+            - paragraph [ref=e2230]: დარეკე ახლა
+    - contentinfo [ref=e2231]:
+      - generic [ref=e2232]:
+        - generic [ref=e2233]:
+          - generic [ref=e2234]:
+            - generic "TechBrain" [ref=e2236]:
+              - img "TechBrain" [ref=e2238]
+              - generic [ref=e2239]: techbrain
+            - paragraph [ref=e2240]: კამერები და უსაფრთხოების სისტემები
+          - generic [ref=e2241]:
+            - heading "კატალოგი" [level=3] [ref=e2242]
+            - list [ref=e2243]:
+              - listitem [ref=e2244]:
+                - link "კამერები" [ref=e2245] [cursor=pointer]:
+                  - /url: /ka/catalog?category=cameras
+              - listitem [ref=e2246]:
+                - link "NVR კომპლექტები" [ref=e2247] [cursor=pointer]:
+                  - /url: /ka/catalog?category=nvr-kits
+              - listitem [ref=e2248]:
+                - link "შენახვა" [ref=e2249] [cursor=pointer]:
+                  - /url: /ka/catalog?category=storage
+              - listitem [ref=e2250]:
+                - link "სერვისი" [ref=e2251] [cursor=pointer]:
+                  - /url: /ka/catalog?category=services
+          - generic [ref=e2252]:
+            - heading "კონტაქტი" [level=3] [ref=e2253]
+            - link "597470518" [ref=e2254] [cursor=pointer]:
+              - /url: https://wa.me/995597470518
+              - img [ref=e2255]
+              - generic [ref=e2257]: "597470518"
+        - paragraph [ref=e2259]: © 2026 TechBrain. ყველა უფლება დაცულია.
+    - 'link "დარეკე: 597470518" [ref=e2261] [cursor=pointer]':
+      - /url: tel:+995597470518
+      - img [ref=e2262]
+      - generic [ref=e2264]: "597470518"
+  - region "Notifications alt+T"
+  - generic [ref=e2266]:
+    - generic: გაღვიძება! 📷
+    - button "კამერა-ასისტენტი" [ref=e2267] [cursor=pointer]:
+      - img [ref=e2269]:
+        - generic [ref=e2345]: z
+        - generic [ref=e2346]: z
+        - generic [ref=e2347]: z
+  - button "Open Next.js Dev Tools" [ref=e11] [cursor=pointer]:
+    - img [ref=e12]
+  - alert [ref=e15]
+  - button "/agentation v2.2.1 Output Detail Standard React Components Marker Colour Purple Blue Cyan Green Yellow Orange Red Clear on copy/send Block page interactions Manage MCP & Webhooks Manage MCP & Webhooks MCP Connection MCP connection allows agents to receive and act on annotations. Learn more Webhooks Auto-Send The webhook URL will receive live annotation changes and annotation data." [ref=e2289] [cursor=pointer]:
+    - img [ref=e2291]
+    - generic:
+      - generic:
+        - button:
+          - img
+      - generic:
+        - button [disabled]:
+          - img
+      - generic:
+        - button [disabled]:
+          - img
+      - generic:
+        - button [disabled]:
+          - img
+      - generic:
+        - button [disabled]:
+          - img
+      - generic:
+        - button:
+          - img
+      - generic:
+        - button:
+          - img
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic: /agentation
+            - generic: v2.2.1
+            - button "Switch to light mode":
+              - generic:
+                - generic:
+                  - img
+          - generic:
+            - generic:
+              - generic:
+                - text: Output Detail
+                - generic:
+                  - generic:
+                    - img
+              - button "Standard":
+                - generic: Standard
+            - generic:
+              - generic:
+                - text: React Components
+                - generic:
+                  - generic:
+                    - img
+              - generic:
+                - checkbox [checked]
+          - generic:
+            - generic: Marker Colour
+            - generic:
+              - button "Purple":
+                - generic "Purple"
+              - button "Blue":
+                - generic "Blue"
+              - button "Cyan":
+                - generic "Cyan"
+              - button "Green":
+                - generic "Green"
+              - button "Yellow":
+                - generic "Yellow"
+              - button "Orange":
+                - generic "Orange"
+              - button "Red":
+                - generic "Red"
+          - generic:
+            - generic:
+              - checkbox "Clear on copy/send"
+              - generic:
+                - text: Clear on copy/send
+                - generic:
+                  - generic:
+                    - img
+            - generic:
+              - checkbox "Block page interactions" [checked]
+              - generic:
+                - img
+              - generic: Block page interactions
+          - generic:
+            - button "Manage MCP & Webhooks":
+              - generic: Manage MCP & Webhooks
+              - generic:
+                - img
+        - generic:
+          - button "Manage MCP & Webhooks":
+            - img
+            - generic: Manage MCP & Webhooks
+          - generic:
+            - generic:
+              - generic:
+                - text: MCP Connection
+                - generic:
+                  - generic:
+                    - img
+            - paragraph:
+              - text: MCP connection allows agents to receive and act on annotations.
+              - link "Learn more":
+                - /url: https://agentation.dev/mcp
+          - generic:
+            - generic:
+              - generic:
+                - text: Webhooks
+                - generic:
+                  - generic:
+                    - img
+              - generic:
+                - generic: Auto-Send
+                - generic:
+                  - checkbox [checked] [disabled]
+            - paragraph: The webhook URL will receive live annotation changes and annotation data.
+            - textbox "Webhook URL"
