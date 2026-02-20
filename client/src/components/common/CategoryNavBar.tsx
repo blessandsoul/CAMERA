@@ -52,6 +52,22 @@ interface CategoryNavBarProps {
 export function CategoryNavBar({ locale, counts, title, subtitle }: CategoryNavBarProps): React.ReactElement {
   return (
     <div className="flex flex-col items-center gap-5">
+      {/* Title + subtitle above icons */}
+      {(title || subtitle) && (
+        <div className="text-center max-w-2xl">
+          {title && (
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight text-balance">
+              {title}
+            </h2>
+          )}
+          {subtitle && (
+            <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Category icons */}
       <nav
         aria-label="Product categories"
@@ -82,22 +98,6 @@ export function CategoryNavBar({ locale, counts, title, subtitle }: CategoryNavB
           );
         })}
       </nav>
-
-      {/* Title + subtitle below icons */}
-      {(title || subtitle) && (
-        <div className="text-center max-w-2xl">
-          {title && (
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight text-balance">
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
-              {subtitle}
-            </p>
-          )}
-        </div>
-      )}
     </div>
   );
 }
