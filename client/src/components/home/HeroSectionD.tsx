@@ -43,25 +43,31 @@ function CarouselD({ products, locale, currentIndex, onNavigate }: {
 
   return (
     <div className="flex flex-col gap-3">
-      <AnimatePresence mode="wait">
-        <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.45, ease: 'easeOut' }}>
-          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
-            <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
-              {imageSrc ? (
-                <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
-              ) : (
-                <SecurityCamera size={64} weight="duotone" className="text-border/30" />
-              )}
-              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+      <div className="relative">
+        <AnimatePresence mode="wait">
+          <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.45, ease: 'easeOut' }}>
+            <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
+              <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
+                {imageSrc ? (
+                  <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
+                ) : (
+                  <SecurityCamera size={64} weight="duotone" className="text-border/30" />
+                )}
+                <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+        {products.length > 1 && (
+          <>
+            <button onClick={(e) => { e.preventDefault(); prev(); }} className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-xl border border-border/60 bg-card/80 backdrop-blur-sm hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm" aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
+            <button onClick={(e) => { e.preventDefault(); next(); }} className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-xl border border-border/60 bg-card/80 backdrop-blur-sm hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm" aria-label="Next"><CaretRight size={18} weight="bold" /></button>
+          </>
+        )}
+      </div>
       {products.length > 1 && (
-        <div className="flex items-center justify-end gap-2">
-          <span className="text-sm text-muted-foreground tabular-nums mr-auto">{currentIndex + 1} / {products.length}</span>
-          <button onClick={(e) => { e.preventDefault(); prev(); }} className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm" aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
-          <button onClick={(e) => { e.preventDefault(); next(); }} className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm" aria-label="Next"><CaretRight size={18} weight="bold" /></button>
+        <div className="flex items-center justify-center">
+          <span className="text-sm text-muted-foreground tabular-nums">{currentIndex + 1} / {products.length}</span>
         </div>
       )}
     </div>
