@@ -30,27 +30,44 @@ interface HeroSectionProps {
 
 // ── Carousel ───────────────────────────────────────────────────────────────────
 
-function CarouselD({ products, locale, currentIndex, dir }: {
+function CarouselD({ products, locale, currentIndex, dir, onPrev, onNext }: {
   products: Product[]; locale: Locale; currentIndex: number; dir: number;
+  onPrev: () => void; onNext: () => void;
 }) {
   const product = products[currentIndex];
   const name = product.name[locale] ?? product.name['en'] ?? '';
   const imageSrc = product.images.length > 0 ? product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}` : null;
 
+  const overlayBtnClass = "absolute top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground shadow-md active:scale-95 transition-transform lg:hidden";
+
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
-        <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
-          <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
-            {imageSrc ? (
-              <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 600px" priority={currentIndex === 0} />
-            ) : (
-              <SecurityCamera size={64} weight="duotone" className="text-border/30" />
-            )}
+    <div className="relative">
+      <AnimatePresence mode="wait">
+        <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
+          <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
+            <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
+              {imageSrc ? (
+                <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 600px" priority={currentIndex === 0} />
+              ) : (
+                <SecurityCamera size={64} weight="duotone" className="text-border/30" />
+              )}
+            </div>
           </div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Mobile overlay nav arrows on the image */}
+      {products.length > 1 && (
+        <>
+          <button onClick={(e) => { e.preventDefault(); onPrev(); }} className={`${overlayBtnClass} left-2`} aria-label="Previous">
+            <CaretLeft size={16} weight="bold" />
+          </button>
+          <button onClick={(e) => { e.preventDefault(); onNext(); }} className={`${overlayBtnClass} right-2`} aria-label="Next">
+            <CaretRight size={16} weight="bold" />
+          </button>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -82,7 +99,6 @@ function DotIndicators({ count, current, onDotClick }: { count: number; current:
     return (
       <div className="flex items-center justify-center gap-1.5">
         {Array.from({ length: Math.min(count, maxDots) }).map((_, i) => {
-          // Map visible dots to actual indices
           let actualIndex: number;
           if (current < 4) {
             actualIndex = i;
@@ -164,7 +180,13 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
         {/* ── Image column — first on mobile (order-1), second on desktop (lg:order-2) ── */}
         <div className="relative order-1 lg:order-2 min-w-0 animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
           <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-primary/5 lg:from-primary/15 lg:to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
-          <CarouselD products={products} locale={locale} currentIndex={currentIndex} dir={dir} />
+          <CarouselD products={products} locale={locale} currentIndex={currentIndex} dir={dir} onPrev={prev} onNext={next} />
+          {/* Mobile dots under image */}
+          {products.length > 1 && (
+            <div className="flex items-center justify-center pt-3 lg:hidden">
+              <DotIndicators count={products.length} current={currentIndex} onDotClick={go} />
+            </div>
+          )}
         </div>
 
         {/* ── Text column — second on mobile (order-2), first on desktop (lg:order-1) ── */}
@@ -214,16 +236,10 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
             </a>
           </div>
 
-          {/* Navigation: dots + arrows */}
+          {/* Desktop dots */}
           {products.length > 1 && (
-            <div className="flex items-center justify-center lg:justify-start gap-3 pt-1">
-              <button onClick={(e) => { e.preventDefault(); prev(); }} className={`${navBtnClass} lg:hidden`} aria-label="Previous">
-                <CaretLeft size={18} weight="bold" />
-              </button>
+            <div className="hidden lg:flex items-center gap-3 pt-1">
               <DotIndicators count={products.length} current={currentIndex} onDotClick={go} />
-              <button onClick={(e) => { e.preventDefault(); next(); }} className={`${navBtnClass} lg:hidden`} aria-label="Next">
-                <CaretRight size={18} weight="bold" />
-              </button>
             </div>
           )}
         </div>
