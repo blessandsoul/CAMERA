@@ -180,6 +180,7 @@ export default async function HomePage({ params }: HomePageProps) {
               acc[p.category] = (acc[p.category] || 0) + 1;
               return acc;
             }, {})}
+            badge={t('home.hero_badge')}
             title={t('home.hero_title')}
             subtitle={t('home.hero_subtitle')}
           />

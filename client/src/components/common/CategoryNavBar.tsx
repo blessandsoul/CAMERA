@@ -45,26 +45,38 @@ const CATEGORIES: CategoryItem[] = [
 interface CategoryNavBarProps {
   locale: Locale;
   counts?: Record<string, number>;
+  badge?: string;
   title?: string;
   subtitle?: string;
 }
 
-export function CategoryNavBar({ locale, counts, title, subtitle }: CategoryNavBarProps): React.ReactElement {
+export function CategoryNavBar({ locale, counts, badge, title, subtitle }: CategoryNavBarProps): React.ReactElement {
   return (
-    <div className="flex flex-col items-center gap-5">
-      {/* Title + subtitle above icons */}
-      {(title || subtitle) && (
-        <div className="text-center max-w-2xl">
-          {title && (
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight text-balance">
-              {title}
-            </h2>
+    <div className="flex flex-col items-center gap-4">
+      {/* Badge + Title + subtitle above icons */}
+      {(badge || title || subtitle) && (
+        <div className="flex flex-col items-center gap-3">
+          {badge && (
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted/60 border border-border/50">
+              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-online opacity-50 motion-safe:animate-ping" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-online" />
+              </span>
+              <span className="text-xs font-medium text-muted-foreground">{badge}</span>
+            </div>
           )}
-          {subtitle && (
-            <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
-              {subtitle}
-            </p>
-          )}
+          <div className="text-center max-w-2xl">
+            {title && (
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight text-balance">
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                {subtitle}
+              </p>
+            )}
+          </div>
         </div>
       )}
 
