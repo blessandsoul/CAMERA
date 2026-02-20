@@ -41,14 +41,13 @@ function CarouselD({ products, locale, currentIndex, dir, onDotClick }: {
     <div className="flex flex-col gap-3">
       <AnimatePresence mode="wait">
         <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
-          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
+          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card group">
             <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
                 <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
               ) : (
                 <SecurityCamera size={64} weight="duotone" className="text-border/30" />
               )}
-              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
             </div>
           </div>
         </motion.div>
@@ -115,27 +114,20 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
       )}
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center flex-1 min-w-0">
         <div className="space-y-5 max-w-2xl">
-          {/* Title — fixed-height slot, crossfade only */}
-          <div className="relative min-h-10 sm:min-h-12 lg:min-h-14">
-            <AnimatePresence mode="popLayout">
-              <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer truncate">
-                {currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle}
-              </motion.h1>
+          <AnimatePresence mode="wait">
+            <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer truncate">
+              {currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle}
+            </motion.h1>
+          </AnimatePresence>
+          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+            <AnimatePresence mode="wait">
+              <motion.p key={currentProduct.id + '-desc'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+                {currentProduct.content?.trim() || labels.heroSubtitle}
+              </motion.p>
             </AnimatePresence>
-          </div>
-          <div className="space-y-4">
-            {/* Description — fixed-height slot, crossfade only */}
-            <div className="relative min-h-14">
-              <AnimatePresence mode="popLayout">
-                <motion.p key={currentProduct.id + '-desc'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-                  {currentProduct.content?.trim() || labels.heroSubtitle}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-            {/* Spec tags — crossfade, no layout shift */}
-            <div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[35px]">
+            <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[35px]" layout>
               <ProductSpecTagsD product={currentProduct} locale={locale} />
-            </div>
+            </motion.div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-[15px]">
             <Link href={`/${locale}/catalog`} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
