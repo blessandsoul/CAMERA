@@ -112,11 +112,11 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
               })()}
             </motion.p>
           </AnimatePresence>
-          <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[40px]" layout>
+          <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[35px]" layout>
             <ProductSpecTagsD product={currentProduct} locale={locale} />
           </motion.div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-5">
+        <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-[15px]">
           <Link href={`/${locale}/catalog`} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
             {labels.heroCta}<ArrowRight size={18} weight="bold" />
           </Link>
