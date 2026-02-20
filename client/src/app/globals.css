@@ -144,23 +144,29 @@ body {
 }
 
 .text-hero-shimmer {
-  background: linear-gradient(
-    90deg,
-    #0f172a 0%,
-    #0f172a 35%,
-    #0466c8 45%,
-    #c040ff 50%,
-    #0466c8 55%,
-    #0f172a 65%,
-    #0f172a 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: hsl(var(--foreground));
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (min-width: 1024px) {
+  .text-hero-shimmer {
+    background: linear-gradient(
+      90deg,
+      #0f172a 0%,
+      #0f172a 35%,
+      #0466c8 45%,
+      #c040ff 50%,
+      #0466c8 55%,
+      #0f172a 65%,
+      #0f172a 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   .text-hero-shimmer {
     animation: hero-shimmer 5s ease-in-out infinite;
   }

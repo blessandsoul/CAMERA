@@ -30,41 +30,27 @@ interface HeroSectionProps {
 
 // ── Carousel ───────────────────────────────────────────────────────────────────
 
-function CarouselD({ products, locale, currentIndex, dir, onDotClick }: {
-  products: Product[]; locale: Locale; currentIndex: number; dir: number; onDotClick: (i: number) => void;
+function CarouselD({ products, locale, currentIndex, dir }: {
+  products: Product[]; locale: Locale; currentIndex: number; dir: number;
 }) {
   const product = products[currentIndex];
   const name = product.name[locale] ?? product.name['en'] ?? '';
   const imageSrc = product.images.length > 0 ? product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}` : null;
 
   return (
-    <div className="flex flex-col gap-3">
-      <AnimatePresence mode="wait">
-        <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
-          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card group">
-            <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
-              {imageSrc ? (
-                <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
-              ) : (
-                <SecurityCamera size={64} weight="duotone" className="text-border/30" />
-              )}
-            </div>
+    <AnimatePresence mode="wait">
+      <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
+        <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
+          <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
+            {imageSrc ? (
+              <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 600px" priority={currentIndex === 0} />
+            ) : (
+              <SecurityCamera size={64} weight="duotone" className="text-border/30" />
+            )}
           </div>
-        </motion.div>
-      </AnimatePresence>
-      {products.length > 1 && (
-        <div className="flex items-center justify-center gap-2">
-          {products.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => onDotClick(i)}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentIndex ? 'bg-primary w-6' : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2'}`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
         </div>
-      )}
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -73,13 +59,65 @@ function CarouselD({ products, locale, currentIndex, dir, onDotClick }: {
 function ProductSpecTagsD({ product, locale }: { product: Product; locale: Locale }) {
   return (
     <AnimatePresence mode="popLayout">
-      {product.specs.map((spec, i) => (
-        <motion.span key={`${product.id}-${i}`} initial={{ opacity: 0, scale: 0.85, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.85, y: -8 }} transition={{ duration: 0.18, delay: i * 0.03, ease: 'easeOut' }} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border bg-background/50 backdrop-blur-sm border-border/50">
-          <span className="text-muted-foreground/60 text-xs">{spec.key[locale] ?? spec.key['en'] ?? spec.key['ka']}:</span>
+      {product.specs.slice(0, 6).map((spec, i) => (
+        <motion.span key={`${product.id}-${i}`} initial={{ opacity: 0, scale: 0.85, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.85, y: -8 }} transition={{ duration: 0.18, delay: i * 0.03, ease: 'easeOut' }} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border bg-background/50 backdrop-blur-sm border-border/50">
+          <span className="text-muted-foreground/60 text-[11px]">{spec.key[locale] ?? spec.key['en'] ?? spec.key['ka']}:</span>
           <span className="font-semibold">{spec.value}</span>
         </motion.span>
       ))}
     </AnimatePresence>
+  );
+}
+
+// ── Dot Indicators ─────────────────────────────────────────────────────────────
+
+function DotIndicators({ count, current, onDotClick }: { count: number; current: number; onDotClick: (i: number) => void }) {
+  if (count <= 1) return null;
+
+  // If more than 9 dots, show a condensed version
+  const maxDots = 9;
+  const showCondensed = count > maxDots;
+
+  if (showCondensed) {
+    return (
+      <div className="flex items-center justify-center gap-1.5">
+        {Array.from({ length: Math.min(count, maxDots) }).map((_, i) => {
+          // Map visible dots to actual indices
+          let actualIndex: number;
+          if (current < 4) {
+            actualIndex = i;
+          } else if (current > count - 5) {
+            actualIndex = count - maxDots + i;
+          } else {
+            actualIndex = current - 4 + i;
+          }
+          const isActive = actualIndex === current;
+          const isEdge = i === 0 || i === maxDots - 1;
+
+          return (
+            <button
+              key={actualIndex}
+              onClick={() => onDotClick(actualIndex)}
+              className={`rounded-full transition-all duration-300 cursor-pointer ${isActive ? 'bg-primary w-5 h-2' : isEdge ? 'bg-muted-foreground/20 w-1.5 h-1.5' : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2 h-2'}`}
+              aria-label={`Go to slide ${actualIndex + 1}`}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-center gap-1.5">
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => onDotClick(i)}
+          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === current ? 'bg-primary w-5' : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2'}`}
+          aria-label={`Go to slide ${i + 1}`}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -108,60 +146,94 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
   const navBtnClass = "w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm";
 
   return (
-    <div className="flex items-center gap-4 lg:gap-6" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <div
+      className="flex items-center gap-4 lg:gap-6"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Desktop prev button */}
       {products.length > 1 && (
-        <button onClick={(e) => { e.preventDefault(); prev(); }} className={`${navBtnClass} shrink-0 hidden lg:flex`} aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
+        <button onClick={(e) => { e.preventDefault(); prev(); }} className={`${navBtnClass} shrink-0 hidden lg:flex`} aria-label="Previous">
+          <CaretLeft size={18} weight="bold" />
+        </button>
       )}
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center flex-1 min-w-0">
-        <div className="space-y-5 max-w-2xl">
+
+      {/* Main content grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center flex-1 min-w-0">
+
+        {/* ── Image column — first on mobile (order-1), second on desktop (lg:order-2) ── */}
+        <div className="relative order-1 lg:order-2 min-w-0 animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
+          <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-primary/5 lg:from-primary/15 lg:to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
+          <CarouselD products={products} locale={locale} currentIndex={currentIndex} dir={dir} />
+        </div>
+
+        {/* ── Text column — second on mobile (order-2), first on desktop (lg:order-1) ── */}
+        <div className="space-y-4 order-2 lg:order-1 min-w-0">
+          {/* Product title */}
           <AnimatePresence mode="wait">
-            <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer truncate">
+            <motion.h1
+              key={currentProduct.id + '-title'}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer line-clamp-2"
+            >
               {currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle}
             </motion.h1>
           </AnimatePresence>
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+
+          {/* Description */}
+          <div className="space-y-4">
             <AnimatePresence mode="wait">
-              <motion.p key={currentProduct.id + '-desc'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+              <motion.p
+                key={currentProduct.id + '-desc'}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed line-clamp-3"
+              >
                 {currentProduct.content?.trim() || labels.heroSubtitle}
               </motion.p>
             </AnimatePresence>
-            <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[35px]" layout>
+
+            {/* Spec tags */}
+            <motion.div className="flex flex-wrap items-center gap-2 min-h-10 content-start" layout>
               <ProductSpecTagsD product={currentProduct} locale={locale} />
             </motion.div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-[15px]">
-            <Link href={`/${locale}/catalog`} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+
+          {/* CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <Link href={`/${locale}/catalog`} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm sm:text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
               {labels.heroCta}<ArrowRight size={18} weight="bold" />
             </Link>
-            <a href={`https://wa.me/995${phone}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-base motion-safe:transition-all duration-200 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30">
+            <a href={`https://wa.me/995${phone}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-sm sm:text-base motion-safe:transition-all duration-200 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30">
               <Phone size={18} weight="fill" />{phone}
             </a>
           </div>
-          {/* Mobile nav buttons */}
+
+          {/* Navigation: dots + arrows */}
           {products.length > 1 && (
-            <div className="flex items-center justify-center gap-3 lg:hidden">
-              <button onClick={(e) => { e.preventDefault(); prev(); }} className={navBtnClass} aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
-              <div className="flex items-center gap-1.5">
-                {products.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => go(i)}
-                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentIndex ? 'bg-primary w-5' : 'bg-muted-foreground/30 w-2'}`}
-                    aria-label={`Go to slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-              <button onClick={(e) => { e.preventDefault(); next(); }} className={navBtnClass} aria-label="Next"><CaretRight size={18} weight="bold" /></button>
+            <div className="flex items-center justify-center lg:justify-start gap-3 pt-1">
+              <button onClick={(e) => { e.preventDefault(); prev(); }} className={`${navBtnClass} lg:hidden`} aria-label="Previous">
+                <CaretLeft size={18} weight="bold" />
+              </button>
+              <DotIndicators count={products.length} current={currentIndex} onDotClick={go} />
+              <button onClick={(e) => { e.preventDefault(); next(); }} className={`${navBtnClass} lg:hidden`} aria-label="Next">
+                <CaretRight size={18} weight="bold" />
+              </button>
             </div>
           )}
         </div>
-        <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
-          <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
-          <CarouselD products={products} locale={locale} currentIndex={currentIndex} dir={dir} onDotClick={go} />
-        </div>
       </div>
+
+      {/* Desktop next button */}
       {products.length > 1 && (
-        <button onClick={(e) => { e.preventDefault(); next(); }} className={`${navBtnClass} shrink-0 hidden lg:flex`} aria-label="Next"><CaretRight size={18} weight="bold" /></button>
+        <button onClick={(e) => { e.preventDefault(); next(); }} className={`${navBtnClass} shrink-0 hidden lg:flex`} aria-label="Next">
+          <CaretRight size={18} weight="bold" />
+        </button>
       )}
     </div>
   );
