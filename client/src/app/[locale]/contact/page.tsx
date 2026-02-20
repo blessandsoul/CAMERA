@@ -20,7 +20,7 @@ export default async function ContactPage({ params }: ContactPageProps): Promise
   const phone = settings.contact.phone || '597470518';
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-foreground mb-2">{t('contact.title')}</h1>
         <p className="text-muted-foreground mb-8">{t('contact.subtitle')}</p>

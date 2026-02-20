@@ -150,7 +150,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent pointer-events-none" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-3 md:pt-28 lg:pt-24 lg:pb-3">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-20 pb-3 md:pt-28 lg:pt-24 lg:pb-3">
           <HeroSectionD
             products={allProducts}
             locale={locale as Locale}
@@ -172,7 +172,7 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
 
         {/* ── CATEGORIES + MINI PRODUCTS ── */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-6 pb-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-6 pb-8">
           {/* Section heading */}
           <div className="flex items-center gap-3 mb-3">
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
@@ -203,7 +203,7 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* ── FEATURED PRODUCTS ── */}
       {featured.length > 0 && (
         <section className="py-10 lg:py-14 bg-background" aria-labelledby="featured-heading">
-          <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
 
             {/* Section header */}
             <div className="flex items-end justify-between mb-8">
@@ -251,7 +251,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
       {/* ── WHY US ── */}
       <section className="py-10 lg:py-14 bg-secondary/30 border-y border-border/40" aria-labelledby="trust-heading">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
 
           {/* Section header */}
           <div className="mb-8">

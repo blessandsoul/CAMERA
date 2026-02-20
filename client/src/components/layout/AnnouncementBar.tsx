@@ -13,7 +13,7 @@ export function AnnouncementBar({ message }: AnnouncementBarProps) {
 
   return (
     <div className="bg-primary/8 border-b border-primary/15">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 flex items-center h-9 gap-4">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl flex items-center h-9 gap-4">
 
         {/* REC indicator — left spacer slot */}
         <div className="flex-1 flex items-center gap-2">

@@ -36,7 +36,7 @@ export async function ProjectsSection(): Promise<React.JSX.Element> {
 
   return (
     <section className="py-10 lg:py-14 bg-background" aria-labelledby="projects-heading">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-8">

@@ -91,7 +91,7 @@ export default async function CatalogPage({ params, searchParams }: CatalogPageP
   );
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">
       <h1 className="text-3xl font-bold text-foreground mb-8">{t('catalog.title')}</h1>
 
       <div className="flex gap-8">

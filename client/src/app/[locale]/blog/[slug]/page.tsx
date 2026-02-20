@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps): Promi
 
   if (!article) {
     return (
-      <div className="container mx-auto px-4 py-24 text-center text-muted-foreground">
+      <div className="container mx-auto px-4 max-w-7xl py-24 text-center text-muted-foreground">
         სტატია ვერ მოიძებნა.
       </div>
     );
@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps): Promi
   }).format(new Date(article.createdAt));
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">
       <Link
         href={`/${locale}/blog`}
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"

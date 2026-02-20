@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function LocaleNotFound(): React.ReactElement {
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-24 text-center">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-24 text-center">
       <div className="max-w-md mx-auto">
         <div className="text-7xl font-bold text-primary mb-4 tabular-nums">404</div>
         <h1 className="text-2xl font-bold text-foreground mb-4">Page not found</h1>
