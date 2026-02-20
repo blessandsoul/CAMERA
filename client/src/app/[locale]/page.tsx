@@ -8,6 +8,7 @@ import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
 import { HeroSectionD } from '@/components/home/HeroSectionD';
 import { CategoryProductsBlock } from '@/components/common/CategoryProductsBlock';
+import { CategoryNavBar } from '@/components/common/CategoryNavBar';
 import type { Locale } from '@/types/product.types';
 
 interface HomePageProps {
@@ -168,6 +169,17 @@ export default async function HomePage({ params }: HomePageProps) {
               priceOnRequest: t('catalog.price_on_request'),
               viewProduct: locale === 'ka' ? 'სრულად ნახვა' : locale === 'ru' ? 'Подробнее' : 'View product',
             }}
+          />
+        </div>
+
+        {/* ── CATEGORY NAV BAR ── */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-4 pb-0">
+          <CategoryNavBar
+            locale={locale as Locale}
+            counts={allProducts.reduce<Record<string, number>>((acc, p) => {
+              acc[p.category] = (acc[p.category] || 0) + 1;
+              return acc;
+            }, {})}
           />
         </div>
 
