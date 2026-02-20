@@ -97,19 +97,14 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
     <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
       <div className="space-y-5 max-w-2xl">
         <AnimatePresence mode="wait">
-          <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-wrap-balance text-hero-shimmer">
-            {(currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle).slice(0, 15)}
+          <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer truncate">
+            {currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle}
           </motion.h1>
         </AnimatePresence>
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
           <AnimatePresence mode="wait">
             <motion.p key={currentProduct.id + '-desc'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-              {(() => {
-                const fullName = currentProduct.name[locale] ?? currentProduct.name['en'] ?? '';
-                const tail = fullName.length > 15 ? fullName.slice(15).trimStart() : '';
-                const body = currentProduct.content?.trim() ?? '';
-                return tail && body ? `${tail} — ${body}` : tail || body || labels.heroSubtitle;
-              })()}
+              {currentProduct.content?.trim() || labels.heroSubtitle}
             </motion.p>
           </AnimatePresence>
           <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[35px]" layout>
