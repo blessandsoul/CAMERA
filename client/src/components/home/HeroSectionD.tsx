@@ -48,7 +48,7 @@ function CarouselD({ products, locale, currentIndex, onNavigate }: {
           <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
             <div className="aspect-video lg:aspect-16/8 bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
-                <Image src={imageSrc} alt={name} fill className="object-cover object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
+                <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
               ) : (
                 <SecurityCamera size={64} weight="duotone" className="text-border/30" />
               )}

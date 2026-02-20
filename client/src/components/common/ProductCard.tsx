@@ -45,7 +45,7 @@ export async function ProductCard({ product }: ProductCardProps) {
               src={imgSrc}
               alt={name}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-card/80 to-transparent pointer-events-none" aria-hidden="true" />

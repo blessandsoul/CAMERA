@@ -83,7 +83,7 @@ export function ProductShowcaseSlider({
                   src={imageSrc}
                   alt={name}
                   fill
-                  className="object-cover motion-safe:group-hover:scale-105 transition-transform duration-700"
+                  className="object-contain motion-safe:group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 600px"
                   priority={currentIndex === 0}
                 />

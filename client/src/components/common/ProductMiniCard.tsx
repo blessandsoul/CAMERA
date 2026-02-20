@@ -62,7 +62,7 @@ export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestL
               src={imageSrc}
               alt={name}
               fill
-              className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+              className="object-contain transition-transform duration-500 motion-safe:group-hover:scale-105"
               sizes="(max-width: 639px) 33vw, 20vw"
             />
             <div
