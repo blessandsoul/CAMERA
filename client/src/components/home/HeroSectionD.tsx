@@ -112,7 +112,7 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
               })()}
             </motion.p>
           </AnimatePresence>
-          <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-12.5" layout>
+          <motion.div className="flex flex-wrap items-center gap-3 min-h-14 content-start mt-[35px]" layout>
             <ProductSpecTagsD product={currentProduct} locale={locale} />
           </motion.div>
         </div>
