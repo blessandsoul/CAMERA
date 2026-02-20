@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, SecurityCamera, CaretLeft, CaretRight } from '@phosphor-icons/react';
@@ -30,8 +30,8 @@ interface HeroSectionProps {
 
 // ── Carousel ───────────────────────────────────────────────────────────────────
 
-function CarouselD({ products, locale, currentIndex, dir }: {
-  products: Product[]; locale: Locale; currentIndex: number; dir: number;
+function CarouselD({ products, locale, currentIndex, dir, onDotClick }: {
+  products: Product[]; locale: Locale; currentIndex: number; dir: number; onDotClick: (i: number) => void;
 }) {
   const product = products[currentIndex];
   const name = product.name[locale] ?? product.name['en'] ?? '';
@@ -40,7 +40,7 @@ function CarouselD({ products, locale, currentIndex, dir }: {
   return (
     <div className="flex flex-col gap-3">
       <AnimatePresence mode="wait">
-        <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.45, ease: 'easeOut' }}>
+        <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
           <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
             <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
@@ -54,8 +54,15 @@ function CarouselD({ products, locale, currentIndex, dir }: {
         </motion.div>
       </AnimatePresence>
       {products.length > 1 && (
-        <div className="flex items-center justify-center">
-          <span className="text-sm text-muted-foreground tabular-nums">{currentIndex + 1} / {products.length}</span>
+        <div className="flex items-center justify-center gap-2">
+          {products.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => onDotClick(i)}
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentIndex ? 'bg-primary w-6' : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2'}`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
       )}
     </div>
@@ -82,9 +89,19 @@ function ProductSpecTagsD({ product, locale }: { product: Product; locale: Local
 export function HeroSectionD({ products, locale, phone, labels }: HeroSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dir, setDir] = useState(1);
+  const [isHovered, setIsHovered] = useState(false);
   const go = useCallback((next: number) => { setDir(next > currentIndex ? 1 : -1); setCurrentIndex(next); }, [currentIndex]);
   const prev = useCallback(() => go((currentIndex - 1 + products.length) % products.length), [go, currentIndex, products.length]);
   const next = useCallback(() => go((currentIndex + 1) % products.length), [go, currentIndex, products.length]);
+
+  // Auto-play: 5s interval, pause on hover
+  useEffect(() => {
+    if (isHovered || products.length <= 1) return;
+    const interval = setInterval(() => {
+      go((currentIndex + 1) % products.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isHovered, currentIndex, go, products.length]);
 
   if (products.length === 0) return null;
 
@@ -92,20 +109,20 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
   const navBtnClass = "w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm";
 
   return (
-    <div className="flex items-center gap-4 lg:gap-6">
+    <div className="flex items-center gap-4 lg:gap-6" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       {products.length > 1 && (
         <button onClick={(e) => { e.preventDefault(); prev(); }} className={`${navBtnClass} shrink-0 hidden lg:flex`} aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
       )}
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center flex-1 min-w-0">
         <div className="space-y-5 max-w-2xl">
           <AnimatePresence mode="wait">
-            <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer truncate">
+            <motion.h1 key={currentProduct.id + '-title'} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="text-xl sm:text-2xl lg:text-[34px] xl:text-[42px] font-bold tracking-tight leading-tight text-hero-shimmer truncate">
               {currentProduct.name[locale] ?? currentProduct.name['en'] ?? labels.heroTitle}
             </motion.h1>
           </AnimatePresence>
           <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
             <AnimatePresence mode="wait">
-              <motion.p key={currentProduct.id + '-desc'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease: 'easeOut' }} className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+              <motion.p key={currentProduct.id + '-desc'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
                 {currentProduct.content?.trim() || labels.heroSubtitle}
               </motion.p>
             </AnimatePresence>
@@ -125,14 +142,23 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
           {products.length > 1 && (
             <div className="flex items-center justify-center gap-3 lg:hidden">
               <button onClick={(e) => { e.preventDefault(); prev(); }} className={navBtnClass} aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
-              <span className="text-sm text-muted-foreground tabular-nums">{currentIndex + 1} / {products.length}</span>
+              <div className="flex items-center gap-1.5">
+                {products.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => go(i)}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentIndex ? 'bg-primary w-5' : 'bg-muted-foreground/30 w-2'}`}
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))}
+              </div>
               <button onClick={(e) => { e.preventDefault(); next(); }} className={navBtnClass} aria-label="Next"><CaretRight size={18} weight="bold" /></button>
             </div>
           )}
         </div>
         <div className="relative animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
           <div className="absolute inset-0 bg-linear-to-r from-primary/15 to-primary/10 rounded-3xl blur-2xl" aria-hidden="true" />
-          <CarouselD products={products} locale={locale} currentIndex={currentIndex} dir={dir} />
+          <CarouselD products={products} locale={locale} currentIndex={currentIndex} dir={dir} onDotClick={go} />
         </div>
       </div>
       {products.length > 1 && (
