@@ -27,7 +27,7 @@ const CATEGORIES: CategoryItem[] = [
   },
   {
     value: 'storage',
-    labels: { ka: 'მეხსიერება', ru: 'Хранилище', en: 'Storage' },
+    labels: { ka: 'მეხსიერების ბარათები', ru: 'Хранилище', en: 'Storage' },
     icon: <HardDrive size={26} weight="duotone" aria-hidden="true" />,
   },
   {
