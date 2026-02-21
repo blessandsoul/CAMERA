@@ -70,7 +70,7 @@ export async function ProductCard({ product }: ProductCardProps) {
         {/* Discount badge */}
         {product.originalPrice && product.originalPrice > product.price && (
           <div className="absolute bottom-3 left-3">
-            <span className="inline-flex items-center px-3 py-1 rounded-lg bg-success text-white text-sm font-bold tabular-nums shadow-sm">
+            <span className="inline-flex items-center px-3 py-1 rounded-lg bg-success text-white text-sm font-bold tabular-nums">
               -{Math.round((1 - product.price / product.originalPrice) * 100)}%
             </span>
           </div>
@@ -101,7 +101,7 @@ export async function ProductCard({ product }: ProductCardProps) {
             <div className="flex flex-col leading-none">
               {product.originalPrice ? (
                 <>
-                  <span className="text-[11px] font-mono text-muted-foreground line-through tabular-nums mb-0.5">
+                  <span className="text-sm text-destructive/60 line-through tabular-nums mb-0.5">
                     {product.originalPrice}₾
                   </span>
                   <span className="font-bold text-2xl text-success tabular-nums">
