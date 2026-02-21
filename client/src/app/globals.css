@@ -88,6 +88,24 @@ body {
   }
 }
 
+/* ── Success color utilities (Tailwind v4 explicit) ── */
+@layer utilities {
+  .text-success     { color: #16b822; }
+  .bg-success       { background-color: #16b822; }
+  .border-success   { border-color: #16b822; }
+  .ring-success     { --tw-ring-color: #16b822; }
+  .bg-success\/5    { background-color: rgb(22 184 34 / 0.05); }
+  .bg-success\/10   { background-color: rgb(22 184 34 / 0.10); }
+  .border-success\/15 { border-color: rgb(22 184 34 / 0.15); }
+  .border-success\/20 { border-color: rgb(22 184 34 / 0.20); }
+  .border-success\/25 { border-color: rgb(22 184 34 / 0.25); }
+  .border-success\/30 { border-color: rgb(22 184 34 / 0.30); }
+  .hover\:text-success:hover   { color: #16b822; }
+  .hover\:bg-success\/5:hover  { background-color: rgb(22 184 34 / 0.05); }
+  .hover\:border-success\/30:hover { border-color: rgb(22 184 34 / 0.30); }
+  .focus-visible\:ring-success\/50:focus-visible { --tw-ring-color: rgb(22 184 34 / 0.50); }
+}
+
 /* ── Signature animations ── */
 @keyframes rec-blink {
   0%, 100% { opacity: 1; }
