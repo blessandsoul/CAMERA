@@ -33,9 +33,9 @@
     "warrantyYears": "2"
   },
   "social": {
-    "facebook": "",
-    "instagram": "",
-    "tiktok": ""
+    "facebook": "https://facebook.com",
+    "instagram": "https://instagram.com",
+    "tiktok": "https://tiktok.com"
   },
   "announcement": {
     "enabled": false,
