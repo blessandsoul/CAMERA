@@ -101,7 +101,7 @@ export async function ProductCard({ product }: ProductCardProps) {
             <div className="flex flex-col leading-none">
               {product.originalPrice ? (
                 <>
-                  <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1 line-through tabular-nums">
+                  <span className="text-[11px] font-mono text-muted-foreground line-through tabular-nums mb-0.5">
                     {product.originalPrice}₾
                   </span>
                   <span className="font-bold text-2xl text-success tabular-nums">
