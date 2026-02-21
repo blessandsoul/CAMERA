@@ -56,7 +56,7 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
 
   return (
     <div
-      className="relative w-full rounded-3xl overflow-hidden border border-border/40 shadow-xl bg-card"
+      className="relative w-full rounded-3xl overflow-hidden border border-border/40 bg-card"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -113,7 +113,7 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
                     {p.price}
                     <span className="text-base font-bold ml-1 text-primary/70">{p.currency}</span>
                   </span>
-                  <span className="text-sm text-muted-foreground line-through tabular-nums">
+                  <span className="text-sm text-destructive/60 line-through tabular-nums">
                     {fakeOldPrice} {p.currency}
                   </span>
                   <span className="text-xs font-black text-destructive bg-destructive/8 border border-destructive/15 px-2 py-0.5 rounded-md">
@@ -186,7 +186,7 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
           </AnimatePresence>
 
           {/* In stock badge — top right */}
-          <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 shadow-sm">
+          <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 motion-safe:animate-pulse" aria-hidden="true" />
             <span className="text-xs font-semibold text-foreground">
               {locale === 'ru' ? 'В наличии' : locale === 'ka' ? 'მარაგშია' : 'In stock'}

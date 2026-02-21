@@ -69,7 +69,7 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
 
   return (
     <div
-      className="relative w-full rounded-3xl overflow-hidden border border-border/50 shadow-xl bg-card"
+      className="relative w-full rounded-3xl overflow-hidden border border-border/50 bg-card"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -106,7 +106,7 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
             <div className="absolute inset-0 bg-linear-to-t from-card/80 to-transparent lg:hidden" />
 
             {/* Category badge */}
-            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-md z-10">
+            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold z-10">
               <Tag size={12} weight="bold" />
               {catLabel}
             </span>
@@ -133,7 +133,7 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
                 <span className="text-2xl lg:text-4xl font-black text-primary tabular-nums">
                   {p.price} {p.currency}
                 </span>
-                <span className="text-sm text-muted-foreground line-through tabular-nums">
+                <span className="text-sm text-destructive/60 line-through tabular-nums">
                   {fakeOldPrice} {p.currency}
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-bold">
@@ -181,14 +181,14 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
         <>
           <button
             onClick={(e) => { e.preventDefault(); prev(); }}
-            className="absolute left-3 top-[30%] lg:top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card shadow-md transition-all motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
+            className="absolute left-3 top-[30%] lg:top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card transition-all motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
             aria-label="Previous"
           >
             <CaretLeft size={15} weight="bold" />
           </button>
           <button
             onClick={(e) => { e.preventDefault(); next(); }}
-            className="absolute right-3 top-[30%] lg:top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card shadow-md transition-all motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
+            className="absolute right-3 top-[30%] lg:top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/60 flex items-center justify-center hover:bg-card transition-all motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
             aria-label="Next"
           >
             <CaretRight size={15} weight="bold" />

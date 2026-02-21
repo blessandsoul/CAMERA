@@ -41,7 +41,7 @@ function useCountdown(): { h: number; m: number; s: number } {
 function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-foreground text-background flex items-center justify-center font-black text-sm sm:text-xl tabular-nums shadow-lg">
+      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-foreground text-background flex items-center justify-center font-black text-sm sm:text-xl tabular-nums">
         {String(value).padStart(2, '0')}
       </div>
       <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{label}</span>
@@ -69,7 +69,7 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
   const secLabel   = { ka: 'წმ', ru: 'СЕК', en: 'SEC' }[locale];
 
   return (
-    <div className="relative w-full rounded-3xl overflow-hidden border border-border/50 shadow-xl bg-card">
+    <div className="relative w-full rounded-3xl overflow-hidden border border-border/50 bg-card">
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-120">
 
         {/* ── LEFT: Image — top on mobile ── */}
@@ -95,7 +95,7 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
             <motion.div
               animate={{ scale: [1, 1.04, 1] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-destructive text-destructive-foreground font-black text-xs shadow-lg shadow-destructive/30"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-destructive text-destructive-foreground font-black text-xs"
             >
               <Fire size={14} weight="fill" />
               {locale === 'ru' ? 'ГОРЯЧЕЕ ПРЕДЛОЖЕНИЕ' : locale === 'en' ? 'HOT DEAL' : 'ცხელი შეთავაზება'}
@@ -104,7 +104,7 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
 
           {/* Countdown — top right of image */}
           <div className="absolute top-4 right-4 z-10">
-            <div className="flex flex-col items-end gap-1.5 bg-background/85 backdrop-blur-md rounded-2xl px-3 py-2.5 border border-border/50 shadow-lg">
+            <div className="flex flex-col items-end gap-1.5 bg-background/85 backdrop-blur-md rounded-2xl px-3 py-2.5 border border-border/50">
               <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest leading-none">
                 {offerLabel}
               </span>
@@ -134,7 +134,7 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
                 {deal.price}
                 <span className="text-base font-bold ml-1 text-primary/70">{deal.currency}</span>
               </span>
-              <span className="text-base text-muted-foreground line-through tabular-nums">
+              <span className="text-base text-destructive/60 line-through tabular-nums">
                 {fakeOldPrice} {deal.currency}
               </span>
               <span className="text-xs font-black text-destructive bg-destructive/8 border border-destructive/15 px-2 py-0.5 rounded-md">
@@ -163,7 +163,7 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
               <span className="absolute -inset-1 rounded-xl bg-destructive/25 motion-safe:animate-ping" aria-hidden="true" />
               <Link
                 href={`/${locale}/catalog/${deal.slug}`}
-                className="relative inline-flex items-center justify-center gap-2 w-full px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-destructive hover:bg-destructive/90 text-destructive-foreground font-black text-sm shadow-lg shadow-destructive/20 transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/50 active:scale-[0.98] cursor-pointer"
+                className="relative inline-flex items-center justify-center gap-2 w-full px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-destructive hover:bg-destructive/90 text-destructive-foreground font-black text-sm transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/50 active:scale-[0.98] cursor-pointer"
               >
                 {locale === 'ru' ? 'Срочно заказать' : locale === 'ka' ? 'შეკვეთა' : 'Order Now'}
                 <ArrowRight size={16} weight="bold" />

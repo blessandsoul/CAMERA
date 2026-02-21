@@ -114,7 +114,7 @@ export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestL
             <span className="text-[11px] text-muted-foreground italic">{priceOnRequestLabel}</span>
           ) : product.originalPrice && product.originalPrice > product.price ? (
             <div className="flex flex-col leading-none gap-0.5">
-              <span className="text-xs font-mono text-muted-foreground line-through tabular-nums">
+              <span className="text-sm text-destructive/60 line-through tabular-nums">
                 {product.originalPrice.toLocaleString()}₾
               </span>
               <div className="flex items-baseline gap-0.5">
