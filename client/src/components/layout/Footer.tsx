@@ -22,7 +22,7 @@ export async function Footer({ locale }: FooterProps) {
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <Logo height={32} />
+              <Logo height={52} />
             </div>
             <p className="text-base text-muted-foreground leading-relaxed">
               {t('footer.description')}
