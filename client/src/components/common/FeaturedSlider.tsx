@@ -158,7 +158,7 @@ export function FeaturedSlider({ products, locale, viewLabel, priceOnRequest }: 
   const currentDisplayIndex = showNext && direction === 'left' ? nextIndex! : current;
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-border/40 bg-card shadow-2xl shadow-black/10">
+    <div className="rounded-2xl overflow-hidden border border-border/40 bg-card">
 
       {/* Slide track */}
       <div className="relative overflow-hidden">

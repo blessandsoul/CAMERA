@@ -46,7 +46,7 @@ function Carousel({ products, locale, currentIndex, onNavigate }: {
     <div className="flex flex-col gap-3">
       <AnimatePresence mode="wait">
         <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.45, ease: 'easeOut' }}>
-          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
+          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card group">
             <div className="aspect-video lg:aspect-16/8 bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
                 <Image src={imageSrc} alt={name} fill className="object-cover object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 600px" priority={currentIndex === 0} />
@@ -61,8 +61,8 @@ function Carousel({ products, locale, currentIndex, onNavigate }: {
       {products.length > 1 && (
         <div className="flex items-center justify-end gap-2">
           <span className="text-sm text-muted-foreground tabular-nums mr-auto">{currentIndex + 1} / {products.length}</span>
-          <button onClick={(e) => { e.preventDefault(); prev(); }} className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm" aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
-          <button onClick={(e) => { e.preventDefault(); next(); }} className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm" aria-label="Next"><CaretRight size={18} weight="bold" /></button>
+          <button onClick={(e) => { e.preventDefault(); prev(); }} className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50" aria-label="Previous"><CaretLeft size={18} weight="bold" /></button>
+          <button onClick={(e) => { e.preventDefault(); next(); }} className="w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50" aria-label="Next"><CaretRight size={18} weight="bold" /></button>
         </div>
       )}
     </div>
@@ -118,7 +118,7 @@ export function HeroSection({ products, locale, phone, labels }: HeroSectionProp
           </motion.div>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 pt-1">
-          <Link href={`/${locale}/catalog`} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg glow-sm motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+          <Link href={`/${locale}/catalog`} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base motion-safe:transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
             {labels.heroCta}<ArrowRight size={18} weight="bold" />
           </Link>
           <a href={`https://wa.me/995${phone}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-base motion-safe:transition-all duration-200 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30">

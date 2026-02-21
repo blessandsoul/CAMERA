@@ -160,7 +160,7 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-0.5">
               <Link
                 href={`/${locale}/catalog/${p.slug}`}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-lg transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
               >
                 {locale === 'ru' ? 'Купить сейчас' : locale === 'ka' ? 'შეძენა' : 'Buy Now'}
                 <ArrowRight size={16} weight="bold" />

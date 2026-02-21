@@ -26,7 +26,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
       className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.97] min-h-[44px] ${
         added
           ? 'bg-green-600/20 text-green-400 border border-green-600/30'
-          : 'bg-primary hover:bg-primary-hover text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/40'
+          : 'bg-primary hover:bg-primary-hover text-primary-foreground'
       }`}
       aria-label={t('catalog.add_to_cart')}
     >

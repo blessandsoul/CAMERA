@@ -104,7 +104,7 @@ export async function ProjectsSection(): Promise<React.JSX.Element> {
             return (
               <Link key={project.id} href={`/${locale}/projects/${project.id}`} className="group">
                 <article
-                  className="relative rounded-xl overflow-hidden border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-0.5 hover:border-primary/20 h-full"
+                  className="relative rounded-xl overflow-hidden border border-border/50 bg-card transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-primary/20 h-full"
                 >
                   {/* Image */}
                   <div className="relative h-44 overflow-hidden bg-muted">

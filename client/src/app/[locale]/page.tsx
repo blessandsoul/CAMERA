@@ -177,7 +177,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:-translate-y-0.5">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                 <Wrench size={20} weight="duotone" className="text-primary" aria-hidden="true" />
               </div>
@@ -187,7 +187,7 @@ export default async function HomePage({ params }: HomePageProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/15 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/15 transition-all duration-300 hover:-translate-y-0.5">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                 <ShieldCheck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
               </div>
@@ -197,7 +197,7 @@ export default async function HomePage({ params }: HomePageProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:-translate-y-0.5">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                 <Truck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
               </div>
@@ -311,7 +311,7 @@ export default async function HomePage({ params }: HomePageProps) {
             href={`https://wa.me/995${phone}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-4 px-10 py-5 rounded-xl bg-white hover:bg-white/95 text-primary font-bold text-xl shadow-2xl shadow-black/20 transition-all duration-300 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.98]"
+            className="group inline-flex items-center gap-4 px-10 py-5 rounded-xl bg-white hover:bg-white/95 text-primary font-bold text-xl transition-all duration-300 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.98]"
             aria-label={`WhatsApp — ${phone}`}
           >
             <Phone size={28} weight="fill" aria-hidden="true" />

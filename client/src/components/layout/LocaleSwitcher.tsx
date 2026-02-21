@@ -100,7 +100,7 @@ export function LocaleSwitcher(): React.ReactElement {
 
       {open && (
         <div
-          className="absolute right-0 top-full mt-1.5 w-32 rounded-xl bg-card border border-border/50 shadow-lg shadow-black/8 overflow-hidden z-50 motion-safe:animate-[slide-fade-in_0.15s_ease-out]"
+          className="absolute right-0 top-full mt-1.5 w-32 rounded-xl bg-card border border-border/50 overflow-hidden z-50 motion-safe:animate-[slide-fade-in_0.15s_ease-out]"
           role="listbox"
           aria-label="Language options"
         >

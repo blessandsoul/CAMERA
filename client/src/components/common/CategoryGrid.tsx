@@ -74,7 +74,7 @@ export function CategoryGrid({ locale, counts = {} }: CategoryGridProps) {
           <Link
             key={cat.value}
             href={`/${locale}/catalog?category=${cat.value}`}
-            className="group flex flex-col items-center gap-1.5 p-2.5 sm:p-3 sm:gap-2 rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm shadow-sm hover:shadow-md motion-safe:hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer w-[calc(33.333%-0.375rem)] sm:w-auto overflow-hidden"
+            className="group flex flex-col items-center gap-1.5 p-2.5 sm:p-3 sm:gap-2 rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm motion-safe:hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer w-[calc(33.333%-0.375rem)] sm:w-auto overflow-hidden"
           >
             <div className="text-primary/70 group-hover:text-primary transition-colors duration-200">
               {cat.icon}

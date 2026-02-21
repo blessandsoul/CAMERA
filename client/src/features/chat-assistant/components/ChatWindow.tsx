@@ -50,13 +50,13 @@ export function ChatWindow({
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.88, y: 24 }}
       transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-      className="absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-1.5rem)] h-[500px] max-h-[72dvh] bg-background border border-border/60 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+      className="absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-1.5rem)] h-[500px] max-h-[72dvh] bg-background border border-border/60 rounded-2xl flex flex-col overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-secondary">
         <div className="flex items-center gap-2.5">
           {/* Character in header */}
-          <div className="w-9 h-9 rounded-xl bg-background flex items-center justify-center shrink-0 shadow-sm border border-border/50">
+          <div className="w-9 h-9 rounded-xl bg-background flex items-center justify-center shrink-0 border border-border/50">
             <Character state={characterState} size={32} />
           </div>
           <div>

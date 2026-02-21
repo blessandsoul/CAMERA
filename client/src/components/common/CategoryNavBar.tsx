@@ -83,7 +83,7 @@ export function CategoryNavBar({ locale, counts, badge, title, subtitle }: Categ
       {/* Category icons */}
       <nav
         aria-label="Product categories"
-        className="flex items-stretch justify-center gap-1.5 sm:gap-2 rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-2 sm:p-2.5 shadow-sm w-full"
+        className="flex items-stretch justify-center gap-1.5 sm:gap-2 rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-2 sm:p-2.5 w-full"
       >
         {CATEGORIES.map((cat) => {
           const label = cat.labels[locale] ?? cat.labels.en;
@@ -93,7 +93,7 @@ export function CategoryNavBar({ locale, counts, badge, title, subtitle }: Categ
             <Link
               key={cat.value}
               href={`/${locale}/catalog?category=${cat.value}`}
-              className="group relative flex flex-1 flex-col items-center gap-1 sm:gap-1.5 py-2.5 sm:py-3 px-1 sm:px-3 rounded-xl transition-all duration-200 ease-out hover:bg-primary/5 hover:shadow-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
+              className="group relative flex flex-1 flex-col items-center gap-1 sm:gap-1.5 py-2.5 sm:py-3 px-1 sm:px-3 rounded-xl transition-all duration-200 ease-out hover:bg-primary/5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
             >
               <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/8 border border-primary/10 text-primary/70 group-hover:bg-primary/12 group-hover:text-primary group-hover:border-primary/20 transition-all duration-200">
                 {cat.icon}

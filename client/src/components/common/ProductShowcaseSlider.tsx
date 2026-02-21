@@ -74,7 +74,7 @@ export function ProductShowcaseSlider({
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
           {/* Card — same structure as AndrewAltair HeroCarousel */}
-          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
+          <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card group">
 
             {/* ── TOP: Image (aspect-video) ── */}
             <div className="aspect-video bg-muted relative overflow-hidden flex items-center justify-center">
@@ -129,14 +129,14 @@ export function ProductShowcaseSlider({
                 <>
                   <button
                     onClick={(e) => { e.preventDefault(); goToPrev(); }}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none"
                     aria-label="Previous"
                   >
                     <CaretLeft size={22} weight="bold" />
                   </button>
                   <button
                     onClick={(e) => { e.preventDefault(); goToNext(); }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none shadow-lg"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white motion-safe:transition-all motion-safe:hover:scale-110 cursor-pointer focus-visible:outline-none"
                     aria-label="Next"
                   >
                     <CaretRight size={22} weight="bold" />

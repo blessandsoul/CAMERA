@@ -61,7 +61,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps): Promi
 
             return (
               <Link key={project.id} href={`/${locale}/projects/${project.id}`} className="group">
-                <article className="flex flex-col rounded-xl overflow-hidden border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-0.5 hover:border-primary/20 h-full">
+                <article className="flex flex-col rounded-xl overflow-hidden border border-border/50 bg-card transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-primary/20 h-full">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden bg-muted shrink-0">
                     {project.image ? (

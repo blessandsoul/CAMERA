@@ -68,7 +68,7 @@ export function MobileMenu({ locale, labels }: MobileMenuProps): React.ReactElem
 
           {/* Drawer */}
           <nav
-            className="fixed top-0 right-0 z-50 w-64 h-[100dvh] bg-background border-l border-border shadow-xl flex flex-col md:hidden motion-safe:animate-in motion-safe:slide-in-from-right"
+            className="fixed top-0 right-0 z-50 w-64 h-[100dvh] bg-background border-l border-border flex flex-col md:hidden motion-safe:animate-in motion-safe:slide-in-from-right"
             aria-label="Mobile navigation"
           >
             {/* Close */}

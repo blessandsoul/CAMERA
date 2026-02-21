@@ -19,7 +19,7 @@ export function HeroVariantSwitcher({ value, onChange }: HeroVariantSwitcherProp
         <button
           key={v}
           onClick={() => onChange(v)}
-          className={`w-9 h-9 rounded-lg text-sm font-black transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${value === v ? 'bg-primary text-primary-foreground shadow-md' : 'border border-border text-muted-foreground hover:bg-muted hover:text-foreground'}`}
+          className={`w-9 h-9 rounded-lg text-sm font-black transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${value === v ? 'bg-primary text-primary-foreground' : 'border border-border text-muted-foreground hover:bg-muted hover:text-foreground'}`}
           aria-pressed={value === v}
           aria-label={`Variant ${v}`}
         >

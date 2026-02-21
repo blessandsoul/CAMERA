@@ -138,7 +138,7 @@ export function HeroTags({ locale, labels, productsByCategory }: HeroTagsProps) 
               {active === 'all' && (
                 <motion.div
                   layoutId="heroTabActive"
-                  className="absolute inset-0 bg-primary rounded-lg shadow-md"
+                  className="absolute inset-0 bg-primary rounded-lg"
                   transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
                 />
               )}
@@ -159,7 +159,7 @@ export function HeroTags({ locale, labels, productsByCategory }: HeroTagsProps) 
               {active === cat.id && (
                 <motion.div
                   layoutId="heroTabActive"
-                  className="absolute inset-0 bg-primary rounded-lg shadow-md"
+                  className="absolute inset-0 bg-primary rounded-lg"
                   transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
                 />
               )}
@@ -188,7 +188,7 @@ export function HeroTags({ locale, labels, productsByCategory }: HeroTagsProps) 
                 className={cn(
                   'inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200',
                   'bg-background/50 backdrop-blur-sm border-border/50',
-                  'hover:border-primary/40 hover:scale-105 hover:shadow-md hover:-translate-y-0.5',
+                  'hover:border-primary/40 hover:scale-105 hover:-translate-y-0.5',
                 )}
               >
                 <span className="text-muted-foreground/60">#</span>

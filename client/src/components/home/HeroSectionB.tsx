@@ -130,7 +130,7 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
           <div className="flex flex-col gap-2 mt-1.5 sm:mt-2">
             <Link
               href={`/${locale}/catalog/${p.slug}`}
-              className="inline-flex items-center justify-between gap-2 w-full px-5 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-md transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center justify-between gap-2 w-full px-5 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm transition-all duration-200 motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.98] cursor-pointer"
             >
               <span>{locale === 'ru' ? 'Подробнее о товаре' : locale === 'ka' ? 'პროდუქტის ნახვა' : 'View product'}</span>
               <ArrowUpRight size={16} weight="bold" />
@@ -174,7 +174,7 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
                     src={imgSrc}
                     alt={name}
                     fill
-                    className="object-contain object-center drop-shadow-2xl"
+                    className="object-contain object-center"
                     sizes="(max-width: 1024px) 100vw, 60vw"
                     priority={idx === 0}
                   />

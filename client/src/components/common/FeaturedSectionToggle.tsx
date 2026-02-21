@@ -35,7 +35,7 @@ export function FeaturedSectionToggle({
             className={cn(
               'px-4 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 cursor-pointer',
               variant === 'A'
-                ? 'bg-background text-foreground shadow-sm'
+                ? 'bg-background text-foreground'
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
@@ -46,7 +46,7 @@ export function FeaturedSectionToggle({
             className={cn(
               'px-4 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 cursor-pointer',
               variant === 'B'
-                ? 'bg-background text-foreground shadow-sm'
+                ? 'bg-background text-foreground'
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >

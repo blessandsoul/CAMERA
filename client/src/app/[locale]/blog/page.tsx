@@ -35,7 +35,7 @@ export default async function BlogPage({ params }: BlogPageProps): Promise<React
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article, i) => (
             <Link key={article.id} href={`/${locale}/blog/${article.slug}`} className="group">
-              <article className="flex flex-col rounded-xl overflow-hidden border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-0.5 hover:border-primary/20">
+              <article className="flex flex-col rounded-xl overflow-hidden border border-border/50 bg-card transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-primary/20">
                 {article.coverImage && (
                   <div className="relative h-48 overflow-hidden bg-muted shrink-0">
                     <Image

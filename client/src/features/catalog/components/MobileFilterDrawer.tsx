@@ -74,7 +74,7 @@ export function MobileFilterDrawer({
           />
 
           {/* Drawer */}
-          <div className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-background border-r border-border shadow-xl z-50 lg:hidden flex flex-col animate-slide-in-left">
+          <div className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-background border-r border-border z-50 lg:hidden flex flex-col animate-slide-in-left">
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-border shrink-0">
               <h2 className="text-base font-semibold text-foreground">{t('catalog.filters')}</h2>

@@ -76,7 +76,7 @@ export function HeroVariantA({ products, locale, phone, labels, currentIndex, di
           <div className="flex gap-3 pt-2">
             <Link
               href={`/${locale}/catalog`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-lg transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none"
             >
               {labels.heroCta}
               <ArrowRight size={16} weight="bold" />

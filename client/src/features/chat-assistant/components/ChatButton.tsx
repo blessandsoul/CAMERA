@@ -30,7 +30,7 @@ export function ChatButton({ onClick, characterState, onWakeUp }: ChatButtonProp
     <div className="relative">
       {/* Tooltip */}
       <motion.div
-        className="absolute -top-12 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-3 py-1.5 rounded-lg whitespace-nowrap shadow-md border border-border pointer-events-none"
+        className="absolute -top-12 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-3 py-1.5 rounded-lg whitespace-nowrap border border-border pointer-events-none"
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 6 }}
         transition={{ duration: 0.18 }}

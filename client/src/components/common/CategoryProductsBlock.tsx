@@ -109,7 +109,7 @@ export function CategoryProductsBlock({
     locale === 'ru' ? 'Нет продуктов' : locale === 'en' ? 'No products' : 'პროდუქტი არ არის';
 
   return (
-    <div className="rounded-2xl border border-border/50 bg-card shadow-sm overflow-hidden">
+    <div className="rounded-2xl border border-border/50 bg-card overflow-hidden">
 
       {/* Tab bar */}
       <div className="flex items-stretch border-b border-border/50 overflow-x-auto scrollbar-none">

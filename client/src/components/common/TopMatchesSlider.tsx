@@ -87,7 +87,7 @@ function ProductCard({ product, locale, inStockLabel, priceOnRequestLabel, categ
         'group relative rounded-xl border flex flex-col overflow-hidden min-w-0',
         'transition-all duration-300 ease-out cursor-pointer',
         'border-border bg-card',
-        'hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/8',
+        'hover:border-primary/30 hover:-translate-y-0.5',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
       )}
       aria-label={name}
@@ -235,7 +235,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
   return (
     <div className={cn(
       variant === 'cards'
-        ? 'rounded-2xl border border-border bg-card shadow-sm'
+        ? 'rounded-2xl border border-border bg-card'
         : ''
     )}>
 
@@ -259,7 +259,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               className={cn(
                 'px-2.5 py-1 text-[10px] font-semibold rounded transition-all duration-200 cursor-pointer leading-none',
                 variant === 'cards'
-                  ? 'bg-background text-foreground shadow-sm'
+                  ? 'bg-background text-foreground'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
@@ -270,7 +270,7 @@ export function TopProductsSlider({ products, locale, labels }: TopProductsSlide
               className={cn(
                 'px-2.5 py-1 text-[10px] font-semibold rounded transition-all duration-200 cursor-pointer leading-none',
                 variant === 'showcase'
-                  ? 'bg-background text-foreground shadow-sm'
+                  ? 'bg-background text-foreground'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
