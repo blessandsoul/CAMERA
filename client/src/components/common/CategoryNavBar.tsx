@@ -55,14 +55,14 @@ export function CategoryNavBar({ locale, counts, badge, title, subtitle }: Categ
     <div className="flex flex-col items-center gap-4">
       {/* Badge + Title + subtitle above icons */}
       {(badge || title || subtitle) && (
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-5">
           {badge && (
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted/60 border border-border/50">
               <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-online opacity-50 motion-safe:animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-online" />
               </span>
-              <span className="text-xs font-medium text-muted-foreground">{badge}</span>
+              <span className="text-base font-medium text-muted-foreground">{badge}</span>
             </div>
           )}
           <div className="text-center max-w-2xl">

@@ -172,7 +172,7 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
 
         {/* ── WHY US — service cards ── */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-6">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
             <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
@@ -209,7 +209,7 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
 
         {/* ── CATEGORY NAV BAR ── */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-4 pb-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-10 pb-0">
           <CategoryNavBar
             locale={locale as Locale}
             counts={allProducts.reduce<Record<string, number>>((acc, p) => {
