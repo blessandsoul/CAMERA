@@ -16,7 +16,7 @@ export async function Footer({ locale }: FooterProps) {
   return (
     <footer className="border-t border-border/60 bg-surface mt-auto">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
 
           {/* Brand */}
           <div>
@@ -26,28 +26,6 @@ export async function Footer({ locale }: FooterProps) {
             <p className="text-base text-muted-foreground leading-relaxed">
               {t('footer.description')}
             </p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">{t('nav.catalog')}</h3>
-            <ul className="space-y-2.5">
-              {[
-                { href: `/${locale}/catalog?category=cameras`, label: t('catalog.cameras') },
-                { href: `/${locale}/catalog?category=nvr-kits`, label: t('catalog.nvr_kits') },
-                { href: `/${locale}/catalog?category=storage`, label: t('catalog.storage') },
-                { href: `/${locale}/catalog?category=services`, label: t('catalog.services') },
-              ].map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact */}
