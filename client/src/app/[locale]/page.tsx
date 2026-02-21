@@ -172,6 +172,43 @@ export default async function HomePage({ params }: HomePageProps) {
           />
         </div>
 
+        {/* ── WHY US — service cards ── */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <Wrench size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-foreground">{t('home.about_install')}</h3>
+                <p className="text-xs text-muted-foreground">{t('home.about_install_desc')}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/15 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <ShieldCheck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-foreground">{t('home.about_guarantee')}</h3>
+                <p className="text-xs text-muted-foreground">{t('home.about_guarantee_desc')}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <Truck size={20} weight="duotone" className="text-primary" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-foreground">{t('home.about_delivery')}</h3>
+                <p className="text-xs text-muted-foreground">{t('home.about_delivery_desc')}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         {/* ── CATEGORY NAV BAR ── */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-4 pb-0">
           <CategoryNavBar
@@ -264,56 +301,6 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* ── BLOG ── */}
       <BlogSection locale={locale} />
 
-      {/* ── WHY US ── */}
-      <section className="py-10 lg:py-14 bg-secondary/30 border-y border-border/40" aria-labelledby="trust-heading">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-
-          {/* Section header */}
-          <div className="mb-8">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-              {t('home.about_subtitle')}
-            </span>
-            <h2 id="trust-heading" className="text-2xl md:text-3xl font-bold text-foreground">
-              {t('home.about_title')}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-background border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-              <div className="w-11 h-11 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                <Wrench size={22} weight="duotone" className="text-primary" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-1">{t('home.about_install')}</h3>
-                <p className="text-base text-muted-foreground leading-relaxed">{t('home.about_install_desc')}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-primary/5 border border-primary/15 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-              <div className="w-11 h-11 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                <ShieldCheck size={22} weight="duotone" className="text-primary" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-1">{t('home.about_guarantee')}</h3>
-                <p className="text-base text-muted-foreground leading-relaxed">{t('home.about_guarantee_desc')}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-background border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-              <div className="w-11 h-11 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                <Truck size={22} weight="duotone" className="text-primary" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-1">{t('home.about_delivery')}</h3>
-                <p className="text-base text-muted-foreground leading-relaxed">{t('home.about_delivery_desc')}</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
       {/* ── CTA — Newsletter-style (AndrewAltair) ── */}
       <section className="cta-bg py-14 lg:py-20" aria-labelledby="cta-heading">
