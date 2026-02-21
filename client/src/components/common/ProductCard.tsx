@@ -26,10 +26,6 @@ export async function ProductCard({ product }: ProductCardProps) {
   const hasImage = product.images.length > 0;
   const isService = product.category === 'services';
   const categoryLabel = t(CATEGORY_KEYS[product.category] ?? product.category);
-  const discountPct =
-    product.isDiscounted && product.originalPrice && product.originalPrice > product.price
-      ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-      : null;
   const imgSrc = hasImage
     ? (product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}`)
     : '';
@@ -72,10 +68,10 @@ export async function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Discount badge */}
-        {discountPct !== null && (
-          <div className="absolute bottom-3 left-3 z-10">
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-destructive text-destructive-foreground text-[11px] font-bold tracking-wide">
-              −{discountPct}%
+        {product.originalPrice && product.originalPrice > product.price && (
+          <div className="absolute bottom-3 left-3">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-destructive text-destructive-foreground text-[10px] font-bold tabular-nums">
+              -{Math.round((1 - product.price / product.originalPrice) * 100)}%
             </span>
           </div>
         )}
@@ -103,15 +99,23 @@ export async function ProductCard({ product }: ProductCardProps) {
             </span>
           ) : (
             <div className="flex flex-col leading-none">
-              <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1">{t('catalog.price')}</span>
-              {discountPct !== null && product.originalPrice && (
-                <span className="text-sm text-muted-foreground line-through tabular-nums mb-0.5">
-                  {product.originalPrice}₾
-                </span>
+              {product.originalPrice ? (
+                <>
+                  <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1 line-through tabular-nums">
+                    {product.originalPrice}₾
+                  </span>
+                  <span className="font-bold text-2xl text-destructive tabular-nums">
+                    {product.price}<span className="ml-1 text-lg">₾</span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1">{t('catalog.price')}</span>
+                  <span className="font-bold text-2xl text-foreground tabular-nums">
+                    {product.price}<span className="text-primary ml-1 text-lg">₾</span>
+                  </span>
+                </>
               )}
-              <span className={cn('font-bold text-2xl tabular-nums', discountPct !== null ? 'text-destructive' : 'text-foreground')}>
-                {product.price}<span className={cn('ml-1 text-lg', discountPct !== null ? 'text-destructive/80' : 'text-primary')}>₾</span>
-              </span>
             </div>
           )}
 

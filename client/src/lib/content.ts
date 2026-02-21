@@ -185,7 +185,9 @@ export function getFeaturedProducts(): Product[] {
 }
 
 export function getDiscountedProducts(): Product[] {
-  return getAllProducts().filter((p) => p.isDiscounted).slice(0, 6);
+  return getAllProducts()
+    .filter((p) => p.originalPrice !== undefined && p.originalPrice > p.price)
+    .slice(0, 6);
 }
 
 export function getAllProductIds(): string[] {

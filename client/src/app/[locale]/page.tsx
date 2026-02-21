@@ -68,8 +68,8 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
   const featured = getFeaturedProducts();
-  const discounted = getDiscountedProducts();
   const allProducts = getAllProducts();
+  const discounted = getDiscountedProducts();
   const siteSettings = getSiteSettings();
   const phone = siteSettings.contact.phone || '597470518';
 
@@ -250,6 +250,29 @@ export default async function HomePage({ params }: HomePageProps) {
           />
         </div>
 
+        {/* ── DISCOUNTED PRODUCTS ── */}
+        {discounted.length > 0 && (
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-6 pb-10">
+            {/* Section heading */}
+            <div className="flex items-center gap-3 mb-4">
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-destructive">
+                <span className="w-1.5 h-1.5 rounded-full bg-destructive" aria-hidden="true" />
+                {locale === 'ru' ? 'Акция' : locale === 'en' ? 'Sale' : 'ფასდაკლება'}
+              </span>
+              <h2 className="text-lg font-bold text-foreground leading-tight">
+                {locale === 'ru' ? 'Товары со скидкой' : locale === 'en' ? 'Discounted Products' : 'ფასდაკლებული პროდუქტები'}
+              </h2>
+            </div>
+            <div className="rounded-2xl border border-destructive/20 bg-destructive/3 overflow-hidden p-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+                {discounted.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
       </section>
 
       {/* ── FEATURED PRODUCTS ── */}
@@ -279,40 +302,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featured.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-
-          </div>
-        </section>
-      )}
-
-      {/* ── DISCOUNTED PRODUCTS — ტექბრეინ კამერები ── */}
-      {discounted.length > 0 && (
-        <section className="py-10 lg:py-14 bg-background" aria-labelledby="discounted-heading">
-          <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-
-            <div className="flex items-end justify-between mb-8">
-              <div>
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-destructive mb-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-destructive" aria-hidden="true" />
-                  {locale === 'ka' ? 'ფასდაკლება' : locale === 'ru' ? 'Скидки' : 'Sale'}
-                </span>
-                <h2 id="discounted-heading" className="text-2xl md:text-3xl font-bold text-foreground">
-                  ტექბრეინ კამერები
-                </h2>
-              </div>
-              <Link
-                href={`/${locale}/catalog`}
-                className="hidden md:flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg px-2 py-1 mb-0.5"
-              >
-                {t('home.hero_cta')}
-                <ArrowRight size={14} weight="bold" aria-hidden="true" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {discounted.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
