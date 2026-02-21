@@ -25,8 +25,20 @@
         {
           "id": "cameras-wifi",
           "parentCategory": "cameras",
-          "label": { "ka": "Wi-Fi კამერები", "ru": "Wi-Fi камеры", "en": "Wi-Fi Cameras" },
+          "label": { "ka": "WIFI კამერები", "ru": "Wi-Fi камеры", "en": "Wi-Fi Cameras" },
           "specFilter": { "kaKey": "Wi-Fi", "value": "კი" }
+        },
+        {
+          "id": "cameras-4g",
+          "parentCategory": "cameras",
+          "label": { "ka": "4G კამერები", "ru": "4G камеры", "en": "4G Cameras" },
+          "specFilter": { "kaKey": "4G / LTE", "value": "კი" }
+        },
+        {
+          "id": "cameras-solar",
+          "parentCategory": "cameras",
+          "label": { "ka": "კამერები მზის პანელზე", "ru": "Солнечные камеры", "en": "Solar Panel Cameras" },
+          "specFilter": { "kaKey": "მზის პანელი", "value": "კი" }
         },
         {
           "id": "cameras-ptz",

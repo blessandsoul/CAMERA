@@ -1,42 +1,48 @@
 import Link from 'next/link';
 import {
-  SecurityCamera,
-  HardDrive,
-  Wrench,
-  Package,
+  WifiHigh,
+  CellTower,
+  SolarPanel,
   Toolbox,
+  Wrench,
 } from '@phosphor-icons/react/dist/ssr';
-import type { ProductCategory, Locale } from '@/types/product.types';
+import type { Locale } from '@/types/product.types';
 
 interface CategoryItem {
-  value: ProductCategory;
+  value: string;
+  href: (locale: Locale) => string;
   labels: Record<Locale, string>;
   icon: React.ReactNode;
 }
 
 const CATEGORIES: CategoryItem[] = [
   {
-    value: 'cameras',
-    labels: { ka: 'კამერები', ru: 'Камеры', en: 'Cameras' },
-    icon: <SecurityCamera size={26} weight="duotone" aria-hidden="true" />,
+    value: 'cameras-wifi',
+    href: (locale) => `/${locale}/catalog?category=cameras&subcategory=cameras-wifi`,
+    labels: { ka: 'WIFI კამერები', ru: 'WIFI Камеры', en: 'WiFi Cameras' },
+    icon: <WifiHigh size={26} weight="duotone" aria-hidden="true" />,
   },
   {
-    value: 'nvr-kits',
-    labels: { ka: 'NVR კომპლექტი', ru: 'NVR Комплект', en: 'NVR Kits' },
-    icon: <Package size={26} weight="duotone" aria-hidden="true" />,
+    value: 'cameras-4g',
+    href: (locale) => `/${locale}/catalog?category=cameras&subcategory=cameras-4g`,
+    labels: { ka: '4G კამერები', ru: '4G Камеры', en: '4G Cameras' },
+    icon: <CellTower size={26} weight="duotone" aria-hidden="true" />,
   },
   {
-    value: 'storage',
-    labels: { ka: 'მეხსიერების ბარათები', ru: 'Хранилище', en: 'Storage' },
-    icon: <HardDrive size={26} weight="duotone" aria-hidden="true" />,
+    value: 'cameras-solar',
+    href: (locale) => `/${locale}/catalog?category=cameras&subcategory=cameras-solar`,
+    labels: { ka: 'მზის პანელი', ru: 'Солнечные', en: 'Solar Cameras' },
+    icon: <SolarPanel size={26} weight="duotone" aria-hidden="true" />,
   },
   {
     value: 'accessories',
+    href: (locale) => `/${locale}/catalog?category=accessories`,
     labels: { ka: 'აქსესუარები', ru: 'Аксессуары', en: 'Accessories' },
     icon: <Toolbox size={26} weight="duotone" aria-hidden="true" />,
   },
   {
     value: 'services',
+    href: (locale) => `/${locale}/catalog?category=services`,
     labels: { ka: 'სერვისი', ru: 'Сервис', en: 'Services' },
     icon: <Wrench size={26} weight="duotone" aria-hidden="true" />,
   },
@@ -92,7 +98,7 @@ export function CategoryNavBar({ locale, counts, badge, title, subtitle }: Categ
           return (
             <Link
               key={cat.value}
-              href={`/${locale}/catalog?category=${cat.value}`}
+              href={cat.href(locale)}
               className="group relative flex flex-1 flex-col items-center gap-1 sm:gap-1.5 py-2.5 sm:py-3 px-1 sm:px-3 rounded-xl transition-all duration-200 ease-out hover:bg-primary/5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
             >
               <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/8 border border-primary/10 text-primary/70 group-hover:bg-primary/12 group-hover:text-primary group-hover:border-primary/20 transition-all duration-200">
