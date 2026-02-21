@@ -109,12 +109,9 @@ export async function ProductCard({ product }: ProductCardProps) {
                   </span>
                 </>
               ) : (
-                <>
-                  <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1">{t('catalog.price')}</span>
-                  <span className="font-bold text-2xl text-foreground tabular-nums">
-                    {product.price}<span className="text-primary ml-1 text-lg">₾</span>
-                  </span>
-                </>
+                <span className="font-bold text-2xl text-foreground tabular-nums">
+                  {product.price}<span className="text-primary ml-1 text-lg">₾</span>
+                </span>
               )}
             </div>
           )}
