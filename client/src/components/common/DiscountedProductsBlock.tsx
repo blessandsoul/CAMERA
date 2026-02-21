@@ -111,7 +111,7 @@ export function DiscountedProductsBlock({
           >
             <div className="flex gap-3">
               {saleProducts.map((product) => (
-                <div key={product.id} className="w-40 sm:w-45 shrink-0">
+                <div key={product.id} className="w-50 sm:w-56 shrink-0">
                   <ProductMiniCard
                     product={product}
                     locale={locale}
