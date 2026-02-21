@@ -11,6 +11,7 @@ import {
   CaretLeft,
   CaretRight,
   ClockCounterClockwise,
+  Tag,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { ProductMiniCard } from './ProductMiniCard';
@@ -18,16 +19,18 @@ import { useRecentlyViewedStore } from '@/features/catalog/store/recentlyViewedS
 import type { Product, Locale, ProductCategory } from '@/types/product.types';
 
 interface CategoryMeta {
-  value: ProductCategory | 'recent';
+  value: ProductCategory | 'recent' | 'sale';
   labels: Record<string, string>;
   icon: React.ReactNode;
+  isSale?: boolean;
 }
 
 const CATEGORIES: CategoryMeta[] = [
+  { value: 'sale',        labels: { ka: 'ფასდაკლება',    ru: 'Акция',        en: 'Sale'        }, icon: <Tag            size={16} weight="duotone" aria-hidden="true" />, isSale: true },
   { value: 'cameras',     labels: { ka: 'კამერები',      ru: 'Камеры',       en: 'Cameras'     }, icon: <SecurityCamera size={16} weight="duotone" aria-hidden="true" /> },
   { value: 'nvr-kits',    labels: { ka: 'NVR კომპლექტი', ru: 'NVR Комплект', en: 'NVR Kits'    }, icon: <Package        size={16} weight="duotone" aria-hidden="true" /> },
-  { value: 'storage',     labels: { ka: 'მეხსიერება',    ru: 'Хранилище',    en: 'Storage'     }, icon: <HardDrive      size={16} weight="duotone" aria-hidden="true" /> },
-  { value: 'accessories', labels: { ka: 'აქსესუარები',   ru: 'Аксессуары',   en: 'Accessories' }, icon: <Toolbox        size={16} weight="duotone" aria-hidden="true" /> },
+  { value: 'storage',     labels: { ka: 'მეხსიერება',    ru: 'Хранილище',    en: 'Storage'     }, icon: <HardDrive      size={16} weight="duotone" aria-hidden="true" /> },
+  { value: 'accessories', labels: { ka: 'აქსესუარები',   ru: 'Аксессуары',    en: 'Accessories' }, icon: <Toolbox        size={16} weight="duotone" aria-hidden="true" /> },
   { value: 'services',    labels: { ka: 'სერვისი',       ru: 'Сервис',       en: 'Services'    }, icon: <Wrench         size={16} weight="duotone" aria-hidden="true" /> },
 ];
 
@@ -58,7 +61,7 @@ export function CategoryProductsBlock({
   priceOnRequestLabel,
   categoryLabels,
 }: CategoryProductsBlockProps) {
-  const [active, setActive] = useState<ProductCategory | 'recent'>('cameras');
+  const [active, setActive] = useState<ProductCategory | 'recent' | 'sale'>('cameras');
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   // Ref on the cards container — arrows scroll the product row, not the tabs
@@ -69,6 +72,8 @@ export function CategoryProductsBlock({
     .map((id) => products.find((p) => p.id === id))
     .filter((p): p is Product => !!p)
     .slice(0, 5);
+
+  const saleProducts = products.filter((p) => p.originalPrice !== undefined && p.originalPrice > p.price);
 
   const checkScroll = useCallback(() => {
     const el = cardsRef.current;
@@ -105,6 +110,8 @@ export function CategoryProductsBlock({
   const activeProducts =
     active === 'recent'
       ? recentProducts
+      : active === 'sale'
+      ? saleProducts
       : products.filter((p) => p.category === active);
 
   const noProductsLabel =
@@ -117,28 +124,48 @@ export function CategoryProductsBlock({
       <div className="flex items-stretch border-b border-border/50 overflow-x-auto scrollbar-none">
         {CATEGORIES.map((cat) => {
           const label = cat.labels[locale] ?? cat.labels['en'];
-          const count = products.filter((p) => p.category === cat.value).length;
+          const count = cat.isSale
+            ? saleProducts.length
+            : products.filter((p) => p.category === cat.value).length;
           const isActive = active === cat.value;
+          const isSaleTab = cat.isSale;
+
+          if (isSaleTab && count === 0) return null;
 
           return (
             <button
               key={cat.value}
-              onClick={() => setActive(cat.value)}
+              onClick={() => setActive(cat.value as ProductCategory | 'recent' | 'sale')}
               className={cn(
-                'relative flex items-center gap-2 px-4 py-3.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shrink-0',
-                isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                'relative flex items-center gap-2 px-4 py-3.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 shrink-0',
+                isSaleTab
+                  ? isActive
+                    ? 'text-destructive focus-visible:ring-destructive/50'
+                    : 'text-destructive/70 hover:text-destructive focus-visible:ring-destructive/50'
+                  : isActive
+                    ? 'text-primary focus-visible:ring-primary/50'
+                    : 'text-muted-foreground hover:text-foreground focus-visible:ring-primary/50'
               )}
             >
-              <span className={cn('transition-colors duration-200', isActive ? 'text-primary' : 'text-muted-foreground/70')}>
+              <span className={cn(
+                'transition-colors duration-200',
+                isSaleTab
+                  ? isActive ? 'text-destructive' : 'text-destructive/60'
+                  : isActive ? 'text-primary' : 'text-muted-foreground/70'
+              )}>
                 {cat.icon}
               </span>
               {label}
               {count > 0 && (
                 <span className={cn(
                   'text-[10px] font-bold tabular-nums px-1.5 py-px rounded-full leading-none border transition-colors duration-200',
-                  isActive
-                    ? 'bg-primary/10 text-primary border-primary/20'
-                    : 'bg-muted text-muted-foreground border-border/50'
+                  isSaleTab
+                    ? isActive
+                      ? 'bg-destructive/10 text-destructive border-destructive/20'
+                      : 'bg-destructive/5 text-destructive/70 border-destructive/20'
+                    : isActive
+                      ? 'bg-primary/10 text-primary border-primary/20'
+                      : 'bg-muted text-muted-foreground border-border/50'
                 )}>
                   {count}
                 </span>
@@ -146,7 +173,10 @@ export function CategoryProductsBlock({
               {isActive && (
                 <motion.span
                   layoutId="cat-underline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full"
+                  className={cn(
+                    'absolute bottom-0 left-0 right-0 h-0.5 rounded-t-full',
+                    isSaleTab ? 'bg-destructive' : 'bg-primary'
+                  )}
                   transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                 />
               )}
