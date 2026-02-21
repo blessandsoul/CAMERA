@@ -39,14 +39,14 @@ function CarouselD({ products, locale, currentIndex, dir, onPrev, onNext }: {
   const name = product.name[locale] ?? product.name['en'] ?? '';
   const imageSrc = product.images.length > 0 ? product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}` : null;
 
-  const overlayBtnClass = "absolute top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground shadow-md active:scale-95 transition-transform lg:hidden";
+  const overlayBtnClass = "absolute top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground active:scale-95 transition-transform lg:hidden";
 
   return (
     <div className="relative">
       <AnimatePresence mode="wait">
         <motion.div key={product.id} initial={{ opacity: 0, x: dir > 0 ? 50 : -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir > 0 ? -50 : 50 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
-          <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden border border-border/50 bg-card shadow-sm group">
-            <div className="aspect-video lg:aspect-4/3 bg-muted relative overflow-hidden flex items-center justify-center">
+          <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden border border-border/50 bg-card group">
+            <div className="aspect-[4/3] lg:aspect-square bg-muted relative overflow-hidden flex items-center justify-center">
               {imageSrc ? (
                 <Image src={imageSrc} alt={name} fill className="object-contain object-center motion-safe:group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 600px" priority={currentIndex === 0} />
               ) : (
@@ -160,7 +160,7 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
   if (products.length === 0) return null;
 
   const currentProduct = products[currentIndex];
-  const navBtnClass = "w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 shadow-sm";
+  const navBtnClass = "w-10 h-10 rounded-xl border border-border/60 bg-card hover:bg-accent hover:border-primary/40 flex items-center justify-center text-foreground motion-safe:transition-all duration-200 motion-safe:hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50";
 
   return (
     <div
