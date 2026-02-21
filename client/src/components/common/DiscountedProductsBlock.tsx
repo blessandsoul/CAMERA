@@ -61,16 +61,16 @@ export function DiscountedProductsBlock({
   if (saleProducts.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-success/25 bg-card shadow-sm overflow-hidden">
+    <div className="rounded-2xl border border-border/50 bg-card shadow-sm overflow-hidden">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-success/15 bg-success/[0.03]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border/50 bg-muted/20">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-success/10 border border-success/20 flex items-center justify-center shrink-0">
-            <Tag size={14} weight="duotone" className="text-success" aria-hidden="true" />
+          <div className="w-7 h-7 rounded-lg bg-muted border border-border/60 flex items-center justify-center shrink-0">
+            <Tag size={14} weight="duotone" className="text-muted-foreground" aria-hidden="true" />
           </div>
-          <span className="text-sm font-bold text-success">{saleLabel}</span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/10 border border-success/20 text-[10px] font-bold text-success tabular-nums">
+          <span className="text-sm font-bold text-foreground">{saleLabel}</span>
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-muted border border-border/60 text-[10px] font-bold text-muted-foreground tabular-nums">
             <Sparkle size={10} weight="fill" aria-hidden="true" />
             {saleProducts.length}
           </span>

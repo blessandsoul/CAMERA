@@ -4,7 +4,6 @@ import {
   SecurityCamera,
   Package,
   ArrowRight,
-  CheckCircle,
   Camera,
   HardDrive,
   Wrench,
@@ -77,15 +76,8 @@ export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestL
           </div>
         )}
 
-        {/* Badges */}
-        <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
-          <div
-            className="flex items-center gap-1 bg-background/90 backdrop-blur-sm rounded-md border border-border/60 shrink-0 px-1.5 py-1 sm:gap-1.5 sm:px-2"
-            title={inStockLabel}
-          >
-            <CheckCircle size={12} weight="fill" className="text-online shrink-0" aria-hidden="true" />
-            <span className="hidden sm:inline text-[10px] font-bold text-online leading-none">{inStockLabel}</span>
-          </div>
+        {/* Category badge only */}
+        <div className="absolute top-2 right-2">
           <div
             className="inline-flex items-center gap-1 bg-background/90 backdrop-blur-sm rounded-md border border-border/60 shrink-0 px-1.5 py-1 sm:px-2"
             title={categoryLabel}
