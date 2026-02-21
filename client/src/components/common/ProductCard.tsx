@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { SecurityCamera } from '@phosphor-icons/react/dist/ssr';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
-import { AddToCartButton } from '@/features/cart/components/AddToCartButton';
 import type { Product, Locale } from '@/types/product.types';
 
 interface ProductCardProps {
@@ -110,18 +109,15 @@ export async function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
 
-          <div className="flex items-center gap-2">
-            {!isService && <AddToCartButton product={product} />}
-            <Link
-              href={`/${locale}/catalog/${product.id}`}
-              className="flex-1 flex items-center justify-center gap-2 h-11 px-4 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:brightness-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-            >
-              {t('catalog.view_details')}
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-              </svg>
-            </Link>
-          </div>
+          <Link
+            href={`/${locale}/catalog/${product.id}`}
+            className="flex items-center justify-center gap-2 h-11 px-4 rounded-xl bg-primary text-primary-foreground font-semibold text-sm whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+          >
+            {t('catalog.view_details')}
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+            </svg>
+          </Link>
         </div>
 
       </div>
