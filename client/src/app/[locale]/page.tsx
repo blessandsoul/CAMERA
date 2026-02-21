@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { ArrowRight, Phone, ShieldCheck, Wrench, Truck } from '@phosphor-icons/react/dist/ssr';
 import { getFeaturedProducts, getAllProducts, getSiteSettings } from '@/lib/content';
+import { formatPhone } from '@/lib/utils/format';
 import { ProductCard } from '@/components/common/ProductCard';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
@@ -314,7 +315,7 @@ export default async function HomePage({ params }: HomePageProps) {
             aria-label={`WhatsApp — ${phone}`}
           >
             <Phone size={28} weight="fill" aria-hidden="true" />
-            <span className="tabular-nums tracking-tight">{phone}</span>
+            <span className="tabular-nums tracking-tight">{formatPhone(phone)}</span>
           </a>
 
           <p className="mt-4 text-sm text-white/40">{t('home.cta_button')}</p>

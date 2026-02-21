@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Phone, Fire, SecurityCamera } from '@phosphor-icons/react';
+import { formatPhone } from '@/lib/utils/format';
 import type { Product, Locale } from '@/types/product.types';
 
 interface HeroSectionCProps {
@@ -176,7 +177,7 @@ export function HeroSectionC({ products, locale, phone, labels }: HeroSectionCPr
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             >
               <Phone size={14} weight="fill" />
-              {phone}
+              {formatPhone(phone)}
             </a>
           </div>
         </div>

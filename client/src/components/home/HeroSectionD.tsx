@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, SecurityCamera, CaretLeft, CaretRight } from '@phosphor-icons/react';
 import Image from 'next/image';
+import { formatPhone } from '@/lib/utils/format';
 import type { Product, Locale } from '@/types/product.types';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -232,7 +233,7 @@ export function HeroSectionD({ products, locale, phone, labels }: HeroSectionPro
               {labels.heroCta}<ArrowRight size={18} weight="bold" />
             </Link>
             <a href={`https://wa.me/995${phone}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-sm sm:text-base motion-safe:transition-all duration-200 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30">
-              <Phone size={18} weight="fill" />{phone}
+              <Phone size={18} weight="fill" />{formatPhone(phone)}
             </a>
           </div>
 
