@@ -1,6 +1,7 @@
 'use client';
 
 import { Phone } from '@phosphor-icons/react';
+import { formatPhone } from '@/lib/utils/format';
 
 interface MobileCallBarProps {
   phone: string;
@@ -17,7 +18,7 @@ export function MobileCallBar({ phone, label }: MobileCallBarProps) {
       >
         <Phone size={24} weight="fill" className="text-white" aria-hidden="true" />
         <span className="text-xl font-bold text-white tabular-nums tracking-wide">
-          {phone}
+          {formatPhone(phone)}
         </span>
       </a>
     </div>

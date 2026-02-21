@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Phone, Envelope, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
 import { ContactForm } from '@/features/contact/components/ContactForm';
 import { getSiteSettings } from '@/lib/content';
+import { formatPhone } from '@/lib/utils/format';
 
 interface ContactPageProps {
   params: Promise<{ locale: string }>;
@@ -44,7 +45,7 @@ export default async function ContactPage({ params }: ContactPageProps): Promise
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone size={18} weight="fill" className="text-primary shrink-0" />
-                <span>{phone}</span>
+                <span>{formatPhone(phone)}</span>
               </a>
 
               {settings.contact.email && (

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Phone, CaretLeft, CaretRight, SecurityCamera } from '@phosphor-icons/react';
+import { formatPhone } from '@/lib/utils/format';
 import { ProductSpecTags } from './ProductSpecTags';
 import type { HeroVariantProps } from './types';
 
@@ -65,7 +66,7 @@ export function HeroVariantB({ products, locale, phone, labels, currentIndex, di
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 border-border hover:border-primary/40 bg-background/50 backdrop-blur-sm font-bold text-base transition-all duration-200 hover:bg-primary/5"
           >
-            <Phone size={18} weight="fill" /> {phone}
+            <Phone size={18} weight="fill" /> {formatPhone(phone)}
           </a>
         </div>
       </div>

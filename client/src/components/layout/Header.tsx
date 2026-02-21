@@ -6,6 +6,7 @@ import { HeaderScrollWrapper } from './HeaderScrollWrapper';
 import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
 import { getSiteSettings } from '@/lib/content';
+import { formatPhone } from '@/lib/utils/format';
 
 interface HeaderProps {
   locale: string;
@@ -78,7 +79,7 @@ export async function Header({ locale }: HeaderProps) {
                     WhatsApp
                   </span>
                   <span className="text-sm font-bold text-foreground tabular-nums tracking-wide">
-                    {phone}
+                    {formatPhone(phone)}
                   </span>
                 </span>
               </a>

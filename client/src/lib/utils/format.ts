@@ -40,3 +40,12 @@ export const formatRelativeTime = (date: string | Date): string => {
 export const truncate = (str: string, length: number): string => {
     return str.length > length ? `${str.substring(0, length)}...` : str;
 };
+
+/** Formats a Georgian phone number: "597470518" → "597 47 05 18" */
+export const formatPhone = (phone: string): string => {
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length === 9) {
+        return `${digits.slice(0, 3)} ${digits.slice(3, 5)} ${digits.slice(5, 7)} ${digits.slice(7, 9)}`;
+    }
+    return phone;
+};
