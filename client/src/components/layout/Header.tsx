@@ -30,7 +30,7 @@ export async function Header({ locale }: HeaderProps) {
               className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 rounded-lg"
               aria-label="TechBrain — მთავარი"
             >
-              <Logo height={52} />
+              <Logo height={62} />
             </Link>
 
             {/* Nav */}
