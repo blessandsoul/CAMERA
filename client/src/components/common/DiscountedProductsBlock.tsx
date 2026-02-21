@@ -66,8 +66,8 @@ export function DiscountedProductsBlock({
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border/50 bg-muted/20">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-muted border border-border/60 flex items-center justify-center shrink-0">
-            <Tag size={14} weight="duotone" className="text-muted-foreground" aria-hidden="true" />
+          <div className="w-7 h-7 rounded-lg bg-success/10 border border-success/20 flex items-center justify-center shrink-0">
+            <Tag size={14} weight="duotone" className="text-success" aria-hidden="true" />
           </div>
           <span className="text-sm font-bold text-foreground">{saleLabel}</span>
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-muted border border-border/60 text-[10px] font-bold text-muted-foreground tabular-nums">
