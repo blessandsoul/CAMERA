@@ -42,9 +42,22 @@ set -e
 
 # Seed content volume if empty
 if [ -z "$(ls -A /app/content 2>/dev/null)" ]; then
-  echo "Seeding /app/content..."
+  echo "Seeding /app/content from defaults..."
   mkdir -p /app/content
   cp -r /app/content.default/. /app/content/
+  chown -R nextjs:nodejs /app/content
+else
+  # Sync default product/article MDX files so new fields (e.g. originalPrice) appear
+  # Uses -u (update) so only older/missing files are overwritten — admin-created files are preserved
+  echo "Syncing default content files..."
+  cp -ru /app/content.default/products/. /app/content/products/ 2>/dev/null || true
+  cp -ru /app/content.default/articles/. /app/content/articles/ 2>/dev/null || true
+  # Sync config/settings only if they don't exist yet (never overwrite user-edited configs)
+  for f in catalog-config.json site-settings.json; do
+    if [ ! -f "/app/content/$f" ]; then
+      cp "/app/content.default/$f" "/app/content/$f" 2>/dev/null || true
+    fi
+  done
   chown -R nextjs:nodejs /app/content
 fi
 
