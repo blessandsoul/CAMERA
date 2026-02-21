@@ -5,7 +5,6 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 import type { Product, Locale } from '@/types/product.types';
 import { AddToCartButton } from '@/features/cart/components/AddToCartButton';
-import { FavoriteButton } from '@/features/favorites/components/FavoriteButton';
 
 interface ProductCardProps {
   product: Product;
@@ -76,11 +75,6 @@ export async function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
       </Link>
-
-      {/* Favorite button */}
-      <div className="absolute top-3 right-3 z-10">
-        <FavoriteButton productId={product.id} />
-      </div>
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5 gap-4">
