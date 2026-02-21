@@ -1,45 +1,29 @@
 import Image from 'next/image';
 
+// Original PNG dimensions: 478 × 128 px
+const LOGO_ASPECT = 478 / 128; // ≈ 3.734
+
 interface LogoProps {
-  size?: number; // circle diameter in px, default 36
-  showWordmark?: boolean; // default true
+  height?: number; // logo height in px, default 36
 }
 
-export function Logo({ size = 36, showWordmark = true }: LogoProps) {
+export function Logo({ height = 36 }: LogoProps) {
+  const width = Math.round(height * LOGO_ASPECT);
+
   return (
-    <div className="flex items-center gap-2.5 select-none" aria-label="TechBrain">
-
-      {/* Logo photo in circle */}
-      <div
-        className="rounded-full overflow-hidden shrink-0 ring-2 ring-primary/20"
-        style={{ width: size, height: size }}
-      >
-        <Image
-          src="/logo.jpg"
-          alt="TechBrain"
-          width={size}
-          height={size}
-          className="object-cover w-full h-full"
-          priority
-        />
-      </div>
-
-      {/* Wordmark */}
-      {showWordmark && (
-        <span
-          className="font-bold tracking-tight text-foreground leading-none"
-          style={{ fontSize: size * 0.44 }}
-        >
-          tech<span
-            style={{
-              background: 'linear-gradient(135deg, #c040ff 0%, #0466c8 50%, #22d3ee 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >brain</span>
-        </span>
-      )}
+    <div
+      className="shrink-0 select-none"
+      aria-label="TechBrain"
+      style={{ width, height }}
+    >
+      <Image
+        src="/logo-full.png"
+        alt="TechBrain — კამერები და უსაფრთხოების სისტემები"
+        width={width}
+        height={height}
+        className="object-contain w-full h-full"
+        priority
+      />
     </div>
   );
 }
