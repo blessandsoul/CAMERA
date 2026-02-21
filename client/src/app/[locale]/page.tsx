@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { ArrowRight, Phone, ShieldCheck, Wrench, Truck } from '@phosphor-icons/react/dist/ssr';
-import { getFeaturedProducts, getAllProducts, getSiteSettings } from '@/lib/content';
+import { getFeaturedProducts, getAllProducts, getDiscountedProducts, getSiteSettings } from '@/lib/content';
 import { ProductCard } from '@/components/common/ProductCard';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
@@ -68,6 +68,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
   const featured = getFeaturedProducts();
+  const discounted = getDiscountedProducts();
   const allProducts = getAllProducts();
   const siteSettings = getSiteSettings();
   const phone = siteSettings.contact.phone || '597470518';
@@ -278,6 +279,40 @@ export default async function HomePage({ params }: HomePageProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featured.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* ── DISCOUNTED PRODUCTS — ტექბრეინ კამერები ── */}
+      {discounted.length > 0 && (
+        <section className="py-10 lg:py-14 bg-background" aria-labelledby="discounted-heading">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-destructive mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-destructive" aria-hidden="true" />
+                  {locale === 'ka' ? 'ფასდაკლება' : locale === 'ru' ? 'Скидки' : 'Sale'}
+                </span>
+                <h2 id="discounted-heading" className="text-2xl md:text-3xl font-bold text-foreground">
+                  ტექბრეინ კამერები
+                </h2>
+              </div>
+              <Link
+                href={`/${locale}/catalog`}
+                className="hidden md:flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg px-2 py-1 mb-0.5"
+              >
+                {t('home.hero_cta')}
+                <ArrowRight size={14} weight="bold" aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {discounted.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

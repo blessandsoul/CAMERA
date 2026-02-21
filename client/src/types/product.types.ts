@@ -18,9 +18,11 @@ export interface Product {
   slug: string;
   category: ProductCategory;
   price: number;
+  originalPrice?: number;
   currency: string;
   isActive: boolean;
   isFeatured: boolean;
+  isDiscounted?: boolean;
   images: string[];
   name: LocalizedString;
   description: LocalizedString;

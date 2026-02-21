@@ -184,6 +184,10 @@ export function getFeaturedProducts(): Product[] {
   return getAllProducts().filter((p) => p.isFeatured).slice(0, 6);
 }
 
+export function getDiscountedProducts(): Product[] {
+  return getAllProducts().filter((p) => p.isDiscounted).slice(0, 6);
+}
+
 export function getAllProductIds(): string[] {
   try {
     if (!fs.existsSync(PRODUCTS_DIR)) return [];
