@@ -6,7 +6,6 @@ import { ProductCard } from '@/components/common/ProductCard';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
 import { HeroSectionD } from '@/components/home/HeroSectionD';
-import { CategoryProductsBlock } from '@/components/common/CategoryProductsBlock';
 import { DiscountedProductsBlock } from '@/components/common/DiscountedProductsBlock';
 import { CategoryNavBar } from '@/components/common/CategoryNavBar';
 import type { Locale } from '@/types/product.types';
@@ -223,35 +222,8 @@ export default async function HomePage({ params }: HomePageProps) {
           />
         </div>
 
-        {/* ── CATEGORIES + MINI PRODUCTS ── */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-6 pb-3">
-          {/* Section heading */}
-          <div className="flex items-center gap-3 mb-3">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-              {t('home.popular_products_subtitle')}
-            </span>
-            <h2 className="text-lg font-bold text-foreground leading-tight">
-              {t('home.popular_products')}
-            </h2>
-          </div>
-          <CategoryProductsBlock
-            products={allProducts}
-            locale={locale as Locale}
-            inStockLabel={locale === 'ru' ? 'В наличии' : locale === 'en' ? 'In Stock' : 'მარაგშია'}
-            priceOnRequestLabel={t('catalog.price_on_request')}
-            categoryLabels={{
-              cameras:     t('catalog.cameras'),
-              'nvr-kits':  t('catalog.nvr_kits'),
-              storage:     t('catalog.storage'),
-              accessories: t('catalog.accessories'),
-              services:    t('catalog.services'),
-            }}
-          />
-        </div>
-
         {/* ── DISCOUNTED PRODUCTS BLOCK ── */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-4 pb-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-6 pb-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-destructive">
               <span className="w-1.5 h-1.5 rounded-full bg-destructive" aria-hidden="true" />
