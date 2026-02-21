@@ -23,10 +23,10 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
   return (
     <button
       onClick={handleAdd}
-      className={`flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.97] ${
+      className={`flex items-center justify-center w-11 h-11 rounded-xl border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:scale-[0.97] ${
         added
-          ? 'bg-green-600/20 text-green-400 border border-green-600/30'
-          : 'bg-primary hover:bg-primary-hover text-primary-foreground'
+          ? 'bg-green-600/10 text-green-500 border-green-600/30'
+          : 'bg-background border-border text-muted-foreground hover:border-primary hover:text-primary'
       }`}
       aria-label={t('catalog.add_to_cart')}
     >
