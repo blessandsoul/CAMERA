@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 import { ArrowRight, Phone, ShieldCheck, Wrench, Truck } from '@phosphor-icons/react/dist/ssr';
 import { getFeaturedProducts, getAllProducts, getSiteSettings } from '@/lib/content';
 import { ProductCard } from '@/components/common/ProductCard';
-import { FeaturedSectionToggle } from '@/components/common/FeaturedSectionToggle';
 import { ProjectsSection } from '@/components/common/ProjectsSection';
 import { BlogSection } from '@/components/common/BlogSection';
 import { HeroSectionD } from '@/components/home/HeroSectionD';
@@ -277,19 +276,11 @@ export default async function HomePage({ params }: HomePageProps) {
               </Link>
             </div>
 
-            <FeaturedSectionToggle
-              products={featured}
-              locale={locale as Locale}
-              priceOnRequest={t('catalog.price_on_request')}
-              variantALabel={t('home.slider_cards')}
-              variantBLabel={t('home.slider_showcase')}
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {featured.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </FeaturedSectionToggle>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featured.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
 
           </div>
         </section>

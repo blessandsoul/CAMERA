@@ -135,7 +135,17 @@
     "type_commercial": "Commercial",
     "type_residential": "Residential",
     "type_retail": "Retail",
-    "type_office": "Office"
+    "type_office": "Office",
+    "view_all": "All projects",
+    "back": "Projects",
+    "back_home": "Home",
+    "cameras_installed": "Cameras installed",
+    "project_type": "Project type",
+    "location_label": "Location",
+    "year_label": "Year",
+    "not_found": "Project not found.",
+    "empty": "No projects yet.",
+    "detail_title": "Project details"
   },
   "contact": {
     "title": "Contact Us",

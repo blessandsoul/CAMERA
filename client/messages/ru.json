@@ -135,7 +135,17 @@
     "type_commercial": "Коммерческий",
     "type_residential": "Жилой",
     "type_retail": "Торговый",
-    "type_office": "Офис"
+    "type_office": "Офис",
+    "view_all": "Все проекты",
+    "back": "Проекты",
+    "back_home": "Главная",
+    "cameras_installed": "Установленных камер",
+    "project_type": "Тип проекта",
+    "location_label": "Расположение",
+    "year_label": "Год",
+    "not_found": "Проект не найден.",
+    "empty": "Проектов пока нет.",
+    "detail_title": "Детали проекта"
   },
   "contact": {
     "title": "Свяжитесь с нами",

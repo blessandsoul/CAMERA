@@ -135,7 +135,17 @@
     "type_commercial": "კომერციული",
     "type_residential": "საცხოვრებელი",
     "type_retail": "სავაჭრო",
-    "type_office": "ოფისი"
+    "type_office": "ოფისი",
+    "view_all": "ყველა პროექტი",
+    "back": "პროექტები",
+    "back_home": "მთავარი",
+    "cameras_installed": "დამონტაჟებული კამერა",
+    "project_type": "პროექტის ტიპი",
+    "location_label": "მდებარეობა",
+    "year_label": "წელი",
+    "not_found": "პროექტი ვერ მოიძებნა.",
+    "empty": "ჯერ პროექტები არ არის.",
+    "detail_title": "პროექტის დეტალები"
   },
   "contact": {
     "title": "დაგვიკავშირდით",

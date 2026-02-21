@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Buildings, House, Storefront, SecurityCamera } from '@phosphor-icons/react/dist/ssr';
+import { MapPin, Buildings, House, Storefront, SecurityCamera, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { getSiteSettings, getAllProjects } from '@/lib/content';
 import type { Locale } from '@/types/product.types';
@@ -50,7 +51,7 @@ export async function ProjectsSection(): Promise<React.JSX.Element> {
             </h2>
           </div>
 
-          {/* Stats — desktop */}
+          {/* Stats + "View all" — desktop */}
           <div className="hidden md:flex items-center gap-8">
             <div className="text-right">
               <div className="text-3xl font-black text-foreground tabular-nums">{cameraStat.num}<span className="text-primary">{cameraStat.suffix}</span></div>
@@ -66,6 +67,14 @@ export async function ProjectsSection(): Promise<React.JSX.Element> {
               <div className="text-3xl font-black text-foreground tabular-nums">{yearsStat.num}<span className="text-primary">{yearsStat.suffix}</span></div>
               <div className="text-xs text-muted-foreground uppercase tracking-widest">{t('projects.stat_years')}</div>
             </div>
+            <div className="h-8 w-px bg-border" aria-hidden="true" />
+            <Link
+              href={`/${locale}/projects`}
+              className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg px-2 py-1"
+            >
+              {t('projects.view_all')}
+              <ArrowRight size={14} weight="bold" aria-hidden="true" />
+            </Link>
           </div>
         </div>
 
@@ -93,69 +102,81 @@ export async function ProjectsSection(): Promise<React.JSX.Element> {
             const title = project.title[locale] || project.title.ka;
             const location = project.location[locale] || project.location.ka;
             return (
-              <article
-                key={project.id}
-                className="group relative rounded-xl overflow-hidden border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-0.5 hover:border-primary/20"
-              >
-                {/* Image */}
-                <div className="relative h-44 overflow-hidden bg-muted">
-                  {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              <Link key={project.id} href={`/${locale}/projects/${project.id}`} className="group">
+                <article
+                  className="relative rounded-xl overflow-hidden border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-0.5 hover:border-primary/20 h-full"
+                >
+                  {/* Image */}
+                  <div className="relative h-44 overflow-hidden bg-muted">
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                        <SecurityCamera size={36} weight="duotone" className="text-border/60" aria-hidden="true" />
+                      </div>
+                    )}
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent pointer-events-none"
+                      aria-hidden="true"
                     />
-                  ) : (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                      <SecurityCamera size={36} weight="duotone" className="text-border/60" aria-hidden="true" />
-                    </div>
-                  )}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent pointer-events-none"
-                    aria-hidden="true"
-                  />
 
-                  {/* Year badge */}
-                  <div className="absolute top-3 right-3">
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold tabular-nums text-muted-foreground">
-                      <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
-                      {project.year}
-                    </span>
-                  </div>
-
-                  {/* Cameras count */}
-                  <div className="absolute bottom-3 left-3">
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold text-foreground">
-                      <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-online" />
+                    {/* Year badge */}
+                    <div className="absolute top-3 right-3">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold tabular-nums text-muted-foreground">
+                        <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
+                        {project.year}
                       </span>
-                      <span className="tabular-nums">{project.cameras}</span>
-                      <span className="text-muted-foreground font-semibold">{t('projects.stat_cameras')}</span>
-                    </span>
-                  </div>
-                </div>
+                    </div>
 
-                {/* Body */}
-                <div className="p-4 flex flex-col gap-2">
-                  <div className="flex items-center gap-1.5 text-muted-foreground">
-                    <Icon size={13} weight="duotone" className="text-primary shrink-0" aria-hidden="true" />
-                    <span className="text-xs font-bold uppercase tracking-[0.12em]">{typeLabel}</span>
+                    {/* Cameras count */}
+                    <div className="absolute bottom-3 left-3">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[10px] font-bold text-foreground">
+                        <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-online" />
+                        </span>
+                        <span className="tabular-nums">{project.cameras}</span>
+                        <span className="text-muted-foreground font-semibold">{t('projects.stat_cameras')}</span>
+                      </span>
+                    </div>
                   </div>
 
-                  <h3 className="text-sm font-bold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200">
-                    {title}
-                  </h3>
+                  {/* Body */}
+                  <div className="p-4 flex flex-col gap-2">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <Icon size={13} weight="duotone" className="text-primary shrink-0" aria-hidden="true" />
+                      <span className="text-xs font-bold uppercase tracking-[0.12em]">{typeLabel}</span>
+                    </div>
 
-                  <div className="flex items-center gap-1 text-muted-foreground mt-0.5">
-                    <MapPin size={13} weight="fill" className="shrink-0" aria-hidden="true" />
-                    <span className="text-xs truncate">{location}</span>
+                    <h3 className="text-sm font-bold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200">
+                      {title}
+                    </h3>
+
+                    <div className="flex items-center gap-1 text-muted-foreground mt-0.5">
+                      <MapPin size={13} weight="fill" className="shrink-0" aria-hidden="true" />
+                      <span className="text-xs truncate">{location}</span>
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             );
           })}
+        </div>
+
+        {/* Mobile — see all */}
+        <div className="mt-8 flex justify-center md:hidden">
+          <Link
+            href={`/${locale}/projects`}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl border border-primary/30 text-primary text-sm font-semibold hover:bg-primary/5 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+          >
+            {t('projects.view_all')}
+            <ArrowRight size={14} weight="bold" aria-hidden="true" />
+          </Link>
         </div>
 
       </div>
