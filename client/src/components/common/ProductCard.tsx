@@ -70,7 +70,7 @@ export async function ProductCard({ product }: ProductCardProps) {
         {/* Discount badge */}
         {product.originalPrice && product.originalPrice > product.price && (
           <div className="absolute bottom-3 left-3">
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-destructive text-destructive-foreground text-[10px] font-bold tabular-nums">
+            <span className="inline-flex items-center px-3 py-1 rounded-lg bg-success text-white text-sm font-bold tabular-nums shadow-sm">
               -{Math.round((1 - product.price / product.originalPrice) * 100)}%
             </span>
           </div>
@@ -104,7 +104,7 @@ export async function ProductCard({ product }: ProductCardProps) {
                   <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-[0.15em] mb-1 line-through tabular-nums">
                     {product.originalPrice}₾
                   </span>
-                  <span className="font-bold text-2xl text-destructive tabular-nums">
+                  <span className="font-bold text-2xl text-success tabular-nums">
                     {product.price}<span className="ml-1 text-lg">₾</span>
                   </span>
                 </>
