@@ -4,7 +4,6 @@ import { SecurityCamera } from '@phosphor-icons/react/dist/ssr';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 import type { Product, Locale } from '@/types/product.types';
-import { AddToCartButton } from '@/features/cart/components/AddToCartButton';
 
 interface ProductCardProps {
   product: Product;
@@ -110,11 +109,15 @@ export async function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
 
-          {!isService && (
-            <div className="shrink-0">
-              <AddToCartButton product={product} />
-            </div>
-          )}
+          <Link
+            href={`/${locale}/catalog/${product.id}`}
+            className="shrink-0 flex items-center justify-center w-11 h-11 rounded-xl bg-primary text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            aria-label={t('catalog.view_details')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
         </div>
 
       </div>
