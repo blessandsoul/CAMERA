@@ -2,8 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CaretLeft, CaretRight, Tag, Fire, ArrowRight } from '@phosphor-icons/react';
-import Link from 'next/link';
+import { CaretLeft, CaretRight, Tag, Sparkle } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { ProductMiniCard } from './ProductMiniCard';
 import type { Product, Locale } from '@/types/product.types';
@@ -62,28 +61,27 @@ export function DiscountedProductsBlock({
   if (saleProducts.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-destructive/25 bg-card shadow-sm overflow-hidden">
+    <div className="rounded-2xl border border-success/25 bg-card shadow-sm overflow-hidden">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-destructive/15 bg-destructive/[0.03]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-success/15 bg-success/[0.03]">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center shrink-0">
-            <Tag size={14} weight="duotone" className="text-destructive" aria-hidden="true" />
+          <div className="w-7 h-7 rounded-lg bg-success/10 border border-success/20 flex items-center justify-center shrink-0">
+            <Tag size={14} weight="duotone" className="text-success" aria-hidden="true" />
           </div>
-          <span className="text-sm font-bold text-destructive">{saleLabel}</span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-destructive/10 border border-destructive/20 text-[10px] font-bold text-destructive tabular-nums">
-            <Fire size={10} weight="fill" aria-hidden="true" />
+          <span className="text-sm font-bold text-success">{saleLabel}</span>
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/10 border border-success/20 text-[10px] font-bold text-success tabular-nums">
+            <Sparkle size={10} weight="fill" aria-hidden="true" />
             {saleProducts.length}
           </span>
         </div>
 
         <div className="flex items-center gap-1">
-          {/* Scroll arrows */}
           <button
             onClick={() => scroll('left')}
             disabled={!canScrollLeft}
             aria-label="Scroll left"
-            className="w-7 h-7 rounded-lg flex items-center justify-center border border-border/50 text-muted-foreground transition-all duration-150 cursor-pointer hover:text-destructive hover:border-destructive/30 hover:bg-destructive/5 disabled:opacity-30 disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/50"
+            className="w-7 h-7 rounded-lg flex items-center justify-center border border-border/50 text-muted-foreground transition-all duration-150 cursor-pointer hover:text-success hover:border-success/30 hover:bg-success/5 disabled:opacity-30 disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success/50"
           >
             <CaretLeft size={12} weight="bold" aria-hidden="true" />
           </button>
@@ -91,7 +89,7 @@ export function DiscountedProductsBlock({
             onClick={() => scroll('right')}
             disabled={!canScrollRight}
             aria-label="Scroll right"
-            className="w-7 h-7 rounded-lg flex items-center justify-center border border-border/50 text-muted-foreground transition-all duration-150 cursor-pointer hover:text-destructive hover:border-destructive/30 hover:bg-destructive/5 disabled:opacity-30 disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/50"
+            className="w-7 h-7 rounded-lg flex items-center justify-center border border-border/50 text-muted-foreground transition-all duration-150 cursor-pointer hover:text-success hover:border-success/30 hover:bg-success/5 disabled:opacity-30 disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success/50"
           >
             <CaretRight size={12} weight="bold" aria-hidden="true" />
           </button>
@@ -118,6 +116,7 @@ export function DiscountedProductsBlock({
                     inStockLabel={inStockLabel}
                     priceOnRequestLabel={priceOnRequestLabel}
                     categoryLabels={categoryLabels}
+                    saleColor="success"
                   />
                 </div>
               ))}

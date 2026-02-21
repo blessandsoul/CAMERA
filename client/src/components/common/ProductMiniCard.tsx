@@ -27,9 +27,10 @@ interface ProductMiniCardProps {
   inStockLabel: string;
   priceOnRequestLabel: string;
   categoryLabels: Record<string, string>;
+  saleColor?: 'destructive' | 'success';
 }
 
-export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestLabel, categoryLabels }: ProductMiniCardProps) {
+export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestLabel, categoryLabels, saleColor = 'destructive' }: ProductMiniCardProps) {
   const name = product.name[locale];
   const hasImage = product.images.length > 0;
   const isService = product.category === 'services';
@@ -125,10 +126,10 @@ export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestL
                 {product.originalPrice.toLocaleString()}₾
               </span>
               <div className="flex items-baseline gap-0.5">
-                <span className="text-[18px] font-black text-destructive tabular-nums leading-none">
+                <span className={cn('text-[18px] font-black tabular-nums leading-none', saleColor === 'success' ? 'text-success' : 'text-destructive')}>
                   {product.price.toLocaleString()}
                 </span>
-                <span className="text-[12px] font-bold text-destructive leading-none mb-px">₾</span>
+                <span className={cn('text-[12px] font-bold leading-none mb-px', saleColor === 'success' ? 'text-success' : 'text-destructive')}>₾</span>
               </div>
             </div>
           ) : (

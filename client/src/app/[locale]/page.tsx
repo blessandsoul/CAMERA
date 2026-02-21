@@ -226,11 +226,11 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* ── DISCOUNTED PRODUCTS BLOCK ── */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-4 pb-8">
           <div className="flex items-center gap-3 mb-3">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-destructive">
-              <span className="w-1.5 h-1.5 rounded-full bg-destructive" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-success">
+              <span className="w-1.5 h-1.5 rounded-full bg-success" aria-hidden="true" />
               {locale === 'ru' ? 'Акция' : locale === 'en' ? 'Sale' : 'ფასდაკლება'}
             </span>
-            <h2 className="text-lg font-bold text-foreground leading-tight">
+            <h2 className="text-lg font-bold text-success leading-tight">
               {locale === 'ru' ? 'Товары со скидкой' : locale === 'en' ? 'Discounted Products' : 'ფასდაკლებული პროდუქტები'}
             </h2>
           </div>
