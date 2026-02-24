@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { getProductById, getAllProductIds, getRelatedProducts } from '@/lib/content';
+import { getProductById, getAllProductIds, getRelatedProducts, getFeaturedProducts } from '@/lib/content';
 import { ProductCTA } from '@/features/catalog/components/ProductCTA';
 import { ProductGallery } from '@/features/catalog/components/ProductGallery';
 import { BoughtTogether } from '@/features/catalog/components/BoughtTogether';
+import { PopularProductsSlider } from '@/features/catalog/components/PopularProductsSlider';
 import type { Locale } from '@/types/product.types';
 
 interface ProductPageProps {
@@ -36,6 +37,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const l = locale as Locale;
   const isService = product.category === 'services';
   const relatedProducts = getRelatedProducts(product);
+  const popularProducts = getFeaturedProducts().filter((p) => p.id !== product.id);
 
   // Map category key to translation key
   const categoryKeyMap: Record<string, string> = {
@@ -119,6 +121,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
           )}
         </div>
       </div>
+
+      {/* Popular products slider */}
+      {popularProducts.length > 0 && (
+        <PopularProductsSlider
+          products={popularProducts}
+          locale={l}
+          title={t('home.popular_products')}
+          subtitle={t('home.popular_products_subtitle')}
+        />
+      )}
     </div>
   );
 }
