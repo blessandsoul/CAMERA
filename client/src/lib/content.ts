@@ -176,6 +176,13 @@ export function getProductById(id: string): Product | null {
   return parseProduct(entry);
 }
 
+export function getRelatedProducts(product: Product): Product[] {
+  if (!product.relatedProducts || product.relatedProducts.length === 0) return [];
+  return product.relatedProducts
+    .map((id) => getProductById(id))
+    .filter((p): p is Product => p !== null && p.isActive);
+}
+
 export function getProductsByCategory(category: ProductCategory): Product[] {
   return getAllProducts().filter((p) => p.category === category);
 }

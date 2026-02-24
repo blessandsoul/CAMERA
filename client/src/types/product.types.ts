@@ -26,6 +26,7 @@ export interface Product {
   name: LocalizedString;
   description: LocalizedString;
   specs: ProductSpec[];
+  relatedProducts?: string[]; // IDs of complementary products ("bought together")
   createdAt: string;
   content?: string; // MDX body (rich description)
 }

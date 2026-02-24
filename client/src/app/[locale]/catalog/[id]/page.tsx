@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { getProductById, getAllProductIds } from '@/lib/content';
+import { getProductById, getAllProductIds, getRelatedProducts } from '@/lib/content';
 import { ProductCTA } from '@/features/catalog/components/ProductCTA';
 import { ProductGallery } from '@/features/catalog/components/ProductGallery';
+import { BoughtTogether } from '@/features/catalog/components/BoughtTogether';
 import type { Locale } from '@/types/product.types';
 
 interface ProductPageProps {
@@ -34,6 +35,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const l = locale as Locale;
   const isService = product.category === 'services';
+  const relatedProducts = getRelatedProducts(product);
 
   // Map category key to translation key
   const categoryKeyMap: Record<string, string> = {
@@ -103,6 +105,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 ))}
               </div>
             </div>
+          )}
+
+          {/* Bought together block */}
+          {relatedProducts.length > 0 && (
+            <BoughtTogether
+              mainProduct={product}
+              relatedProducts={relatedProducts}
+              locale={l}
+            />
           )}
         </div>
       </div>
