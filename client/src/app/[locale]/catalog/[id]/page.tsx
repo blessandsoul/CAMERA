@@ -59,8 +59,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Image gallery */}
-        <ProductGallery images={product.images} productName={product.name[l]} />
+        {/* Left column: gallery + bought together */}
+        <div className="flex flex-col gap-6">
+          <ProductGallery images={product.images} productName={product.name[l]} />
+
+          {/* Bought together block */}
+          {relatedProducts.length > 0 && (
+            <BoughtTogether
+              mainProduct={product}
+              relatedProducts={relatedProducts}
+              locale={l}
+            />
+          )}
+        </div>
 
         {/* Info */}
         <div className="flex flex-col gap-6">
@@ -105,15 +116,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 ))}
               </div>
             </div>
-          )}
-
-          {/* Bought together block */}
-          {relatedProducts.length > 0 && (
-            <BoughtTogether
-              mainProduct={product}
-              relatedProducts={relatedProducts}
-              locale={l}
-            />
           )}
         </div>
       </div>
