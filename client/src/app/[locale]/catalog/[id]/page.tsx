@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { getProductById, getAllProductIds } from '@/lib/content';
-import { AddToCartButton } from '@/features/cart/components/AddToCartButton';
+import { ProductCTA } from '@/features/catalog/components/ProductCTA';
 import { ProductGallery } from '@/features/catalog/components/ProductGallery';
 import type { Locale } from '@/types/product.types';
 
@@ -74,13 +74,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <p className="text-muted-foreground leading-relaxed">{product.description[l]}</p>
 
           {/* Price + CTA */}
-          <div className="flex items-center gap-4 p-6 rounded-xl bg-muted border border-border">
+          <div className="flex flex-col gap-4 p-6 rounded-xl bg-muted border border-border">
             {isService ? (
               <span className="text-muted-foreground">{t('catalog.price_on_request')}</span>
             ) : (
               <>
                 <span className="text-3xl font-bold text-foreground tabular-nums">{product.price} ₾</span>
-                <AddToCartButton product={product} />
+                <ProductCTA product={product} />
               </>
             )}
           </div>
