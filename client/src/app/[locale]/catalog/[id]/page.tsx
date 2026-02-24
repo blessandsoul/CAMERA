@@ -87,12 +87,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <p className="text-muted-foreground leading-relaxed">{product.description[l]}</p>
 
           {/* Price + CTA */}
-          <div className="flex flex-col gap-4 p-6 rounded-xl bg-muted border border-border">
+          <div className="flex items-center gap-4 p-6 rounded-xl bg-muted border border-border">
             {isService ? (
               <span className="text-muted-foreground">{t('catalog.price_on_request')}</span>
             ) : (
               <>
-                <span className="text-3xl font-bold text-foreground tabular-nums">{product.price} ₾</span>
+                <span className="text-3xl font-bold text-foreground tabular-nums shrink-0">{product.price} ₾</span>
                 <ProductCTA product={product} />
               </>
             )}
