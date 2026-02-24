@@ -176,11 +176,36 @@ export function getProductById(id: string): Product | null {
   return parseProduct(entry);
 }
 
+// Related categories by product category for auto-matching
+const RELATED_CATEGORIES: Record<ProductCategory, ProductCategory[]> = {
+  cameras: ['accessories', 'storage'],
+  'nvr-kits': ['accessories', 'storage'],
+  storage: ['accessories', 'cameras'],
+  accessories: ['cameras', 'storage'],
+  services: [],
+};
+
 export function getRelatedProducts(product: Product): Product[] {
-  if (!product.relatedProducts || product.relatedProducts.length === 0) return [];
-  return product.relatedProducts
-    .map((id) => getProductById(id))
-    .filter((p): p is Product => p !== null && p.isActive);
+  // If manually specified, use those
+  if (product.relatedProducts && product.relatedProducts.length > 0) {
+    return product.relatedProducts
+      .map((id) => getProductById(id))
+      .filter((p): p is Product => p !== null && p.isActive);
+  }
+
+  // Auto-pick: grab up to 3 products from related categories
+  const relatedCats = RELATED_CATEGORIES[product.category];
+  if (relatedCats.length === 0) return [];
+
+  const allProducts = getAllProducts();
+  const candidates = allProducts.filter(
+    (p) => p.id !== product.id && relatedCats.includes(p.category)
+  );
+
+  // Pick up to 3: prefer featured, then cheapest
+  const featured = candidates.filter((p) => p.isFeatured);
+  const rest = candidates.filter((p) => !p.isFeatured).sort((a, b) => a.price - b.price);
+  return [...featured, ...rest].slice(0, 3);
 }
 
 export function getProductsByCategory(category: ProductCategory): Product[] {
