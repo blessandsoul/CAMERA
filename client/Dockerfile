@@ -27,9 +27,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Ensure image optimization cache dir is writable
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next/cache
 
 # Store defaults for seeding volumes on first run
 COPY --from=builder --chown=nextjs:nodejs /app/content ./content.default
@@ -61,13 +64,20 @@ else
   chown -R nextjs:nodejs /app/content
 fi
 
-# Seed images volume if empty
+# Seed images volume if empty, sync new images if not
 if [ -z "$(ls -A /app/public/images/products 2>/dev/null)" ]; then
   echo "Seeding /app/public/images/products..."
   mkdir -p /app/public/images/products
   cp -r /app/public.default/images/products/. /app/public/images/products/ 2>/dev/null || true
-  chown -R nextjs:nodejs /app/public/images/products
+else
+  echo "Syncing default product images..."
+  cp -ru /app/public.default/images/products/. /app/public/images/products/ 2>/dev/null || true
 fi
+chown -R nextjs:nodejs /app/public/images/products
+
+# Ensure image optimization cache is writable
+mkdir -p /app/.next/cache/images
+chown -R nextjs:nodejs /app/.next/cache
 
 exec su-exec nextjs node server.js
 EOF
