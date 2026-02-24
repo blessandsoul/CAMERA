@@ -280,15 +280,8 @@ export default async function HomePage({ params }: HomePageProps) {
         </section>
       )}
 
-      {/* ── PROJECTS ── */}
-      <ProjectsSection />
-
-      {/* ── BLOG ── */}
-      <BlogSection locale={locale} />
-
-
       {/* ── CTA — Newsletter-style (AndrewAltair) ── */}
-      <section className="cta-bg py-14 lg:py-20" aria-labelledby="cta-heading">
+      <section className="cta-bg py-14 lg:py-20 mt-[100px]" aria-labelledby="cta-heading">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-4xl">
 
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-white/[0.08] border border-white/[0.12] backdrop-blur-sm mb-6">
@@ -322,6 +315,12 @@ export default async function HomePage({ params }: HomePageProps) {
 
         </div>
       </section>
+
+      {/* ── PROJECTS ── */}
+      <ProjectsSection />
+
+      {/* ── BLOG ── */}
+      <BlogSection locale={locale} />
 
     </div>
     </>
