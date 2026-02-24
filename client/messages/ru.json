@@ -45,6 +45,7 @@
     "services": "Услуги",
     "accessories": "Аксессуары",
     "add_to_cart": "В корзину",
+    "buy_now": "Купить",
     "price": "Цена",
     "specs": "Характеристики",
     "no_products": "Товары не найдены",
@@ -99,7 +100,12 @@
     "apply_filters": "Применить",
     "no_signal": "Нет сигнала",
     "camera_unit": "камер",
-    "search_placeholder": "Поиск..."
+    "search_placeholder": "Поиск...",
+    "bought_together": "Вместе дешевле",
+    "bought_together_add_note": "Добавить товар",
+    "bought_together_total": "Общая цена",
+    "bought_together_items": "товаров",
+    "bought_together_buy_all": "Купить всё"
   },
   "cart": {
     "title": "Корзина",

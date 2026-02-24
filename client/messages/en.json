@@ -45,6 +45,7 @@
     "services": "Services",
     "accessories": "Accessories",
     "add_to_cart": "Add to Cart",
+    "buy_now": "Buy Now",
     "price": "Price",
     "specs": "Specifications",
     "no_products": "No products found",
@@ -99,7 +100,12 @@
     "apply_filters": "Apply",
     "no_signal": "No Signal",
     "camera_unit": "cameras",
-    "search_placeholder": "Search..."
+    "search_placeholder": "Search...",
+    "bought_together": "Cheaper together",
+    "bought_together_add_note": "Add item",
+    "bought_together_total": "Total price",
+    "bought_together_items": "items",
+    "bought_together_buy_all": "Buy all"
   },
   "cart": {
     "title": "Cart",

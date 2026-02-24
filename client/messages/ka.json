@@ -45,6 +45,7 @@
     "services": "სერვისი",
     "accessories": "აქსესუარები",
     "add_to_cart": "კალათაში დამატება",
+    "buy_now": "ყიდვა",
     "price": "ფასი",
     "specs": "მახასიათებლები",
     "no_products": "პროდუქტები არ მოიძებნა",
@@ -99,7 +100,12 @@
     "apply_filters": "გამოყენება",
     "no_signal": "სიგნალი არ არის",
     "camera_unit": "კამერა",
-    "search_placeholder": "მოძებნე..."
+    "search_placeholder": "მოძებნე...",
+    "bought_together": "ერთად იაფია",
+    "bought_together_add_note": "დაამატე ნივთი",
+    "bought_together_total": "ჯამური ფასი",
+    "bought_together_items": "ნივთი",
+    "bought_together_buy_all": "ყიდვა"
   },
   "cart": {
     "title": "კალათა",
