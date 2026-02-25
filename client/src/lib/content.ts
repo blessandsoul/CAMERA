@@ -308,7 +308,7 @@ const DEFAULT_SITE_SETTINGS: SiteSettings = {
     yearsExperience: '5+',
     warrantyYears: '2',
   },
-  social: { facebook: '', instagram: '', tiktok: '' },
+  social: { facebook: 'https://www.facebook.com/TechbrainGE', instagram: 'https://www.instagram.com/techbrainge/', tiktok: '' },
   announcement: { enabled: false, text_ka: '', text_ru: '', text_en: '' },
 };
 
