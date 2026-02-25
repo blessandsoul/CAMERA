@@ -128,7 +128,7 @@ export function CartPage({ locale, phone }: CartPageProps) {
               key={product.id}
               className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-card border border-border"
             >
-              <div className="flex gap-4 flex-1 min-w-0">
+              <Link href={`/${locale}/catalog/${product.id}`} className="flex gap-4 flex-1 min-w-0 group">
               <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">
                 {product.images[0] ? (
                   <Image
@@ -148,10 +148,10 @@ export function CartPage({ locale, phone }: CartPageProps) {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-foreground truncate">{product.name[l]}</p>
+                <p className="font-medium text-foreground truncate group-hover:text-primary transition-colors duration-150">{product.name[l]}</p>
                 <p className="text-primary font-bold tabular-nums">{product.price} ₾</p>
               </div>
-              </div>
+              </Link>
               <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
                 <button
                   onClick={() => updateQuantity(product.id, quantity - 1)}
