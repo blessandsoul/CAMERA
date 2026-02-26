@@ -53,7 +53,7 @@ set -e
 
 # Run database migrations
 echo "Running Prisma migrations..."
-./node_modules/.bin/prisma migrate deploy 2>&1 || echo "Migration warning (may already be applied)"
+node node_modules/prisma/build/index.js migrate deploy 2>&1 || echo "Migration warning (may already be applied)"
 
 # Seed images volume if empty, sync new images if not
 if [ -z "$(ls -A /app/public/images/products 2>/dev/null)" ]; then

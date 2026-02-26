@@ -71,6 +71,7 @@ CREATE TABLE `orders` (
     `total` DOUBLE NOT NULL,
     `status` VARCHAR(191) NOT NULL DEFAULT 'new',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     INDEX `orders_status_idx`(`status`),
     INDEX `orders_createdAt_idx`(`createdAt`),
@@ -97,6 +98,7 @@ CREATE TABLE `inquiries` (
     `message` TEXT NOT NULL,
     `locale` VARCHAR(5) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     INDEX `inquiries_createdAt_idx`(`createdAt`),
     PRIMARY KEY (`id`)
@@ -117,6 +119,7 @@ CREATE TABLE `projects` (
     `year` VARCHAR(10) NOT NULL,
     `isActive` BOOLEAN NOT NULL DEFAULT true,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     INDEX `projects_isActive_idx`(`isActive`),
     PRIMARY KEY (`id`)
