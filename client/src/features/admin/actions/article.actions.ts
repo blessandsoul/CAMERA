@@ -1,23 +1,16 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { randomUUID } from 'crypto';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getArticleById, writeArticleMdx, deleteArticleMdx } from '@/lib/content';
+import { requireAdmin } from '@/lib/admin-auth';
 import type { ArticleCategory } from '@/types/article.types';
-
-async function requireAdmin(): Promise<void> {
-  const cookieStore = await cookies();
-  const session = cookieStore.get('admin_session');
-  if (session?.value !== process.env.ADMIN_SESSION_SECRET) {
-    redirect('/admin');
-  }
-}
 
 export async function createArticle(formData: FormData): Promise<void> {
   await requireAdmin();
 
-  const id = `article-${Date.now()}`;
+  const id = `article-${randomUUID()}`;
   const now = new Date().toISOString();
 
   const frontmatter = {

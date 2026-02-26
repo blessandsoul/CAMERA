@@ -2,26 +2,19 @@
 
 import fs from 'fs';
 import path from 'path';
-import { cookies } from 'next/headers';
+import { randomUUID } from 'crypto';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getProductById, writeProductMdx, deleteProductMdx } from '@/lib/content';
+import { requireAdmin } from '@/lib/admin-auth';
 import type { Product, ProductCategory } from '@/types/product.types';
 
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'products');
 
-async function requireAdmin(): Promise<void> {
-  const cookieStore = await cookies();
-  const session = cookieStore.get('admin_session');
-  if (session?.value !== process.env.ADMIN_SESSION_SECRET) {
-    redirect('/admin');
-  }
-}
-
 export async function createProduct(formData: FormData): Promise<void> {
   await requireAdmin();
 
-  const id = `product-${Date.now()}`;
+  const id = `product-${randomUUID()}`;
   const frontmatter = {
     id,
     slug: (formData.get('slug') as string) || id,

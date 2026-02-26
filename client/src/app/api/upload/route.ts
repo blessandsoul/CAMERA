@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeFile } from 'fs/promises';
 import path from 'path';
+import { randomUUID } from 'crypto';
 import { cookies } from 'next/headers';
+import { verifySessionToken } from '@/lib/admin-auth';
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
@@ -10,7 +12,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // Auth check
   const cookieStore = await cookies();
   const session = cookieStore.get('admin_session');
-  if (session?.value !== process.env.ADMIN_SESSION_SECRET) {
+  if (!session?.value || !verifySessionToken(session.value)) {
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -30,7 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const ext = file.type === 'image/png' ? '.png' : file.type === 'image/webp' ? '.webp' : '.jpg';
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
+  const filename = `${randomUUID()}${ext}`;
   const filePath = path.join(process.cwd(), 'public', 'images', 'products', filename);
 
   const bytes = await file.arrayBuffer();

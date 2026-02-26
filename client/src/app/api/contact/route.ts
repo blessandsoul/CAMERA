@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { randomUUID } from 'crypto';
 import { z } from 'zod';
 import { saveInquiry } from '@/lib/content';
 import type { Inquiry } from '@/lib/content';
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const { name, phone, message, locale } = parsed.data;
 
     const inquiry: Inquiry = {
-      id: `inq-${Date.now()}`,
+      id: `inq-${randomUUID()}`,
       name,
       phone,
       message,
@@ -43,13 +44,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const tgMessage = `📩 New Inquiry — TechBrain.ge\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n💬 Message: ${message}\n🌐 Language: ${locale}\n\n🕐 ${now}`;
 
     const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const chatIdsRaw = process.env.TELEGRAM_CHAT_IDS ?? process.env.TELEGRAM_CHAT_ID ?? '';
 
-    if (!token || token === 'PLACEHOLDER_REPLACE_LATER' || !chatId || chatId === 'PLACEHOLDER_REPLACE_LATER') {
+    if (!token || token === 'PLACEHOLDER_REPLACE_LATER' || !chatIdsRaw) {
       return NextResponse.json({ success: true });
     }
 
-    const chatIds = [chatId, '5528795929'];
+    const chatIds = chatIdsRaw.split(',').map((s) => s.trim()).filter(Boolean);
 
     for (const id of chatIds) {
       const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -58,10 +59,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         body: JSON.stringify({ chat_id: id, text: tgMessage }),
       });
 
-      if (!tgRes.ok) {
-        const tgError = await tgRes.json() as unknown;
-        console.error(`[contact] Telegram error (chat ${id}):`, JSON.stringify(tgError));
-      }
+      // Telegram send errors are non-critical — inquiry was already saved
+      if (!tgRes.ok) { void tgRes.text(); }
     }
 
     return NextResponse.json({ success: true });

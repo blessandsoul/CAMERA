@@ -1,24 +1,17 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { randomUUID } from 'crypto';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getProjectById, saveProject, deleteProject } from '@/lib/content';
+import { requireAdmin } from '@/lib/admin-auth';
 import type { Project } from '@/lib/content';
-
-async function requireAdmin(): Promise<void> {
-  const cookieStore = await cookies();
-  const session = cookieStore.get('admin_session');
-  if (session?.value !== process.env.ADMIN_SESSION_SECRET) {
-    redirect('/admin');
-  }
-}
 
 export async function createProject(formData: FormData): Promise<void> {
   await requireAdmin();
 
   const project: Project = {
-    id: `project-${Date.now()}`,
+    id: `project-${randomUUID()}`,
     title: {
       ka: (formData.get('title_ka') as string) || '',
       ru: (formData.get('title_ru') as string) || '',
