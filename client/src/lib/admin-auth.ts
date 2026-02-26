@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import { createHmac, randomUUID } from 'crypto';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -35,9 +34,9 @@ setInterval(() => {
 
 // ── Password Verification ───────────────────────────────
 export async function verifyPassword(input: string): Promise<boolean> {
-  const hash = process.env.ADMIN_PASSWORD_HASH;
-  if (!hash) return false;
-  return bcrypt.compare(input, hash);
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) return false;
+  return input === password;
 }
 
 // ── HMAC-signed Session Tokens ──────────────────────────
