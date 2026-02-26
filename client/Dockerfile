@@ -35,9 +35,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Prisma client for runtime
+# Prisma client + CLI for runtime
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 
 # Ensure image optimization cache dir is writable
@@ -52,7 +53,7 @@ set -e
 
 # Run database migrations
 echo "Running Prisma migrations..."
-npx prisma migrate deploy 2>&1 || echo "Migration warning (may already be applied)"
+./node_modules/.bin/prisma migrate deploy 2>&1 || echo "Migration warning (may already be applied)"
 
 # Seed images volume if empty, sync new images if not
 if [ -z "$(ls -A /app/public/images/products 2>/dev/null)" ]; then
