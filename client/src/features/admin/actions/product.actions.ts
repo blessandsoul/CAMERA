@@ -41,7 +41,7 @@ export async function createProduct(formData: FormData): Promise<void> {
   };
 
   const body = (formData.get('description_ka') as string) || '';
-  writeProductMdx(id, frontmatter, body);
+  await writeProductMdx(id, frontmatter, body);
 
   revalidatePath('/');
   redirect('/admin/dashboard');
@@ -50,7 +50,7 @@ export async function createProduct(formData: FormData): Promise<void> {
 export async function updateProduct(id: string, formData: FormData): Promise<void> {
   await requireAdmin();
 
-  const existing = getProductById(id);
+  const existing = await getProductById(id);
   if (!existing) redirect('/admin/dashboard');
 
   const frontmatter = {
@@ -72,7 +72,7 @@ export async function updateProduct(id: string, formData: FormData): Promise<voi
   };
 
   const body = (formData.get('description_ka') as string) || existing.content || '';
-  writeProductMdx(id, frontmatter, body);
+  await writeProductMdx(id, frontmatter, body);
 
   revalidatePath('/');
   redirect('/admin/dashboard');
@@ -81,13 +81,13 @@ export async function updateProduct(id: string, formData: FormData): Promise<voi
 export async function deleteProduct(id: string): Promise<void> {
   await requireAdmin();
 
-  const product = getProductById(id);
+  const product = await getProductById(id);
   if (product) {
     for (const img of product.images) {
       const imgPath = path.join(IMAGES_DIR, img);
       if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
     }
-    deleteProductMdx(id);
+    await deleteProductMdx(id);
   }
 
   revalidatePath('/');
@@ -97,7 +97,7 @@ export async function deleteProduct(id: string): Promise<void> {
 export async function toggleProductActive(id: string, isActive: boolean): Promise<void> {
   await requireAdmin();
 
-  const product = getProductById(id);
+  const product = await getProductById(id);
   if (!product) return;
 
   const frontmatter = {
@@ -114,6 +114,6 @@ export async function toggleProductActive(id: string, isActive: boolean): Promis
     createdAt: product.createdAt,
   };
 
-  writeProductMdx(id, frontmatter, product.content || '');
+  await writeProductMdx(id, frontmatter, product.content || '');
   revalidatePath('/');
 }

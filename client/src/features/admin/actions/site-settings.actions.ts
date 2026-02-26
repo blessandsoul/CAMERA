@@ -27,7 +27,7 @@ export async function saveSiteSettings(json: string): Promise<{ success: boolean
       return { success: false, error: 'Invalid business data' };
     }
 
-    writeSiteSettings(settings);
+    await writeSiteSettings(settings);
     revalidatePath('/');
     return { success: true };
   } catch {

@@ -16,6 +16,6 @@ async function requireAdmin(): Promise<void> {
 
 export async function changeOrderStatus(orderId: string, status: Order['status']): Promise<void> {
   await requireAdmin();
-  updateOrderStatus(orderId, status);
+  await updateOrderStatus(orderId, status);
   revalidatePath('/admin/orders');
 }

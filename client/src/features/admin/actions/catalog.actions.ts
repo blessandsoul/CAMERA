@@ -27,7 +27,7 @@ export async function saveCatalogConfig(configJson: string): Promise<{ success: 
       return { success: false, error: 'Invalid filters object' };
     }
 
-    writeCatalogConfig(config);
+    await writeCatalogConfig(config);
     revalidatePath('/');
     return { success: true };
   } catch {
@@ -37,5 +37,5 @@ export async function saveCatalogConfig(configJson: string): Promise<{ success: 
 
 export async function loadCatalogConfig(): Promise<CatalogConfig> {
   await requireAdmin();
-  return getCatalogConfig();
+  return await getCatalogConfig();
 }

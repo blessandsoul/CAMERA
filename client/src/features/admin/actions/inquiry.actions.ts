@@ -14,6 +14,6 @@ async function requireAdmin(): Promise<void> {
 
 export async function removeInquiry(id: string): Promise<void> {
   await requireAdmin();
-  deleteInquiry(id);
+  await deleteInquiry(id);
   revalidatePath('/admin/inquiries');
 }

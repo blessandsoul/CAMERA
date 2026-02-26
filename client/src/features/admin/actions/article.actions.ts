@@ -34,7 +34,7 @@ export async function createArticle(formData: FormData): Promise<void> {
   };
 
   const body = (formData.get('body') as string) || '';
-  writeArticleMdx(id, frontmatter, body);
+  await writeArticleMdx(id, frontmatter, body);
 
   revalidatePath('/');
   redirect('/admin/articles');
@@ -43,7 +43,7 @@ export async function createArticle(formData: FormData): Promise<void> {
 export async function updateArticle(id: string, formData: FormData): Promise<void> {
   await requireAdmin();
 
-  const existing = getArticleById(id);
+  const existing = await getArticleById(id);
   if (!existing) redirect('/admin/articles');
 
   const frontmatter = {
@@ -60,7 +60,7 @@ export async function updateArticle(id: string, formData: FormData): Promise<voi
   };
 
   const body = (formData.get('body') as string) || existing!.content;
-  writeArticleMdx(id, frontmatter, body);
+  await writeArticleMdx(id, frontmatter, body);
 
   revalidatePath('/');
   redirect('/admin/articles');
@@ -68,7 +68,7 @@ export async function updateArticle(id: string, formData: FormData): Promise<voi
 
 export async function deleteArticle(id: string): Promise<void> {
   await requireAdmin();
-  deleteArticleMdx(id);
+  await deleteArticleMdx(id);
   revalidatePath('/');
   redirect('/admin/articles');
 }
@@ -76,7 +76,7 @@ export async function deleteArticle(id: string): Promise<void> {
 export async function toggleArticlePublished(id: string, isPublished: boolean): Promise<void> {
   await requireAdmin();
 
-  const article = getArticleById(id);
+  const article = await getArticleById(id);
   if (!article) return;
 
   const frontmatter = {
@@ -92,6 +92,6 @@ export async function toggleArticlePublished(id: string, isPublished: boolean): 
     updatedAt: new Date().toISOString(),
   };
 
-  writeArticleMdx(id, frontmatter, article.content);
+  await writeArticleMdx(id, frontmatter, article.content);
   revalidatePath('/');
 }

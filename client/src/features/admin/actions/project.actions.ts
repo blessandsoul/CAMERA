@@ -37,7 +37,7 @@ export async function createProject(formData: FormData): Promise<void> {
     createdAt: new Date().toISOString(),
   };
 
-  saveProject(project);
+  await saveProject(project);
   revalidatePath('/');
   redirect('/admin/projects');
 }
@@ -45,7 +45,7 @@ export async function createProject(formData: FormData): Promise<void> {
 export async function updateProject(id: string, formData: FormData): Promise<void> {
   await requireAdmin();
 
-  const existing = getProjectById(id);
+  const existing = await getProjectById(id);
   if (!existing) redirect('/admin/projects');
 
   const project: Project = {
@@ -68,14 +68,14 @@ export async function updateProject(id: string, formData: FormData): Promise<voi
     createdAt: existing.createdAt,
   };
 
-  saveProject(project);
+  await saveProject(project);
   revalidatePath('/');
   redirect('/admin/projects');
 }
 
 export async function removeProject(id: string): Promise<void> {
   await requireAdmin();
-  deleteProject(id);
+  await deleteProject(id);
   revalidatePath('/');
   redirect('/admin/projects');
 }
