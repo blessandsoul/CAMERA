@@ -49,15 +49,13 @@ COPY <<'EOF' /app/entrypoint.sh
 #!/bin/sh
 set -e
 
-# Seed images volume if empty, sync new images if not
-if [ -z "$(ls -A /app/public/images/products 2>/dev/null)" ]; then
-  echo "Seeding /app/public/images/products..."
-  mkdir -p /app/public/images/products
-  cp -r /app/public.default/images/products/. /app/public/images/products/ 2>/dev/null || true
-else
-  echo "Syncing default product images..."
-  cp -ru /app/public.default/images/products/. /app/public/images/products/ 2>/dev/null || true
-fi
+# Sync default product images into volume
+mkdir -p /app/public/images/products
+echo "Syncing default product images..."
+cd /app/public.default/images/products 2>/dev/null && \
+  for f in *; do
+    [ -e "/app/public/images/products/$f" ] || cp "$f" /app/public/images/products/
+  done && cd /app || true
 chown -R nextjs:nodejs /app/public/images/products
 
 # Ensure image optimization cache is writable
