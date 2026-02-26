@@ -14,7 +14,7 @@ interface HeaderProps {
 
 export async function Header({ locale }: HeaderProps) {
   const t = await getTranslations({ locale });
-  const settings = getSiteSettings();
+  const settings = await getSiteSettings();
   const phone = settings.contact.phone || '597470518';
 
   return (

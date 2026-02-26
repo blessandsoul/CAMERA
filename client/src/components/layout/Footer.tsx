@@ -10,7 +10,7 @@ interface FooterProps {
 
 export async function Footer({ locale }: FooterProps) {
   const t = await getTranslations({ locale });
-  const settings = getSiteSettings();
+  const settings = await getSiteSettings();
   const phone = settings.contact.phone || '597470518';
   const year = new Date().getFullYear();
 

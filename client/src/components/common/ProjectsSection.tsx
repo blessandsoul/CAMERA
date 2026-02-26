@@ -27,8 +27,8 @@ function splitStat(value: string): { num: string; suffix: string } {
 export async function ProjectsSection(): Promise<React.JSX.Element> {
   const t = await getTranslations();
   const locale = (await getLocale()) as Locale;
-  const settings = getSiteSettings();
-  const projectData = getAllProjects();
+  const settings = await getSiteSettings();
+  const projectData = await getAllProjects();
   const cameraStat = splitStat(settings.stats.camerasInstalled);
   const projectsStat = splitStat(settings.stats.projectsCompleted);
   const yearsStat = splitStat(settings.stats.yearsExperience);

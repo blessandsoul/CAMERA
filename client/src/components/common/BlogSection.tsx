@@ -7,8 +7,8 @@ interface BlogSectionProps {
   locale: string;
 }
 
-export function BlogSection({ locale }: BlogSectionProps): React.ReactElement | null {
-  const articles = getAllArticles().slice(0, 3);
+export async function BlogSection({ locale }: BlogSectionProps): Promise<React.ReactElement | null> {
+  const articles = (await getAllArticles()).slice(0, 3);
 
   if (articles.length === 0) return null;
 

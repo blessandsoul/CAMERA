@@ -39,7 +39,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       status: 'new',
       createdAt: new Date().toISOString(),
     };
-    saveOrder(order);
+    await saveOrder(order);
 
     const itemLines = items
       .map((i) => `• ${i.name} × ${i.quantity} — ${i.price * i.quantity} ₾`)

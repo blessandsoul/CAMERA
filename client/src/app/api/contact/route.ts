@@ -29,7 +29,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       locale,
       createdAt: new Date().toISOString(),
     };
-    saveInquiry(inquiry);
+    await saveInquiry(inquiry);
 
     const now = new Date().toLocaleString('ru-RU', {
       timeZone: 'Asia/Tbilisi',
