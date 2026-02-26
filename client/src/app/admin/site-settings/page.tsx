@@ -1,10 +1,12 @@
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { SiteSettingsEditor } from '@/features/admin/components/SiteSettingsEditor';
 import { getSiteSettings } from '@/lib/content';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function SiteSettingsPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   const settings = await getSiteSettings();
 
   return (

@@ -3,6 +3,7 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ArticleForm } from '@/features/admin/components/ArticleForm';
 import { getArticleById } from '@/lib/content';
 import { updateArticle } from '@/features/admin/actions/article.actions';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,6 +12,7 @@ interface EditArticlePageProps {
 }
 
 export default async function EditArticlePage({ params }: EditArticlePageProps): Promise<React.ReactElement> {
+  await requireAdmin();
   const { id } = await params;
   const article = await getArticleById(id);
 

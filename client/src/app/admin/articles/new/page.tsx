@@ -1,8 +1,10 @@
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ArticleForm } from '@/features/admin/components/ArticleForm';
 import { createArticle } from '@/features/admin/actions/article.actions';
+import { requireAdmin } from '@/lib/admin-auth';
 
-export default function NewArticlePage(): React.ReactElement {
+export default async function NewArticlePage(): Promise<React.ReactElement> {
+  await requireAdmin();
   return (
     <>
       <AdminHeader />

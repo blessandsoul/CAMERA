@@ -1,8 +1,10 @@
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ProductForm } from '@/features/admin/components/ProductForm';
 import { createProduct } from '@/features/admin/actions/product.actions';
+import { requireAdmin } from '@/lib/admin-auth';
 
-export default function NewProductPage(): React.ReactElement {
+export default async function NewProductPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   return (
     <>
       <AdminHeader />

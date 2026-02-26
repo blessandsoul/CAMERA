@@ -3,6 +3,7 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ProductForm } from '@/features/admin/components/ProductForm';
 import { getProductById } from '@/lib/content';
 import { updateProduct } from '@/features/admin/actions/product.actions';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,6 +12,7 @@ interface EditProductPageProps {
 }
 
 export default async function EditProductPage({ params }: EditProductPageProps): Promise<React.ReactElement> {
+  await requireAdmin();
   const { id } = await params;
   const product = await getProductById(id);
 

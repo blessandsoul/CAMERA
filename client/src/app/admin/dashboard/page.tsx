@@ -2,10 +2,12 @@ import Link from 'next/link';
 import { getAllProductsAdmin, getAllArticlesAdmin, getAllOrders } from '@/lib/content';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ProductTable } from '@/features/admin/components/ProductTable';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   const products = await getAllProductsAdmin();
   const articles = await getAllArticlesAdmin();
   const orders = await getAllOrders();

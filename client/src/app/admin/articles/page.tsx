@@ -3,10 +3,12 @@ import { getAllArticlesAdmin } from '@/lib/content';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { toggleArticlePublished } from '@/features/admin/actions/article.actions';
 import { DeleteArticleButton } from '@/features/admin/components/DeleteArticleButton';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminArticlesPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   const articles = await getAllArticlesAdmin();
 
   return (

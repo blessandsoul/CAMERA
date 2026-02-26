@@ -3,10 +3,12 @@ import Image from 'next/image';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { getAllProjectsAdmin } from '@/lib/content';
 import { removeProject } from '@/features/admin/actions/project.actions';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminProjectsPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   const projects = await getAllProjectsAdmin();
 
   return (

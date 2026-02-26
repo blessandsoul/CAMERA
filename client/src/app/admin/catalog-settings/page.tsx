@@ -1,10 +1,12 @@
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { CatalogSettingsEditor } from '@/features/admin/components/CatalogSettingsEditor';
 import { getCatalogConfig } from '@/lib/content';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function CatalogSettingsPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   const config = await getCatalogConfig();
 
   return (

@@ -1,10 +1,12 @@
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { getAllInquiries } from '@/lib/content';
 import { removeInquiry } from '@/features/admin/actions/inquiry.actions';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminInquiriesPage(): Promise<React.ReactElement> {
+  await requireAdmin();
   const inquiries = await getAllInquiries();
 
   return (
