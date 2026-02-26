@@ -26,9 +26,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const token = generateSessionToken();
   const response = NextResponse.json({ success: true });
+  const isSecure = request.headers.get('x-forwarded-proto') === 'https'
+    || request.url.startsWith('https://');
   response.cookies.set('admin_session', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isSecure,
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: '/',
