@@ -4,12 +4,11 @@ import { Pagination } from '@/components/common/Pagination';
 import { CatalogSidebar } from '@/features/catalog/components/CatalogSidebar';
 import { CatalogToolbar } from '@/features/catalog/components/CatalogToolbar';
 import { MobileFilterDrawer } from '@/features/catalog/components/MobileFilterDrawer';
-import { getFilteredProducts, getProductsByCategoryAndSub, getAvailableSpecValues, getCategoryCounts } from '@/lib/content';
+import { getFilteredProducts, getAvailableSpecValuesFromDB, getPriceRangeFromDB, getCategoryCounts } from '@/lib/content';
 import { getFilterConfigForCategory } from '@/lib/constants/filter-config';
 import { findCategoryNode, getCategoryTree } from '@/lib/constants/category-tree';
 import { parseCatalogSearchParams } from '@/lib/utils/catalog-params';
 import type { ProductCategory } from '@/types/product.types';
-import type { SpecValueOption } from '@/lib/content';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,28 +43,15 @@ export default async function CatalogPage({ params, searchParams }: CatalogPageP
   // 3. Resolve subcategory node
   const subcategoryNode = parsed.subcategory ? await findCategoryNode(parsed.subcategory) : undefined;
 
-  // 4. Get category counts for the tree
-  const categoryCounts = await getCategoryCounts();
-  const categoryTree = await getCategoryTree();
+  // 4. Get category counts, available filter values, price range (parallel DB queries)
+  const [categoryCounts, categoryTree, availableValues, priceRange] = await Promise.all([
+    getCategoryCounts(),
+    getCategoryTree(),
+    getAvailableSpecValuesFromDB(activeCategory, subcategoryNode, filterConfigs),
+    getPriceRangeFromDB(activeCategory, subcategoryNode),
+  ]);
 
-  // 5. Get products filtered by category/subcategory only (for available filter values)
-  const categoryProducts = await getProductsByCategoryAndSub(activeCategory, subcategoryNode);
-
-  // 6. Compute available values for each filter config
-  const availableValues: Record<string, SpecValueOption[]> = {};
-  for (const config of filterConfigs) {
-    availableValues[config.id] = getAvailableSpecValues(categoryProducts, config.specKaKey);
-  }
-
-  // 7. Get price range from category-filtered products
-  const priceRange = categoryProducts.length > 0
-    ? {
-        min: Math.min(...categoryProducts.map((p) => p.price)),
-        max: Math.max(...categoryProducts.map((p) => p.price)),
-      }
-    : { min: 0, max: 0 };
-
-  // 8. Run full filter + sort + paginate
+  // 5. Run full filter + sort + paginate
   const result = await getFilteredProducts(
     {
       category: activeCategory,

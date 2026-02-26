@@ -255,18 +255,20 @@ export async function getFeaturedProducts(): Promise<Product[]> {
 }
 
 export async function getDiscountedProducts(): Promise<Product[]> {
+  const discountedIds = await prisma.$queryRaw<Array<{ id: string }>>`
+    SELECT id FROM products
+    WHERE isActive = true
+      AND originalPrice IS NOT NULL
+      AND originalPrice > price
+    ORDER BY createdAt DESC
+    LIMIT 6
+  `;
+  if (discountedIds.length === 0) return [];
   const rows = await prisma.product.findMany({
-    where: {
-      isActive: true,
-      originalPrice: { not: null },
-    },
+    where: { id: { in: discountedIds.map((r) => r.id) } },
     include: { specs: true },
-    orderBy: { createdAt: 'desc' },
   });
-  return rows
-    .map(dbProductToProduct)
-    .filter((p) => p.originalPrice !== undefined && p.originalPrice > p.price)
-    .slice(0, 6);
+  return rows.map(dbProductToProduct);
 }
 
 export async function getAllProductIds(): Promise<string[]> {
@@ -588,22 +590,32 @@ export interface SpecValueOption {
   count: number;
 }
 
-function sortProducts(products: Product[], sort: SortOption, locale: string): Product[] {
-  const sorted = [...products];
+function buildCategoryWhere(
+  category?: ProductCategory,
+  subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
+): Prisma.ProductWhereInput {
+  const where: Prisma.ProductWhereInput = { isActive: true };
+  if (category) where.category = category;
+  if (subcategoryNode?.specFilter) {
+    const { kaKey, value } = subcategoryNode.specFilter;
+    where.AND = [{ specs: { some: { keyKa: kaKey, value } } }];
+  }
+  return where;
+}
+
+function buildOrderBy(sort: SortOption, locale: string): Prisma.ProductOrderByWithRelationInput {
   switch (sort) {
     case 'price-asc':
-      return sorted.sort((a, b) => a.price - b.price);
+      return { price: 'asc' };
     case 'price-desc':
-      return sorted.sort((a, b) => b.price - a.price);
-    case 'name-asc':
-      return sorted.sort((a, b) => {
-        const nameA = a.name[locale as keyof typeof a.name] ?? a.name.ka;
-        const nameB = b.name[locale as keyof typeof b.name] ?? b.name.ka;
-        return nameA.localeCompare(nameB);
-      });
+      return { price: 'desc' };
+    case 'name-asc': {
+      const field = locale === 'ru' ? 'nameRu' : locale === 'en' ? 'nameEn' : 'nameKa';
+      return { [field]: 'asc' };
+    }
     case 'newest':
     default:
-      return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      return { createdAt: 'desc' };
   }
 }
 
@@ -612,53 +624,72 @@ export async function getFilteredProducts(
   filterConfigs: FilterFieldConfig[],
   locale: string = 'ka',
 ): Promise<FilteredResult> {
-  let products = await getAllProducts();
-
-  if (filters.category) {
-    products = products.filter((p) => p.category === filters.category);
-  }
+  const andConditions: Prisma.ProductWhereInput[] = [];
 
   if (filters.subcategoryNode?.specFilter) {
     const { kaKey, value } = filters.subcategoryNode.specFilter;
-    products = products.filter((p) => getSpecValue(p, kaKey) === value);
-  }
-
-  if (filters.search) {
-    const term = filters.search.toLowerCase().trim();
-    products = products.filter((p) =>
-      p.name.ka.toLowerCase().includes(term) ||
-      p.name.ru.toLowerCase().includes(term) ||
-      p.name.en.toLowerCase().includes(term) ||
-      p.slug.toLowerCase().includes(term)
-    );
+    andConditions.push({ specs: { some: { keyKa: kaKey, value } } });
   }
 
   for (const config of filterConfigs) {
     const selectedValues = filters.specs[config.id];
     if (selectedValues && selectedValues.length > 0) {
-      products = products.filter((p) => {
-        const specVal = getSpecValue(p, config.specKaKey);
-        return selectedValues.includes(specVal);
+      andConditions.push({
+        specs: { some: { keyKa: config.specKaKey, value: { in: selectedValues } } },
       });
     }
   }
 
-  const priceRange = computePriceRange(products);
+  const baseWhere: Prisma.ProductWhereInput = {
+    isActive: true,
+    ...(filters.category && { category: filters.category }),
+    ...(filters.search && {
+      OR: [
+        { nameKa: { contains: filters.search.trim() } },
+        { nameRu: { contains: filters.search.trim() } },
+        { nameEn: { contains: filters.search.trim() } },
+        { slug: { contains: filters.search.trim() } },
+      ],
+    }),
+    ...(andConditions.length > 0 && { AND: andConditions }),
+  };
 
-  if (filters.minPrice !== undefined) {
-    products = products.filter((p) => p.price >= filters.minPrice!);
-  }
-  if (filters.maxPrice !== undefined) {
-    products = products.filter((p) => p.price <= filters.maxPrice!);
-  }
+  const priceAgg = await prisma.product.aggregate({
+    where: baseWhere,
+    _min: { price: true },
+    _max: { price: true },
+  });
+  const priceRange = {
+    min: priceAgg._min.price ?? 0,
+    max: priceAgg._max.price ?? 0,
+  };
 
-  products = sortProducts(products, filters.sort, locale);
+  const where: Prisma.ProductWhereInput = {
+    ...baseWhere,
+    ...(filters.minPrice !== undefined || filters.maxPrice !== undefined
+      ? {
+          price: {
+            ...(filters.minPrice !== undefined && { gte: filters.minPrice }),
+            ...(filters.maxPrice !== undefined && { lte: filters.maxPrice }),
+          },
+        }
+      : {}),
+  };
 
-  const totalItems = products.length;
+  const totalItems = await prisma.product.count({ where });
   const totalPages = Math.max(1, Math.ceil(totalItems / filters.limit));
   const page = Math.min(filters.page, totalPages);
   const offset = (page - 1) * filters.limit;
-  const items = products.slice(offset, offset + filters.limit);
+
+  const rows = await prisma.product.findMany({
+    where,
+    include: { specs: true },
+    orderBy: buildOrderBy(filters.sort, locale),
+    skip: offset,
+    take: filters.limit,
+  });
+
+  const items = rows.map(dbProductToProduct);
 
   return { items, totalItems, totalPages, page, limit: filters.limit, priceRange };
 }
@@ -677,50 +708,108 @@ export function getAvailableSpecValues(
     .sort((a, b) => a.value.localeCompare(b.value));
 }
 
+export async function getAvailableSpecValuesFromDB(
+  category?: ProductCategory,
+  subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
+  filterConfigs: FilterFieldConfig[] = [],
+): Promise<Record<string, SpecValueOption[]>> {
+  if (filterConfigs.length === 0) return {};
+
+  const baseWhere = buildCategoryWhere(category, subcategoryNode);
+  const matchingProducts = await prisma.product.findMany({
+    where: baseWhere,
+    select: { id: true },
+  });
+  const productIds = matchingProducts.map((p) => p.id);
+
+  if (productIds.length === 0) {
+    return Object.fromEntries(filterConfigs.map((c) => [c.id, []]));
+  }
+
+  const entries = await Promise.all(
+    filterConfigs.map(async (config): Promise<[string, SpecValueOption[]]> => {
+      const groups = await prisma.productSpec.groupBy({
+        by: ['value'],
+        where: {
+          keyKa: config.specKaKey,
+          value: { not: '' },
+          productId: { in: productIds },
+        },
+        _count: { _all: true },
+        orderBy: { value: 'asc' },
+      });
+      return [config.id, groups.map((g) => ({ value: g.value, count: g._count._all }))];
+    }),
+  );
+
+  return Object.fromEntries(entries);
+}
+
+export async function getPriceRangeFromDB(
+  category?: ProductCategory,
+  subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
+): Promise<{ min: number; max: number }> {
+  const where = buildCategoryWhere(category, subcategoryNode);
+  const agg = await prisma.product.aggregate({
+    where,
+    _min: { price: true },
+    _max: { price: true },
+  });
+  return { min: agg._min.price ?? 0, max: agg._max.price ?? 0 };
+}
+
 export async function getProductsByCategoryAndSub(
   category?: ProductCategory,
   subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
 ): Promise<Product[]> {
-  let products = await getAllProducts();
-  if (category) products = products.filter((p) => p.category === category);
-  if (subcategoryNode?.specFilter) {
-    const { kaKey, value } = subcategoryNode.specFilter;
-    products = products.filter((p) => getSpecValue(p, kaKey) === value);
-  }
-  return products;
-}
-
-function computePriceRange(products: Product[]): { min: number; max: number } {
-  if (products.length === 0) return { min: 0, max: 0 };
-  let min = Infinity;
-  let max = -Infinity;
-  for (const p of products) {
-    if (p.price < min) min = p.price;
-    if (p.price > max) max = p.price;
-  }
-  return { min, max };
+  const where = buildCategoryWhere(category, subcategoryNode);
+  const rows = await prisma.product.findMany({
+    where,
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbProductToProduct);
 }
 
 export async function getCategoryCounts(): Promise<Record<string, number>> {
-  const products = await getAllProducts();
-  const counts: Record<string, number> = { all: products.length };
+  const [totalCount, categoryGroups, config] = await Promise.all([
+    prisma.product.count({ where: { isActive: true } }),
+    prisma.product.groupBy({
+      by: ['category'],
+      where: { isActive: true },
+      _count: { _all: true },
+    }),
+    getCatalogConfig(),
+  ]);
 
-  for (const p of products) {
-    counts[p.category] = (counts[p.category] ?? 0) + 1;
+  const counts: Record<string, number> = { all: totalCount };
+  for (const g of categoryGroups) {
+    counts[g.category] = g._count._all;
   }
 
-  const config = await getCatalogConfig();
+  const subcategoryQueries: Array<{ id: string; promise: Promise<number> }> = [];
   for (const cat of config.categories) {
     if (cat.children) {
-      const categoryProducts = products.filter((p) => p.category === cat.parentCategory);
       for (const child of cat.children) {
         if (child.specFilter) {
-          counts[child.id] = categoryProducts.filter(
-            (p) => getSpecValue(p, child.specFilter!.kaKey) === child.specFilter!.value
-          ).length;
+          subcategoryQueries.push({
+            id: child.id,
+            promise: prisma.product.count({
+              where: {
+                isActive: true,
+                ...(cat.parentCategory && { category: cat.parentCategory }),
+                specs: { some: { keyKa: child.specFilter.kaKey, value: child.specFilter.value } },
+              },
+            }),
+          });
         }
       }
     }
+  }
+
+  if (subcategoryQueries.length > 0) {
+    const results = await Promise.all(subcategoryQueries.map((q) => q.promise));
+    subcategoryQueries.forEach((q, i) => { counts[q.id] = results[i]; });
   }
 
   return counts;
@@ -739,28 +828,57 @@ export interface ProductFilters {
 }
 
 export async function getProductsFiltered(filters: ProductFilters): Promise<Product[]> {
-  const all = await getAllProducts();
-  return all.filter((p) => {
-    if (filters.category && p.category !== filters.category) return false;
-    if (filters.brand && getSpecValue(p, 'ბრენდი') !== filters.brand) return false;
-    if (filters.resolution && getSpecValue(p, 'რეზოლუცია') !== filters.resolution) return false;
-    if (filters.bodyType && getSpecValue(p, 'კორპუსის ტიპი') !== filters.bodyType) return false;
-    if (filters.nightVision && getSpecValue(p, 'ღამის ხედვა') !== filters.nightVision) return false;
-    if (filters.wifi && getSpecValue(p, 'Wi-Fi') !== filters.wifi) return false;
-    if (filters.minPrice !== undefined && p.price < filters.minPrice) return false;
-    if (filters.maxPrice !== undefined && p.price > filters.maxPrice) return false;
-    return true;
+  const andConditions: Prisma.ProductWhereInput[] = [];
+
+  const specFilters: Array<{ kaKey: string; value: string | undefined }> = [
+    { kaKey: 'ბრენდი', value: filters.brand },
+    { kaKey: 'რეზოლუცია', value: filters.resolution },
+    { kaKey: 'კორპუსის ტიპი', value: filters.bodyType },
+    { kaKey: 'ღამის ხედვა', value: filters.nightVision },
+    { kaKey: 'Wi-Fi', value: filters.wifi },
+  ];
+
+  for (const { kaKey, value } of specFilters) {
+    if (value) {
+      andConditions.push({ specs: { some: { keyKa: kaKey, value } } });
+    }
+  }
+
+  const where: Prisma.ProductWhereInput = {
+    isActive: true,
+    ...(filters.category && { category: filters.category }),
+    ...(filters.minPrice !== undefined || filters.maxPrice !== undefined
+      ? {
+          price: {
+            ...(filters.minPrice !== undefined && { gte: filters.minPrice }),
+            ...(filters.maxPrice !== undefined && { lte: filters.maxPrice }),
+          },
+        }
+      : {}),
+    ...(andConditions.length > 0 && { AND: andConditions }),
+  };
+
+  const rows = await prisma.product.findMany({
+    where,
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
   });
+
+  return rows.map(dbProductToProduct);
 }
 
 export async function getUniqueSpecValues(kaKey: string): Promise<string[]> {
-  const all = await getAllProducts();
-  const values = new Set<string>();
-  all.forEach((p) => {
-    const v = getSpecValue(p, kaKey);
-    if (v) values.add(v);
+  const rows = await prisma.productSpec.findMany({
+    where: {
+      keyKa: kaKey,
+      value: { not: '' },
+      product: { is: { isActive: true } },
+    },
+    select: { value: true },
+    distinct: ['value'],
+    orderBy: { value: 'asc' },
   });
-  return Array.from(values).sort();
+  return rows.map((r) => r.value);
 }
 
 // ── Inquiries ─────────────────────────────────────────
