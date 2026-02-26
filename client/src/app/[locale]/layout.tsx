@@ -9,6 +9,7 @@ import { getSiteSettings } from '@/lib/content';
 import { Toaster } from 'sonner';
 import { Agentation } from 'agentation';
 import { ChatAssistant } from '@/features/chat-assistant';
+import { PageTransition } from '@/components/common/PageTransition';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,7 +33,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <NextIntlClientProvider messages={messages}>
       <div className="min-h-dvh flex flex-col bg-background pb-16 md:pb-0">
         <Header locale={locale} />
-        <main className="flex-1 pt-17">{children}</main>
+        <main className="flex-1 pt-17">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer locale={locale} />
         <MobileCallBar phone={phone} label="დარეკე:" />
       </div>
