@@ -2,6 +2,8 @@ import { getTranslations } from 'next-intl/server';
 import { getAllProducts } from '@/lib/content';
 import { FavoritesContent } from '@/features/favorites/components/FavoritesContent';
 
+export const dynamic = 'force-dynamic';
+
 interface FavoritesPageProps {
   params: Promise<{ locale: string }>;
 }
@@ -15,7 +17,7 @@ export async function generateMetadata({ params }: FavoritesPageProps): Promise<
 export default async function FavoritesPage({ params }: FavoritesPageProps): Promise<React.ReactElement> {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  const products = getAllProducts();
+  const products = await getAllProducts();
 
   return (
     <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">

@@ -2,23 +2,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Clock, CalendarBlank } from '@phosphor-icons/react/dist/ssr';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getArticleBySlug, getAllArticles } from '@/lib/content';
+import { getArticleBySlug } from '@/lib/content';
+
+export const dynamic = 'force-dynamic';
 
 interface BlogPostPageProps {
   params: Promise<{ locale: string; slug: string }>;
 }
 
-export async function generateStaticParams(): Promise<Array<{ locale: string; slug: string }>> {
-  const articles = getAllArticles();
-  const locales = ['ka', 'ru', 'en'];
-  return locales.flatMap((locale) =>
-    articles.map((a) => ({ locale, slug: a.slug }))
-  );
-}
-
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<{ title: string; description?: string }> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
   if (!article) return { title: 'Not found' };
   return {
     title: `TechBrain — ${article.title}`,
@@ -28,7 +22,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<{
 
 export default async function BlogPostPage({ params }: BlogPostPageProps): Promise<React.ReactElement> {
   const { locale, slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     return (

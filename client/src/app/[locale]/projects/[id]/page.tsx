@@ -2,8 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, MapPin, CalendarBlank, SecurityCamera, Buildings, House, Storefront } from '@phosphor-icons/react/dist/ssr';
 import { getTranslations } from 'next-intl/server';
-import { getProjectById, getAllProjects } from '@/lib/content';
+import { getProjectById } from '@/lib/content';
 import type { Locale } from '@/types/product.types';
+
+export const dynamic = 'force-dynamic';
 
 const TYPE_ICONS: Record<string, typeof Buildings> = {
   commercial: Buildings,
@@ -23,17 +25,9 @@ interface ProjectPageProps {
   params: Promise<{ locale: string; id: string }>;
 }
 
-export async function generateStaticParams(): Promise<Array<{ locale: string; id: string }>> {
-  const projects = getAllProjects();
-  const locales = ['ka', 'ru', 'en'];
-  return locales.flatMap((locale) =>
-    projects.map((p) => ({ locale, id: p.id }))
-  );
-}
-
 export async function generateMetadata({ params }: ProjectPageProps): Promise<{ title: string }> {
   const { locale, id } = await params;
-  const project = getProjectById(id);
+  const project = await getProjectById(id);
   if (!project) return { title: 'Not found' };
   const loc = locale as Locale;
   const title = project.title[loc] || project.title.ka;
@@ -43,7 +37,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<{ 
 export default async function ProjectDetailPage({ params }: ProjectPageProps): Promise<React.ReactElement> {
   const { locale, id } = await params;
   const t = await getTranslations({ locale });
-  const project = getProjectById(id);
+  const project = await getProjectById(id);
   const loc = locale as Locale;
 
   if (!project) {

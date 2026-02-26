@@ -4,6 +4,8 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { toggleArticlePublished } from '@/features/admin/actions/article.actions';
 import { DeleteArticleButton } from '@/features/admin/components/DeleteArticleButton';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminArticlesPage(): Promise<React.ReactElement> {
   const articles = await getAllArticlesAdmin();
 

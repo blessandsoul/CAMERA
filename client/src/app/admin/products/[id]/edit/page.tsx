@@ -4,6 +4,8 @@ import { ProductForm } from '@/features/admin/components/ProductForm';
 import { getProductById } from '@/lib/content';
 import { updateProduct } from '@/features/admin/actions/product.actions';
 
+export const dynamic = 'force-dynamic';
+
 interface EditProductPageProps {
   params: Promise<{ id: string }>;
 }

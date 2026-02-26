@@ -10,6 +10,8 @@ import { Toaster } from 'sonner';
 import { Agentation } from 'agentation';
 import { ChatAssistant } from '@/features/chat-assistant';
 
+export const dynamic = 'force-dynamic';
+
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -24,7 +26,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   const messages = await getMessages();
 
-  const phone = getSiteSettings().contact.phone || '597470518';
+  const phone = (await getSiteSettings()).contact.phone || '597470518';
 
   return (
     <NextIntlClientProvider messages={messages}>

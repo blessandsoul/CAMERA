@@ -5,6 +5,8 @@ import { getTranslations } from 'next-intl/server';
 import { getAllProjects } from '@/lib/content';
 import type { Locale } from '@/types/product.types';
 
+export const dynamic = 'force-dynamic';
+
 const TYPE_ICONS: Record<string, typeof Buildings> = {
   commercial: Buildings,
   residential: House,
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: ProjectsPageProps): Promise<{
 export default async function ProjectsPage({ params }: ProjectsPageProps): Promise<React.ReactElement> {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  const projects = getAllProjects();
+  const projects = await getAllProjects();
   const loc = locale as Locale;
 
   return (

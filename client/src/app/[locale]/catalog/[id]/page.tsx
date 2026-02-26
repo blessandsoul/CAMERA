@@ -1,28 +1,22 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { getProductById, getAllProductIds, getRelatedProducts, getFeaturedProducts } from '@/lib/content';
+import { getProductById, getRelatedProducts, getFeaturedProducts } from '@/lib/content';
 import { ProductCTA } from '@/features/catalog/components/ProductCTA';
 import { ProductGallery } from '@/features/catalog/components/ProductGallery';
 import { BoughtTogether } from '@/features/catalog/components/BoughtTogether';
 import { PopularProductsSlider } from '@/features/catalog/components/PopularProductsSlider';
 import type { Locale } from '@/types/product.types';
 
+export const dynamic = 'force-dynamic';
+
 interface ProductPageProps {
   params: Promise<{ locale: string; id: string }>;
 }
 
-export async function generateStaticParams() {
-  const ids = getAllProductIds();
-  const locales = ['ka', 'ru', 'en'];
-  return locales.flatMap((locale) =>
-    ids.map((id) => ({ locale, id }))
-  );
-}
-
 export async function generateMetadata({ params }: ProductPageProps) {
   const { locale, id } = await params;
-  const product = getProductById(id);
+  const product = await getProductById(id);
   if (!product) return { title: 'Not found' };
   return { title: `TechBrain — ${product.name[locale as Locale]}` };
 }
@@ -30,14 +24,14 @@ export async function generateMetadata({ params }: ProductPageProps) {
 export default async function ProductPage({ params }: ProductPageProps) {
   const { locale, id } = await params;
   const t = await getTranslations({ locale });
-  const product = getProductById(id);
+  const product = await getProductById(id);
 
   if (!product) notFound();
 
   const l = locale as Locale;
   const isService = product.category === 'services';
-  const relatedProducts = getRelatedProducts(product);
-  const popularProducts = getFeaturedProducts().filter((p) => p.id !== product.id);
+  const relatedProducts = await getRelatedProducts(product);
+  const popularProducts = (await getFeaturedProducts()).filter((p) => p.id !== product.id);
 
   // Map category key to translation key
   const categoryKeyMap: Record<string, string> = {

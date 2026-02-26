@@ -2,6 +2,8 @@ import { getTranslations } from 'next-intl/server';
 import { CartPage } from '@/features/cart/components/CartPage';
 import { getSiteSettings } from '@/lib/content';
 
+export const dynamic = 'force-dynamic';
+
 interface CartRouteProps {
   params: Promise<{ locale: string }>;
 }
@@ -14,6 +16,6 @@ export async function generateMetadata({ params }: CartRouteProps) {
 
 export default async function CartRoute({ params }: CartRouteProps) {
   const { locale } = await params;
-  const phone = getSiteSettings().contact.phone || '597470518';
+  const phone = (await getSiteSettings()).contact.phone || '597470518';
   return <CartPage locale={locale} phone={phone} />;
 }

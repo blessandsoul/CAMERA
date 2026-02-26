@@ -2,6 +2,8 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { getAllOrders } from '@/lib/content';
 import { changeOrderStatus } from '@/features/admin/actions/order.actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminOrdersPage(): Promise<React.ReactElement> {
   const orders = await getAllOrders();
   const newCount = orders.filter((o) => o.status === 'new').length;

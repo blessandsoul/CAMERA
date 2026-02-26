@@ -3,6 +3,8 @@ import { getProductById } from '@/lib/content';
 import { CompareContent } from '@/features/favorites/components/CompareContent';
 import type { Product } from '@/types/product.types';
 
+export const dynamic = 'force-dynamic';
+
 interface ComparePageProps {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ ids?: string }>;
@@ -20,9 +22,8 @@ export default async function ComparePage({ params, searchParams }: ComparePageP
   const t = await getTranslations({ locale });
 
   const ids = sp.ids ? sp.ids.split(',').filter(Boolean) : [];
-  const products: Product[] = ids
-    .map((id) => getProductById(id))
-    .filter((p): p is Product => p !== null);
+  const productResults = await Promise.all(ids.map((id) => getProductById(id)));
+  const products: Product[] = productResults.filter((p): p is Product => p !== null);
 
   return (
     <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">

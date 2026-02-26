@@ -23,15 +23,13 @@ function mapCategory(cat: CatalogCategoryConfig): CategoryNode {
   };
 }
 
-export function getCategoryTree(): CategoryNode[] {
-  const config = getCatalogConfig();
+export async function getCategoryTree(): Promise<CategoryNode[]> {
+  const config = await getCatalogConfig();
   return config.categories.map(mapCategory);
 }
 
-export const CATEGORY_TREE: CategoryNode[] = getCategoryTree();
-
-export function findCategoryNode(id: string): CategoryNode | undefined {
-  const tree = getCategoryTree();
+export async function findCategoryNode(id: string): Promise<CategoryNode | undefined> {
+  const tree = await getCategoryTree();
   for (const node of tree) {
     if (node.id === id) return node;
     if (node.children) {
@@ -42,8 +40,8 @@ export function findCategoryNode(id: string): CategoryNode | undefined {
   return undefined;
 }
 
-export function findParentNode(childId: string): CategoryNode | undefined {
-  const tree = getCategoryTree();
+export async function findParentNode(childId: string): Promise<CategoryNode | undefined> {
+  const tree = await getCategoryTree();
   for (const node of tree) {
     if (node.children?.some((c) => c.id === childId)) return node;
   }

@@ -3,6 +3,8 @@ import { getAllProductsAdmin, getAllArticlesAdmin, getAllOrders } from '@/lib/co
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ProductTable } from '@/features/admin/components/ProductTable';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage(): Promise<React.ReactElement> {
   const products = await getAllProductsAdmin();
   const articles = await getAllArticlesAdmin();

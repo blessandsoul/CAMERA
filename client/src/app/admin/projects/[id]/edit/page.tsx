@@ -4,6 +4,8 @@ import { ProjectForm } from '@/features/admin/components/ProjectForm';
 import { getProjectById } from '@/lib/content';
 import { updateProject } from '@/features/admin/actions/project.actions';
 
+export const dynamic = 'force-dynamic';
+
 interface EditProjectPageProps {
   params: Promise<{ id: string }>;
 }

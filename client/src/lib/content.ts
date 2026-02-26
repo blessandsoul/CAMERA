@@ -1,9 +1,14 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { prisma } from '@/lib/db';
+import { Prisma } from '@prisma/client';
 import type { Product, ProductCategory, SortOption } from '@/types/product.types';
 import type { Article, ArticleCategory } from '@/types/article.types';
 import type { FilterFieldConfig } from '@/lib/constants/filter-config';
+import type {
+  Product as PrismaProduct,
+  ProductSpec as PrismaProductSpec,
+  Article as PrismaArticle,
+  Project as PrismaProject,
+} from '@prisma/client';
 
 // ── Catalog Config types ────────────────────────────────
 export interface CatalogLabel {
@@ -109,74 +114,94 @@ export interface Project {
   createdAt: string;
 }
 
-// ── Paths ──────────────────────────────────────────────
-const CONTENT_DIR = path.join(process.cwd(), 'content');
-const PRODUCTS_DIR = path.join(CONTENT_DIR, 'products');
-const ARTICLES_DIR = path.join(CONTENT_DIR, 'articles');
-const CATALOG_CONFIG_PATH = path.join(CONTENT_DIR, 'catalog-config.json');
-const SITE_SETTINGS_PATH = path.join(CONTENT_DIR, 'site-settings.json');
-const ORDERS_PATH = path.join(CONTENT_DIR, 'orders.json');
-const INQUIRIES_PATH = path.join(CONTENT_DIR, 'inquiries.json');
-const PROJECTS_PATH = path.join(CONTENT_DIR, 'projects.json');
-
-// ── Generic MDX reader ─────────────────────────────────
-function readMdxFile<T>(filePath: string): { data: T; content: string } | null {
-  try {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-    return { data: data as T, content: content.trim() };
-  } catch {
-    return null;
-  }
-}
-
-function readAllMdxFiles<T>(dir: string): Array<{ data: T; content: string }> {
-  try {
-    if (!fs.existsSync(dir)) return [];
-    return fs
-      .readdirSync(dir)
-      .filter((f) => f.endsWith('.mdx'))
-      .map((f) => readMdxFile<T>(path.join(dir, f)))
-      .filter((r): r is { data: T; content: string } => r !== null);
-  } catch {
-    return [];
-  }
-}
-
-// ── Products ───────────────────────────────────────────
-// Omit 'content' and 'description' from frontmatter — they come from MDX body
-type ProductFrontmatter = Omit<Product, 'content' | 'description'>;
-
-function parseProduct(entry: { data: ProductFrontmatter; content: string }): Product {
-  const fm = entry.data;
+// ── DB → Domain mappers ──────────────────────────────
+function dbProductToProduct(
+  p: PrismaProduct & { specs: PrismaProductSpec[] },
+): Product {
   return {
-    ...fm,
-    content: entry.content,
-    // Build description from content for backward compat
-    description: fm.name, // fallback — pages that need description should use content
+    id: p.id,
+    slug: p.slug,
+    category: p.category as ProductCategory,
+    price: p.price,
+    originalPrice: p.originalPrice ?? undefined,
+    currency: p.currency,
+    isActive: p.isActive,
+    isFeatured: p.isFeatured,
+    images: p.images as string[],
+    name: { ka: p.nameKa, ru: p.nameRu, en: p.nameEn },
+    description: {
+      ka: p.descriptionKa ?? p.nameKa,
+      ru: p.descriptionRu ?? p.nameRu,
+      en: p.descriptionEn ?? p.nameEn,
+    },
+    specs: p.specs.map((s) => ({
+      key: { ka: s.keyKa, ru: s.keyRu, en: s.keyEn },
+      value: s.value,
+    })),
+    relatedProducts: (p.relatedProducts as string[] | null) ?? undefined,
+    createdAt: p.createdAt.toISOString(),
+    content: p.content ?? undefined,
   };
 }
 
-export function getAllProducts(): Product[] {
-  return readAllMdxFiles<ProductFrontmatter>(PRODUCTS_DIR)
-    .map(parseProduct)
-    .filter((p) => p.isActive)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+function dbArticleToArticle(a: PrismaArticle): Article {
+  return {
+    id: a.id,
+    slug: a.slug,
+    title: a.title,
+    excerpt: a.excerpt,
+    category: a.category as ArticleCategory,
+    coverImage: a.coverImage,
+    isPublished: a.isPublished,
+    readMin: a.readMin,
+    createdAt: a.createdAt.toISOString(),
+    updatedAt: a.updatedAt.toISOString(),
+    content: a.content,
+  };
 }
 
-export function getAllProductsAdmin(): Product[] {
-  return readAllMdxFiles<ProductFrontmatter>(PRODUCTS_DIR)
-    .map(parseProduct)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+function dbProjectToProject(p: PrismaProject): Project {
+  return {
+    id: p.id,
+    title: { ka: p.titleKa, ru: p.titleRu, en: p.titleEn },
+    location: { ka: p.locationKa, ru: p.locationRu, en: p.locationEn },
+    type: p.type as Project['type'],
+    cameras: p.cameras,
+    image: p.image,
+    year: p.year,
+    isActive: p.isActive,
+    createdAt: p.createdAt.toISOString(),
+  };
 }
 
-export function getProductById(id: string): Product | null {
-  const entry = readMdxFile<ProductFrontmatter>(path.join(PRODUCTS_DIR, `${id}.mdx`));
-  if (!entry) return null;
-  return parseProduct(entry);
+// ── Products ───────────────────────────────────────────
+
+export async function getAllProducts(): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    where: { isActive: true },
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbProductToProduct);
 }
 
-// Related categories by product category for auto-matching
+export async function getAllProductsAdmin(): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbProductToProduct);
+}
+
+export async function getProductById(id: string): Promise<Product | null> {
+  const row = await prisma.product.findUnique({
+    where: { id },
+    include: { specs: true },
+  });
+  if (!row) return null;
+  return dbProductToProduct(row);
+}
+
 const RELATED_CATEGORIES: Record<ProductCategory, ProductCategory[]> = {
   cameras: ['accessories', 'storage'],
   'nvr-kits': ['accessories', 'storage'],
@@ -185,112 +210,134 @@ const RELATED_CATEGORIES: Record<ProductCategory, ProductCategory[]> = {
   services: [],
 };
 
-export function getRelatedProducts(product: Product): Product[] {
-  // If manually specified, use those
+export async function getRelatedProducts(product: Product): Promise<Product[]> {
   if (product.relatedProducts && product.relatedProducts.length > 0) {
-    return product.relatedProducts
-      .map((id) => getProductById(id))
-      .filter((p): p is Product => p !== null && p.isActive);
+    const rows = await prisma.product.findMany({
+      where: { id: { in: product.relatedProducts }, isActive: true },
+      include: { specs: true },
+    });
+    return rows.map(dbProductToProduct);
   }
 
-  // Auto-pick: grab up to 3 products from related categories
   const relatedCats = RELATED_CATEGORIES[product.category];
   if (relatedCats.length === 0) return [];
 
-  const allProducts = getAllProducts();
-  const candidates = allProducts.filter(
-    (p) => p.id !== product.id && relatedCats.includes(p.category)
-  );
-
-  // Pick up to 3: prefer featured, then cheapest
-  const featured = candidates.filter((p) => p.isFeatured);
-  const rest = candidates.filter((p) => !p.isFeatured).sort((a, b) => a.price - b.price);
-  return [...featured, ...rest].slice(0, 3);
+  const rows = await prisma.product.findMany({
+    where: {
+      isActive: true,
+      category: { in: relatedCats },
+      id: { not: product.id },
+    },
+    include: { specs: true },
+    orderBy: [{ isFeatured: 'desc' }, { price: 'asc' }],
+    take: 3,
+  });
+  return rows.map(dbProductToProduct);
 }
 
-export function getProductsByCategory(category: ProductCategory): Product[] {
-  return getAllProducts().filter((p) => p.category === category);
+export async function getProductsByCategory(category: ProductCategory): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    where: { isActive: true, category },
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbProductToProduct);
 }
 
-export function getFeaturedProducts(): Product[] {
-  return getAllProducts().filter((p) => p.isFeatured).slice(0, 6);
+export async function getFeaturedProducts(): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    where: { isActive: true, isFeatured: true },
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
+    take: 6,
+  });
+  return rows.map(dbProductToProduct);
 }
 
-export function getDiscountedProducts(): Product[] {
-  return getAllProducts()
+export async function getDiscountedProducts(): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    where: {
+      isActive: true,
+      originalPrice: { not: null },
+    },
+    include: { specs: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows
+    .map(dbProductToProduct)
     .filter((p) => p.originalPrice !== undefined && p.originalPrice > p.price)
     .slice(0, 6);
 }
 
-export function getAllProductIds(): string[] {
-  try {
-    if (!fs.existsSync(PRODUCTS_DIR)) return [];
-    return fs
-      .readdirSync(PRODUCTS_DIR)
-      .filter((f) => f.endsWith('.mdx'))
-      .map((f) => f.replace('.mdx', ''));
-  } catch {
-    return [];
-  }
+export async function getAllProductIds(): Promise<string[]> {
+  const rows = await prisma.product.findMany({ select: { id: true } });
+  return rows.map((r) => r.id);
 }
 
-// ── Product spec helpers (same logic as old products.ts) ──
+// ── Product spec helpers ──────────────────────────────
 export function getSpecValue(product: Product, kaKey: string): string {
   const spec = product.specs.find((s) => s.key.ka === kaKey);
   return spec?.value ?? '';
 }
 
 // ── Articles ───────────────────────────────────────────
-type ArticleFrontmatter = Omit<Article, 'content'>;
 
-function parseArticle(entry: { data: ArticleFrontmatter; content: string }): Article {
-  return { ...entry.data, content: entry.content };
+export async function getAllArticles(): Promise<Article[]> {
+  const rows = await prisma.article.findMany({
+    where: { isPublished: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbArticleToArticle);
 }
 
-export function getAllArticles(): Article[] {
-  return readAllMdxFiles<ArticleFrontmatter>(ARTICLES_DIR)
-    .map(parseArticle)
-    .filter((a) => a.isPublished)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+export async function getAllArticlesAdmin(): Promise<Article[]> {
+  const rows = await prisma.article.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbArticleToArticle);
 }
 
-export function getAllArticlesAdmin(): Article[] {
-  return readAllMdxFiles<ArticleFrontmatter>(ARTICLES_DIR)
-    .map(parseArticle)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+export async function getArticleById(id: string): Promise<Article | null> {
+  const row = await prisma.article.findUnique({ where: { id } });
+  if (!row) return null;
+  return dbArticleToArticle(row);
 }
 
-export function getArticleById(id: string): Article | null {
-  const entry = readMdxFile<ArticleFrontmatter>(path.join(ARTICLES_DIR, `${id}.mdx`));
-  if (!entry) return null;
-  return parseArticle(entry);
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  const row = await prisma.article.findUnique({ where: { slug } });
+  if (!row) return null;
+  return dbArticleToArticle(row);
 }
 
-export function getArticleBySlug(slug: string): Article | null {
-  const all = getAllArticlesAdmin();
-  return all.find((a) => a.slug === slug) ?? null;
-}
-
-export function getArticlesByCategory(category: ArticleCategory): Article[] {
-  return getAllArticles().filter((a) => a.category === category);
+export async function getArticlesByCategory(category: ArticleCategory): Promise<Article[]> {
+  const rows = await prisma.article.findMany({
+    where: { isPublished: true, category },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbArticleToArticle);
 }
 
 // ── Catalog Config ──────────────────────────────────────
-export function getCatalogConfig(): CatalogConfig {
-  try {
-    const raw = fs.readFileSync(CATALOG_CONFIG_PATH, 'utf-8');
-    return JSON.parse(raw) as CatalogConfig;
-  } catch {
-    return { categories: [], filters: {} };
-  }
+
+export async function getCatalogConfig(): Promise<CatalogConfig> {
+  const row = await prisma.catalogConfig.findUnique({ where: { id: 'singleton' } });
+  if (!row) return { categories: [], filters: {} };
+  return {
+    categories: row.categories as unknown as CatalogCategoryConfig[],
+    filters: row.filters as unknown as Record<string, CatalogFilterConfig[]>,
+  };
 }
 
-export function writeCatalogConfig(config: CatalogConfig): void {
-  if (!fs.existsSync(CONTENT_DIR)) fs.mkdirSync(CONTENT_DIR, { recursive: true });
-  fs.writeFileSync(CATALOG_CONFIG_PATH, JSON.stringify(config, null, 2), 'utf-8');
+export async function writeCatalogConfig(config: CatalogConfig): Promise<void> {
+  await prisma.catalogConfig.upsert({
+    where: { id: 'singleton' },
+    create: { categories: JSON.parse(JSON.stringify(config.categories)), filters: JSON.parse(JSON.stringify(config.filters)) },
+    update: { categories: JSON.parse(JSON.stringify(config.categories)), filters: JSON.parse(JSON.stringify(config.filters)) },
+  });
 }
 
 // ── Site Settings ───────────────────────────────────────
+
 const DEFAULT_SITE_SETTINGS: SiteSettings = {
   contact: { phone: '597470518', whatsapp: '', email: '' },
   business: {
@@ -312,86 +359,208 @@ const DEFAULT_SITE_SETTINGS: SiteSettings = {
   announcement: { enabled: false, text_ka: '', text_ru: '', text_en: '' },
 };
 
-export function getSiteSettings(): SiteSettings {
-  try {
-    const raw = fs.readFileSync(SITE_SETTINGS_PATH, 'utf-8');
-    return JSON.parse(raw) as SiteSettings;
-  } catch {
-    return DEFAULT_SITE_SETTINGS;
-  }
+export async function getSiteSettings(): Promise<SiteSettings> {
+  const row = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
+  if (!row) return DEFAULT_SITE_SETTINGS;
+  return {
+    contact: row.contact as unknown as SiteSettings['contact'],
+    business: row.business as unknown as SiteSettings['business'],
+    hours: row.hours as unknown as SiteSettings['hours'],
+    stats: row.stats as unknown as SiteSettings['stats'],
+    social: row.social as unknown as SiteSettings['social'],
+    announcement: row.announcement as unknown as SiteSettings['announcement'],
+  };
 }
 
-export function writeSiteSettings(settings: SiteSettings): void {
-  if (!fs.existsSync(CONTENT_DIR)) fs.mkdirSync(CONTENT_DIR, { recursive: true });
-  fs.writeFileSync(SITE_SETTINGS_PATH, JSON.stringify(settings, null, 2), 'utf-8');
+export async function writeSiteSettings(settings: SiteSettings): Promise<void> {
+  await prisma.siteSettings.upsert({
+    where: { id: 'singleton' },
+    create: {
+      contact: JSON.parse(JSON.stringify(settings.contact)),
+      business: JSON.parse(JSON.stringify(settings.business)),
+      hours: JSON.parse(JSON.stringify(settings.hours)),
+      stats: JSON.parse(JSON.stringify(settings.stats)),
+      social: JSON.parse(JSON.stringify(settings.social)),
+      announcement: JSON.parse(JSON.stringify(settings.announcement)),
+    },
+    update: {
+      contact: JSON.parse(JSON.stringify(settings.contact)),
+      business: JSON.parse(JSON.stringify(settings.business)),
+      hours: JSON.parse(JSON.stringify(settings.hours)),
+      stats: JSON.parse(JSON.stringify(settings.stats)),
+      social: JSON.parse(JSON.stringify(settings.social)),
+      announcement: JSON.parse(JSON.stringify(settings.announcement)),
+    },
+  });
 }
 
 // ── Orders ──────────────────────────────────────────────
-export function getAllOrders(): Order[] {
+
+export async function getAllOrders(): Promise<Order[]> {
+  const rows = await prisma.order.findMany({
+    include: { items: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map((o) => ({
+    id: o.id,
+    name: o.name,
+    phone: o.phone,
+    locale: o.locale,
+    total: o.total,
+    status: o.status as Order['status'],
+    createdAt: o.createdAt.toISOString(),
+    items: o.items.map((i) => ({
+      name: i.name,
+      quantity: i.quantity,
+      price: i.price,
+    })),
+  }));
+}
+
+export async function saveOrder(order: Order): Promise<void> {
+  await prisma.order.create({
+    data: {
+      id: order.id,
+      name: order.name,
+      phone: order.phone,
+      locale: order.locale,
+      total: order.total,
+      status: order.status,
+      createdAt: new Date(order.createdAt),
+      items: {
+        create: order.items.map((i) => ({
+          name: i.name,
+          quantity: i.quantity,
+          price: i.price,
+        })),
+      },
+    },
+  });
+}
+
+export async function updateOrderStatus(orderId: string, status: Order['status']): Promise<void> {
+  await prisma.order.update({
+    where: { id: orderId },
+    data: { status },
+  });
+}
+
+// ── Product write operations ──────────────────────────
+
+export async function writeProductMdx(
+  id: string,
+  frontmatter: Omit<Product, 'content' | 'description'>,
+  body: string,
+): Promise<void> {
+  await prisma.product.upsert({
+    where: { id },
+    create: {
+      id,
+      slug: frontmatter.slug,
+      category: frontmatter.category,
+      price: frontmatter.price,
+      originalPrice: frontmatter.originalPrice ?? null,
+      currency: frontmatter.currency || 'GEL',
+      isActive: frontmatter.isActive,
+      isFeatured: frontmatter.isFeatured,
+      images: frontmatter.images as unknown as string[],
+      nameKa: frontmatter.name.ka,
+      nameRu: frontmatter.name.ru || '',
+      nameEn: frontmatter.name.en || '',
+      content: body || null,
+      relatedProducts: frontmatter.relatedProducts ?? Prisma.JsonNull,
+      createdAt: new Date(frontmatter.createdAt),
+      specs: {
+        create: (frontmatter.specs || []).map((s) => ({
+          keyKa: s.key.ka,
+          keyRu: s.key.ru || '',
+          keyEn: s.key.en || '',
+          value: s.value,
+        })),
+      },
+    },
+    update: {
+      slug: frontmatter.slug,
+      category: frontmatter.category,
+      price: frontmatter.price,
+      originalPrice: frontmatter.originalPrice ?? null,
+      currency: frontmatter.currency || 'GEL',
+      isActive: frontmatter.isActive,
+      isFeatured: frontmatter.isFeatured,
+      images: frontmatter.images as unknown as string[],
+      nameKa: frontmatter.name.ka,
+      nameRu: frontmatter.name.ru || '',
+      nameEn: frontmatter.name.en || '',
+      content: body || null,
+      relatedProducts: frontmatter.relatedProducts ?? Prisma.JsonNull,
+      specs: {
+        deleteMany: {},
+        create: (frontmatter.specs || []).map((s) => ({
+          keyKa: s.key.ka,
+          keyRu: s.key.ru || '',
+          keyEn: s.key.en || '',
+          value: s.value,
+        })),
+      },
+    },
+  });
+}
+
+export async function deleteProductMdx(id: string): Promise<boolean> {
   try {
-    const raw = fs.readFileSync(ORDERS_PATH, 'utf-8');
-    return (JSON.parse(raw) as Order[]).sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    await prisma.product.delete({ where: { id } });
+    return true;
   } catch {
-    return [];
+    return false;
   }
 }
 
-export function saveOrder(order: Order): void {
-  const orders = getAllOrders();
-  orders.unshift(order);
-  if (!fs.existsSync(CONTENT_DIR)) fs.mkdirSync(CONTENT_DIR, { recursive: true });
-  fs.writeFileSync(ORDERS_PATH, JSON.stringify(orders, null, 2), 'utf-8');
+// ── Article write operations ──────────────────────────
+
+export async function writeArticleMdx(
+  id: string,
+  frontmatter: Omit<Article, 'content'>,
+  body: string,
+): Promise<void> {
+  await prisma.article.upsert({
+    where: { id },
+    create: {
+      id,
+      slug: frontmatter.slug,
+      title: frontmatter.title,
+      excerpt: frontmatter.excerpt || '',
+      category: frontmatter.category,
+      coverImage: frontmatter.coverImage || '',
+      isPublished: frontmatter.isPublished,
+      readMin: frontmatter.readMin || 5,
+      content: body,
+      createdAt: new Date(frontmatter.createdAt),
+      updatedAt: new Date(frontmatter.updatedAt || frontmatter.createdAt),
+    },
+    update: {
+      slug: frontmatter.slug,
+      title: frontmatter.title,
+      excerpt: frontmatter.excerpt || '',
+      category: frontmatter.category,
+      coverImage: frontmatter.coverImage || '',
+      isPublished: frontmatter.isPublished,
+      readMin: frontmatter.readMin || 5,
+      content: body,
+      updatedAt: new Date(frontmatter.updatedAt || new Date().toISOString()),
+    },
+  });
 }
 
-export function updateOrderStatus(orderId: string, status: Order['status']): void {
-  const orders = getAllOrders();
-  const idx = orders.findIndex((o) => o.id === orderId);
-  if (idx === -1) return;
-  orders[idx].status = status;
-  fs.writeFileSync(ORDERS_PATH, JSON.stringify(orders, null, 2), 'utf-8');
-}
-
-// ── MDX file writing ───────────────────────────────────
-export function writeProductMdx(id: string, frontmatter: Omit<Product, 'content' | 'description'>, body: string): void {
-  const content = buildMdxString(frontmatter, body);
-  if (!fs.existsSync(PRODUCTS_DIR)) fs.mkdirSync(PRODUCTS_DIR, { recursive: true });
-  fs.writeFileSync(path.join(PRODUCTS_DIR, `${id}.mdx`), content, 'utf-8');
-}
-
-export function writeArticleMdx(id: string, frontmatter: Omit<Article, 'content'>, body: string): void {
-  const content = buildMdxString(frontmatter, body);
-  if (!fs.existsSync(ARTICLES_DIR)) fs.mkdirSync(ARTICLES_DIR, { recursive: true });
-  fs.writeFileSync(path.join(ARTICLES_DIR, `${id}.mdx`), content, 'utf-8');
-}
-
-export function deleteProductMdx(id: string): boolean {
-  const filePath = path.join(PRODUCTS_DIR, `${id}.mdx`);
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
+export async function deleteArticleMdx(id: string): Promise<boolean> {
+  try {
+    await prisma.article.delete({ where: { id } });
     return true;
+  } catch {
+    return false;
   }
-  return false;
 }
 
-export function deleteArticleMdx(id: string): boolean {
-  const filePath = path.join(ARTICLES_DIR, `${id}.mdx`);
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-    return true;
-  }
-  return false;
-}
-
-function buildMdxString(frontmatter: Record<string, unknown>, body: string): string {
-  // Use gray-matter to stringify
-  return matter.stringify(body, frontmatter);
-}
-
-// ── Re-export filter functions (same logic, using new source) ──
-// These are kept identical to the old products.ts filter engine
-// so the catalog page doesn't need any logic changes.
+// ── Filter engine ──────────────────────────────────────
 
 export interface CatalogFilters {
   category?: ProductCategory;
@@ -438,12 +607,12 @@ function sortProducts(products: Product[], sort: SortOption, locale: string): Pr
   }
 }
 
-export function getFilteredProducts(
+export async function getFilteredProducts(
   filters: CatalogFilters,
   filterConfigs: FilterFieldConfig[],
   locale: string = 'ka',
-): FilteredResult {
-  let products = getAllProducts();
+): Promise<FilteredResult> {
+  let products = await getAllProducts();
 
   if (filters.category) {
     products = products.filter((p) => p.category === filters.category);
@@ -508,11 +677,11 @@ export function getAvailableSpecValues(
     .sort((a, b) => a.value.localeCompare(b.value));
 }
 
-export function getProductsByCategoryAndSub(
+export async function getProductsByCategoryAndSub(
   category?: ProductCategory,
   subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
-): Product[] {
-  let products = getAllProducts();
+): Promise<Product[]> {
+  let products = await getAllProducts();
   if (category) products = products.filter((p) => p.category === category);
   if (subcategoryNode?.specFilter) {
     const { kaKey, value } = subcategoryNode.specFilter;
@@ -532,16 +701,15 @@ function computePriceRange(products: Product[]): { min: number; max: number } {
   return { min, max };
 }
 
-export function getCategoryCounts(): Record<string, number> {
-  const products = getAllProducts();
+export async function getCategoryCounts(): Promise<Record<string, number>> {
+  const products = await getAllProducts();
   const counts: Record<string, number> = { all: products.length };
 
   for (const p of products) {
     counts[p.category] = (counts[p.category] ?? 0) + 1;
   }
 
-  // Dynamic subcategory counts from catalog config
-  const config = getCatalogConfig();
+  const config = await getCatalogConfig();
   for (const cat of config.categories) {
     if (cat.children) {
       const categoryProducts = products.filter((p) => p.category === cat.parentCategory);
@@ -570,8 +738,9 @@ export interface ProductFilters {
   maxPrice?: number;
 }
 
-export function getProductsFiltered(filters: ProductFilters): Product[] {
-  return getAllProducts().filter((p) => {
+export async function getProductsFiltered(filters: ProductFilters): Promise<Product[]> {
+  const all = await getAllProducts();
+  return all.filter((p) => {
     if (filters.category && p.category !== filters.category) return false;
     if (filters.brand && getSpecValue(p, 'ბრენდი') !== filters.brand) return false;
     if (filters.resolution && getSpecValue(p, 'რეზოლუცია') !== filters.resolution) return false;
@@ -584,8 +753,8 @@ export function getProductsFiltered(filters: ProductFilters): Product[] {
   });
 }
 
-export function getUniqueSpecValues(kaKey: string): string[] {
-  const all = getAllProducts();
+export async function getUniqueSpecValues(kaKey: string): Promise<string[]> {
+  const all = await getAllProducts();
   const values = new Set<string>();
   all.forEach((p) => {
     const v = getSpecValue(p, kaKey);
@@ -595,70 +764,93 @@ export function getUniqueSpecValues(kaKey: string): string[] {
 }
 
 // ── Inquiries ─────────────────────────────────────────
-export function getAllInquiries(): Inquiry[] {
-  try {
-    const raw = fs.readFileSync(INQUIRIES_PATH, 'utf-8');
-    return (JSON.parse(raw) as Inquiry[]).sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  } catch {
-    return [];
-  }
+
+export async function getAllInquiries(): Promise<Inquiry[]> {
+  const rows = await prisma.inquiry.findMany({ orderBy: { createdAt: 'desc' } });
+  return rows.map((i) => ({
+    id: i.id,
+    name: i.name,
+    phone: i.phone,
+    message: i.message,
+    locale: i.locale,
+    createdAt: i.createdAt.toISOString(),
+  }));
 }
 
-export function saveInquiry(inquiry: Inquiry): void {
-  const inquiries = getAllInquiries();
-  inquiries.unshift(inquiry);
-  if (!fs.existsSync(CONTENT_DIR)) fs.mkdirSync(CONTENT_DIR, { recursive: true });
-  fs.writeFileSync(INQUIRIES_PATH, JSON.stringify(inquiries, null, 2), 'utf-8');
+export async function saveInquiry(inquiry: Inquiry): Promise<void> {
+  await prisma.inquiry.create({
+    data: {
+      id: inquiry.id,
+      name: inquiry.name,
+      phone: inquiry.phone,
+      message: inquiry.message,
+      locale: inquiry.locale,
+      createdAt: new Date(inquiry.createdAt),
+    },
+  });
 }
 
-export function deleteInquiry(id: string): void {
-  const inquiries = getAllInquiries().filter((i) => i.id !== id);
-  fs.writeFileSync(INQUIRIES_PATH, JSON.stringify(inquiries, null, 2), 'utf-8');
+export async function deleteInquiry(id: string): Promise<void> {
+  await prisma.inquiry.delete({ where: { id } });
 }
 
 // ── Projects ─────────────────────────────────────────
 
-export function getAllProjects(): Project[] {
-  try {
-    const raw = fs.readFileSync(PROJECTS_PATH, 'utf-8');
-    const projects: Project[] = JSON.parse(raw);
-    return projects
-      .filter((p) => p.isActive)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  } catch {
-    return [];
-  }
+export async function getAllProjects(): Promise<Project[]> {
+  const rows = await prisma.project.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbProjectToProject);
 }
 
-export function getAllProjectsAdmin(): Project[] {
-  try {
-    const raw = fs.readFileSync(PROJECTS_PATH, 'utf-8');
-    const projects: Project[] = JSON.parse(raw);
-    return projects.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  } catch {
-    return [];
-  }
+export async function getAllProjectsAdmin(): Promise<Project[]> {
+  const rows = await prisma.project.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(dbProjectToProject);
 }
 
-export function getProjectById(id: string): Project | null {
-  const projects = getAllProjectsAdmin();
-  return projects.find((p) => p.id === id) ?? null;
+export async function getProjectById(id: string): Promise<Project | null> {
+  const row = await prisma.project.findUnique({ where: { id } });
+  if (!row) return null;
+  return dbProjectToProject(row);
 }
 
-export function saveProject(project: Project): void {
-  const projects = getAllProjectsAdmin();
-  const idx = projects.findIndex((p) => p.id === project.id);
-  if (idx >= 0) {
-    projects[idx] = project;
-  } else {
-    projects.push(project);
-  }
-  fs.writeFileSync(PROJECTS_PATH, JSON.stringify(projects, null, 2), 'utf-8');
+export async function saveProject(project: Project): Promise<void> {
+  await prisma.project.upsert({
+    where: { id: project.id },
+    create: {
+      id: project.id,
+      titleKa: project.title.ka,
+      titleRu: project.title.ru || '',
+      titleEn: project.title.en || '',
+      locationKa: project.location.ka,
+      locationRu: project.location.ru || '',
+      locationEn: project.location.en || '',
+      type: project.type,
+      cameras: project.cameras,
+      image: project.image || '',
+      year: project.year,
+      isActive: project.isActive,
+      createdAt: new Date(project.createdAt),
+    },
+    update: {
+      titleKa: project.title.ka,
+      titleRu: project.title.ru || '',
+      titleEn: project.title.en || '',
+      locationKa: project.location.ka,
+      locationRu: project.location.ru || '',
+      locationEn: project.location.en || '',
+      type: project.type,
+      cameras: project.cameras,
+      image: project.image || '',
+      year: project.year,
+      isActive: project.isActive,
+    },
+  });
 }
 
-export function deleteProject(id: string): void {
-  const projects = getAllProjectsAdmin().filter((p) => p.id !== id);
-  fs.writeFileSync(PROJECTS_PATH, JSON.stringify(projects, null, 2), 'utf-8');
+export async function deleteProject(id: string): Promise<void> {
+  await prisma.project.delete({ where: { id } });
 }

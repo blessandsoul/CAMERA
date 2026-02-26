@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Clock, ArrowLeft } from '@phosphor-icons/react/dist/ssr';
 import { getAllArticles } from '@/lib/content';
 
+export const dynamic = 'force-dynamic';
+
 interface BlogPageProps {
   params: Promise<{ locale: string }>;
 }
@@ -13,7 +15,7 @@ export async function generateMetadata(): Promise<{ title: string }> {
 
 export default async function BlogPage({ params }: BlogPageProps): Promise<React.ReactElement> {
   const { locale } = await params;
-  const articles = getAllArticles();
+  const articles = await getAllArticles();
 
   return (
     <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">

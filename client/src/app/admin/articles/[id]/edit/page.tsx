@@ -4,6 +4,8 @@ import { ArticleForm } from '@/features/admin/components/ArticleForm';
 import { getArticleById } from '@/lib/content';
 import { updateArticle } from '@/features/admin/actions/article.actions';
 
+export const dynamic = 'force-dynamic';
+
 interface EditArticlePageProps {
   params: Promise<{ id: string }>;
 }

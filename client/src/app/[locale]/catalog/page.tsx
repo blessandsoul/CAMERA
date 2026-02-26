@@ -11,6 +11,8 @@ import { parseCatalogSearchParams } from '@/lib/utils/catalog-params';
 import type { ProductCategory } from '@/types/product.types';
 import type { SpecValueOption } from '@/lib/content';
 
+export const dynamic = 'force-dynamic';
+
 interface CatalogPageProps {
   params: Promise<{ locale: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -34,20 +36,20 @@ export default async function CatalogPage({ params, searchParams }: CatalogPageP
     ? (rawCategory as ProductCategory)
     : undefined;
 
-  const filterConfigs = getFilterConfigForCategory(activeCategory);
+  const filterConfigs = await getFilterConfigForCategory(activeCategory);
 
   // 2. Parse all search params
   const parsed = parseCatalogSearchParams(sp as Record<string, string | undefined>, filterConfigs);
 
   // 3. Resolve subcategory node
-  const subcategoryNode = parsed.subcategory ? findCategoryNode(parsed.subcategory) : undefined;
+  const subcategoryNode = parsed.subcategory ? await findCategoryNode(parsed.subcategory) : undefined;
 
   // 4. Get category counts for the tree
-  const categoryCounts = getCategoryCounts();
-  const categoryTree = getCategoryTree();
+  const categoryCounts = await getCategoryCounts();
+  const categoryTree = await getCategoryTree();
 
   // 5. Get products filtered by category/subcategory only (for available filter values)
-  const categoryProducts = getProductsByCategoryAndSub(activeCategory, subcategoryNode);
+  const categoryProducts = await getProductsByCategoryAndSub(activeCategory, subcategoryNode);
 
   // 6. Compute available values for each filter config
   const availableValues: Record<string, SpecValueOption[]> = {};
@@ -64,7 +66,7 @@ export default async function CatalogPage({ params, searchParams }: CatalogPageP
     : { min: 0, max: 0 };
 
   // 8. Run full filter + sort + paginate
-  const result = getFilteredProducts(
+  const result = await getFilteredProducts(
     {
       category: activeCategory,
       subcategoryNode,

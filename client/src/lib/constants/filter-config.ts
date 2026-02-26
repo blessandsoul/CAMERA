@@ -9,8 +9,8 @@ export interface FilterFieldConfig {
   defaultExpanded?: boolean;
 }
 
-export function getFilterConfigs(): Record<string, FilterFieldConfig[]> {
-  const config = getCatalogConfig();
+export async function getFilterConfigs(): Promise<Record<string, FilterFieldConfig[]>> {
+  const config = await getCatalogConfig();
   const result: Record<string, FilterFieldConfig[]> = {};
   for (const [category, filters] of Object.entries(config.filters)) {
     result[category] = filters.map((f) => ({
@@ -24,10 +24,8 @@ export function getFilterConfigs(): Record<string, FilterFieldConfig[]> {
   return result;
 }
 
-export const CATEGORY_FILTER_CONFIG: Record<string, FilterFieldConfig[]> = getFilterConfigs();
-
-export function getFilterConfigForCategory(category: string | undefined): FilterFieldConfig[] {
+export async function getFilterConfigForCategory(category: string | undefined): Promise<FilterFieldConfig[]> {
   if (!category) return [];
-  const configs = getFilterConfigs();
+  const configs = await getFilterConfigs();
   return configs[category] ?? [];
 }

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getAllProducts, getAllArticles } from '@/lib/content';
 
+export const dynamic = 'force-dynamic';
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://techbrain.ge';
 const locales = ['ka', 'ru', 'en'];
 

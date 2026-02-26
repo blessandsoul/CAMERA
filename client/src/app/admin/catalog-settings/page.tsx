@@ -2,6 +2,8 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { CatalogSettingsEditor } from '@/features/admin/components/CatalogSettingsEditor';
 import { getCatalogConfig } from '@/lib/content';
 
+export const dynamic = 'force-dynamic';
+
 export default async function CatalogSettingsPage(): Promise<React.ReactElement> {
   const config = await getCatalogConfig();
 

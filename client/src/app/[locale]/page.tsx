@@ -12,6 +12,8 @@ import { DiscountedProductsBlock } from '@/components/common/DiscountedProductsB
 import { CategoryNavBar } from '@/components/common/CategoryNavBar';
 import type { Locale } from '@/types/product.types';
 
+export const dynamic = 'force-dynamic';
+
 interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
@@ -69,9 +71,9 @@ export async function generateMetadata({ params }: HomePageProps) {
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  const featured = getFeaturedProducts();
-  const allProducts = getAllProducts();
-  const siteSettings = getSiteSettings();
+  const featured = await getFeaturedProducts();
+  const allProducts = await getAllProducts();
+  const siteSettings = await getSiteSettings();
   const phone = siteSettings.contact.phone || '597470518';
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://techbrain.ge';

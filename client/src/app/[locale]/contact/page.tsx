@@ -4,6 +4,8 @@ import { ContactForm } from '@/features/contact/components/ContactForm';
 import { getSiteSettings } from '@/lib/content';
 import { formatPhone } from '@/lib/utils/format';
 
+export const dynamic = 'force-dynamic';
+
 interface ContactPageProps {
   params: Promise<{ locale: string }>;
 }
@@ -17,7 +19,7 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<{ 
 export default async function ContactPage({ params }: ContactPageProps): Promise<React.ReactElement> {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  const settings = getSiteSettings();
+  const settings = await getSiteSettings();
   const phone = settings.contact.phone || '597470518';
 
   return (
