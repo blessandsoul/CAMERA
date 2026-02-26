@@ -28,7 +28,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const { name, phone, locale, items, total } = parsed.data;
 
-    // Save order to JSON file
+    // Save order to database
     const order: Order = {
       id: `order-${Date.now()}`,
       name,
