@@ -10,7 +10,7 @@ interface EditProjectPageProps {
 
 export default async function EditProjectPage({ params }: EditProjectPageProps): Promise<React.ReactElement> {
   const { id } = await params;
-  const project = getProjectById(id);
+  const project = await getProjectById(id);
   if (!project) notFound();
 
   const action = updateProject.bind(null, id);

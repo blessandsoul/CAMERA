@@ -4,8 +4,8 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { getAllProjectsAdmin } from '@/lib/content';
 import { removeProject } from '@/features/admin/actions/project.actions';
 
-export default function AdminProjectsPage(): React.ReactElement {
-  const projects = getAllProjectsAdmin();
+export default async function AdminProjectsPage(): Promise<React.ReactElement> {
+  const projects = await getAllProjectsAdmin();
 
   return (
     <>

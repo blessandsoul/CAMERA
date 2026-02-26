@@ -3,7 +3,7 @@ import { getAllOrders } from '@/lib/content';
 import { changeOrderStatus } from '@/features/admin/actions/order.actions';
 
 export default async function AdminOrdersPage(): Promise<React.ReactElement> {
-  const orders = getAllOrders();
+  const orders = await getAllOrders();
   const newCount = orders.filter((o) => o.status === 'new').length;
 
   const statusColors: Record<string, string> = {

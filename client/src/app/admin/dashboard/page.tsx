@@ -4,9 +4,9 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ProductTable } from '@/features/admin/components/ProductTable';
 
 export default async function AdminDashboardPage(): Promise<React.ReactElement> {
-  const products = getAllProductsAdmin();
-  const articles = getAllArticlesAdmin();
-  const orders = getAllOrders();
+  const products = await getAllProductsAdmin();
+  const articles = await getAllArticlesAdmin();
+  const orders = await getAllOrders();
 
   const activeProducts = products.filter((p) => p.isActive).length;
   const publishedArticles = articles.filter((a) => a.isPublished).length;

@@ -3,7 +3,7 @@ import { SiteSettingsEditor } from '@/features/admin/components/SiteSettingsEdit
 import { getSiteSettings } from '@/lib/content';
 
 export default async function SiteSettingsPage(): Promise<React.ReactElement> {
-  const settings = getSiteSettings();
+  const settings = await getSiteSettings();
 
   return (
     <>

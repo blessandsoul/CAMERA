@@ -10,7 +10,7 @@ interface EditArticlePageProps {
 
 export default async function EditArticlePage({ params }: EditArticlePageProps): Promise<React.ReactElement> {
   const { id } = await params;
-  const article = getArticleById(id);
+  const article = await getArticleById(id);
 
   if (!article) notFound();
 

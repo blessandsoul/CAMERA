@@ -4,7 +4,7 @@ import { getAllProducts, getAllArticles } from '@/lib/content';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://techbrain.ge';
 const locales = ['ka', 'ru', 'en'];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = ['', '/catalog', '/blog', '/contact'];
   const entries: MetadataRoute.Sitemap = [];
 
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Product detail pages
   try {
-    const products = getAllProducts();
+    const products = await getAllProducts();
     for (const product of products) {
       for (const locale of locales) {
         entries.push({
@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog article pages
   try {
-    const articles = getAllArticles();
+    const articles = await getAllArticles();
     for (const article of articles) {
       for (const locale of locales) {
         entries.push({

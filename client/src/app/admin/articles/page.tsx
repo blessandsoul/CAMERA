@@ -5,7 +5,7 @@ import { toggleArticlePublished } from '@/features/admin/actions/article.actions
 import { DeleteArticleButton } from '@/features/admin/components/DeleteArticleButton';
 
 export default async function AdminArticlesPage(): Promise<React.ReactElement> {
-  const articles = getAllArticlesAdmin();
+  const articles = await getAllArticlesAdmin();
 
   return (
     <>

@@ -3,7 +3,7 @@ import { CatalogSettingsEditor } from '@/features/admin/components/CatalogSettin
 import { getCatalogConfig } from '@/lib/content';
 
 export default async function CatalogSettingsPage(): Promise<React.ReactElement> {
-  const config = getCatalogConfig();
+  const config = await getCatalogConfig();
 
   return (
     <>

@@ -3,7 +3,7 @@ import { getAllInquiries } from '@/lib/content';
 import { removeInquiry } from '@/features/admin/actions/inquiry.actions';
 
 export default async function AdminInquiriesPage(): Promise<React.ReactElement> {
-  const inquiries = getAllInquiries();
+  const inquiries = await getAllInquiries();
 
   return (
     <>
