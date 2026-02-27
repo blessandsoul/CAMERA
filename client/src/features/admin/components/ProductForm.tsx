@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ImageManager } from './ImageManager';
 import { RelatedProductsPicker } from './RelatedProductsPicker';
+import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -82,11 +83,11 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
         <div className="p-4">
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-3">
-              <Label className={labelClass}>Slug</Label>
+              <Label className={labelClass}>Slug <InfoTooltip text="პროდუქტის უნიკალური URL იდენტიფიკატორი. მაგ: v380-pro-wifi" /></Label>
               <Input name="slug" defaultValue={product?.slug ?? ''} placeholder="v380-pro-wifi" />
             </div>
             <div>
-              <Label className={labelClass}>Category</Label>
+              <Label className={labelClass}>Category <InfoTooltip text="პროდუქტის კატეგორია — განსაზღვრავს სად გამოჩნდება კატალოგში" /></Label>
               <Select value={categoryValue} onValueChange={setCategoryValue}>
                 <SelectTrigger className="w-full">
                   <SelectValue />
@@ -101,7 +102,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
               </Select>
             </div>
             <div>
-              <Label className={labelClass}>Price (GEL)</Label>
+              <Label className={labelClass}>Price (GEL) <InfoTooltip text="ფასი ლარებში. 0 ნიშნავს ფასი არ გამოჩნდება" /></Label>
               <Input name="price" type="number" min="0" step="0.01" defaultValue={product?.price ?? 0} />
             </div>
             <div className="flex items-end gap-4 pb-1">
@@ -111,7 +112,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
                   checked={isActiveChecked}
                   onCheckedChange={(checked) => setIsActiveChecked(checked === true)}
                 />
-                <Label htmlFor="isActive" className="text-xs text-muted-foreground cursor-pointer">Active</Label>
+                <Label htmlFor="isActive" className="text-xs text-muted-foreground cursor-pointer">Active <InfoTooltip text="გამორთვისას პროდუქტი არ გამოჩნდება საიტზე" /></Label>
               </div>
               <div className="flex items-center gap-1.5">
                 <Checkbox
@@ -119,7 +120,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
                   checked={isFeaturedChecked}
                   onCheckedChange={(checked) => setIsFeaturedChecked(checked === true)}
                 />
-                <Label htmlFor="isFeatured" className="text-xs text-muted-foreground cursor-pointer">Featured</Label>
+                <Label htmlFor="isFeatured" className="text-xs text-muted-foreground cursor-pointer">Featured <InfoTooltip text="ჩართვისას პროდუქტი გამოჩნდება მთავარ გვერდზე" /></Label>
               </div>
             </div>
           </div>
@@ -127,7 +128,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
 
         {/* Names — inline 3-column */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Name</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Name <InfoTooltip text="პროდუქტის სახელი სამ ენაზე. ქართული სავალდებულოა" /></span>
           <div className="grid grid-cols-3 gap-3">
             <div>
               <Label className={labelClass}>KA</Label>
@@ -146,7 +147,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
 
         {/* Descriptions — inline 3-column */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Description</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Description <InfoTooltip text="პროდუქტის აღწერა — გამოჩნდება პროდუქტის გვერდზე" /></span>
           <div className="grid grid-cols-3 gap-3">
             <div>
               <Label className={labelClass}>KA</Label>
@@ -166,7 +167,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
         {/* Related Products (Bought Together) */}
         <div className="p-4">
           <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">
-            Bought Together
+            Bought Together <InfoTooltip text="თანმხლები პროდუქტები — გამოჩნდება 'ასევე შეიძინეთ' სექციაში" />
           </span>
           <RelatedProductsPicker
             allProducts={allProducts}
@@ -179,7 +180,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
         {/* Specs */}
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-foreground uppercase tracking-wider">Specifications</span>
+            <span className="text-xs font-medium text-foreground uppercase tracking-wider">Specifications <InfoTooltip text="ტექნიკური მახასიათებლები — Key=პარამეტრის სახელი, Value=მნიშვნელობა" /></span>
             <Button type="button" variant="ghost" size="sm" onClick={addSpec}>
               + Add
             </Button>

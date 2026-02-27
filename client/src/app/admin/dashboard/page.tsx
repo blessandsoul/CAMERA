@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getAllProductsAdmin, getAllArticlesAdmin, getAllOrders } from '@/lib/content';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { ProductTable } from '@/features/admin/components/ProductTable';
+import { InfoTooltip } from '@/features/admin/components/InfoTooltip';
 import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
@@ -18,10 +19,10 @@ export default async function AdminDashboardPage(): Promise<React.ReactElement> 
   const totalRevenue = orders.filter((o) => o.status === 'completed').reduce((s, o) => s + o.total, 0);
 
   const stats = [
-    { label: 'Products', value: `${activeProducts}/${products.length}`, sub: 'active', href: '/admin/dashboard' },
-    { label: 'Articles', value: `${publishedArticles}/${articles.length}`, sub: 'published', href: '/admin/articles' },
-    { label: 'Orders', value: String(orders.length), sub: newOrders > 0 ? `${newOrders} new` : 'all time', href: '/admin/orders', highlight: newOrders > 0 },
-    { label: 'Revenue', value: `${totalRevenue} ₾`, sub: 'completed', href: '/admin/orders' },
+    { label: 'Products', value: `${activeProducts}/${products.length}`, sub: 'active', href: '/admin/dashboard', tip: 'აქტიური / საერთო პროდუქტების რაოდენობა' },
+    { label: 'Articles', value: `${publishedArticles}/${articles.length}`, sub: 'published', href: '/admin/articles', tip: 'გამოქვეყნებული / საერთო სტატიების რაოდენობა' },
+    { label: 'Orders', value: String(orders.length), sub: newOrders > 0 ? `${newOrders} new` : 'all time', href: '/admin/orders', highlight: newOrders > 0, tip: 'შეკვეთების საერთო რაოდენობა' },
+    { label: 'Revenue', value: `${totalRevenue} ₾`, sub: 'completed', href: '/admin/orders', tip: 'შემოსავალი დასრულებული შეკვეთებიდან' },
   ];
 
   return (
@@ -36,7 +37,7 @@ export default async function AdminDashboardPage(): Promise<React.ReactElement> 
               href={s.href}
               className="rounded-xl border border-border bg-card p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
-              <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2">{s.label}</p>
+              <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2">{s.label} <InfoTooltip text={s.tip} /></p>
               <p className="text-2xl font-bold text-foreground tabular-nums leading-none">{s.value}</p>
               <p className={`text-xs mt-1.5 ${s.highlight ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{s.sub}</p>
             </Link>

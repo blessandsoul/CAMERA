@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
+import { InfoTooltip } from '@/features/admin/components/InfoTooltip';
 import { getAllOrders } from '@/lib/content';
 import { requireAdmin } from '@/lib/admin-auth';
 
@@ -22,6 +23,7 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
         <h1 className="text-xl font-semibold text-foreground mb-6">
           Orders ({orders.length}){newCount > 0 && <span className="ml-2 text-sm text-info">{newCount} new</span>}
+          <InfoTooltip text="საიტიდან შემოსული შეკვეთები. სტატუსები: New = ახალი, Contacted = დაკავშირებული, Completed = დასრულებული. დააწკაპუნეთ შეკვეთაზე დეტალებისთვის" />
         </h1>
 
         {orders.length === 0 ? (

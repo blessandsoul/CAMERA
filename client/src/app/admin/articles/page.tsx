@@ -4,6 +4,7 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { toggleArticlePublished } from '@/features/admin/actions/article.actions';
 import { DeleteArticleButton } from '@/features/admin/components/DeleteArticleButton';
 import { requireAdmin } from '@/lib/admin-auth';
+import { InfoTooltip } from '@/features/admin/components/InfoTooltip';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -43,10 +44,10 @@ export default async function AdminArticlesPage(): Promise<React.ReactElement> {
             <Table className="min-w-120">
               <TableHeader>
                 <TableRow className="bg-muted/50">
-                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Title</TableHead>
-                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Category</TableHead>
-                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Read</TableHead>
-                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Status</TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Title <InfoTooltip text="სტატიის სათაური" /></TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Category <InfoTooltip text="სტატიის კატეგორია" /></TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Read <InfoTooltip text="სავარაუდო კითხვის დრო წუთებში" /></TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Status <InfoTooltip text="Published = ხილულია საიტზე, Draft = მხოლოდ ადმინში" /></TableHead>
                   <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider"></TableHead>
                 </TableRow>
               </TableHeader>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -33,7 +34,7 @@ export function ProjectForm({ project, action }: ProjectFormProps): React.ReactE
       <div className="rounded-xl border border-border bg-card divide-y divide-border">
         {/* Title (3 languages) */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Title</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Title <InfoTooltip text="პროექტის სახელი სამ ენაზე. ქართული სავალდებულოა" /></span>
           <div className="grid grid-cols-3 gap-3">
             <div>
               <Label className={labelClass}>KA</Label>
@@ -52,7 +53,7 @@ export function ProjectForm({ project, action }: ProjectFormProps): React.ReactE
 
         {/* Location (3 languages) */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Location</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Location <InfoTooltip text="პროექტის მისამართი / ადგილმდებარეობა სამ ენაზე" /></span>
           <div className="grid grid-cols-3 gap-3">
             <div>
               <Label className={labelClass}>KA</Label>
@@ -71,10 +72,10 @@ export function ProjectForm({ project, action }: ProjectFormProps): React.ReactE
 
         {/* Type + Cameras + Year */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Details</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Details <InfoTooltip text="პროექტის ტექნიკური დეტალები" /></span>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <Label className={labelClass}>Type</Label>
+              <Label className={labelClass}>Type <InfoTooltip text="პროექტის ტიპი: კომერციული, საცხოვრებელი, სავაჭრო ან საოფისე" /></Label>
               <Select value={typeValue} onValueChange={setTypeValue}>
                 <SelectTrigger className="w-full">
                   <SelectValue />
@@ -88,11 +89,11 @@ export function ProjectForm({ project, action }: ProjectFormProps): React.ReactE
               </Select>
             </div>
             <div>
-              <Label className={labelClass}>Cameras</Label>
+              <Label className={labelClass}>Cameras <InfoTooltip text="დამონტაჟებული კამერების რაოდენობა" /></Label>
               <Input name="cameras" type="number" min="0" defaultValue={project?.cameras ?? 0} required />
             </div>
             <div>
-              <Label className={labelClass}>Year</Label>
+              <Label className={labelClass}>Year <InfoTooltip text="მონტაჟის / დასრულების წელი" /></Label>
               <Input name="year" type="text" defaultValue={project?.year ?? new Date().getFullYear().toString()} required />
             </div>
           </div>
@@ -102,9 +103,8 @@ export function ProjectForm({ project, action }: ProjectFormProps): React.ReactE
         <div className="p-4">
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-2">
-              <Label className={labelClass}>Image URL</Label>
+              <Label className={labelClass}>Image URL <InfoTooltip text="სურათის ბმული — ჩასვით URL (Unsplash და სხვ.)" /></Label>
               <Input name="image" type="text" defaultValue={project?.image} placeholder="https://..." />
-              <p className="mt-1 text-[10px] text-muted-foreground">Paste an image URL (Unsplash, etc.)</p>
             </div>
             <div className="flex items-end pb-1">
               <div className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export function ProjectForm({ project, action }: ProjectFormProps): React.ReactE
                   onCheckedChange={setIsActive}
                   aria-label="Active"
                 />
-                <Label className="text-xs text-muted-foreground cursor-pointer">Active</Label>
+                <Label className="text-xs text-muted-foreground cursor-pointer">Active <InfoTooltip text="გამორთვისას პროექტი არ გამოჩნდება საიტზე" /></Label>
               </div>
             </div>
           </div>

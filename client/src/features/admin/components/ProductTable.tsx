@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toggleProductActive } from '@/features/admin/actions/product.actions';
 import { DeleteProductButton } from './DeleteProductButton';
+import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -90,11 +91,11 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
           <Table className="min-w-160">
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Image</TableHead>
-                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Name</TableHead>
-                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Category</TableHead>
-                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Price</TableHead>
-                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Status</TableHead>
+                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Image <InfoTooltip text="პროდუქტის მთავარი სურათი" /></TableHead>
+                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Name <InfoTooltip text="პროდუქტის სახელი (ქართულად)" /></TableHead>
+                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Category <InfoTooltip text="პროდუქტის კატეგორია კატალოგში" /></TableHead>
+                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Price <InfoTooltip text="ფასი ლარებში. '—' ნიშნავს ფასი არ არის მითითებული" /></TableHead>
+                <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Status <InfoTooltip text="Active = ხილულია საიტზე, Hidden = დამალულია" /></TableHead>
                 <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider"></TableHead>
               </TableRow>
             </TableHeader>

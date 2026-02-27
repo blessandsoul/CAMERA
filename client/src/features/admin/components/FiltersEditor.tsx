@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -60,7 +61,7 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
   return (
     <section className="rounded-xl border border-border bg-card">
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-        <span className="text-xs font-medium text-foreground uppercase tracking-wider">Filters</span>
+        <span className="text-xs font-medium text-foreground uppercase tracking-wider">Filters <InfoTooltip text="ფილტრები კატალოგში — მომხმარებელი ფილტრავს პროდუქტებს ამ პარამეტრების მიხედვით" /></span>
         <Button type="button" variant="ghost" size="sm" onClick={() => addFilter(activeFilterTab)}>
           + Add
         </Button>
@@ -87,12 +88,12 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
 
       <div className="px-4 pb-3">
         <div className="grid grid-cols-12 gap-2 text-[10px] text-muted-foreground uppercase tracking-wider py-1 border-b border-border mb-1">
-          <div className="col-span-2">ID</div>
-          <div className="col-span-2">Spec Key</div>
+          <div className="col-span-2 flex items-center">ID <InfoTooltip text="ფილტრის უნიკალური იდენტიფიკატორი" /></div>
+          <div className="col-span-2 flex items-center">Spec Key <InfoTooltip text="პროდუქტის სპეციფიკაციის გასაღები — უნდა ემთხვეოდეს პროდუქტის Spec Key KA ველს" /></div>
           <div className="col-span-2">KA</div>
           <div className="col-span-2">RU</div>
           <div className="col-span-2">EN</div>
-          <div>Pri</div>
+          <div className="flex items-center">Pri <InfoTooltip text="პრიორიტეტი — რაც ნაკლებია, ზემოთ გამოჩნდება" /></div>
           <div></div>
         </div>
 
@@ -118,7 +119,7 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
               <Checkbox
                 checked={filter.defaultExpanded ?? false}
                 onCheckedChange={(checked) => updateFilter(activeFilterTab, fIdx, { ...filter, defaultExpanded: checked === true })}
-                title="Default expanded"
+                title="გახსნილი — ჩართვისას ფილტრი ავტომატურად გახსნილი იქნება კატალოგში"
               />
             </div>
             <div>

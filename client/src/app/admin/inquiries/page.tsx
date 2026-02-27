@@ -1,4 +1,5 @@
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
+import { InfoTooltip } from '@/features/admin/components/InfoTooltip';
 import { getAllInquiries } from '@/lib/content';
 import { removeInquiry } from '@/features/admin/actions/inquiry.actions';
 import { requireAdmin } from '@/lib/admin-auth';
@@ -16,6 +17,7 @@ export default async function AdminInquiriesPage(): Promise<React.ReactElement> 
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
         <h1 className="text-xl font-semibold text-foreground mb-6">
           Inquiries ({inquiries.length})
+          <InfoTooltip text="საკონტაქტო ფორმიდან შემოსული მოთხოვნები. ტელეფონზე დაწკაპება გახსნის WhatsApp-ს" />
         </h1>
 
         {inquiries.length === 0 ? (

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export const metadata: Metadata = {
   title: 'TechBrain Admin',
@@ -6,8 +7,10 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="min-h-[100dvh] bg-muted/50 text-foreground">
-      {children}
-    </div>
+    <TooltipProvider>
+      <div className="min-h-dvh bg-muted/50 text-foreground">
+        {children}
+      </div>
+    </TooltipProvider>
   );
 }

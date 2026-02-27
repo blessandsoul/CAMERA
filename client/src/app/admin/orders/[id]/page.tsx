@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
+import { InfoTooltip } from '@/features/admin/components/InfoTooltip';
 import { getOrderById } from '@/lib/content';
 import { changeOrderStatus } from '@/features/admin/actions/order.actions';
 import { requireAdmin } from '@/lib/admin-auth';
@@ -88,14 +89,14 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
 
         {/* Customer info */}
         <div className="rounded-xl border border-border bg-card p-5 mb-4">
-          <h2 className="text-sm font-medium text-muted-foreground mb-3">Customer</h2>
+          <h2 className="text-sm font-medium text-muted-foreground mb-3">Customer <InfoTooltip text="შეკვეთის გამფორმებლის საკონტაქტო ინფორმაცია" /></h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Name</p>
+              <p className="text-xs text-muted-foreground mb-1">Name <InfoTooltip text="მომხმარებლის სახელი" /></p>
               <p className="text-sm font-medium text-foreground">{order.name}</p>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Phone</p>
+              <p className="text-xs text-muted-foreground mb-1">Phone <InfoTooltip text="დააწკაპუნეთ ნომერზე WhatsApp-ში დასაკავშირებლად" /></p>
               <a
                 href={`https://wa.me/995${order.phone.replace(/\D/g, '')}`}
                 target="_blank"
@@ -106,7 +107,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
               </a>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Language</p>
+              <p className="text-xs text-muted-foreground mb-1">Language <InfoTooltip text="ენა რომელზეც მომხმარებელმა გააფორმა შეკვეთა" /></p>
               <p className="text-sm font-medium text-foreground">{localeLabels[order.locale] || order.locale}</p>
             </div>
           </div>
@@ -114,7 +115,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
 
         {/* Order items */}
         <div className="rounded-xl border border-border bg-card p-5">
-          <h2 className="text-sm font-medium text-muted-foreground mb-3">Items</h2>
+          <h2 className="text-sm font-medium text-muted-foreground mb-3">Items <InfoTooltip text="შეკვეთილი პროდუქტების სია რაოდენობით და ფასით" /></h2>
           <div className="space-y-3">
             {order.items.map((item, i) => (
               <div key={i} className="flex items-center justify-between">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { CatalogConfig, CatalogCategoryConfig } from '@/lib/content';
@@ -99,7 +100,7 @@ export function CategoriesEditor({ config, setConfig }: CategoriesEditorProps): 
   return (
     <section className="rounded-xl border border-border bg-card">
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-        <span className="text-xs font-medium text-foreground uppercase tracking-wider">Categories</span>
+        <span className="text-xs font-medium text-foreground uppercase tracking-wider">Categories <InfoTooltip text="კატალოგის კატეგორიები — განსაზღვრავს პროდუქტების დაჯგუფებას საიტზე" /></span>
         <Button type="button" variant="ghost" size="sm" onClick={addCategory}>
           + Add
         </Button>
@@ -165,7 +166,7 @@ export function CategoriesEditor({ config, setConfig }: CategoriesEditorProps): 
 
                   {cat.children && cat.children.length > 0 && (
                     <div className="space-y-1 mt-2">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Subcategories</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Subcategories <InfoTooltip text="ქვეკატეგორიები — Spec key და Value განსაზღვრავს რომელი პროდუქტები მოხვდება ამ ქვეკატეგორიაში" /></span>
                       {cat.children.map((child, childIdx) => (
                         <div key={child.id} className="grid grid-cols-6 gap-1.5 items-center py-1">
                           <Input value={child.label.ka} onChange={(e) => updateSubcategory(catIdx, childIdx, { ...child, label: { ...child.label, ka: e.target.value } })} placeholder="KA" />

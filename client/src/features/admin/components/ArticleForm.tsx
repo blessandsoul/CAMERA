@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import TurndownService from 'turndown';
 import { RichTextEditor } from './RichTextEditor';
+import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -71,7 +72,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
       <div className="rounded-xl border border-border bg-card divide-y divide-border">
         {/* Cover Image */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Cover Image</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Cover Image <InfoTooltip text="სტატიის მთავარი სურათი — გამოჩნდება სტატიების სიაში და სტატიის თავში" /></span>
           <div className="flex items-center gap-3">
             {coverImage && (
               <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-muted">
@@ -105,15 +106,15 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
         <div className="p-4">
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
-              <Label className={labelClass}>Title</Label>
+              <Label className={labelClass}>Title <InfoTooltip text="სტატიის სათაური — გამოჩნდება საიტზე და SEO-ში" /></Label>
               <Input name="title" defaultValue={article?.title ?? ''} placeholder="სტატიის სათაური" required />
             </div>
             <div className="col-span-2">
-              <Label className={labelClass}>Slug (URL)</Label>
+              <Label className={labelClass}>Slug (URL) <InfoTooltip text="URL მისამართი ლათინურად. მაგ: rogor-aviron-kamera" /></Label>
               <Input name="slug" defaultValue={article?.slug ?? ''} placeholder="rogor-aviron-kamera" />
             </div>
             <div>
-              <Label className={labelClass}>Category</Label>
+              <Label className={labelClass}>Category <InfoTooltip text="სტატიის კატეგორია — განსაზღვრავს რა სექციაში მოხვდება" /></Label>
               <Select value={categoryValue} onValueChange={setCategoryValue}>
                 <SelectTrigger className="w-full">
                   <SelectValue />
@@ -129,7 +130,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
             </div>
             <div className="flex items-end gap-4 pb-0.5">
               <div>
-                <Label className={labelClass}>Min</Label>
+                <Label className={labelClass}>Min <InfoTooltip text="სავარაუდო კითხვის დრო წუთებში" /></Label>
                 <Input name="readMin" type="number" min="1" max="60" defaultValue={article?.readMin ?? 5} className="w-16" />
               </div>
               <div className="flex items-center gap-1.5 pb-1">
@@ -138,11 +139,11 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
                   checked={isPublished}
                   onCheckedChange={(checked) => setIsPublished(checked === true)}
                 />
-                <Label htmlFor="isPublished" className="text-xs text-muted-foreground cursor-pointer">Published</Label>
+                <Label htmlFor="isPublished" className="text-xs text-muted-foreground cursor-pointer">Published <InfoTooltip text="გამოქვეყნებული სტატია ხილულია საიტზე. Draft არის მხოლოდ ადმინში" /></Label>
               </div>
             </div>
             <div className="col-span-4">
-              <Label className={labelClass}>Excerpt</Label>
+              <Label className={labelClass}>Excerpt <InfoTooltip text="მოკლე აღწერა — გამოჩნდება სტატიების სიაში და SEO description-ში" /></Label>
               <Textarea name="excerpt" defaultValue={article?.excerpt ?? ''} rows={2} className="resize-y" placeholder="მოკლე აღწერა..." />
             </div>
           </div>
@@ -150,7 +151,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
 
         {/* WYSIWYG Editor */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Content</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Content <InfoTooltip text="სტატიის ძირითადი ტექსტი — შეგიძლიათ გამოიყენოთ ფორმატირება, სურათები და ბმულები" /></span>
           <RichTextEditor content={initialContent} onChange={setBodyHtml} />
         </div>
       </div>
