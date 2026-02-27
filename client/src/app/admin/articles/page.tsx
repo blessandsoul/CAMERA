@@ -4,6 +4,15 @@ import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { toggleArticlePublished } from '@/features/admin/actions/article.actions';
 import { DeleteArticleButton } from '@/features/admin/components/DeleteArticleButton';
 import { requireAdmin } from '@/lib/admin-auth';
+import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from '@/components/ui/table';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,60 +24,62 @@ export default async function AdminArticlesPage(): Promise<React.ReactElement> {
     <>
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
-        <h1 className="text-xl font-semibold text-gray-900 mb-6">Articles ({articles.length})</h1>
+        <h1 className="text-xl font-semibold text-foreground mb-6">Articles ({articles.length})</h1>
 
         {articles.length === 0 ? (
-          <div className="text-center py-16 text-gray-500">
+          <div className="text-center py-16 text-muted-foreground">
             No articles yet.{' '}
-            <Link href="/admin/articles/new" className="text-gray-900 underline underline-offset-2 hover:no-underline">
+            <Link href="/admin/articles/new" className="text-foreground underline underline-offset-2 hover:no-underline">
               Write your first article.
             </Link>
           </div>
         ) : (
-          <div className="rounded-xl border border-gray-200 overflow-x-auto bg-white">
-            <table className="w-full min-w-120">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="px-3 py-2 text-left text-[10px] font-medium text-gray-400 uppercase tracking-wider">Title</th>
-                  <th className="px-3 py-2 text-left text-[10px] font-medium text-gray-400 uppercase tracking-wider">Category</th>
-                  <th className="px-3 py-2 text-left text-[10px] font-medium text-gray-400 uppercase tracking-wider">Read</th>
-                  <th className="px-3 py-2 text-left text-[10px] font-medium text-gray-400 uppercase tracking-wider">Status</th>
-                  <th className="px-3 py-2 text-left text-[10px] font-medium text-gray-400 uppercase tracking-wider"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
+          <div className="rounded-xl border border-border overflow-x-auto bg-card">
+            <Table className="min-w-120">
+              <TableHeader>
+                <TableRow className="bg-muted/50">
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Title</TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Category</TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Read</TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Status</TableHead>
+                  <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {articles.map((article) => (
-                  <tr key={article.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-3 py-2">
-                      <span className="text-sm text-gray-900 font-medium">{article.title}</span>
-                    </td>
-                    <td className="px-3 py-2">
-                      <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">
+                  <TableRow key={article.id}>
+                    <TableCell className="px-3 py-2">
+                      <span className="text-sm text-foreground font-medium">{article.title}</span>
+                    </TableCell>
+                    <TableCell className="px-3 py-2">
+                      <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
                         {article.category}
                       </span>
-                    </td>
-                    <td className="px-3 py-2">
-                      <span className="text-sm text-gray-500 tabular-nums">{article.readMin} min</span>
-                    </td>
-                    <td className="px-3 py-2">
+                    </TableCell>
+                    <TableCell className="px-3 py-2">
+                      <span className="text-sm text-muted-foreground tabular-nums">{article.readMin} min</span>
+                    </TableCell>
+                    <TableCell className="px-3 py-2">
                       <form action={toggleArticlePublished.bind(null, article.id, !article.isPublished)}>
-                        <button
+                        <Button
                           type="submit"
-                          className={`text-xs px-2 py-1 rounded-full transition-colors cursor-pointer ${
+                          variant="ghost"
+                          size="xs"
+                          className={`rounded-full ${
                             article.isPublished
                               ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                              : 'bg-muted text-muted-foreground hover:bg-muted/80'
                           }`}
                         >
                           {article.isPublished ? 'Published' : 'Draft'}
-                        </button>
+                        </Button>
                       </form>
-                    </td>
-                    <td className="px-3 py-2">
+                    </TableCell>
+                    <TableCell className="px-3 py-2">
                       <div className="flex items-center gap-1">
                         <Link
                           href={`/admin/articles/${article.id}/edit`}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                          className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                           aria-label="Edit article"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -77,11 +88,11 @@ export default async function AdminArticlesPage(): Promise<React.ReactElement> {
                         </Link>
                         <DeleteArticleButton articleId={article.id} articleTitle={article.title} />
                       </div>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         )}
       </div>

@@ -3,6 +3,18 @@
 import { useState, useRef } from 'react';
 import TurndownService from 'turndown';
 import { RichTextEditor } from './RichTextEditor';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import type { Article } from '@/types/article.types';
 
 interface ArticleFormProps {
@@ -20,6 +32,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
   const [coverImage, setCoverImage] = useState(article?.coverImage ?? '');
   const [uploading, setUploading] = useState(false);
   const [bodyHtml, setBodyHtml] = useState('');
+  const [categoryValue, setCategoryValue] = useState<string>(article?.category ?? 'guides');
   const fileRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -47,22 +60,21 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
     formData.set('body', markdown);
     formData.set('coverImage', coverImage);
     formData.set('isPublished', isPublished ? 'true' : 'false');
+    formData.set('category', categoryValue);
     action(formData);
   }
 
-  const fieldClass =
-    'w-full px-3 py-1.5 rounded-md border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-colors text-sm';
-  const labelClass = 'block text-xs text-gray-500 mb-0.5';
+  const labelClass = 'text-xs text-muted-foreground';
 
   return (
     <form ref={formRef} action={handleSubmit} className="max-w-3xl">
-      <div className="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+      <div className="rounded-xl border border-border bg-card divide-y divide-border">
         {/* Cover Image */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-gray-900 uppercase tracking-wider mb-2">Cover Image</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Cover Image</span>
           <div className="flex items-center gap-3">
             {coverImage && (
-              <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-gray-100">
+              <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-muted">
                 <img src={coverImage} alt="Cover" className="w-full h-full object-cover" />
                 <button
                   type="button"
@@ -76,14 +88,15 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
                 </button>
               </div>
             )}
-            <button
+            <Button
               type="button"
+              variant="outline"
+              size="sm"
               onClick={() => fileRef.current?.click()}
               disabled={uploading}
-              className="px-3 py-1.5 rounded-md border border-dashed border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-900 text-xs transition-colors disabled:opacity-50 cursor-pointer"
             >
               {uploading ? 'Uploading...' : 'Upload'}
-            </button>
+            </Button>
             <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleCoverUpload} />
           </div>
         </div>
@@ -92,54 +105,60 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
         <div className="p-4">
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
-              <label className={labelClass}>Title</label>
-              <input name="title" defaultValue={article?.title ?? ''} placeholder="სტატიის სათაური" className={fieldClass} required />
+              <Label className={labelClass}>Title</Label>
+              <Input name="title" defaultValue={article?.title ?? ''} placeholder="სტატიის სათაური" required />
             </div>
             <div className="col-span-2">
-              <label className={labelClass}>Slug (URL)</label>
-              <input name="slug" defaultValue={article?.slug ?? ''} placeholder="rogor-aviron-kamera" className={fieldClass} />
+              <Label className={labelClass}>Slug (URL)</Label>
+              <Input name="slug" defaultValue={article?.slug ?? ''} placeholder="rogor-aviron-kamera" />
             </div>
             <div>
-              <label className={labelClass}>Category</label>
-              <select name="category" defaultValue={article?.category ?? 'guides'} className={fieldClass}>
-                <option value="cameras">კამერები</option>
-                <option value="nvr">NVR / DVR</option>
-                <option value="installation">მონტაჟი</option>
-                <option value="news">სიახლეები</option>
-                <option value="guides">გაიდები</option>
-              </select>
+              <Label className={labelClass}>Category</Label>
+              <Select value={categoryValue} onValueChange={setCategoryValue}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cameras">კამერები</SelectItem>
+                  <SelectItem value="nvr">NVR / DVR</SelectItem>
+                  <SelectItem value="installation">მონტაჟი</SelectItem>
+                  <SelectItem value="news">სიახლეები</SelectItem>
+                  <SelectItem value="guides">გაიდები</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-end gap-4 pb-0.5">
               <div>
-                <label className={labelClass}>Min</label>
-                <input name="readMin" type="number" min="1" max="60" defaultValue={article?.readMin ?? 5} className={`${fieldClass} w-16`} />
+                <Label className={labelClass}>Min</Label>
+                <Input name="readMin" type="number" min="1" max="60" defaultValue={article?.readMin ?? 5} className="w-16" />
               </div>
-              <label className="flex items-center gap-1.5 cursor-pointer pb-1">
-                <input type="checkbox" checked={isPublished} onChange={(e) => setIsPublished(e.target.checked)} className="w-3.5 h-3.5 accent-gray-900" />
-                <span className="text-xs text-gray-600">Published</span>
-              </label>
+              <div className="flex items-center gap-1.5 pb-1">
+                <Checkbox
+                  id="isPublished"
+                  checked={isPublished}
+                  onCheckedChange={(checked) => setIsPublished(checked === true)}
+                />
+                <Label htmlFor="isPublished" className="text-xs text-muted-foreground cursor-pointer">Published</Label>
+              </div>
             </div>
             <div className="col-span-4">
-              <label className={labelClass}>Excerpt</label>
-              <textarea name="excerpt" defaultValue={article?.excerpt ?? ''} rows={2} className={`${fieldClass} resize-y`} placeholder="მოკლე აღწერა..." />
+              <Label className={labelClass}>Excerpt</Label>
+              <Textarea name="excerpt" defaultValue={article?.excerpt ?? ''} rows={2} className="resize-y" placeholder="მოკლე აღწერა..." />
             </div>
           </div>
         </div>
 
         {/* WYSIWYG Editor */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-gray-900 uppercase tracking-wider mb-2">Content</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Content</span>
           <RichTextEditor content={initialContent} onChange={setBodyHtml} />
         </div>
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        className="mt-4 px-5 py-2 bg-gray-900 hover:bg-gray-800 active:scale-[0.98] text-white text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer"
-      >
+      <Button type="submit" className="mt-4">
         Save Article
-      </button>
+      </Button>
     </form>
   );
 }

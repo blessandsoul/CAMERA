@@ -1,167 +1,174 @@
 'use client';
 
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import type { SiteSettings } from '@/lib/content';
 
 export interface SectionProps {
   settings: SiteSettings;
   update: <K extends keyof SiteSettings>(section: K, data: Partial<SiteSettings[K]>) => void;
-  fieldClass: string;
-  labelClass: string;
-  sectionTitle: string;
 }
 
-export function ContactSection({ settings, update, fieldClass, labelClass, sectionTitle }: SectionProps): React.ReactElement {
+const labelClass = 'text-xs text-muted-foreground';
+const sectionTitleClass = 'text-xs font-medium text-foreground uppercase tracking-wider';
+
+export function ContactSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitle}>Contact</span>
+      <span className={sectionTitleClass}>Contact</span>
       <div className="grid grid-cols-3 gap-3 mt-2">
         <div>
-          <label className={labelClass}>Phone</label>
-          <input value={settings.contact.phone} onChange={(e) => update('contact', { phone: e.target.value })} placeholder="597470518" className={fieldClass} />
+          <Label className={labelClass}>Phone</Label>
+          <Input value={settings.contact.phone} onChange={(e) => update('contact', { phone: e.target.value })} placeholder="597470518" />
         </div>
         <div>
-          <label className={labelClass}>WhatsApp (if different)</label>
-          <input value={settings.contact.whatsapp} onChange={(e) => update('contact', { whatsapp: e.target.value })} placeholder="Same as phone" className={fieldClass} />
+          <Label className={labelClass}>WhatsApp (if different)</Label>
+          <Input value={settings.contact.whatsapp} onChange={(e) => update('contact', { whatsapp: e.target.value })} placeholder="Same as phone" />
         </div>
         <div>
-          <label className={labelClass}>Email</label>
-          <input type="email" value={settings.contact.email} onChange={(e) => update('contact', { email: e.target.value })} placeholder="info@techbrain.ge" className={fieldClass} />
+          <Label className={labelClass}>Email</Label>
+          <Input type="email" value={settings.contact.email} onChange={(e) => update('contact', { email: e.target.value })} placeholder="info@techbrain.ge" />
         </div>
       </div>
     </div>
   );
 }
 
-export function BusinessSection({ settings, update, fieldClass, labelClass, sectionTitle }: SectionProps): React.ReactElement {
+export function BusinessSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitle}>Business</span>
+      <span className={sectionTitleClass}>Business</span>
       <div className="grid grid-cols-3 gap-3 mt-2">
         <div className="col-span-3">
-          <label className={labelClass}>Company Name</label>
-          <input value={settings.business.companyName} onChange={(e) => update('business', { companyName: e.target.value })} className={fieldClass} />
+          <Label className={labelClass}>Company Name</Label>
+          <Input value={settings.business.companyName} onChange={(e) => update('business', { companyName: e.target.value })} />
         </div>
         <div>
-          <label className={labelClass}>City</label>
-          <input value={settings.business.address.city} onChange={(e) => update('business', { address: { ...settings.business.address, city: e.target.value } })} className={fieldClass} />
+          <Label className={labelClass}>City</Label>
+          <Input value={settings.business.address.city} onChange={(e) => update('business', { address: { ...settings.business.address, city: e.target.value } })} />
         </div>
         <div>
-          <label className={labelClass}>Region</label>
-          <input value={settings.business.address.region} onChange={(e) => update('business', { address: { ...settings.business.address, region: e.target.value } })} className={fieldClass} />
+          <Label className={labelClass}>Region</Label>
+          <Input value={settings.business.address.region} onChange={(e) => update('business', { address: { ...settings.business.address, region: e.target.value } })} />
         </div>
         <div>
-          <label className={labelClass}>Country Code</label>
-          <input value={settings.business.address.country} onChange={(e) => update('business', { address: { ...settings.business.address, country: e.target.value } })} placeholder="GE" className={fieldClass} />
+          <Label className={labelClass}>Country Code</Label>
+          <Input value={settings.business.address.country} onChange={(e) => update('business', { address: { ...settings.business.address, country: e.target.value } })} placeholder="GE" />
         </div>
         <div>
-          <label className={labelClass}>Latitude</label>
-          <input type="number" step="0.0001" value={settings.business.geo.latitude} onChange={(e) => update('business', { geo: { ...settings.business.geo, latitude: Number(e.target.value) } })} className={fieldClass} />
+          <Label className={labelClass}>Latitude</Label>
+          <Input type="number" step="0.0001" value={settings.business.geo.latitude} onChange={(e) => update('business', { geo: { ...settings.business.geo, latitude: Number(e.target.value) } })} />
         </div>
         <div>
-          <label className={labelClass}>Longitude</label>
-          <input type="number" step="0.0001" value={settings.business.geo.longitude} onChange={(e) => update('business', { geo: { ...settings.business.geo, longitude: Number(e.target.value) } })} className={fieldClass} />
+          <Label className={labelClass}>Longitude</Label>
+          <Input type="number" step="0.0001" value={settings.business.geo.longitude} onChange={(e) => update('business', { geo: { ...settings.business.geo, longitude: Number(e.target.value) } })} />
         </div>
       </div>
     </div>
   );
 }
 
-export function HoursSection({ settings, update, fieldClass, labelClass, sectionTitle }: SectionProps): React.ReactElement {
+export function HoursSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitle}>Business Hours</span>
+      <span className={sectionTitleClass}>Business Hours</span>
       <div className="grid grid-cols-4 gap-3 mt-2">
         <div>
-          <label className={labelClass}>Weekdays Open</label>
-          <input type="time" value={settings.hours.weekdays.open} onChange={(e) => update('hours', { weekdays: { ...settings.hours.weekdays, open: e.target.value } })} className={fieldClass} />
+          <Label className={labelClass}>Weekdays Open</Label>
+          <Input type="time" value={settings.hours.weekdays.open} onChange={(e) => update('hours', { weekdays: { ...settings.hours.weekdays, open: e.target.value } })} />
         </div>
         <div>
-          <label className={labelClass}>Weekdays Close</label>
-          <input type="time" value={settings.hours.weekdays.close} onChange={(e) => update('hours', { weekdays: { ...settings.hours.weekdays, close: e.target.value } })} className={fieldClass} />
+          <Label className={labelClass}>Weekdays Close</Label>
+          <Input type="time" value={settings.hours.weekdays.close} onChange={(e) => update('hours', { weekdays: { ...settings.hours.weekdays, close: e.target.value } })} />
         </div>
         <div>
-          <label className={labelClass}>Sunday Open</label>
-          <input type="time" value={settings.hours.sunday.open} onChange={(e) => update('hours', { sunday: { ...settings.hours.sunday, open: e.target.value } })} className={fieldClass} />
+          <Label className={labelClass}>Sunday Open</Label>
+          <Input type="time" value={settings.hours.sunday.open} onChange={(e) => update('hours', { sunday: { ...settings.hours.sunday, open: e.target.value } })} />
         </div>
         <div>
-          <label className={labelClass}>Sunday Close</label>
-          <input type="time" value={settings.hours.sunday.close} onChange={(e) => update('hours', { sunday: { ...settings.hours.sunday, close: e.target.value } })} className={fieldClass} />
+          <Label className={labelClass}>Sunday Close</Label>
+          <Input type="time" value={settings.hours.sunday.close} onChange={(e) => update('hours', { sunday: { ...settings.hours.sunday, close: e.target.value } })} />
         </div>
       </div>
     </div>
   );
 }
 
-export function StatsSection({ settings, update, fieldClass, labelClass, sectionTitle }: SectionProps): React.ReactElement {
+export function StatsSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitle}>Statistics</span>
+      <span className={sectionTitleClass}>Statistics</span>
       <div className="grid grid-cols-4 gap-3 mt-2">
         <div>
-          <label className={labelClass}>Cameras Installed</label>
-          <input value={settings.stats.camerasInstalled} onChange={(e) => update('stats', { camerasInstalled: e.target.value })} placeholder="500+" className={fieldClass} />
+          <Label className={labelClass}>Cameras Installed</Label>
+          <Input value={settings.stats.camerasInstalled} onChange={(e) => update('stats', { camerasInstalled: e.target.value })} placeholder="500+" />
         </div>
         <div>
-          <label className={labelClass}>Projects</label>
-          <input value={settings.stats.projectsCompleted} onChange={(e) => update('stats', { projectsCompleted: e.target.value })} placeholder="120+" className={fieldClass} />
+          <Label className={labelClass}>Projects</Label>
+          <Input value={settings.stats.projectsCompleted} onChange={(e) => update('stats', { projectsCompleted: e.target.value })} placeholder="120+" />
         </div>
         <div>
-          <label className={labelClass}>Years Exp.</label>
-          <input value={settings.stats.yearsExperience} onChange={(e) => update('stats', { yearsExperience: e.target.value })} placeholder="5+" className={fieldClass} />
+          <Label className={labelClass}>Years Exp.</Label>
+          <Input value={settings.stats.yearsExperience} onChange={(e) => update('stats', { yearsExperience: e.target.value })} placeholder="5+" />
         </div>
         <div>
-          <label className={labelClass}>Warranty (yrs)</label>
-          <input value={settings.stats.warrantyYears} onChange={(e) => update('stats', { warrantyYears: e.target.value })} placeholder="2" className={fieldClass} />
+          <Label className={labelClass}>Warranty (yrs)</Label>
+          <Input value={settings.stats.warrantyYears} onChange={(e) => update('stats', { warrantyYears: e.target.value })} placeholder="2" />
         </div>
       </div>
     </div>
   );
 }
 
-export function AnnouncementSection({ settings, update, fieldClass, labelClass, sectionTitle }: SectionProps): React.ReactElement {
+export function AnnouncementSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className={sectionTitle}>Announcement Banner</span>
-        <label className="flex items-center gap-1.5 cursor-pointer">
-          <input type="checkbox" checked={settings.announcement.enabled} onChange={(e) => update('announcement', { enabled: e.target.checked })} className="w-3.5 h-3.5 accent-gray-900" />
-          <span className="text-xs text-gray-600">Enabled</span>
-        </label>
+        <span className={sectionTitleClass}>Announcement Banner</span>
+        <div className="flex items-center gap-1.5">
+          <Checkbox
+            id="announcement-enabled"
+            checked={settings.announcement.enabled}
+            onCheckedChange={(checked) => update('announcement', { enabled: checked === true })}
+          />
+          <Label htmlFor="announcement-enabled" className="text-xs text-muted-foreground cursor-pointer">Enabled</Label>
+        </div>
       </div>
       <div className="grid grid-cols-3 gap-3">
         <div>
-          <label className={labelClass}>Text KA</label>
-          <input value={settings.announcement.text_ka} onChange={(e) => update('announcement', { text_ka: e.target.value })} placeholder="ქართულად" className={fieldClass} />
+          <Label className={labelClass}>Text KA</Label>
+          <Input value={settings.announcement.text_ka} onChange={(e) => update('announcement', { text_ka: e.target.value })} placeholder="ქართულად" />
         </div>
         <div>
-          <label className={labelClass}>Text RU</label>
-          <input value={settings.announcement.text_ru} onChange={(e) => update('announcement', { text_ru: e.target.value })} placeholder="По-русски" className={fieldClass} />
+          <Label className={labelClass}>Text RU</Label>
+          <Input value={settings.announcement.text_ru} onChange={(e) => update('announcement', { text_ru: e.target.value })} placeholder="По-русски" />
         </div>
         <div>
-          <label className={labelClass}>Text EN</label>
-          <input value={settings.announcement.text_en} onChange={(e) => update('announcement', { text_en: e.target.value })} placeholder="In English" className={fieldClass} />
+          <Label className={labelClass}>Text EN</Label>
+          <Input value={settings.announcement.text_en} onChange={(e) => update('announcement', { text_en: e.target.value })} placeholder="In English" />
         </div>
       </div>
     </div>
   );
 }
 
-export function SocialSection({ settings, update, fieldClass, labelClass, sectionTitle }: SectionProps): React.ReactElement {
+export function SocialSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitle}>Social Links</span>
+      <span className={sectionTitleClass}>Social Links</span>
       <div className="grid grid-cols-3 gap-3 mt-2">
         <div>
-          <label className={labelClass}>Facebook</label>
-          <input value={settings.social.facebook} onChange={(e) => update('social', { facebook: e.target.value })} placeholder="https://facebook.com/..." className={fieldClass} />
+          <Label className={labelClass}>Facebook</Label>
+          <Input value={settings.social.facebook} onChange={(e) => update('social', { facebook: e.target.value })} placeholder="https://facebook.com/..." />
         </div>
         <div>
-          <label className={labelClass}>Instagram</label>
-          <input value={settings.social.instagram} onChange={(e) => update('social', { instagram: e.target.value })} placeholder="https://instagram.com/..." className={fieldClass} />
+          <Label className={labelClass}>Instagram</Label>
+          <Input value={settings.social.instagram} onChange={(e) => update('social', { instagram: e.target.value })} placeholder="https://instagram.com/..." />
         </div>
         <div>
-          <label className={labelClass}>TikTok</label>
-          <input value={settings.social.tiktok} onChange={(e) => update('social', { tiktok: e.target.value })} placeholder="https://tiktok.com/@..." className={fieldClass} />
+          <Label className={labelClass}>TikTok</Label>
+          <Input value={settings.social.tiktok} onChange={(e) => update('social', { tiktok: e.target.value })} placeholder="https://tiktok.com/@..." />
         </div>
       </div>
     </div>

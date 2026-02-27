@@ -10,6 +10,7 @@ import {
   AnnouncementSection,
   SocialSection,
 } from './SiteSettingsSections';
+import { Button } from '@/components/ui/button';
 import type { SiteSettings } from '@/lib/content';
 
 interface Props {
@@ -33,32 +34,26 @@ export function SiteSettingsEditor({ initialSettings }: Props): React.ReactEleme
     setSaving(false);
   }
 
-  const fieldClass =
-    'w-full px-3 py-1.5 rounded-md border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-colors text-sm';
-  const labelClass = 'block text-xs text-gray-500 mb-0.5';
-  const sectionTitle = 'text-xs font-medium text-gray-900 uppercase tracking-wider';
-
-  const sectionProps = { settings, update, fieldClass, labelClass, sectionTitle };
+  const sectionProps = { settings, update };
 
   return (
     <div className="max-w-2xl">
-      <div className="sticky top-0 z-10 bg-gray-50 pb-4 flex items-center gap-3">
-        <button
+      <div className="sticky top-0 z-10 bg-muted/50 pb-4 flex items-center gap-3">
+        <Button
           type="button"
           onClick={handleSave}
           disabled={saving}
-          className="px-5 py-2 bg-gray-900 hover:bg-gray-800 active:scale-[0.98] text-white text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer disabled:opacity-50"
         >
           {saving ? 'Saving...' : 'Save Changes'}
-        </button>
+        </Button>
         {message && (
-          <span className={`text-sm ${message.type === 'success' ? 'text-emerald-600' : 'text-red-600'}`}>
+          <span className={`text-sm ${message.type === 'success' ? 'text-emerald-600' : 'text-destructive'}`}>
             {message.text}
           </span>
         )}
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+      <div className="rounded-xl border border-border bg-card divide-y divide-border">
         <ContactSection {...sectionProps} />
         <BusinessSection {...sectionProps} />
         <HoursSection {...sectionProps} />

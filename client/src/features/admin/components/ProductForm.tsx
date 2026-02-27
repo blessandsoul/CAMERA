@@ -2,6 +2,18 @@
 
 import { useState } from 'react';
 import { ImageManager } from './ImageManager';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import type { Product } from '@/types/product.types';
 
 interface ProductFormProps {
@@ -20,6 +32,7 @@ export function ProductForm({ product, action }: ProductFormProps): React.ReactE
   const [images, setImages] = useState<string[]>(product?.images ?? []);
   const [isActiveChecked, setIsActiveChecked] = useState<boolean>(product?.isActive ?? true);
   const [isFeaturedChecked, setIsFeaturedChecked] = useState<boolean>(product?.isFeatured ?? false);
+  const [categoryValue, setCategoryValue] = useState<string>(product?.category ?? 'cameras');
   const [specs, setSpecs] = useState<SpecRow[]>(
     product?.specs.map((s) => ({
       key_ka: s.key.ka,
@@ -48,88 +61,100 @@ export function ProductForm({ product, action }: ProductFormProps): React.ReactE
     }))
   );
 
-  const fieldClass =
-    'w-full px-3 py-1.5 rounded-md border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-colors text-sm';
-  const labelClass = 'block text-xs text-gray-500 mb-0.5';
+  const labelClass = 'text-xs text-muted-foreground';
 
   return (
     <form action={action} className="max-w-2xl">
       <input type="hidden" name="images" value={JSON.stringify(images)} />
       <input type="hidden" name="specs" value={specsJson} />
+      <input type="hidden" name="category" value={categoryValue} />
+      <input type="hidden" name="isActive" value={isActiveChecked ? 'true' : 'false'} />
+      <input type="hidden" name="isFeatured" value={isFeaturedChecked ? 'true' : 'false'} />
 
-      <div className="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+      <div className="rounded-xl border border-border bg-card divide-y divide-border">
         <ImageManager images={images} setImages={setImages} />
 
         {/* Basic info */}
         <div className="p-4">
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-3">
-              <label className={labelClass}>Slug</label>
-              <input name="slug" defaultValue={product?.slug ?? ''} placeholder="v380-pro-wifi" className={fieldClass} />
+              <Label className={labelClass}>Slug</Label>
+              <Input name="slug" defaultValue={product?.slug ?? ''} placeholder="v380-pro-wifi" />
             </div>
             <div>
-              <label className={labelClass}>Category</label>
-              <select name="category" defaultValue={product?.category ?? 'cameras'} className={fieldClass}>
-                <option value="cameras">Cameras</option>
-                <option value="nvr-kits">NVR Kits</option>
-                <option value="accessories">Accessories</option>
-                <option value="storage">Storage</option>
-                <option value="services">Services</option>
-              </select>
+              <Label className={labelClass}>Category</Label>
+              <Select value={categoryValue} onValueChange={setCategoryValue}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cameras">Cameras</SelectItem>
+                  <SelectItem value="nvr-kits">NVR Kits</SelectItem>
+                  <SelectItem value="accessories">Accessories</SelectItem>
+                  <SelectItem value="storage">Storage</SelectItem>
+                  <SelectItem value="services">Services</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
-              <label className={labelClass}>Price (GEL)</label>
-              <input name="price" type="number" min="0" step="0.01" defaultValue={product?.price ?? 0} className={fieldClass} />
+              <Label className={labelClass}>Price (GEL)</Label>
+              <Input name="price" type="number" min="0" step="0.01" defaultValue={product?.price ?? 0} />
             </div>
             <div className="flex items-end gap-4 pb-1">
-              <label className="flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" checked={isActiveChecked} onChange={(e) => setIsActiveChecked(e.target.checked)} className="w-3.5 h-3.5 accent-gray-900" />
-                <span className="text-xs text-gray-600">Active</span>
-              </label>
-              <label className="flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" checked={isFeaturedChecked} onChange={(e) => setIsFeaturedChecked(e.target.checked)} className="w-3.5 h-3.5 accent-gray-900" />
-                <span className="text-xs text-gray-600">Featured</span>
-              </label>
-              <input type="hidden" name="isActive" value={isActiveChecked ? 'true' : 'false'} />
-              <input type="hidden" name="isFeatured" value={isFeaturedChecked ? 'true' : 'false'} />
+              <div className="flex items-center gap-1.5">
+                <Checkbox
+                  id="isActive"
+                  checked={isActiveChecked}
+                  onCheckedChange={(checked) => setIsActiveChecked(checked === true)}
+                />
+                <Label htmlFor="isActive" className="text-xs text-muted-foreground cursor-pointer">Active</Label>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Checkbox
+                  id="isFeatured"
+                  checked={isFeaturedChecked}
+                  onCheckedChange={(checked) => setIsFeaturedChecked(checked === true)}
+                />
+                <Label htmlFor="isFeatured" className="text-xs text-muted-foreground cursor-pointer">Featured</Label>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Names — inline 3-column */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-gray-900 uppercase tracking-wider mb-2">Name</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Name</span>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className={labelClass}>KA</label>
-              <input name="name_ka" defaultValue={product?.name.ka ?? ''} placeholder="ქართულად" className={fieldClass} required />
+              <Label className={labelClass}>KA</Label>
+              <Input name="name_ka" defaultValue={product?.name.ka ?? ''} placeholder="ქართულად" required />
             </div>
             <div>
-              <label className={labelClass}>RU</label>
-              <input name="name_ru" defaultValue={product?.name.ru ?? ''} placeholder="По-русски" className={fieldClass} />
+              <Label className={labelClass}>RU</Label>
+              <Input name="name_ru" defaultValue={product?.name.ru ?? ''} placeholder="По-русски" />
             </div>
             <div>
-              <label className={labelClass}>EN</label>
-              <input name="name_en" defaultValue={product?.name.en ?? ''} placeholder="In English" className={fieldClass} />
+              <Label className={labelClass}>EN</Label>
+              <Input name="name_en" defaultValue={product?.name.en ?? ''} placeholder="In English" />
             </div>
           </div>
         </div>
 
         {/* Descriptions — inline 3-column */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-gray-900 uppercase tracking-wider mb-2">Description</span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Description</span>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className={labelClass}>KA</label>
-              <textarea name="description_ka" defaultValue={product?.description.ka ?? ''} rows={2} className={`${fieldClass} resize-y`} />
+              <Label className={labelClass}>KA</Label>
+              <Textarea name="description_ka" defaultValue={product?.description.ka ?? ''} rows={2} className="resize-y" />
             </div>
             <div>
-              <label className={labelClass}>RU</label>
-              <textarea name="description_ru" defaultValue={product?.description.ru ?? ''} rows={2} className={`${fieldClass} resize-y`} />
+              <Label className={labelClass}>RU</Label>
+              <Textarea name="description_ru" defaultValue={product?.description.ru ?? ''} rows={2} className="resize-y" />
             </div>
             <div>
-              <label className={labelClass}>EN</label>
-              <textarea name="description_en" defaultValue={product?.description.en ?? ''} rows={2} className={`${fieldClass} resize-y`} />
+              <Label className={labelClass}>EN</Label>
+              <Textarea name="description_en" defaultValue={product?.description.en ?? ''} rows={2} className="resize-y" />
             </div>
           </div>
         </div>
@@ -137,24 +162,24 @@ export function ProductForm({ product, action }: ProductFormProps): React.ReactE
         {/* Specs */}
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-gray-900 uppercase tracking-wider">Specifications</span>
-            <button type="button" onClick={addSpec} className="text-xs text-gray-500 hover:text-gray-900 transition-colors cursor-pointer">
+            <span className="text-xs font-medium text-foreground uppercase tracking-wider">Specifications</span>
+            <Button type="button" variant="ghost" size="sm" onClick={addSpec}>
               + Add
-            </button>
+            </Button>
           </div>
           {specs.length === 0 ? (
-            <p className="text-xs text-gray-400">No specs yet.</p>
+            <p className="text-xs text-muted-foreground">No specs yet.</p>
           ) : (
             <div className="space-y-1.5">
               {specs.map((spec, i) => (
                 <div key={i} className="grid grid-cols-5 gap-2 items-center">
-                  <input placeholder="Key KA" value={spec.key_ka} onChange={(e) => updateSpec(i, 'key_ka', e.target.value)} className={fieldClass} />
-                  <input placeholder="Key RU" value={spec.key_ru} onChange={(e) => updateSpec(i, 'key_ru', e.target.value)} className={fieldClass} />
-                  <input placeholder="Key EN" value={spec.key_en} onChange={(e) => updateSpec(i, 'key_en', e.target.value)} className={fieldClass} />
-                  <input placeholder="Value" value={spec.value} onChange={(e) => updateSpec(i, 'value', e.target.value)} className={fieldClass} />
-                  <button type="button" onClick={() => removeSpec(i)} className="p-1 text-gray-400 hover:text-red-500 transition-colors cursor-pointer justify-self-start" aria-label="Remove spec">
+                  <Input placeholder="Key KA" value={spec.key_ka} onChange={(e) => updateSpec(i, 'key_ka', e.target.value)} />
+                  <Input placeholder="Key RU" value={spec.key_ru} onChange={(e) => updateSpec(i, 'key_ru', e.target.value)} />
+                  <Input placeholder="Key EN" value={spec.key_en} onChange={(e) => updateSpec(i, 'key_en', e.target.value)} />
+                  <Input placeholder="Value" value={spec.value} onChange={(e) => updateSpec(i, 'value', e.target.value)} />
+                  <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeSpec(i)} className="text-muted-foreground hover:text-destructive justify-self-start" aria-label="Remove spec">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                  </button>
+                  </Button>
                 </div>
               ))}
             </div>
@@ -163,12 +188,9 @@ export function ProductForm({ product, action }: ProductFormProps): React.ReactE
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        className="mt-4 px-5 py-2 bg-gray-900 hover:bg-gray-800 active:scale-[0.98] text-white text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer"
-      >
+      <Button type="submit" className="mt-4">
         Save Product
-      </button>
+      </Button>
     </form>
   );
 }
