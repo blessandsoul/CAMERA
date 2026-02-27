@@ -9,4 +9,5 @@ export async function changeOrderStatus(orderId: string, status: Order['status']
   await requireAdmin();
   await updateOrderStatus(orderId, status);
   revalidatePath('/admin/orders');
+  revalidatePath(`/admin/orders/${orderId}`);
 }

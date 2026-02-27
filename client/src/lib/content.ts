@@ -419,6 +419,28 @@ export async function getAllOrders(): Promise<Order[]> {
   }));
 }
 
+export async function getOrderById(id: string): Promise<Order | null> {
+  const o = await prisma.order.findUnique({
+    where: { id },
+    include: { items: true },
+  });
+  if (!o) return null;
+  return {
+    id: o.id,
+    name: o.name,
+    phone: o.phone,
+    locale: o.locale,
+    total: o.total,
+    status: o.status as Order['status'],
+    createdAt: o.createdAt.toISOString(),
+    items: o.items.map((i) => ({
+      name: i.name,
+      quantity: i.quantity,
+      price: i.price,
+    })),
+  };
+}
+
 export async function saveOrder(order: Order): Promise<void> {
   await prisma.order.create({
     data: {

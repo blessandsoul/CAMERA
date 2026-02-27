@@ -1,8 +1,7 @@
+import Link from 'next/link';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { getAllOrders } from '@/lib/content';
-import { changeOrderStatus } from '@/features/admin/actions/order.actions';
 import { requireAdmin } from '@/lib/admin-auth';
-import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,14 +11,9 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
   const newCount = orders.filter((o) => o.status === 'new').length;
 
   const statusColors: Record<string, string> = {
-    new: 'bg-info/10 text-info hover:bg-info/20',
-    contacted: 'bg-warning/10 text-warning hover:bg-warning/20',
-    completed: 'bg-success/10 text-success hover:bg-success/20',
-  };
-
-  const nextStatus: Record<string, 'contacted' | 'completed'> = {
-    new: 'contacted',
-    contacted: 'completed',
+    new: 'bg-info/10 text-info',
+    contacted: 'bg-warning/10 text-warning',
+    completed: 'bg-success/10 text-success',
   };
 
   return (
@@ -42,19 +36,18 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
         ) : (
           <div className="space-y-3">
             {orders.map((order) => (
-              <div key={order.id} className="rounded-xl border border-border bg-card p-4">
+              <Link
+                key={order.id}
+                href={`/admin/orders/${order.id}`}
+                className="block rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:shadow-md hover:border-border/80"
+              >
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                       <span className="text-sm font-medium text-foreground">{order.name}</span>
-                      <a
-                        href={`https://wa.me/995${order.phone.replace(/\D/g, '')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline tabular-nums"
-                      >
+                      <span className="text-sm text-muted-foreground tabular-nums">
                         {order.phone}
-                      </a>
+                      </span>
                       <span className="text-xs text-muted-foreground">
                         {new Date(order.createdAt).toLocaleString('ru-RU', { timeZone: 'Asia/Tbilisi', day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}
                       </span>
@@ -69,25 +62,12 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="text-sm font-bold text-foreground tabular-nums">{order.total} ₾</span>
-                    {nextStatus[order.status] ? (
-                      <form action={changeOrderStatus.bind(null, order.id, nextStatus[order.status])}>
-                        <Button
-                          type="submit"
-                          variant="ghost"
-                          size="xs"
-                          className={`rounded-full ${statusColors[order.status]}`}
-                        >
-                          {order.status === 'new' ? 'New' : 'Contacted'}
-                        </Button>
-                      </form>
-                    ) : (
-                      <span className={`text-xs px-3 py-1.5 rounded-full ${statusColors[order.status]}`}>
-                        Completed
-                      </span>
-                    )}
+                    <span className={`text-xs px-3 py-1.5 rounded-full ${statusColors[order.status]}`}>
+                      {order.status === 'new' ? 'New' : order.status === 'contacted' ? 'Contacted' : 'Completed'}
+                    </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
