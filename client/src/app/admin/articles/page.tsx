@@ -67,7 +67,7 @@ export default async function AdminArticlesPage(): Promise<React.ReactElement> {
                           size="xs"
                           className={`rounded-full ${
                             article.isPublished
-                              ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                              ? 'bg-success/10 text-success hover:bg-success/20'
                               : 'bg-muted text-muted-foreground hover:bg-muted/80'
                           }`}
                         >

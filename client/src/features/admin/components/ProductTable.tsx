@@ -131,7 +131,7 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
                         variant="ghost"
                         size="xs"
                         className={`rounded-full ${
-                          product.isActive ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                          product.isActive ? 'bg-success/10 text-success hover:bg-success/20' : 'bg-muted text-muted-foreground hover:bg-muted/80'
                         }`}
                       >
                         {product.isActive ? 'Active' : 'Hidden'}

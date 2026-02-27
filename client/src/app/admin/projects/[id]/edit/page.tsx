@@ -23,7 +23,7 @@ export default async function EditProjectPage({ params }: EditProjectPageProps):
     <>
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
-        <h1 className="text-xl font-semibold text-gray-900 mb-8">Edit Project</h1>
+        <h1 className="text-xl font-semibold text-foreground mb-8">Edit Project</h1>
         <ProjectForm project={project} action={action} />
       </div>
     </>

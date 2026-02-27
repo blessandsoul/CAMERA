@@ -12,9 +12,9 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
   const newCount = orders.filter((o) => o.status === 'new').length;
 
   const statusColors: Record<string, string> = {
-    new: 'bg-blue-50 text-blue-700 hover:bg-blue-100',
-    contacted: 'bg-amber-50 text-amber-700 hover:bg-amber-100',
-    completed: 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100',
+    new: 'bg-info/10 text-info hover:bg-info/20',
+    contacted: 'bg-warning/10 text-warning hover:bg-warning/20',
+    completed: 'bg-success/10 text-success hover:bg-success/20',
   };
 
   const nextStatus: Record<string, 'contacted' | 'completed'> = {
@@ -27,7 +27,7 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
         <h1 className="text-xl font-semibold text-foreground mb-6">
-          Orders ({orders.length}){newCount > 0 && <span className="ml-2 text-sm text-blue-600">{newCount} new</span>}
+          Orders ({orders.length}){newCount > 0 && <span className="ml-2 text-sm text-info">{newCount} new</span>}
         </h1>
 
         {orders.length === 0 ? (

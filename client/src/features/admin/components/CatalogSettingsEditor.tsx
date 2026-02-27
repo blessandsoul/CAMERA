@@ -39,7 +39,7 @@ export function CatalogSettingsEditor({ initialConfig }: Props): React.ReactElem
           {saving ? 'Saving...' : 'Save Changes'}
         </Button>
         {message && (
-          <span className={`text-sm ${message.type === 'success' ? 'text-emerald-600' : 'text-destructive'}`}>
+          <span className={`text-sm ${message.type === 'success' ? 'text-success' : 'text-destructive'}`}>
             {message.text}
           </span>
         )}
