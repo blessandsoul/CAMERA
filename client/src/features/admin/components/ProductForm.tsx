@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ImageManager } from './ImageManager';
+import { RelatedProductsPicker } from './RelatedProductsPicker';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,7 @@ import type { Product } from '@/types/product.types';
 
 interface ProductFormProps {
   product?: Product;
+  allProducts?: Product[];
   action: (formData: FormData) => Promise<void>;
 }
 
@@ -28,11 +30,12 @@ interface SpecRow {
   value: string;
 }
 
-export function ProductForm({ product, action }: ProductFormProps): React.ReactElement {
+export function ProductForm({ product, allProducts = [], action }: ProductFormProps): React.ReactElement {
   const [images, setImages] = useState<string[]>(product?.images ?? []);
   const [isActiveChecked, setIsActiveChecked] = useState<boolean>(product?.isActive ?? true);
   const [isFeaturedChecked, setIsFeaturedChecked] = useState<boolean>(product?.isFeatured ?? false);
   const [categoryValue, setCategoryValue] = useState<string>(product?.category ?? 'cameras');
+  const [relatedIds, setRelatedIds] = useState<string[]>(product?.relatedProducts ?? []);
   const [specs, setSpecs] = useState<SpecRow[]>(
     product?.specs.map((s) => ({
       key_ka: s.key.ka,
@@ -70,6 +73,7 @@ export function ProductForm({ product, action }: ProductFormProps): React.ReactE
       <input type="hidden" name="category" value={categoryValue} />
       <input type="hidden" name="isActive" value={isActiveChecked ? 'true' : 'false'} />
       <input type="hidden" name="isFeatured" value={isFeaturedChecked ? 'true' : 'false'} />
+      <input type="hidden" name="relatedProducts" value={JSON.stringify(relatedIds)} />
 
       <div className="rounded-xl border border-border bg-card divide-y divide-border">
         <ImageManager images={images} setImages={setImages} />
@@ -157,6 +161,19 @@ export function ProductForm({ product, action }: ProductFormProps): React.ReactE
               <Textarea name="description_en" defaultValue={product?.description.en ?? ''} rows={2} className="resize-y" />
             </div>
           </div>
+        </div>
+
+        {/* Related Products (Bought Together) */}
+        <div className="p-4">
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">
+            Bought Together
+          </span>
+          <RelatedProductsPicker
+            allProducts={allProducts}
+            selectedIds={relatedIds}
+            currentProductId={product?.id}
+            onChange={setRelatedIds}
+          />
         </div>
 
         {/* Specs */}

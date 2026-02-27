@@ -15,6 +15,9 @@ export async function createProduct(formData: FormData): Promise<void> {
   await requireAdmin();
 
   const id = `product-${randomUUID()}`;
+  const relatedRaw = JSON.parse((formData.get('relatedProducts') as string) || '[]') as string[];
+  const relatedProducts = relatedRaw.length > 0 ? relatedRaw : undefined;
+
   const frontmatter = {
     id,
     slug: (formData.get('slug') as string) || id,
@@ -30,6 +33,7 @@ export async function createProduct(formData: FormData): Promise<void> {
       en: (formData.get('name_en') as string) || '',
     },
     specs: JSON.parse((formData.get('specs') as string) || '[]') as Product['specs'],
+    relatedProducts,
     createdAt: new Date().toISOString(),
   };
 
@@ -46,6 +50,9 @@ export async function updateProduct(id: string, formData: FormData): Promise<voi
   const existing = await getProductById(id);
   if (!existing) redirect('/admin/dashboard');
 
+  const relatedRaw = JSON.parse((formData.get('relatedProducts') as string) || '[]') as string[];
+  const relatedProducts = relatedRaw.length > 0 ? relatedRaw : undefined;
+
   const frontmatter = {
     id,
     slug: (formData.get('slug') as string) || existing.slug,
@@ -61,6 +68,7 @@ export async function updateProduct(id: string, formData: FormData): Promise<voi
       en: (formData.get('name_en') as string) || existing.name.en,
     },
     specs: JSON.parse((formData.get('specs') as string) || JSON.stringify(existing.specs)) as Product['specs'],
+    relatedProducts,
     createdAt: existing.createdAt,
   };
 
@@ -104,6 +112,7 @@ export async function toggleProductActive(id: string, isActive: boolean): Promis
     images: product.images,
     name: product.name,
     specs: product.specs,
+    relatedProducts: product.relatedProducts,
     createdAt: product.createdAt,
   };
 
