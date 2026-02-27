@@ -40,6 +40,8 @@
   /* ── Semantic ── */
   --color-destructive: #ef4444;
   --color-success:     #16b822;
+  --color-warning:     #d97706;
+  --color-info:        #0284c7;
   --color-online:      #16a34a;
 
   /* ── Brand gradient stops ── */
@@ -88,22 +90,43 @@ body {
   }
 }
 
-/* ── Success color utilities (Tailwind v4 explicit) ── */
+/* ── Semantic color utilities (Tailwind v4 explicit) ── */
 @layer utilities {
+  /* Success */
   .text-success     { color: #16b822; }
   .bg-success       { background-color: #16b822; }
   .border-success   { border-color: #16b822; }
   .ring-success     { --tw-ring-color: #16b822; }
   .bg-success\/5    { background-color: rgb(22 184 34 / 0.05); }
   .bg-success\/10   { background-color: rgb(22 184 34 / 0.10); }
+  .bg-success\/20   { background-color: rgb(22 184 34 / 0.20); }
   .border-success\/15 { border-color: rgb(22 184 34 / 0.15); }
   .border-success\/20 { border-color: rgb(22 184 34 / 0.20); }
   .border-success\/25 { border-color: rgb(22 184 34 / 0.25); }
   .border-success\/30 { border-color: rgb(22 184 34 / 0.30); }
   .hover\:text-success:hover   { color: #16b822; }
   .hover\:bg-success\/5:hover  { background-color: rgb(22 184 34 / 0.05); }
+  .hover\:bg-success\/20:hover { background-color: rgb(22 184 34 / 0.20); }
   .hover\:border-success\/30:hover { border-color: rgb(22 184 34 / 0.30); }
   .focus-visible\:ring-success\/50:focus-visible { --tw-ring-color: rgb(22 184 34 / 0.50); }
+
+  /* Warning */
+  .text-warning     { color: #d97706; }
+  .bg-warning       { background-color: #d97706; }
+  .border-warning   { border-color: #d97706; }
+  .bg-warning\/10   { background-color: rgb(217 119 6 / 0.10); }
+  .bg-warning\/20   { background-color: rgb(217 119 6 / 0.20); }
+  .hover\:text-warning:hover   { color: #d97706; }
+  .hover\:bg-warning\/20:hover { background-color: rgb(217 119 6 / 0.20); }
+
+  /* Info */
+  .text-info        { color: #0284c7; }
+  .bg-info          { background-color: #0284c7; }
+  .border-info      { border-color: #0284c7; }
+  .bg-info\/10      { background-color: rgb(2 132 199 / 0.10); }
+  .bg-info\/20      { background-color: rgb(2 132 199 / 0.20); }
+  .hover\:text-info:hover      { color: #0284c7; }
+  .hover\:bg-info\/20:hover    { background-color: rgb(2 132 199 / 0.20); }
 }
 
 /* ── Signature animations ── */

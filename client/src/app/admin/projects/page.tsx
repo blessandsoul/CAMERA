@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AdminHeader } from '@/features/admin/components/AdminHeader';
 import { getAllProjectsAdmin } from '@/lib/content';
-import { removeProject } from '@/features/admin/actions/project.actions';
 import { requireAdmin } from '@/lib/admin-auth';
+import { DeleteProjectButton } from '@/features/admin/components/DeleteProjectButton';
 import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';
@@ -29,11 +29,21 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
         </div>
 
         {projects.length === 0 ? (
-          <p className="text-muted-foreground text-center py-12">No projects yet</p>
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-muted-foreground">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" />
+              </svg>
+            </div>
+            <p className="text-sm text-muted-foreground mb-3">No projects yet</p>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/admin/projects/new">Create your first project</Link>
+            </Button>
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((project) => (
-              <div key={project.id} className="rounded-xl border border-border bg-card overflow-hidden">
+              <div key={project.id} className="rounded-xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
                 {/* Image */}
                 {project.image && (
                   <div className="relative h-36 bg-muted">
@@ -69,15 +79,7 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
                         Edit
                       </Link>
                     </Button>
-                    <form action={removeProject.bind(null, project.id)}>
-                      <Button
-                        type="submit"
-                        variant="destructive"
-                        size="xs"
-                      >
-                        Delete
-                      </Button>
-                    </form>
+                    <DeleteProjectButton projectId={project.id} projectTitle={project.title.ka} />
                   </div>
                 </div>
               </div>

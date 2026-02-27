@@ -39,9 +39,9 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-dvh flex items-center justify-center bg-muted/50 px-4">
-      <div className="w-full max-w-sm p-8 rounded-2xl bg-card border border-border">
+      <div className="w-full max-w-sm p-8 rounded-2xl bg-card border border-border shadow-sm">
         <div className="flex items-center gap-2 mb-8">
-          <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center">
+          <div className="w-7 h-7 bg-foreground rounded-lg flex items-center justify-center">
             <span className="text-background font-bold text-xs">TB</span>
           </div>
           <span className="font-semibold text-foreground text-lg">TechBrain Admin</span>

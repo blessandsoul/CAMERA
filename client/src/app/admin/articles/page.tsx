@@ -27,11 +27,16 @@ export default async function AdminArticlesPage(): Promise<React.ReactElement> {
         <h1 className="text-xl font-semibold text-foreground mb-6">Articles ({articles.length})</h1>
 
         {articles.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground">
-            No articles yet.{' '}
-            <Link href="/admin/articles/new" className="text-foreground underline underline-offset-2 hover:no-underline">
-              Write your first article.
-            </Link>
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-muted-foreground">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+              </svg>
+            </div>
+            <p className="text-sm text-muted-foreground mb-3">No articles yet.</p>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/admin/articles/new">Write your first article</Link>
+            </Button>
           </div>
         ) : (
           <div className="rounded-xl border border-border overflow-x-auto bg-card">

@@ -23,19 +23,22 @@ export function AdminHeader(): React.ReactElement {
   const navLink = (href: string, active: boolean, label: string): React.ReactElement => (
     <Link
       href={href}
-      className={`text-sm px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+      className={`relative text-sm px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 ${
         active
-          ? 'text-foreground bg-muted font-medium'
+          ? 'text-foreground font-medium'
           : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
       }`}
     >
       {label}
+      {active && (
+        <span className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-4/5 h-0.5 rounded-full bg-primary" />
+      )}
     </Link>
   );
 
-  const showAddButton = isProducts || isArticles;
-  const addHref = isArticles ? '/admin/articles/new' : '/admin/products/new';
-  const addLabel = isArticles ? 'New Article' : 'Add Product';
+  const showAddButton = isProducts || isArticles || isProjects;
+  const addHref = isArticles ? '/admin/articles/new' : isProjects ? '/admin/projects/new' : '/admin/products/new';
+  const addLabel = isArticles ? 'New Article' : isProjects ? 'New Project' : 'Add Product';
 
   return (
     <header className="border-b border-border bg-card px-4 md:px-6 py-3">

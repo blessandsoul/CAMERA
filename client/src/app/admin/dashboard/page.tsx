@@ -34,11 +34,11 @@ export default async function AdminDashboardPage(): Promise<React.ReactElement> 
             <Link
               key={s.label}
               href={s.href}
-              className="rounded-xl border border-border bg-card p-4 hover:border-border/80 transition-colors"
+              className="rounded-xl border border-border bg-card p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
-              <p className="text-xs text-muted-foreground mb-1">{s.label}</p>
-              <p className="text-2xl font-bold text-foreground tabular-nums">{s.value}</p>
-              <p className={`text-xs mt-0.5 ${s.highlight ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{s.sub}</p>
+              <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2">{s.label}</p>
+              <p className="text-2xl font-bold text-foreground tabular-nums leading-none">{s.value}</p>
+              <p className={`text-xs mt-1.5 ${s.highlight ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{s.sub}</p>
             </Link>
           ))}
         </div>
