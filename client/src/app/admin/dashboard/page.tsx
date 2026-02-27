@@ -34,17 +34,17 @@ export default async function AdminDashboardPage(): Promise<React.ReactElement> 
             <Link
               key={s.label}
               href={s.href}
-              className="rounded-xl border border-gray-200 bg-white p-4 hover:border-gray-300 transition-colors"
+              className="rounded-xl border border-border bg-card p-4 hover:border-border/80 transition-colors"
             >
-              <p className="text-xs text-gray-500 mb-1">{s.label}</p>
-              <p className="text-2xl font-bold text-gray-900 tabular-nums">{s.value}</p>
-              <p className={`text-xs mt-0.5 ${s.highlight ? 'text-blue-600 font-medium' : 'text-gray-400'}`}>{s.sub}</p>
+              <p className="text-xs text-muted-foreground mb-1">{s.label}</p>
+              <p className="text-2xl font-bold text-foreground tabular-nums">{s.value}</p>
+              <p className={`text-xs mt-0.5 ${s.highlight ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{s.sub}</p>
             </Link>
           ))}
         </div>
 
         {/* Products */}
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Products ({products.length})</h2>
+        <h2 className="text-xl font-semibold text-foreground mb-4">Products ({products.length})</h2>
         <ProductTable products={products} />
       </div>
     </>

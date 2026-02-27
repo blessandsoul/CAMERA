@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
 interface ImageManagerProps {
   images: string[];
@@ -49,18 +50,18 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
   return (
     <div className="p-4">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs font-medium text-gray-900 uppercase tracking-wider">Images</span>
+        <span className="text-xs font-medium text-foreground uppercase tracking-wider">Images</span>
       </div>
       <div className="flex flex-wrap gap-2">
         {images.map((img, idx) => (
-          <div key={img} className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 group">
+          <div key={img} className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted group">
             <Image src={`/images/products/${img}`} alt="" fill className="object-cover" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end justify-center gap-0.5 pb-0.5 opacity-0 group-hover:opacity-100">
               {idx > 0 && (
                 <button
                   type="button"
                   onClick={() => moveImage(idx, -1)}
-                  className="w-4 h-4 bg-white/90 rounded flex items-center justify-center text-gray-700 cursor-pointer hover:bg-white transition-colors"
+                  className="w-4 h-4 bg-white/90 rounded flex items-center justify-center text-foreground cursor-pointer hover:bg-white transition-colors"
                   aria-label="Move image left"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-2.5 h-2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
@@ -70,7 +71,7 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
                 <button
                   type="button"
                   onClick={() => moveImage(idx, 1)}
-                  className="w-4 h-4 bg-white/90 rounded flex items-center justify-center text-gray-700 cursor-pointer hover:bg-white transition-colors"
+                  className="w-4 h-4 bg-white/90 rounded flex items-center justify-center text-foreground cursor-pointer hover:bg-white transition-colors"
                   aria-label="Move image right"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-2.5 h-2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
@@ -89,11 +90,12 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
             </button>
           </div>
         ))}
-        <button
+        <Button
           type="button"
+          variant="outline"
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
-          className="w-16 h-16 rounded-lg border-2 border-dashed border-gray-200 hover:border-gray-400 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 cursor-pointer"
+          className="w-16 h-16 rounded-lg border-2 border-dashed"
           aria-label="Upload image"
         >
           {uploading ? (
@@ -103,11 +105,11 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
           )}
-        </button>
+        </Button>
       </div>
       <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleUpload} />
       {error && (
-        <p className="mt-2 text-xs text-red-600">{error}</p>
+        <p className="mt-2 text-xs text-destructive">{error}</p>
       )}
     </div>
   );
