@@ -10,7 +10,7 @@ export default function NotFound(): React.ReactElement {
           The page you are looking for does not exist or has been moved.
         </p>
         <Link
-          href="/ka"
+          href="/"
           className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:brightness-110 active:scale-[0.98] text-primary-foreground font-semibold rounded-xl transition-all duration-200"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
