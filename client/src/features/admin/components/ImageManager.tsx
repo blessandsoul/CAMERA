@@ -10,21 +10,30 @@ interface ImageManagerProps {
 
 export function ImageManager({ images, setImages }: ImageManagerProps): React.ReactElement {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>): Promise<void> {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    const data = (await res.json()) as { success: boolean; filename?: string };
-    if (data.success && data.filename) {
-      setImages((imgs) => [...imgs, data.filename!]);
+    setError(null);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const data = (await res.json()) as { success: boolean; filename?: string; error?: string };
+      if (data.success && data.filename) {
+        setImages((imgs) => [...imgs, data.filename!]);
+      } else {
+        setError(data.error || `Upload failed (${res.status})`);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Network error');
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = '';
     }
-    setUploading(false);
-    if (fileRef.current) fileRef.current.value = '';
   }
 
   function moveImage(index: number, direction: -1 | 1): void {
@@ -97,6 +106,9 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
         </button>
       </div>
       <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleUpload} />
+      {error && (
+        <p className="mt-2 text-xs text-red-600">{error}</p>
+      )}
     </div>
   );
 }
