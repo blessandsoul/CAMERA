@@ -42,10 +42,10 @@ export function CompareContent({ products, locale }: CompareContentProps): React
   }
 
   function getSpecValue(product: Product, specKey: string): string {
-    const spec = product.specs.find(
-      (s) => (s.key[locale as Locale] || s.key.ka) === specKey
-    );
-    return spec?.value ?? '—';
+    const values = product.specs
+      .filter((s) => (s.key[locale as Locale] || s.key.ka) === specKey)
+      .map((s) => s.value);
+    return values.length > 0 ? values.join(', ') : '—';
   }
 
   function valuesAreDifferent(specKey: string): boolean {

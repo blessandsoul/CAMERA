@@ -302,8 +302,8 @@ export async function getAllProductIds(): Promise<string[]> {
 
 // ── Product spec helpers ──────────────────────────────
 export function getSpecValue(product: Product, kaKey: string): string {
-  const spec = product.specs.find((s) => s.key.ka === kaKey);
-  return spec?.value ?? '';
+  const values = product.specs.filter((s) => s.key.ka === kaKey).map((s) => s.value);
+  return values.join(', ');
 }
 
 // ── Articles ───────────────────────────────────────────

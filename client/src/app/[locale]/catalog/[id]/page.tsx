@@ -95,24 +95,38 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
 
           {/* Specs table */}
-          {product.specs.length > 0 && (
-            <div>
-              <h2 className="font-semibold text-foreground mb-4">{t('catalog.specs')}</h2>
-              <div className="rounded-xl border border-border overflow-hidden">
-                {product.specs.map((spec, i) => (
-                  <div
-                    key={i}
-                    className={`flex items-center justify-between px-4 py-3 ${
-                      i % 2 === 0 ? 'bg-muted' : 'bg-muted/50'
-                    }`}
-                  >
-                    <span className="text-sm text-muted-foreground">{spec.key[l]}</span>
-                    <span className="text-sm font-medium text-foreground tabular-nums">{spec.value}</span>
-                  </div>
-                ))}
+          {product.specs.length > 0 && (() => {
+            // Group specs by key so multi-value specs show as one row
+            const grouped: Array<{ key: typeof product.specs[0]['key']; values: string[] }> = [];
+            const keyMap = new Map<string, number>();
+            for (const spec of product.specs) {
+              const kaKey = spec.key.ka;
+              if (keyMap.has(kaKey)) {
+                grouped[keyMap.get(kaKey)!].values.push(spec.value);
+              } else {
+                keyMap.set(kaKey, grouped.length);
+                grouped.push({ key: spec.key, values: [spec.value] });
+              }
+            }
+            return (
+              <div>
+                <h2 className="font-semibold text-foreground mb-4">{t('catalog.specs')}</h2>
+                <div className="rounded-xl border border-border overflow-hidden">
+                  {grouped.map((group, i) => (
+                    <div
+                      key={i}
+                      className={`flex items-center justify-between px-4 py-3 ${
+                        i % 2 === 0 ? 'bg-muted' : 'bg-muted/50'
+                      }`}
+                    >
+                      <span className="text-sm text-muted-foreground">{group.key[l]}</span>
+                      <span className="text-sm font-medium text-foreground tabular-nums">{group.values.join(', ')}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
       </div>
 

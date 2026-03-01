@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { ImageManager } from './ImageManager';
 import { RelatedProductsPicker } from './RelatedProductsPicker';
+import { PredefinedSpecsSection } from './PredefinedSpecsSection';
 import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { CAMERA_SPECS, PREDEFINED_KA_KEYS, findPredefinedSpecByKaKey } from '@/lib/constants/camera-specs';
 import type { Product } from '@/types/product.types';
 
 interface ProductFormProps {
@@ -30,33 +32,62 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
   const [isFeaturedChecked, setIsFeaturedChecked] = useState<boolean>(product?.isFeatured ?? false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(product?.categories ?? ['cameras']);
   const [relatedIds, setRelatedIds] = useState<string[]>(product?.relatedProducts ?? []);
-  const [specs, setSpecs] = useState<SpecRow[]>(
-    product?.specs.map((s) => ({
-      key_ka: s.key.ka,
-      key_ru: s.key.ru,
-      key_en: s.key.en,
-      value: s.value,
-    })) ?? []
+  // Split existing specs into predefined vs custom
+  const [predefinedSpecs, setPredefinedSpecs] = useState<Record<string, string[]>>(() => {
+    const result: Record<string, string[]> = {};
+    for (const spec of CAMERA_SPECS) {
+      result[spec.id] = [];
+    }
+    if (product?.specs) {
+      for (const s of product.specs) {
+        const predefined = findPredefinedSpecByKaKey(s.key.ka);
+        if (predefined) {
+          result[predefined.id] = [...(result[predefined.id] ?? []), s.value];
+        }
+      }
+    }
+    return result;
+  });
+
+  const [customSpecs, setCustomSpecs] = useState<SpecRow[]>(
+    product?.specs
+      .filter((s) => !PREDEFINED_KA_KEYS.has(s.key.ka))
+      .map((s) => ({ key_ka: s.key.ka, key_ru: s.key.ru, key_en: s.key.en, value: s.value })) ?? []
   );
 
-  function addSpec(): void {
-    setSpecs((s) => [...s, { key_ka: '', key_ru: '', key_en: '', value: '' }]);
+  const handlePredefinedChange = useCallback((values: Record<string, string[]>): void => {
+    setPredefinedSpecs(values);
+  }, []);
+
+  function addCustomSpec(): void {
+    setCustomSpecs((s) => [...s, { key_ka: '', key_ru: '', key_en: '', value: '' }]);
   }
 
-  function removeSpec(i: number): void {
-    setSpecs((s) => s.filter((_, idx) => idx !== i));
+  function removeCustomSpec(i: number): void {
+    setCustomSpecs((s) => s.filter((_, idx) => idx !== i));
   }
 
-  function updateSpec(i: number, field: keyof SpecRow, val: string): void {
-    setSpecs((s) => s.map((row, idx) => (idx === i ? { ...row, [field]: val } : row)));
+  function updateCustomSpec(i: number, field: keyof SpecRow, val: string): void {
+    setCustomSpecs((s) => s.map((row, idx) => (idx === i ? { ...row, [field]: val } : row)));
   }
 
-  const specsJson = JSON.stringify(
-    specs.map((s) => ({
-      key: { ka: s.key_ka, ru: s.key_ru, en: s.key_en },
-      value: s.value,
-    }))
-  );
+  // Serialize all specs (predefined + custom) into flat array
+  const specsJson = JSON.stringify([
+    ...CAMERA_SPECS.flatMap((spec) =>
+      (predefinedSpecs[spec.id] ?? [])
+        .filter((v) => v.trim())
+        .map((value) => ({
+          key: { ka: spec.keyKa, ru: spec.keyRu, en: spec.keyEn },
+          value: value.trim(),
+        }))
+    ),
+    ...customSpecs
+      .filter((s) => s.key_ka.trim() && s.value.trim())
+      .map((s) => ({
+        key: { ka: s.key_ka, ru: s.key_ru, en: s.key_en },
+        value: s.value,
+      })),
+  ]);
 
   const labelClass = 'text-xs text-muted-foreground';
 
@@ -182,25 +213,35 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
           />
         </div>
 
-        {/* Specs */}
+        {/* Predefined Camera Specs */}
+        <div className="p-4">
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">
+            ტექნიკური მახასიათებლები <InfoTooltip text="კამერის წინასწარ განსაზღვრული ტექნიკური პარამეტრები — აირჩიეთ შესაბამისი მნიშვნელობები" />
+          </span>
+          <PredefinedSpecsSection values={predefinedSpecs} onChange={handlePredefinedChange} />
+        </div>
+
+        {/* Custom Specs */}
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-foreground uppercase tracking-wider">სპეციფიკაციები <InfoTooltip text="ტექნიკური მახასიათებლები — Key=პარამეტრის სახელი, Value=მნიშვნელობა" /></span>
-            <Button type="button" variant="ghost" size="sm" onClick={addSpec}>
+            <span className="text-xs font-medium text-foreground uppercase tracking-wider">
+              დამატებითი სპეციფიკაციები <InfoTooltip text="სხვა პარამეტრები რომლებიც არ არის ზემოთ ჩამოთვლილი" />
+            </span>
+            <Button type="button" variant="ghost" size="sm" onClick={addCustomSpec}>
               + დამატება
             </Button>
           </div>
-          {specs.length === 0 ? (
-            <p className="text-xs text-muted-foreground">სპეციფიკაციები ჯერ არ არის.</p>
+          {customSpecs.length === 0 ? (
+            <p className="text-xs text-muted-foreground">დამატებითი სპეციფიკაციები არ არის.</p>
           ) : (
             <div className="space-y-1.5">
-              {specs.map((spec, i) => (
+              {customSpecs.map((spec, i) => (
                 <div key={i} className="grid grid-cols-5 gap-2 items-center">
-                  <Input placeholder="გასაღები KA" value={spec.key_ka} onChange={(e) => updateSpec(i, 'key_ka', e.target.value)} />
-                  <Input placeholder="გასაღები RU" value={spec.key_ru} onChange={(e) => updateSpec(i, 'key_ru', e.target.value)} />
-                  <Input placeholder="გასაღები EN" value={spec.key_en} onChange={(e) => updateSpec(i, 'key_en', e.target.value)} />
-                  <Input placeholder="მნიშვნელობა" value={spec.value} onChange={(e) => updateSpec(i, 'value', e.target.value)} />
-                  <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeSpec(i)} className="text-muted-foreground hover:text-destructive justify-self-start" aria-label="სპეცის წაშლა">
+                  <Input placeholder="გასაღები KA" value={spec.key_ka} onChange={(e) => updateCustomSpec(i, 'key_ka', e.target.value)} />
+                  <Input placeholder="გასაღები RU" value={spec.key_ru} onChange={(e) => updateCustomSpec(i, 'key_ru', e.target.value)} />
+                  <Input placeholder="გასაღები EN" value={spec.key_en} onChange={(e) => updateCustomSpec(i, 'key_en', e.target.value)} />
+                  <Input placeholder="მნიშვნელობა" value={spec.value} onChange={(e) => updateCustomSpec(i, 'value', e.target.value)} />
+                  <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeCustomSpec(i)} className="text-muted-foreground hover:text-destructive justify-self-start" aria-label="სპეცის წაშლა">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                   </Button>
                 </div>
