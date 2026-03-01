@@ -117,7 +117,9 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
                     </div>
                   </TableCell>
                   <TableCell className="px-3 py-2">
-                    <span className="text-sm text-foreground font-medium">{product.name.ka}</span>
+                    <a href={`/ka/catalog/${product.id}`} target="_blank" rel="noopener noreferrer" className="text-sm text-foreground font-medium hover:text-primary hover:underline transition-colors">
+                      {product.name.ka}
+                    </a>
                   </TableCell>
                   <TableCell className="px-3 py-2">
                     <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">{product.category}</span>
@@ -141,6 +143,11 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
                   </TableCell>
                   <TableCell className="px-3 py-2">
                     <div className="flex items-center gap-1">
+                      <a href={`/ka/catalog/${product.id}`} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-muted transition-colors" aria-label="View product page">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                        </svg>
+                      </a>
                       <Link href={`/admin/products/${product.id}/edit`} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" aria-label="Edit product">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
