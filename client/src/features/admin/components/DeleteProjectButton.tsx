@@ -10,7 +10,7 @@ interface DeleteProjectButtonProps {
 
 export function DeleteProjectButton({ projectId, projectTitle }: DeleteProjectButtonProps): React.ReactElement {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
-    if (!confirm(`Delete "${projectTitle}"?`)) {
+    if (!confirm(`წაშალოთ "${projectTitle}"?`)) {
       e.preventDefault();
     }
   }
@@ -22,7 +22,7 @@ export function DeleteProjectButton({ projectId, projectTitle }: DeleteProjectBu
         variant="destructive"
         size="xs"
       >
-        Delete
+        წაშლა
       </Button>
     </form>
   );

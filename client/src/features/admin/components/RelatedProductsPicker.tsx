@@ -97,7 +97,7 @@ export function RelatedProductsPicker({
                 size="icon-xs"
                 onClick={() => handleRemove(p.id)}
                 className="text-muted-foreground hover:text-destructive shrink-0"
-                aria-label={`Remove ${p.name.ka}`}
+                aria-label={`წაშლა: ${p.name.ka}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +118,7 @@ export function RelatedProductsPicker({
       {/* Search / Add */}
       <div className="relative">
         <Input
-          placeholder="Search products to add…"
+          placeholder="პროდუქტის ძებნა დასამატებლად…"
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -133,7 +133,7 @@ export function RelatedProductsPicker({
             <div className="absolute z-20 top-full left-0 right-0 mt-1 rounded-lg border border-border bg-popover shadow-lg max-h-52 overflow-y-auto">
               {filtered.length === 0 ? (
                 <p className="text-xs text-muted-foreground px-3 py-4 text-center">
-                  No products found
+                  პროდუქტები ვერ მოიძებნა
                 </p>
               ) : (
                 filtered.slice(0, 8).map((p) => (
@@ -167,7 +167,7 @@ export function RelatedProductsPicker({
 
       {selectedProducts.length === 0 && (
         <p className="text-xs text-muted-foreground mt-1.5">
-          Auto-select from related categories if empty.
+          ცარიელის შემთხვევაში ავტომატურად შეირჩევა მსგავსი კატეგორიიდან.
         </p>
       )}
     </div>

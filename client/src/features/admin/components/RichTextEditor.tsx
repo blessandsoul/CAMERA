@@ -88,13 +88,13 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps): Reac
     <div className="rounded-xl border border-border overflow-hidden bg-card">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-1 px-3 py-2 border-b border-border bg-muted/50">
-        <Button type="button" variant="ghost" size="icon-xs" onClick={() => editor.chain().focus().toggleBold().run()} className={btnClass(editor.isActive('bold'))} title="Bold">
+        <Button type="button" variant="ghost" size="icon-xs" onClick={() => editor.chain().focus().toggleBold().run()} className={btnClass(editor.isActive('bold'))} title="მუქი">
           <strong className="text-xs">B</strong>
         </Button>
-        <Button type="button" variant="ghost" size="icon-xs" onClick={() => editor.chain().focus().toggleItalic().run()} className={btnClass(editor.isActive('italic'))} title="Italic">
+        <Button type="button" variant="ghost" size="icon-xs" onClick={() => editor.chain().focus().toggleItalic().run()} className={btnClass(editor.isActive('italic'))} title="დახრილი">
           <em className="text-xs">I</em>
         </Button>
-        <Button type="button" variant="ghost" size="icon-xs" onClick={() => editor.chain().focus().toggleUnderline().run()} className={btnClass(editor.isActive('underline'))} title="Underline">
+        <Button type="button" variant="ghost" size="icon-xs" onClick={() => editor.chain().focus().toggleUnderline().run()} className={btnClass(editor.isActive('underline'))} title="ხაზგასმული">
           <u className="text-xs">U</u>
         </Button>
 
@@ -112,23 +112,23 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps): Reac
 
         <div className="w-px h-5 bg-border mx-1" />
 
-        <Button type="button" variant="ghost" size="xs" onClick={() => editor.chain().focus().toggleBulletList().run()} className={btnClass(editor.isActive('bulletList'))} title="Bullet List">
-          &#8226; List
+        <Button type="button" variant="ghost" size="xs" onClick={() => editor.chain().focus().toggleBulletList().run()} className={btnClass(editor.isActive('bulletList'))} title="მარკირებული სია">
+          &#8226; სია
         </Button>
-        <Button type="button" variant="ghost" size="xs" onClick={() => editor.chain().focus().toggleOrderedList().run()} className={btnClass(editor.isActive('orderedList'))} title="Ordered List">
-          1. List
+        <Button type="button" variant="ghost" size="xs" onClick={() => editor.chain().focus().toggleOrderedList().run()} className={btnClass(editor.isActive('orderedList'))} title="ნუმერაციული სია">
+          1. სია
         </Button>
-        <Button type="button" variant="ghost" size="xs" onClick={() => editor.chain().focus().toggleBlockquote().run()} className={btnClass(editor.isActive('blockquote'))} title="Quote">
-          &ldquo; Quote
+        <Button type="button" variant="ghost" size="xs" onClick={() => editor.chain().focus().toggleBlockquote().run()} className={btnClass(editor.isActive('blockquote'))} title="ციტატა">
+          &ldquo; ციტატა
         </Button>
 
         <div className="w-px h-5 bg-border mx-1" />
 
-        <Button type="button" variant="ghost" size="xs" onClick={handleLink} className={btnClass(editor.isActive('link'))} title="Link">
-          Link
+        <Button type="button" variant="ghost" size="xs" onClick={handleLink} className={btnClass(editor.isActive('link'))} title="ბმული">
+          ბმული
         </Button>
-        <Button type="button" variant="ghost" size="xs" onClick={() => fileRef.current?.click()} className={btnClass(false)} title="Image">
-          Img
+        <Button type="button" variant="ghost" size="xs" onClick={() => fileRef.current?.click()} className={btnClass(false)} title="სურათი">
+          სურ.
         </Button>
         <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleImageUpload} />
       </div>
