@@ -103,7 +103,7 @@ export function CategoryProductsBlock({
   const activeProducts =
     active === 'recent'
       ? recentProducts
-      : products.filter((p) => p.categories.includes(active));
+      : products.filter((p) => p.categories.includes(active as ProductCategory));
 
   const noProductsLabel =
     locale === 'ru' ? 'Нет продуктов' : locale === 'en' ? 'No products' : 'პროდუქტი არ არის';
@@ -115,7 +115,7 @@ export function CategoryProductsBlock({
       <div className="flex items-stretch border-b border-border/50 overflow-x-auto scrollbar-none">
         {CATEGORIES.map((cat) => {
           const label = cat.labels[locale] ?? cat.labels['en'];
-          const count = products.filter((p) => p.categories.includes(cat.value)).length;
+          const count = products.filter((p) => p.categories.includes(cat.value as ProductCategory)).length;
           const isActive = active === cat.value;
 
           return (

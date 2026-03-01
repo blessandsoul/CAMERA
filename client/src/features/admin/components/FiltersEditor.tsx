@@ -61,9 +61,9 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
   return (
     <section className="rounded-xl border border-border bg-card">
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-        <span className="text-xs font-medium text-foreground uppercase tracking-wider">Filters <InfoTooltip text="ფილტრები კატალოგში — მომხმარებელი ფილტრავს პროდუქტებს ამ პარამეტრების მიხედვით" /></span>
+        <span className="text-xs font-medium text-foreground uppercase tracking-wider">ფილტრები <InfoTooltip text="ფილტრები კატალოგში — მომხმარებელი ფილტრავს პროდუქტებს ამ პარამეტრების მიხედვით" /></span>
         <Button type="button" variant="ghost" size="sm" onClick={() => addFilter(activeFilterTab)}>
-          + Add
+          + დამატება
         </Button>
       </div>
 
@@ -81,7 +81,7 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
                 : 'text-muted-foreground'
             }`}
           >
-            {cat.label.en || cat.id}
+            {cat.label.ka || cat.label.en || cat.id}
           </Button>
         ))}
       </div>
@@ -89,11 +89,11 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
       <div className="px-4 pb-3">
         <div className="grid grid-cols-12 gap-2 text-[10px] text-muted-foreground uppercase tracking-wider py-1 border-b border-border mb-1">
           <div className="col-span-2 flex items-center">ID <InfoTooltip text="ფილტრის უნიკალური იდენტიფიკატორი" /></div>
-          <div className="col-span-2 flex items-center">Spec Key <InfoTooltip text="პროდუქტის სპეციფიკაციის გასაღები — უნდა ემთხვეოდეს პროდუქტის Spec Key KA ველს" /></div>
+          <div className="col-span-2 flex items-center">სპეც. გასაღები <InfoTooltip text="პროდუქტის სპეციფიკაციის გასაღები — უნდა ემთხვეოდეს პროდუქტის Spec Key KA ველს" /></div>
           <div className="col-span-2">KA</div>
           <div className="col-span-2">RU</div>
           <div className="col-span-2">EN</div>
-          <div className="flex items-center">Pri <InfoTooltip text="პრიორიტეტი — რაც ნაკლებია, ზემოთ გამოჩნდება" /></div>
+          <div className="flex items-center">პრი <InfoTooltip text="პრიორიტეტი — რაც ნაკლებია, ზემოთ გამოჩნდება" /></div>
           <div></div>
         </div>
 
@@ -123,7 +123,7 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
               />
             </div>
             <div>
-              <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeFilter(activeFilterTab, fIdx)} className="text-muted-foreground hover:text-destructive" aria-label="Delete filter">
+              <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeFilter(activeFilterTab, fIdx)} className="text-muted-foreground hover:text-destructive" aria-label="ფილტრის წაშლა">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </Button>
             </div>
@@ -131,7 +131,7 @@ export function FiltersEditor({ config, setConfig }: FiltersEditorProps): React.
         ))}
 
         {(config.filters[activeFilterTab] ?? []).length === 0 && (
-          <p className="text-xs text-muted-foreground py-4 text-center">No filters for this category.</p>
+          <p className="text-xs text-muted-foreground py-4 text-center">ამ კატეგორიას ფილტრები არ აქვს.</p>
         )}
       </div>
     </section>

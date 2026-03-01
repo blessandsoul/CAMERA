@@ -21,9 +21,9 @@ export function CatalogSettingsEditor({ initialConfig }: Props): React.ReactElem
     setMessage(null);
     const result = await saveCatalogConfig(JSON.stringify(config));
     if (result.success) {
-      setMessage({ type: 'success', text: 'Saved' });
+      setMessage({ type: 'success', text: 'შენახულია' });
     } else {
-      setMessage({ type: 'error', text: result.error ?? 'Failed to save' });
+      setMessage({ type: 'error', text: result.error ?? 'შენახვა ვერ მოხერხდა' });
     }
     setSaving(false);
   }
@@ -36,7 +36,7 @@ export function CatalogSettingsEditor({ initialConfig }: Props): React.ReactElem
           onClick={handleSave}
           disabled={saving}
         >
-          {saving ? 'Saving...' : 'Save Changes'}
+          {saving ? 'შენახვა...' : 'ცვლილებების შენახვა'}
         </Button>
         {message && (
           <span className={`text-sm ${message.type === 'success' ? 'text-success' : 'text-destructive'}`}>

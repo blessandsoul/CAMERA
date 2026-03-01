@@ -99,22 +99,22 @@ export function HoursSection({ settings, update }: SectionProps): React.ReactEle
 export function StatsSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitleClass}>Statistics <InfoTooltip text="სტატისტიკის რიცხვები — გამოჩნდება მთავარ გვერდზე 'რატომ ჩვენ' სექციაში" /></span>
+      <span className={sectionTitleClass}>სტატისტიკა <InfoTooltip text="სტატისტიკის რიცხვები — გამოჩნდება მთავარ გვერდზე 'რატომ ჩვენ' სექციაში" /></span>
       <div className="grid grid-cols-4 gap-3 mt-2">
         <div>
-          <Label className={labelClass}>Cameras Installed <InfoTooltip text="დამონტაჟებული კამერების საერთო რაოდენობა. მაგ: 500+" /></Label>
+          <Label className={labelClass}>დამონტაჟებული კამერები <InfoTooltip text="დამონტაჟებული კამერების საერთო რაოდენობა. მაგ: 500+" /></Label>
           <Input value={settings.stats.camerasInstalled} onChange={(e) => update('stats', { camerasInstalled: e.target.value })} placeholder="500+" />
         </div>
         <div>
-          <Label className={labelClass}>Projects <InfoTooltip text="დასრულებული პროექტების რაოდენობა. მაგ: 120+" /></Label>
+          <Label className={labelClass}>პროექტები <InfoTooltip text="დასრულებული პროექტების რაოდენობა. მაგ: 120+" /></Label>
           <Input value={settings.stats.projectsCompleted} onChange={(e) => update('stats', { projectsCompleted: e.target.value })} placeholder="120+" />
         </div>
         <div>
-          <Label className={labelClass}>Years Exp. <InfoTooltip text="გამოცდილების წლები. მაგ: 5+" /></Label>
+          <Label className={labelClass}>გამოცდილება (წ.) <InfoTooltip text="გამოცდილების წლები. მაგ: 5+" /></Label>
           <Input value={settings.stats.yearsExperience} onChange={(e) => update('stats', { yearsExperience: e.target.value })} placeholder="5+" />
         </div>
         <div>
-          <Label className={labelClass}>Warranty (yrs) <InfoTooltip text="სტანდარტული გარანტიის ვადა წლებში" /></Label>
+          <Label className={labelClass}>გარანტია (წ.) <InfoTooltip text="სტანდარტული გარანტიის ვადა წლებში" /></Label>
           <Input value={settings.stats.warrantyYears} onChange={(e) => update('stats', { warrantyYears: e.target.value })} placeholder="2" />
         </div>
       </div>
@@ -126,27 +126,27 @@ export function AnnouncementSection({ settings, update }: SectionProps): React.R
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className={sectionTitleClass}>Announcement Banner <InfoTooltip text="ბანერი საიტის ზედა ნაწილში — აქციები, სიახლეები და სხვა შეტყობინებები" /></span>
+        <span className={sectionTitleClass}>განცხადების ბანერი <InfoTooltip text="ბანერი საიტის ზედა ნაწილში — აქციები, სიახლეები და სხვა შეტყობინებები" /></span>
         <div className="flex items-center gap-1.5">
           <Checkbox
             id="announcement-enabled"
             checked={settings.announcement.enabled}
             onCheckedChange={(checked) => update('announcement', { enabled: checked === true })}
           />
-          <Label htmlFor="announcement-enabled" className="text-xs text-muted-foreground cursor-pointer">Enabled <InfoTooltip text="ჩართვისას ბანერი გამოჩნდება ყველა გვერდის ზედა ნაწილში" /></Label>
+          <Label htmlFor="announcement-enabled" className="text-xs text-muted-foreground cursor-pointer">ჩართული <InfoTooltip text="ჩართვისას ბანერი გამოჩნდება ყველა გვერდის ზედა ნაწილში" /></Label>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-3">
         <div>
-          <Label className={labelClass}>Text KA</Label>
+          <Label className={labelClass}>ტექსტი KA</Label>
           <Input value={settings.announcement.text_ka} onChange={(e) => update('announcement', { text_ka: e.target.value })} placeholder="ქართულად" />
         </div>
         <div>
-          <Label className={labelClass}>Text RU</Label>
+          <Label className={labelClass}>ტექსტი RU</Label>
           <Input value={settings.announcement.text_ru} onChange={(e) => update('announcement', { text_ru: e.target.value })} placeholder="По-русски" />
         </div>
         <div>
-          <Label className={labelClass}>Text EN</Label>
+          <Label className={labelClass}>ტექსტი EN</Label>
           <Input value={settings.announcement.text_en} onChange={(e) => update('announcement', { text_en: e.target.value })} placeholder="In English" />
         </div>
       </div>
@@ -157,7 +157,7 @@ export function AnnouncementSection({ settings, update }: SectionProps): React.R
 export function SocialSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitleClass}>Social Links <InfoTooltip text="სოციალური ქსელების ბმულები — გამოჩნდება საიტის ქვედა ნაწილში" /></span>
+      <span className={sectionTitleClass}>სოციალური ბმულები <InfoTooltip text="სოციალური ქსელების ბმულები — გამოჩნდება საიტის ქვედა ნაწილში" /></span>
       <div className="grid grid-cols-3 gap-3 mt-2">
         <div>
           <Label className={labelClass}>Facebook <InfoTooltip text="Facebook გვერდის სრული URL" /></Label>
