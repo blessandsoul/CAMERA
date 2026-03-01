@@ -28,11 +28,11 @@ export default function AdminLoginPage() {
       if (data.success) {
         router.push('/admin/dashboard');
       } else {
-        setError('Wrong password');
+        setError('არასწორი პაროლი');
         setLoading(false);
       }
     } catch {
-      setError('Network error');
+      setError('ქსელის შეცდომა');
       setLoading(false);
     }
   }
@@ -44,13 +44,13 @@ export default function AdminLoginPage() {
           <div className="w-7 h-7 bg-foreground rounded-lg flex items-center justify-center">
             <span className="text-background font-bold text-xs">TB</span>
           </div>
-          <span className="font-semibold text-foreground text-lg">TechBrain Admin</span>
+          <span className="font-semibold text-foreground text-lg">TechBrain ადმინი</span>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <Label htmlFor="admin-password" className="text-sm text-muted-foreground mb-1.5">
-              Password
+              პაროლი
             </Label>
             <Input
               id="admin-password"
@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter admin password"
+              placeholder="შეიყვანეთ ადმინის პაროლი"
             />
           </div>
 
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
             disabled={loading}
             className="w-full"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'შესვლა...' : 'შესვლა'}
           </Button>
         </form>
       </div>

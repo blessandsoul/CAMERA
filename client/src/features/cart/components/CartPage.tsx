@@ -128,7 +128,7 @@ export function CartPage({ locale, phone }: CartPageProps) {
               key={product.id}
               className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-card border border-border"
             >
-              <Link href={`/${locale}/catalog/${product.id}`} className="flex gap-4 flex-1 min-w-0 group">
+              <Link href={`/${locale}/catalog/${product.slug}`} className="flex gap-4 flex-1 min-w-0 group">
               <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">
                 {product.images[0] ? (
                   <Image

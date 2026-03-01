@@ -24,7 +24,7 @@ export default async function EditProductPage({ params }: EditProductPageProps):
     <>
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
-        <h1 className="text-xl font-semibold text-foreground mb-8">Edit: {product.name.ka}</h1>
+        <h1 className="text-xl font-semibold text-foreground mb-8">რედაქტირება: {product.name.ka}</h1>
         <ProductForm product={product} allProducts={allProducts} action={updateProductWithId} />
       </div>
     </>

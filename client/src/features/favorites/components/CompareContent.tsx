@@ -78,7 +78,7 @@ export function CompareContent({ products, locale }: CompareContentProps): React
 
                 return (
                   <th key={product.id} className="p-3 border-b border-border text-center min-w-[180px]">
-                    <Link href={`/${locale}/catalog/${product.id}`} className="block group">
+                    <Link href={`/${locale}/catalog/${product.slug}`} className="block group">
                       <div className="relative w-20 h-20 mx-auto mb-3 rounded-lg overflow-hidden bg-muted border border-border">
                         {hasImage ? (
                           <Image
@@ -98,7 +98,7 @@ export function CompareContent({ products, locale }: CompareContentProps): React
                         {name}
                       </span>
                     </Link>
-                    {product.category !== 'services' && (
+                    {!product.categories.includes('services') && (
                       <div className="mt-2 font-bold text-lg text-foreground tabular-nums">
                         {product.price}<span className="text-primary ml-1 text-sm">₾</span>
                       </div>

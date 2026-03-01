@@ -19,10 +19,10 @@ export default async function AdminDashboardPage(): Promise<React.ReactElement> 
   const totalRevenue = orders.filter((o) => o.status === 'completed').reduce((s, o) => s + o.total, 0);
 
   const stats = [
-    { label: 'Products', value: `${activeProducts}/${products.length}`, sub: 'active', href: '/admin/dashboard', tip: 'აქტიური / საერთო პროდუქტების რაოდენობა' },
-    { label: 'Articles', value: `${publishedArticles}/${articles.length}`, sub: 'published', href: '/admin/articles', tip: 'გამოქვეყნებული / საერთო სტატიების რაოდენობა' },
-    { label: 'Orders', value: String(orders.length), sub: newOrders > 0 ? `${newOrders} new` : 'all time', href: '/admin/orders', highlight: newOrders > 0, tip: 'შეკვეთების საერთო რაოდენობა' },
-    { label: 'Revenue', value: `${totalRevenue} ₾`, sub: 'completed', href: '/admin/orders', tip: 'შემოსავალი დასრულებული შეკვეთებიდან' },
+    { label: 'პროდუქტები', value: `${activeProducts}/${products.length}`, sub: 'აქტიური', href: '/admin/dashboard', tip: 'აქტიური / საერთო პროდუქტების რაოდენობა' },
+    { label: 'სტატიები', value: `${publishedArticles}/${articles.length}`, sub: 'გამოქვეყნებული', href: '/admin/articles', tip: 'გამოქვეყნებული / საერთო სტატიების რაოდენობა' },
+    { label: 'შეკვეთები', value: String(orders.length), sub: newOrders > 0 ? `${newOrders} ახალი` : 'სულ', href: '/admin/orders', highlight: newOrders > 0, tip: 'შეკვეთების საერთო რაოდენობა' },
+    { label: 'შემოსავალი', value: `${totalRevenue} ₾`, sub: 'დასრულებული', href: '/admin/orders', tip: 'შემოსავალი დასრულებული შეკვეთებიდან' },
   ];
 
   return (
@@ -45,7 +45,7 @@ export default async function AdminDashboardPage(): Promise<React.ReactElement> 
         </div>
 
         {/* Products */}
-        <h2 className="text-xl font-semibold text-foreground mb-4">Products ({products.length})</h2>
+        <h2 className="text-xl font-semibold text-foreground mb-4">პროდუქტები ({products.length})</h2>
         <ProductTable products={products} />
       </div>
     </>

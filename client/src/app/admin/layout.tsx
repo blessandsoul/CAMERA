@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 export const metadata: Metadata = {
-  title: 'TechBrain Admin',
+  title: 'TechBrain ადმინი',
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }): React.ReactElement {

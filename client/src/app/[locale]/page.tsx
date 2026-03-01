@@ -217,7 +217,9 @@ export default async function HomePage({ params }: HomePageProps) {
           <CategoryNavBar
             locale={locale as Locale}
             counts={allProducts.reduce<Record<string, number>>((acc, p) => {
-              acc[p.category] = (acc[p.category] || 0) + 1;
+              for (const cat of p.categories) {
+                acc[cat] = (acc[cat] || 0) + 1;
+              }
               return acc;
             }, {})}
             badge={t('home.hero_badge')}

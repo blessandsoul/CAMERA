@@ -17,13 +17,13 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-xl font-semibold text-foreground">Projects ({projects.length})</h1>
+          <h1 className="text-xl font-semibold text-foreground">პროექტები ({projects.length})</h1>
           <Button asChild>
             <Link href="/admin/projects/new" className="flex items-center gap-1.5">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
-              New Project
+              ახალი პროექტი
             </Link>
           </Button>
         </div>
@@ -35,9 +35,9 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" />
               </svg>
             </div>
-            <p className="text-sm text-muted-foreground mb-3">No projects yet</p>
+            <p className="text-sm text-muted-foreground mb-3">პროექტები ჯერ არ არის</p>
             <Button variant="outline" size="sm" asChild>
-              <Link href="/admin/projects/new">Create your first project</Link>
+              <Link href="/admin/projects/new">შექმენით პირველი პროექტი</Link>
             </Button>
           </div>
         ) : (
@@ -56,7 +56,7 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
                     />
                     {!project.isActive && (
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-foreground/70 text-background text-[10px] font-medium">
-                        Draft
+                        მონახაზი
                       </div>
                     )}
                   </div>
@@ -68,7 +68,7 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <span className="capitalize">{project.type}</span>
                     <span>·</span>
-                    <span>{project.cameras} cameras</span>
+                    <span>{project.cameras} კამერა</span>
                     <span>·</span>
                     <span>{project.year}</span>
                   </div>
@@ -76,7 +76,7 @@ export default async function AdminProjectsPage(): Promise<React.ReactElement> {
                   <div className="flex items-center gap-2 pt-2">
                     <Button variant="outline" size="xs" asChild>
                       <Link href={`/admin/projects/${project.id}/edit`}>
-                        Edit
+                        რედაქტირება
                       </Link>
                     </Button>
                     <DeleteProjectButton projectId={project.id} projectTitle={project.title.ka} />

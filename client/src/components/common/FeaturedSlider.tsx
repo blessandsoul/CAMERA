@@ -32,7 +32,7 @@ function SlidePanel({ product, locale, viewLabel, priceOnRequest, current, total
   const name = product.name[locale];
   const description = product.description[locale];
   const hasImage = product.images.length > 0;
-  const isService = product.category === 'services';
+  const isService = product.categories.includes('services');
 
   return (
     <div className="w-full shrink-0">
@@ -63,7 +63,7 @@ function SlidePanel({ product, locale, viewLabel, priceOnRequest, current, total
         {/* Category */}
         <div className="absolute top-3 left-0 z-10">
           <span className="inline-block text-[9px] font-bold uppercase tracking-[0.15em] pl-2.5 pr-3 py-1 border-l-2 border-primary/70 bg-background/90 backdrop-blur-sm text-muted-foreground">
-            {product.category}
+            {product.categories[0]}
           </span>
         </div>
 
@@ -92,7 +92,7 @@ function SlidePanel({ product, locale, viewLabel, priceOnRequest, current, total
             </span>
           )}
           <Button asChild size="sm" className="rounded-lg shrink-0">
-            <Link href={`/${locale}/catalog/${product.id}`}>{viewLabel}</Link>
+            <Link href={`/${locale}/catalog/${product.slug}`}>{viewLabel}</Link>
           </Button>
         </div>
       </div>

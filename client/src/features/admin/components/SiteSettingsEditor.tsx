@@ -30,7 +30,7 @@ export function SiteSettingsEditor({ initialSettings }: Props): React.ReactEleme
     setSaving(true);
     setMessage(null);
     const result = await saveSiteSettings(JSON.stringify(settings));
-    setMessage(result.success ? { type: 'success', text: 'Saved!' } : { type: 'error', text: result.error ?? 'Error' });
+    setMessage(result.success ? { type: 'success', text: 'შენახულია!' } : { type: 'error', text: result.error ?? 'შეცდომა' });
     setSaving(false);
   }
 
@@ -44,7 +44,7 @@ export function SiteSettingsEditor({ initialSettings }: Props): React.ReactEleme
           onClick={handleSave}
           disabled={saving}
         >
-          {saving ? 'Saving...' : 'Save Changes'}
+          {saving ? 'შენახვა...' : 'ცვლილებების შენახვა'}
         </Button>
         {message && (
           <span className={`text-sm ${message.type === 'success' ? 'text-success' : 'text-destructive'}`}>

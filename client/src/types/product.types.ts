@@ -16,7 +16,7 @@ export interface ProductSpec {
 export interface Product {
   id: string;
   slug: string;
-  category: ProductCategory;
+  categories: ProductCategory[];
   price: number;
   originalPrice?: number; // set when product is on sale; price becomes the discounted price
   currency: string;

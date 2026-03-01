@@ -72,7 +72,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
       <div className="rounded-xl border border-border bg-card divide-y divide-border">
         {/* Cover Image */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Cover Image <InfoTooltip text="სტატიის მთავარი სურათი — გამოჩნდება სტატიების სიაში და სტატიის თავში" /></span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">გარეკანი <InfoTooltip text="სტატიის მთავარი სურათი — გამოჩნდება სტატიების სიაში და სტატიის თავში" /></span>
           <div className="flex items-center gap-3">
             {coverImage && (
               <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-muted">
@@ -81,7 +81,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
                   type="button"
                   onClick={() => setCoverImage('')}
                   className="absolute top-0.5 right-0.5 w-4 h-4 bg-black/60 rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/80 transition-colors"
-                  aria-label="Remove cover"
+                  aria-label="გარეკანის წაშლა"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-2.5 h-2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -96,7 +96,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
               onClick={() => fileRef.current?.click()}
               disabled={uploading}
             >
-              {uploading ? 'Uploading...' : 'Upload'}
+              {uploading ? 'ატვირთვა...' : 'ატვირთვა'}
             </Button>
             <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleCoverUpload} />
           </div>
@@ -106,15 +106,15 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
         <div className="p-4">
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
-              <Label className={labelClass}>Title <InfoTooltip text="სტატიის სათაური — გამოჩნდება საიტზე და SEO-ში" /></Label>
+              <Label className={labelClass}>სათაური <InfoTooltip text="სტატიის სათაური — გამოჩნდება საიტზე და SEO-ში" /></Label>
               <Input name="title" defaultValue={article?.title ?? ''} placeholder="სტატიის სათაური" required />
             </div>
             <div className="col-span-2">
-              <Label className={labelClass}>Slug (URL) <InfoTooltip text="URL მისამართი ლათინურად. მაგ: rogor-aviron-kamera" /></Label>
+              <Label className={labelClass}>სლაგი (URL) <InfoTooltip text="URL მისამართი ლათინურად. მაგ: rogor-aviron-kamera" /></Label>
               <Input name="slug" defaultValue={article?.slug ?? ''} placeholder="rogor-aviron-kamera" />
             </div>
             <div>
-              <Label className={labelClass}>Category <InfoTooltip text="სტატიის კატეგორია — განსაზღვრავს რა სექციაში მოხვდება" /></Label>
+              <Label className={labelClass}>კატეგორია <InfoTooltip text="სტატიის კატეგორია — განსაზღვრავს რა სექციაში მოხვდება" /></Label>
               <Select value={categoryValue} onValueChange={setCategoryValue}>
                 <SelectTrigger className="w-full">
                   <SelectValue />
@@ -130,7 +130,7 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
             </div>
             <div className="flex items-end gap-4 pb-0.5">
               <div>
-                <Label className={labelClass}>Min <InfoTooltip text="სავარაუდო კითხვის დრო წუთებში" /></Label>
+                <Label className={labelClass}>წთ <InfoTooltip text="სავარაუდო კითხვის დრო წუთებში" /></Label>
                 <Input name="readMin" type="number" min="1" max="60" defaultValue={article?.readMin ?? 5} className="w-16" />
               </div>
               <div className="flex items-center gap-1.5 pb-1">
@@ -139,11 +139,11 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
                   checked={isPublished}
                   onCheckedChange={(checked) => setIsPublished(checked === true)}
                 />
-                <Label htmlFor="isPublished" className="text-xs text-muted-foreground cursor-pointer">Published <InfoTooltip text="გამოქვეყნებული სტატია ხილულია საიტზე. Draft არის მხოლოდ ადმინში" /></Label>
+                <Label htmlFor="isPublished" className="text-xs text-muted-foreground cursor-pointer">გამოქვეყნებული <InfoTooltip text="გამოქვეყნებული სტატია ხილულია საიტზე. მონახაზი არის მხოლოდ ადმინში" /></Label>
               </div>
             </div>
             <div className="col-span-4">
-              <Label className={labelClass}>Excerpt <InfoTooltip text="მოკლე აღწერა — გამოჩნდება სტატიების სიაში და SEO description-ში" /></Label>
+              <Label className={labelClass}>მოკლე აღწერა <InfoTooltip text="მოკლე აღწერა — გამოჩნდება სტატიების სიაში და SEO description-ში" /></Label>
               <Textarea name="excerpt" defaultValue={article?.excerpt ?? ''} rows={2} className="resize-y" placeholder="მოკლე აღწერა..." />
             </div>
           </div>
@@ -151,14 +151,14 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
 
         {/* WYSIWYG Editor */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">Content <InfoTooltip text="სტატიის ძირითადი ტექსტი — შეგიძლიათ გამოიყენოთ ფორმატირება, სურათები და ბმულები" /></span>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">შინაარსი <InfoTooltip text="სტატიის ძირითადი ტექსტი — შეგიძლიათ გამოიყენოთ ფორმატირება, სურათები და ბმულები" /></span>
           <RichTextEditor content={initialContent} onChange={setBodyHtml} />
         </div>
       </div>
 
       {/* Submit */}
       <Button type="submit" className="mt-4">
-        Save Article
+        სტატიის შენახვა
       </Button>
     </form>
   );

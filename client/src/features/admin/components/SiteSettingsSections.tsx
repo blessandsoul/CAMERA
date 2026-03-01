@@ -17,18 +17,18 @@ const sectionTitleClass = 'text-xs font-medium text-foreground uppercase trackin
 export function ContactSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitleClass}>Contact <InfoTooltip text="საკონტაქტო ინფორმაცია — გამოჩნდება საიტის ქვედა ნაწილში და საკონტაქტო გვერდზე" /></span>
+      <span className={sectionTitleClass}>კონტაქტი <InfoTooltip text="საკონტაქტო ინფორმაცია — გამოჩნდება საიტის ქვედა ნაწილში და საკონტაქტო გვერდზე" /></span>
       <div className="grid grid-cols-3 gap-3 mt-2">
         <div>
-          <Label className={labelClass}>Phone <InfoTooltip text="ძირითადი ტელეფონის ნომერი" /></Label>
+          <Label className={labelClass}>ტელეფონი <InfoTooltip text="ძირითადი ტელეფონის ნომერი" /></Label>
           <Input value={settings.contact.phone} onChange={(e) => update('contact', { phone: e.target.value })} placeholder="597470518" />
         </div>
         <div>
           <Label className={labelClass}>WhatsApp <InfoTooltip text="WhatsApp ნომერი — თუ ტელეფონის ნომრისგან განსხვავებულია" /></Label>
-          <Input value={settings.contact.whatsapp} onChange={(e) => update('contact', { whatsapp: e.target.value })} placeholder="Same as phone" />
+          <Input value={settings.contact.whatsapp} onChange={(e) => update('contact', { whatsapp: e.target.value })} placeholder="ტელეფონის იდენტური" />
         </div>
         <div>
-          <Label className={labelClass}>Email <InfoTooltip text="ელ.ფოსტა — გამოჩნდება საიტზე კლიენტებისთვის" /></Label>
+          <Label className={labelClass}>ელ.ფოსტა <InfoTooltip text="ელ.ფოსტა — გამოჩნდება საიტზე კლიენტებისთვის" /></Label>
           <Input type="email" value={settings.contact.email} onChange={(e) => update('contact', { email: e.target.value })} placeholder="info@techbrain.ge" />
         </div>
       </div>
@@ -39,30 +39,30 @@ export function ContactSection({ settings, update }: SectionProps): React.ReactE
 export function BusinessSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitleClass}>Business <InfoTooltip text="კომპანიის ინფორმაცია — გამოიყენება SEO-სთვის და Google Maps-ზე" /></span>
+      <span className={sectionTitleClass}>ბიზნესი <InfoTooltip text="კომპანიის ინფორმაცია — გამოიყენება SEO-სთვის და Google Maps-ზე" /></span>
       <div className="grid grid-cols-3 gap-3 mt-2">
         <div className="col-span-3">
-          <Label className={labelClass}>Company Name <InfoTooltip text="კომპანიის ოფიციალური სახელი" /></Label>
+          <Label className={labelClass}>კომპანიის სახელი <InfoTooltip text="კომპანიის ოფიციალური სახელი" /></Label>
           <Input value={settings.business.companyName} onChange={(e) => update('business', { companyName: e.target.value })} />
         </div>
         <div>
-          <Label className={labelClass}>City <InfoTooltip text="ქალაქი სადაც მდებარეობს ოფისი" /></Label>
+          <Label className={labelClass}>ქალაქი <InfoTooltip text="ქალაქი სადაც მდებარეობს ოფისი" /></Label>
           <Input value={settings.business.address.city} onChange={(e) => update('business', { address: { ...settings.business.address, city: e.target.value } })} />
         </div>
         <div>
-          <Label className={labelClass}>Region <InfoTooltip text="რეგიონი / მხარე" /></Label>
+          <Label className={labelClass}>რეგიონი <InfoTooltip text="რეგიონი / მხარე" /></Label>
           <Input value={settings.business.address.region} onChange={(e) => update('business', { address: { ...settings.business.address, region: e.target.value } })} />
         </div>
         <div>
-          <Label className={labelClass}>Country Code <InfoTooltip text="ქვეყნის ISO კოდი, მაგ: GE (საქართველო)" /></Label>
+          <Label className={labelClass}>ქვეყნის კოდი <InfoTooltip text="ქვეყნის ISO კოდი, მაგ: GE (საქართველო)" /></Label>
           <Input value={settings.business.address.country} onChange={(e) => update('business', { address: { ...settings.business.address, country: e.target.value } })} placeholder="GE" />
         </div>
         <div>
-          <Label className={labelClass}>Latitude <InfoTooltip text="განედი — Google Maps-ის კოორდინატები ოფისის ადგილმდებარეობისთვის" /></Label>
+          <Label className={labelClass}>განედი <InfoTooltip text="განედი — Google Maps-ის კოორდინატები ოფისის ადგილმდებარეობისთვის" /></Label>
           <Input type="number" step="0.0001" value={settings.business.geo.latitude} onChange={(e) => update('business', { geo: { ...settings.business.geo, latitude: Number(e.target.value) } })} />
         </div>
         <div>
-          <Label className={labelClass}>Longitude <InfoTooltip text="გრძედი — Google Maps-ის კოორდინატები ოფისის ადგილმდებარეობისთვის" /></Label>
+          <Label className={labelClass}>გრძედი <InfoTooltip text="გრძედი — Google Maps-ის კოორდინატები ოფისის ადგილმდებარეობისთვის" /></Label>
           <Input type="number" step="0.0001" value={settings.business.geo.longitude} onChange={(e) => update('business', { geo: { ...settings.business.geo, longitude: Number(e.target.value) } })} />
         </div>
       </div>
@@ -73,22 +73,22 @@ export function BusinessSection({ settings, update }: SectionProps): React.React
 export function HoursSection({ settings, update }: SectionProps): React.ReactElement {
   return (
     <div className="p-4">
-      <span className={sectionTitleClass}>Business Hours <InfoTooltip text="სამუშაო საათები — გამოჩნდება საიტზე და Google-ის ბიზნეს პროფილში" /></span>
+      <span className={sectionTitleClass}>სამუშაო საათები <InfoTooltip text="სამუშაო საათები — გამოჩნდება საიტზე და Google-ის ბიზნეს პროფილში" /></span>
       <div className="grid grid-cols-4 gap-3 mt-2">
         <div>
-          <Label className={labelClass}>Weekdays Open <InfoTooltip text="სამუშაო დღეების (ორშ-შაბ) გახსნის დრო" /></Label>
+          <Label className={labelClass}>სამუშაო დღეები — გახსნა <InfoTooltip text="სამუშაო დღეების (ორშ-შაბ) გახსნის დრო" /></Label>
           <Input type="time" value={settings.hours.weekdays.open} onChange={(e) => update('hours', { weekdays: { ...settings.hours.weekdays, open: e.target.value } })} />
         </div>
         <div>
-          <Label className={labelClass}>Weekdays Close <InfoTooltip text="სამუშაო დღეების (ორშ-შაბ) დახურვის დრო" /></Label>
+          <Label className={labelClass}>სამუშაო დღეები — დახურვა <InfoTooltip text="სამუშაო დღეების (ორშ-შაბ) დახურვის დრო" /></Label>
           <Input type="time" value={settings.hours.weekdays.close} onChange={(e) => update('hours', { weekdays: { ...settings.hours.weekdays, close: e.target.value } })} />
         </div>
         <div>
-          <Label className={labelClass}>Sunday Open <InfoTooltip text="კვირის გახსნის დრო" /></Label>
+          <Label className={labelClass}>კვირა — გახსნა <InfoTooltip text="კვირის გახსნის დრო" /></Label>
           <Input type="time" value={settings.hours.sunday.open} onChange={(e) => update('hours', { sunday: { ...settings.hours.sunday, open: e.target.value } })} />
         </div>
         <div>
-          <Label className={labelClass}>Sunday Close <InfoTooltip text="კვირის დახურვის დრო" /></Label>
+          <Label className={labelClass}>კვირა — დახურვა <InfoTooltip text="კვირის დახურვის დრო" /></Label>
           <Input type="time" value={settings.hours.sunday.close} onChange={(e) => update('hours', { sunday: { ...settings.hours.sunday, close: e.target.value } })} />
         </div>
       </div>

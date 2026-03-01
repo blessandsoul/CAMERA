@@ -12,7 +12,7 @@ import type { HeroVariantProps } from './types';
 export function HeroVariantD({ products, locale, phone, labels, currentIndex, dir, onNavigate }: HeroVariantProps) {
   const product = products[currentIndex];
   const name = product.name[locale] ?? product.name['en'] ?? '';
-  const isService = product.category === 'services';
+  const isService = product.categories.includes('services');
   const imageSrc = product.images.length > 0
     ? product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}`
     : null;
@@ -54,7 +54,7 @@ export function HeroVariantD({ products, locale, phone, labels, currentIndex, di
           className="absolute top-6 right-6 z-10 flex flex-col items-end gap-2"
         >
           <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider">
-            {product.category.replace('-', ' ')}
+            {product.categories[0].replace('-', ' ')}
           </span>
           {!isService && (
             <span className="text-2xl font-black text-white tabular-nums">

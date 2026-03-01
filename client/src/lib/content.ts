@@ -121,7 +121,7 @@ function dbProductToProduct(
   return {
     id: p.id,
     slug: p.slug,
-    category: p.category as ProductCategory,
+    categories: (p.categories as string[]).map((c) => c as ProductCategory),
     price: p.price,
     originalPrice: p.originalPrice ?? undefined,
     currency: p.currency,
@@ -202,6 +202,21 @@ export async function getProductById(id: string): Promise<Product | null> {
   return dbProductToProduct(row);
 }
 
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const row = await prisma.product.findUnique({
+    where: { slug },
+    include: { specs: true },
+  });
+  if (!row) return null;
+  return dbProductToProduct(row);
+}
+
+export async function getProductBySlugOrId(slugOrId: string): Promise<Product | null> {
+  const bySlug = await getProductBySlug(slugOrId);
+  if (bySlug) return bySlug;
+  return getProductById(slugOrId);
+}
+
 const RELATED_CATEGORIES: Record<ProductCategory, ProductCategory[]> = {
   cameras: ['accessories', 'storage'],
   'nvr-kits': ['accessories', 'storage'],
@@ -219,25 +234,34 @@ export async function getRelatedProducts(product: Product): Promise<Product[]> {
     return rows.map(dbProductToProduct);
   }
 
-  const relatedCats = RELATED_CATEGORIES[product.category];
+  const primaryCategory = product.categories[0];
+  if (!primaryCategory) return [];
+  const relatedCats = RELATED_CATEGORIES[primaryCategory];
   if (relatedCats.length === 0) return [];
 
-  const rows = await prisma.product.findMany({
+  const allProducts = await prisma.product.findMany({
     where: {
       isActive: true,
-      category: { in: relatedCats },
       id: { not: product.id },
     },
     include: { specs: true },
     orderBy: [{ isFeatured: 'desc' }, { price: 'asc' }],
-    take: 3,
   });
-  return rows.map(dbProductToProduct);
+  return allProducts
+    .map(dbProductToProduct)
+    .filter((p) => p.categories.some((c) => relatedCats.includes(c)))
+    .slice(0, 3);
 }
 
 export async function getProductsByCategory(category: ProductCategory): Promise<Product[]> {
+  const ids = await prisma.$queryRaw<Array<{ id: string }>>`
+    SELECT id FROM products
+    WHERE isActive = true AND JSON_CONTAINS(categories, ${JSON.stringify(category)})
+    ORDER BY createdAt DESC
+  `;
+  if (ids.length === 0) return [];
   const rows = await prisma.product.findMany({
-    where: { isActive: true, category },
+    where: { id: { in: ids.map((r) => r.id) } },
     include: { specs: true },
     orderBy: { createdAt: 'desc' },
   });
@@ -481,7 +505,7 @@ export async function writeProductMdx(
     create: {
       id,
       slug: frontmatter.slug,
-      category: frontmatter.category,
+      categories: frontmatter.categories as unknown as string[],
       price: frontmatter.price,
       originalPrice: frontmatter.originalPrice ?? null,
       currency: frontmatter.currency || 'GEL',
@@ -505,7 +529,7 @@ export async function writeProductMdx(
     },
     update: {
       slug: frontmatter.slug,
-      category: frontmatter.category,
+      categories: frontmatter.categories as unknown as string[],
       price: frontmatter.price,
       originalPrice: frontmatter.originalPrice ?? null,
       currency: frontmatter.currency || 'GEL',
@@ -612,12 +636,23 @@ export interface SpecValueOption {
   count: number;
 }
 
+async function getProductIdsByCategory(category: ProductCategory): Promise<string[]> {
+  const ids = await prisma.$queryRaw<Array<{ id: string }>>`
+    SELECT id FROM products
+    WHERE isActive = true AND JSON_CONTAINS(categories, ${JSON.stringify(category)})
+  `;
+  return ids.map((r) => r.id);
+}
+
 function buildCategoryWhere(
   category?: ProductCategory,
   subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
+  categoryProductIds?: string[],
 ): Prisma.ProductWhereInput {
   const where: Prisma.ProductWhereInput = { isActive: true };
-  if (category) where.category = category;
+  if (category && categoryProductIds) {
+    where.id = { in: categoryProductIds };
+  }
   if (subcategoryNode?.specFilter) {
     const { kaKey, value } = subcategoryNode.specFilter;
     where.AND = [{ specs: { some: { keyKa: kaKey, value } } }];
@@ -662,9 +697,14 @@ export async function getFilteredProducts(
     }
   }
 
+  let categoryProductIds: string[] | undefined;
+  if (filters.category) {
+    categoryProductIds = await getProductIdsByCategory(filters.category);
+  }
+
   const baseWhere: Prisma.ProductWhereInput = {
     isActive: true,
-    ...(filters.category && { category: filters.category }),
+    ...(categoryProductIds && { id: { in: categoryProductIds } }),
     ...(filters.search && {
       OR: [
         { nameKa: { contains: filters.search.trim() } },
@@ -737,7 +777,11 @@ export async function getAvailableSpecValuesFromDB(
 ): Promise<Record<string, SpecValueOption[]>> {
   if (filterConfigs.length === 0) return {};
 
-  const baseWhere = buildCategoryWhere(category, subcategoryNode);
+  let categoryProductIds: string[] | undefined;
+  if (category) {
+    categoryProductIds = await getProductIdsByCategory(category);
+  }
+  const baseWhere = buildCategoryWhere(category, subcategoryNode, categoryProductIds);
   const matchingProducts = await prisma.product.findMany({
     where: baseWhere,
     select: { id: true },
@@ -771,7 +815,11 @@ export async function getPriceRangeFromDB(
   category?: ProductCategory,
   subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
 ): Promise<{ min: number; max: number }> {
-  const where = buildCategoryWhere(category, subcategoryNode);
+  let categoryProductIds: string[] | undefined;
+  if (category) {
+    categoryProductIds = await getProductIdsByCategory(category);
+  }
+  const where = buildCategoryWhere(category, subcategoryNode, categoryProductIds);
   const agg = await prisma.product.aggregate({
     where,
     _min: { price: true },
@@ -784,7 +832,11 @@ export async function getProductsByCategoryAndSub(
   category?: ProductCategory,
   subcategoryNode?: { specFilter?: { kaKey: string; value: string } },
 ): Promise<Product[]> {
-  const where = buildCategoryWhere(category, subcategoryNode);
+  let categoryProductIds: string[] | undefined;
+  if (category) {
+    categoryProductIds = await getProductIdsByCategory(category);
+  }
+  const where = buildCategoryWhere(category, subcategoryNode, categoryProductIds);
   const rows = await prisma.product.findMany({
     where,
     include: { specs: true },
@@ -794,19 +846,22 @@ export async function getProductsByCategoryAndSub(
 }
 
 export async function getCategoryCounts(): Promise<Record<string, number>> {
-  const [totalCount, categoryGroups, config] = await Promise.all([
+  const allCategories: ProductCategory[] = ['cameras', 'nvr-kits', 'accessories', 'storage', 'services'];
+
+  const [totalCount, config, ...categoryCounts] = await Promise.all([
     prisma.product.count({ where: { isActive: true } }),
-    prisma.product.groupBy({
-      by: ['category'],
-      where: { isActive: true },
-      _count: { _all: true },
-    }),
     getCatalogConfig(),
+    ...allCategories.map((cat) =>
+      prisma.$queryRaw<Array<{ cnt: bigint }>>`
+        SELECT COUNT(*) as cnt FROM products
+        WHERE isActive = true AND JSON_CONTAINS(categories, ${JSON.stringify(cat)})
+      `.then((r) => ({ category: cat, count: Number(r[0]?.cnt ?? 0) })),
+    ),
   ]);
 
   const counts: Record<string, number> = { all: totalCount };
-  for (const g of categoryGroups) {
-    counts[g.category] = g._count._all;
+  for (const g of categoryCounts) {
+    counts[g.category] = g.count;
   }
 
   const subcategoryQueries: Array<{ id: string; promise: Promise<number> }> = [];
@@ -814,16 +869,33 @@ export async function getCategoryCounts(): Promise<Record<string, number>> {
     if (cat.children) {
       for (const child of cat.children) {
         if (child.specFilter) {
-          subcategoryQueries.push({
-            id: child.id,
-            promise: prisma.product.count({
-              where: {
-                isActive: true,
-                ...(cat.parentCategory && { category: cat.parentCategory }),
-                specs: { some: { keyKa: child.specFilter.kaKey, value: child.specFilter.value } },
-              },
-            }),
-          });
+          if (cat.parentCategory) {
+            subcategoryQueries.push({
+              id: child.id,
+              promise: getProductIdsByCategory(cat.parentCategory as ProductCategory).then(
+                (ids) =>
+                  ids.length === 0
+                    ? 0
+                    : prisma.product.count({
+                        where: {
+                          isActive: true,
+                          id: { in: ids },
+                          specs: { some: { keyKa: child.specFilter!.kaKey, value: child.specFilter!.value } },
+                        },
+                      }),
+              ),
+            });
+          } else {
+            subcategoryQueries.push({
+              id: child.id,
+              promise: prisma.product.count({
+                where: {
+                  isActive: true,
+                  specs: { some: { keyKa: child.specFilter.kaKey, value: child.specFilter.value } },
+                },
+              }),
+            });
+          }
         }
       }
     }
@@ -866,9 +938,14 @@ export async function getProductsFiltered(filters: ProductFilters): Promise<Prod
     }
   }
 
+  let categoryProductIds: string[] | undefined;
+  if (filters.category) {
+    categoryProductIds = await getProductIdsByCategory(filters.category);
+  }
+
   const where: Prisma.ProductWhereInput = {
     isActive: true,
-    ...(filters.category && { category: filters.category }),
+    ...(categoryProductIds && { id: { in: categoryProductIds } }),
     ...(filters.minPrice !== undefined || filters.maxPrice !== undefined
       ? {
           price: {

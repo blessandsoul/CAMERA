@@ -51,7 +51,7 @@ export function ProductShowcaseSlider({
   const product = products[currentIndex];
   const name = product.name[locale];
   const description = product.description[locale];
-  const isService = product.category === 'services';
+  const isService = product.categories.includes('services');
   const imageSrc = product.images.length > 0
     ? product.images[0].startsWith('http')
       ? product.images[0]
@@ -98,7 +98,7 @@ export function ProductShowcaseSlider({
               <div className="absolute top-4 left-4 z-10">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/80 backdrop-blur-md text-[11px] font-bold uppercase tracking-widest text-white border border-white/20">
                   <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                  {product.category}
+                  {product.categories[0]}
                 </span>
               </div>
 
@@ -160,7 +160,7 @@ export function ProductShowcaseSlider({
               {/* Bottom row: link + price + dots */}
               <div className="flex items-center justify-between pt-1">
                 <Link
-                  href={`/${locale}/catalog/${product.id}`}
+                  href={`/${locale}/catalog/${product.slug}`}
                   className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 focus-visible:outline-none group/link"
                 >
                   {locale === 'ka' ? 'სრულად ნახვა' : locale === 'ru' ? 'Подробнее' : 'View product'}

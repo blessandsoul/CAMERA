@@ -29,7 +29,7 @@ export function FavoriteProductCard({ product, locale }: FavoriteProductCardProp
     <article className="group relative flex flex-col rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-border/80 hover:-translate-y-0.5">
       {/* Image */}
       <Link
-        href={`/${locale}/catalog/${product.id}`}
+        href={`/${locale}/catalog/${product.slug}`}
         className="block relative aspect-4/3 overflow-hidden bg-muted"
       >
         {hasImage ? (
@@ -59,14 +59,14 @@ export function FavoriteProductCard({ product, locale }: FavoriteProductCardProp
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5 gap-3">
-        <Link href={`/${locale}/catalog/${product.id}`}>
+        <Link href={`/${locale}/catalog/${product.slug}`}>
           <h3 className="font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200">
             {name}
           </h3>
         </Link>
 
         <div className="flex items-center justify-between mt-auto">
-          {product.category === 'services' ? (
+          {product.categories.includes('services') ? (
             <span className="text-sm text-muted-foreground italic">
               {t('catalog.price_on_request')}
             </span>

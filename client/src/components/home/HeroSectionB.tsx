@@ -51,7 +51,7 @@ export function HeroSectionB({ products, locale, labels }: HeroSectionBProps) {
     : null;
   const specs = p.specs.slice(0, 5);
   const mobileSpecCount = 3;
-  const catLabel = CATEGORY_LABELS[p.category]?.[locale] ?? p.category;
+  const catLabel = CATEGORY_LABELS[p.categories[0]]?.[locale] ?? p.categories[0];
   const fakeOldPrice = p.price > 0 ? Math.round(p.price * 1.22) : 0;
 
   return (

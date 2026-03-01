@@ -10,7 +10,7 @@ datasource db {
 model Product {
   id              String   @id
   slug            String   @unique
-  category        String
+  categories      Json
   price           Float
   originalPrice   Float?
   currency        String   @default("GEL")
@@ -30,10 +30,8 @@ model Product {
 
   specs ProductSpec[]
 
-  @@index([category])
   @@index([isActive])
   @@index([isFeatured])
-  @@index([category, isActive])
   @@map("products")
 }
 

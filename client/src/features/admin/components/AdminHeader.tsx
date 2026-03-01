@@ -38,7 +38,7 @@ export function AdminHeader(): React.ReactElement {
 
   const showAddButton = isProducts || isArticles || isProjects;
   const addHref = isArticles ? '/admin/articles/new' : isProjects ? '/admin/projects/new' : '/admin/products/new';
-  const addLabel = isArticles ? 'New Article' : isProjects ? 'New Project' : 'Add Product';
+  const addLabel = isArticles ? 'ახალი სტატია' : isProjects ? 'ახალი პროექტი' : 'პროდუქტის დამატება';
 
   return (
     <header className="border-b border-border bg-card px-4 md:px-6 py-3">
@@ -47,16 +47,16 @@ export function AdminHeader(): React.ReactElement {
           <div className="w-7 h-7 bg-foreground rounded-lg flex items-center justify-center">
             <span className="text-background font-bold text-xs">TB</span>
           </div>
-          <span className="font-semibold text-foreground text-sm">Admin</span>
+          <span className="font-semibold text-foreground text-sm">ადმინი</span>
         </Link>
         <nav className="flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
-          {navLink('/admin/dashboard', isProducts, 'Products')}
-          {navLink('/admin/orders', isOrders, 'Orders')}
-          {navLink('/admin/inquiries', isInquiries, 'Inquiries')}
-          {navLink('/admin/articles', isArticles, 'Articles')}
-          {navLink('/admin/projects', isProjects, 'Projects')}
-          {navLink('/admin/catalog-settings', isCatalog, 'Catalog')}
-          {navLink('/admin/site-settings', isSite, 'Site')}
+          {navLink('/admin/dashboard', isProducts, 'პროდუქტები')}
+          {navLink('/admin/orders', isOrders, 'შეკვეთები')}
+          {navLink('/admin/inquiries', isInquiries, 'მოთხოვნები')}
+          {navLink('/admin/articles', isArticles, 'სტატიები')}
+          {navLink('/admin/projects', isProjects, 'პროექტები')}
+          {navLink('/admin/catalog-settings', isCatalog, 'კატალოგი')}
+          {navLink('/admin/site-settings', isSite, 'საიტი')}
         </nav>
         <div className="flex items-center gap-3 shrink-0">
           {showAddButton && (
@@ -74,7 +74,7 @@ export function AdminHeader(): React.ReactElement {
             size="sm"
             onClick={handleLogout}
           >
-            Logout
+            გასვლა
           </Button>
         </div>
       </div>

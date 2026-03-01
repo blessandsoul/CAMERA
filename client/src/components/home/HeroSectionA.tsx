@@ -58,7 +58,7 @@ export function HeroSectionA({ products, locale, labels }: HeroSectionAProps) {
     ? p.images[0].startsWith('http') ? p.images[0] : `/images/products/${p.images[0]}`
     : null;
   const fakeOldPrice = Math.round(p.price * 1.25);
-  const catLabel = CATEGORY_LABELS[p.category]?.[locale] ?? p.category;
+  const catLabel = CATEGORY_LABELS[p.categories[0]]?.[locale] ?? p.categories[0];
   const topSpecs = p.specs.slice(0, 3);
 
   const slideVariants = {

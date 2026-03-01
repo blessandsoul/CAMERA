@@ -16,7 +16,7 @@ export default async function AdminInquiriesPage(): Promise<React.ReactElement> 
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
         <h1 className="text-xl font-semibold text-foreground mb-6">
-          Inquiries ({inquiries.length})
+          მოთხოვნები ({inquiries.length})
           <InfoTooltip text="საკონტაქტო ფორმიდან შემოსული მოთხოვნები. ტელეფონზე დაწკაპება გახსნის WhatsApp-ს" />
         </h1>
 
@@ -27,7 +27,7 @@ export default async function AdminInquiriesPage(): Promise<React.ReactElement> 
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
               </svg>
             </div>
-            <p className="text-sm text-muted-foreground">No inquiries yet.</p>
+            <p className="text-sm text-muted-foreground">მოთხოვნები ჯერ არ არის.</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -58,7 +58,7 @@ export default async function AdminInquiriesPage(): Promise<React.ReactElement> 
                       size="xs"
                       className="rounded-full"
                     >
-                      Delete
+                      წაშლა
                     </Button>
                   </form>
                 </div>

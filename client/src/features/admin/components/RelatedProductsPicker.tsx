@@ -85,7 +85,7 @@ export function RelatedProductsPicker({
                 />
               )}
               <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground bg-muted px-1.5 py-0.5 rounded shrink-0">
-                {categoryLabel[p.category] ?? p.category}
+                {p.categories.map((c) => categoryLabel[c] ?? c).join('/')}
               </span>
               <span className="text-sm text-foreground truncate flex-1">{p.name.ka}</span>
               <span className="text-xs text-muted-foreground tabular-nums shrink-0">
@@ -151,7 +151,7 @@ export function RelatedProductsPicker({
                       />
                     )}
                     <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground bg-muted px-1.5 py-0.5 rounded shrink-0">
-                      {categoryLabel[p.category] ?? p.category}
+                      {p.categories.map((c) => categoryLabel[c] ?? c).join('/')}
                     </span>
                     <span className="text-sm text-foreground truncate flex-1">{p.name.ka}</span>
                     <span className="text-xs text-muted-foreground tabular-nums shrink-0">

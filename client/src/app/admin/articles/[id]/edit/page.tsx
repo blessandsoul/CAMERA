@@ -24,7 +24,7 @@ export default async function EditArticlePage({ params }: EditArticlePageProps):
     <>
       <AdminHeader />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
-        <h1 className="text-xl font-semibold text-foreground mb-8">Edit: {article.title}</h1>
+        <h1 className="text-xl font-semibold text-foreground mb-8">რედაქტირება: {article.title}</h1>
         <ArticleForm article={article} action={updateArticleWithId} />
       </div>
     </>

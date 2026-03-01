@@ -150,12 +150,12 @@ function SliderCard({ product, locale }: { product: Product; locale: Locale }): 
   const imgSrc = hasImage
     ? (product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}`)
     : '';
-  const isService = product.category === 'services';
+  const isService = product.categories.includes('services');
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
 
   return (
     <Link
-      href={`/${locale}/catalog/${product.id}`}
+      href={`/${locale}/catalog/${product.slug}`}
       data-slider-card
       role="listitem"
       className="group shrink-0 w-60 sm:w-65 rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-border/80 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
@@ -182,7 +182,7 @@ function SliderCard({ product, locale }: { product: Product; locale: Locale }): 
         <div className="absolute top-2.5 left-2.5">
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-background/90 backdrop-blur-sm border border-border/60 text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
             <span className="w-1 h-1 rounded-full bg-primary" aria-hidden="true" />
-            {CATEGORY_KEYS[product.category] ?? product.category}
+            {CATEGORY_KEYS[product.categories[0]] ?? product.categories[0]}
           </span>
         </div>
 

@@ -32,19 +32,20 @@ interface ProductMiniCardProps {
 export function ProductMiniCard({ product, locale, inStockLabel, priceOnRequestLabel, categoryLabels, saleColor = 'destructive' }: ProductMiniCardProps) {
   const name = product.name[locale];
   const hasImage = product.images.length > 0;
-  const isService = product.category === 'services';
+  const isService = product.categories.includes('services');
   const topSpecs = product.specs.slice(0, 2);
   const imageSrc = hasImage
     ? product.images[0].startsWith('http')
       ? product.images[0]
       : `/images/products/${product.images[0]}`
     : null;
-  const categoryIcon = CATEGORY_ICONS[product.category] ?? <Package size={11} weight="duotone" aria-hidden="true" />;
-  const categoryLabel = categoryLabels[product.category] ?? product.category;
+  const primaryCategory = product.categories[0];
+  const categoryIcon = CATEGORY_ICONS[primaryCategory] ?? <Package size={11} weight="duotone" aria-hidden="true" />;
+  const categoryLabel = categoryLabels[primaryCategory] ?? primaryCategory;
 
   return (
     <Link
-      href={`/${locale}/catalog/${product.id}`}
+      href={`/${locale}/catalog/${product.slug}`}
       className={cn(
         'group relative rounded-xl border flex flex-col overflow-hidden min-w-0',
         'transition-all duration-300 ease-out cursor-pointer',

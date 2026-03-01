@@ -35,7 +35,7 @@ export function HeroVariantC({ products, locale, phone, labels, currentIndex, di
             className="space-y-4 pr-16"
           >
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-              {product.category.replace('-', ' ')}
+              {product.categories[0].replace('-', ' ')}
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-background">
               {name}

@@ -14,9 +14,9 @@ interface OrderDetailPageProps {
 }
 
 const statusLabels: Record<string, string> = {
-  new: 'New',
-  contacted: 'Contacted',
-  completed: 'Completed',
+  new: 'ახალი',
+  contacted: 'დაკავშირებული',
+  completed: 'დასრულებული',
 };
 
 const statusColors: Record<string, string> = {
@@ -47,9 +47,9 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
   });
 
   const localeLabels: Record<string, string> = {
-    ka: 'Georgian',
-    ru: 'Russian',
-    en: 'English',
+    ka: 'ქართული',
+    ru: 'რუსული',
+    en: 'ინგლისური',
   };
 
   return (
@@ -63,13 +63,13 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
-          Orders
+          შეკვეთები
         </Link>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-xl font-semibold text-foreground">
-              Order #{order.id.slice(-6).toUpperCase()}
+              შეკვეთა #{order.id.slice(-6).toUpperCase()}
             </h1>
             <p className="text-sm text-muted-foreground mt-1">{formattedDate}</p>
           </div>
@@ -80,7 +80,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
             {nextStatus[order.status] && (
               <form action={changeOrderStatus.bind(null, order.id, nextStatus[order.status])}>
                 <Button type="submit" size="sm" variant="outline">
-                  Mark as {statusLabels[nextStatus[order.status]]}
+                  მონიშნე: {statusLabels[nextStatus[order.status]]}
                 </Button>
               </form>
             )}
@@ -89,14 +89,14 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
 
         {/* Customer info */}
         <div className="rounded-xl border border-border bg-card p-5 mb-4">
-          <h2 className="text-sm font-medium text-muted-foreground mb-3">Customer <InfoTooltip text="შეკვეთის გამფორმებლის საკონტაქტო ინფორმაცია" /></h2>
+          <h2 className="text-sm font-medium text-muted-foreground mb-3">მომხმარებელი <InfoTooltip text="შეკვეთის გამფორმებლის საკონტაქტო ინფორმაცია" /></h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Name <InfoTooltip text="მომხმარებლის სახელი" /></p>
+              <p className="text-xs text-muted-foreground mb-1">სახელი <InfoTooltip text="მომხმარებლის სახელი" /></p>
               <p className="text-sm font-medium text-foreground">{order.name}</p>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Phone <InfoTooltip text="დააწკაპუნეთ ნომერზე WhatsApp-ში დასაკავშირებლად" /></p>
+              <p className="text-xs text-muted-foreground mb-1">ტელეფონი <InfoTooltip text="დააწკაპუნეთ ნომერზე WhatsApp-ში დასაკავშირებლად" /></p>
               <a
                 href={`https://wa.me/995${order.phone.replace(/\D/g, '')}`}
                 target="_blank"
@@ -107,7 +107,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
               </a>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Language <InfoTooltip text="ენა რომელზეც მომხმარებელმა გააფორმა შეკვეთა" /></p>
+              <p className="text-xs text-muted-foreground mb-1">ენა <InfoTooltip text="ენა რომელზეც მომხმარებელმა გააფორმა შეკვეთა" /></p>
               <p className="text-sm font-medium text-foreground">{localeLabels[order.locale] || order.locale}</p>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
 
         {/* Order items */}
         <div className="rounded-xl border border-border bg-card p-5">
-          <h2 className="text-sm font-medium text-muted-foreground mb-3">Items <InfoTooltip text="შეკვეთილი პროდუქტების სია რაოდენობით და ფასით" /></h2>
+          <h2 className="text-sm font-medium text-muted-foreground mb-3">ნივთები <InfoTooltip text="შეკვეთილი პროდუქტების სია რაოდენობით და ფასით" /></h2>
           <div className="space-y-3">
             {order.items.map((item, i) => (
               <div key={i} className="flex items-center justify-between">
@@ -130,7 +130,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps):
             ))}
           </div>
           <div className="border-t border-border mt-4 pt-4 flex items-center justify-between">
-            <span className="text-sm font-medium text-foreground">Total</span>
+            <span className="text-sm font-medium text-foreground">ჯამი</span>
             <span className="text-base font-bold text-foreground tabular-nums">{order.total} ₾</span>
           </div>
         </div>

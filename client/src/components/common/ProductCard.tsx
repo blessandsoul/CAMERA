@@ -22,8 +22,8 @@ export async function ProductCard({ product }: ProductCardProps) {
   const t = await getTranslations();
   const name = product.name[locale];
   const hasImage = product.images.length > 0;
-  const isService = product.category === 'services';
-  const categoryLabel = t(CATEGORY_KEYS[product.category] ?? product.category);
+  const isService = product.categories.includes('services');
+  const categoryLabel = t(CATEGORY_KEYS[product.categories[0]] ?? product.categories[0]);
   const imgSrc = hasImage
     ? (product.images[0].startsWith('http') ? product.images[0] : `/images/products/${product.images[0]}`)
     : '';
@@ -33,7 +33,7 @@ export async function ProductCard({ product }: ProductCardProps) {
 
       {/* Image */}
       <Link
-        href={`/${locale}/catalog/${product.id}`}
+        href={`/${locale}/catalog/${product.slug}`}
         className="block relative aspect-4/3 overflow-hidden bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         aria-label={name}
       >
@@ -78,7 +78,7 @@ export async function ProductCard({ product }: ProductCardProps) {
       {/* Content */}
       <div className="flex flex-col flex-1 p-5 gap-4">
 
-        <Link href={`/${locale}/catalog/${product.id}`} className="focus-visible:outline-none">
+        <Link href={`/${locale}/catalog/${product.slug}`} className="focus-visible:outline-none">
           <h3 className="font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 text-base">
             {name}
           </h3>
@@ -110,7 +110,7 @@ export async function ProductCard({ product }: ProductCardProps) {
           )}
 
           <Link
-            href={`/${locale}/catalog/${product.id}`}
+            href={`/${locale}/catalog/${product.slug}`}
             className="flex items-center justify-center gap-2 h-11 px-4 rounded-xl bg-primary text-primary-foreground font-semibold text-sm whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
             {t('catalog.view_details')}

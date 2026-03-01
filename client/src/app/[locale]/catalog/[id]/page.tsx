@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { getProductById, getRelatedProducts, getFeaturedProducts } from '@/lib/content';
+import { getProductBySlugOrId, getRelatedProducts, getFeaturedProducts } from '@/lib/content';
 import { ProductCTA } from '@/features/catalog/components/ProductCTA';
 import { ProductGallery } from '@/features/catalog/components/ProductGallery';
 import { BoughtTogether } from '@/features/catalog/components/BoughtTogether';
@@ -16,7 +16,7 @@ interface ProductPageProps {
 
 export async function generateMetadata({ params }: ProductPageProps) {
   const { locale, id } = await params;
-  const product = await getProductById(id);
+  const product = await getProductBySlugOrId(id);
   if (!product) return { title: 'Not found' };
   return { title: `TechBrain — ${product.name[locale as Locale]}` };
 }
@@ -24,12 +24,12 @@ export async function generateMetadata({ params }: ProductPageProps) {
 export default async function ProductPage({ params }: ProductPageProps) {
   const { locale, id } = await params;
   const t = await getTranslations({ locale });
-  const product = await getProductById(id);
+  const product = await getProductBySlugOrId(id);
 
   if (!product) notFound();
 
   const l = locale as Locale;
-  const isService = product.category === 'services';
+  const isService = product.categories.includes('services');
   const relatedProducts = await getRelatedProducts(product);
   const popularProducts = (await getFeaturedProducts()).filter((p) => p.id !== product.id);
 
@@ -73,7 +73,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="flex flex-col gap-6">
           <div>
             <span className="text-xs font-medium text-primary uppercase tracking-wide">
-              {t(categoryKeyMap[product.category] as Parameters<typeof t>[0])}
+              {t(categoryKeyMap[product.categories[0]] as Parameters<typeof t>[0])}
             </span>
             <h1 className="text-3xl font-bold text-foreground mt-2 text-balance">
               {product.name[l]}

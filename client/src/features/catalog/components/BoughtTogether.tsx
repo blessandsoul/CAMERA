@@ -252,7 +252,7 @@ function BoughtTogetherItem({ product, locale, isMain, isSelected, onToggle }: B
       {/* Link to product */}
       {!isMain && (
         <Link
-          href={`/${locale}/catalog/${product.id}`}
+          href={`/${locale}/catalog/${product.slug}`}
           className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors duration-150 shrink-0"
           aria-label={name}
         >

@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getProductById, writeProductMdx, deleteProductMdx } from '@/lib/content';
 import { requireAdmin } from '@/lib/admin-auth';
-import type { Product, ProductCategory } from '@/types/product.types';
+import type { Product } from '@/types/product.types';
 
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'products');
 
@@ -21,7 +21,7 @@ export async function createProduct(formData: FormData): Promise<void> {
   const frontmatter = {
     id,
     slug: (formData.get('slug') as string) || id,
-    category: (formData.get('category') as ProductCategory) || 'cameras',
+    categories: JSON.parse((formData.get('categories') as string) || '["cameras"]') as string[],
     price: Number(formData.get('price')) || 0,
     currency: 'GEL',
     isActive: formData.get('isActive') === 'true',
@@ -56,7 +56,7 @@ export async function updateProduct(id: string, formData: FormData): Promise<voi
   const frontmatter = {
     id,
     slug: (formData.get('slug') as string) || existing.slug,
-    category: (formData.get('category') as ProductCategory) || existing.category,
+    categories: JSON.parse((formData.get('categories') as string) || JSON.stringify(existing.categories)) as string[],
     price: Number(formData.get('price')) || existing.price,
     currency: existing.currency,
     isActive: formData.get('isActive') === 'true',
@@ -104,7 +104,7 @@ export async function toggleProductActive(id: string, isActive: boolean): Promis
   const frontmatter = {
     id: product.id,
     slug: product.slug,
-    category: product.category,
+    categories: product.categories,
     price: product.price,
     currency: product.currency,
     isActive,
