@@ -162,42 +162,16 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
           </div>
         </div>
 
-        {/* Names — inline 3-column */}
+        {/* Name */}
         <div className="p-4">
-          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">სახელი <InfoTooltip text="პროდუქტის სახელი სამ ენაზე. ქართული სავალდებულოა" /></span>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <Label className={labelClass}>KA</Label>
-              <Input name="name_ka" defaultValue={product?.name.ka ?? ''} placeholder="ქართულად" required />
-            </div>
-            <div>
-              <Label className={labelClass}>RU</Label>
-              <Input name="name_ru" defaultValue={product?.name.ru ?? ''} placeholder="По-русски" />
-            </div>
-            <div>
-              <Label className={labelClass}>EN</Label>
-              <Input name="name_en" defaultValue={product?.name.en ?? ''} placeholder="In English" />
-            </div>
-          </div>
+          <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">სახელი <InfoTooltip text="პროდუქტის სახელი" /></span>
+          <Input name="name_ka" defaultValue={product?.name.ka ?? ''} placeholder="პროდუქტის სახელი" required />
         </div>
 
-        {/* Descriptions — inline 3-column */}
+        {/* Description */}
         <div className="p-4">
           <span className="block text-xs font-medium text-foreground uppercase tracking-wider mb-2">აღწერა <InfoTooltip text="პროდუქტის აღწერა — გამოჩნდება პროდუქტის გვერდზე" /></span>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <Label className={labelClass}>KA</Label>
-              <Textarea name="description_ka" defaultValue={product?.description.ka ?? ''} rows={2} className="resize-y" />
-            </div>
-            <div>
-              <Label className={labelClass}>RU</Label>
-              <Textarea name="description_ru" defaultValue={product?.description.ru ?? ''} rows={2} className="resize-y" />
-            </div>
-            <div>
-              <Label className={labelClass}>EN</Label>
-              <Textarea name="description_en" defaultValue={product?.description.en ?? ''} rows={2} className="resize-y" />
-            </div>
-          </div>
+          <Textarea name="description_ka" defaultValue={product?.description.ka ?? ''} rows={3} className="resize-y" />
         </div>
 
         {/* Related Products (Bought Together) */}
@@ -236,10 +210,8 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
           ) : (
             <div className="space-y-1.5">
               {customSpecs.map((spec, i) => (
-                <div key={i} className="grid grid-cols-5 gap-2 items-center">
-                  <Input placeholder="გასაღები KA" value={spec.key_ka} onChange={(e) => updateCustomSpec(i, 'key_ka', e.target.value)} />
-                  <Input placeholder="გასაღები RU" value={spec.key_ru} onChange={(e) => updateCustomSpec(i, 'key_ru', e.target.value)} />
-                  <Input placeholder="გასაღები EN" value={spec.key_en} onChange={(e) => updateCustomSpec(i, 'key_en', e.target.value)} />
+                <div key={i} className="grid grid-cols-3 gap-2 items-center">
+                  <Input placeholder="პარამეტრი" value={spec.key_ka} onChange={(e) => updateCustomSpec(i, 'key_ka', e.target.value)} />
                   <Input placeholder="მნიშვნელობა" value={spec.value} onChange={(e) => updateCustomSpec(i, 'value', e.target.value)} />
                   <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeCustomSpec(i)} className="text-muted-foreground hover:text-destructive justify-self-start" aria-label="სპეცის წაშლა">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
