@@ -64,8 +64,8 @@ function seedProducts(): void {
     const { data: fm, content } = matter(raw);
 
     emit(
-      `INSERT INTO products (id, slug, category, price, originalPrice, currency, isActive, isFeatured, images, nameKa, nameRu, nameEn, descriptionKa, descriptionRu, descriptionEn, content, relatedProducts, createdAt, updatedAt) VALUES (` +
-        `${esc(fm.id)}, ${esc(fm.slug)}, ${esc(fm.category)}, ${escNum(fm.price)}, ${escNum(fm.originalPrice)}, ${esc(fm.currency || 'GEL')}, ` +
+      `INSERT INTO products (id, slug, categories, price, originalPrice, currency, isActive, isFeatured, images, nameKa, nameRu, nameEn, descriptionKa, descriptionRu, descriptionEn, content, relatedProducts, createdAt, updatedAt) VALUES (` +
+        `${esc(fm.id)}, ${esc(fm.slug)}, ${escJson(Array.isArray(fm.categories) ? fm.categories : [fm.category])}, ${escNum(fm.price)}, ${escNum(fm.originalPrice)}, ${esc(fm.currency || 'GEL')}, ` +
         `${escBool(fm.isActive)}, ${escBool(fm.isFeatured)}, ${escJson(fm.images || [])}, ` +
         `${esc(fm.name?.ka)}, ${esc(fm.name?.ru || '')}, ${esc(fm.name?.en || '')}, ` +
         `NULL, NULL, NULL, ` +
