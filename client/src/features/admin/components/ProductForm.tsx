@@ -92,7 +92,7 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
   const labelClass = 'text-xs text-muted-foreground';
 
   return (
-    <form action={action} className="max-w-2xl">
+    <form action={action} className="w-full">
       <input type="hidden" name="images" value={JSON.stringify(images)} />
       <input type="hidden" name="specs" value={specsJson} />
       <input type="hidden" name="categories" value={JSON.stringify(selectedCategories)} />
