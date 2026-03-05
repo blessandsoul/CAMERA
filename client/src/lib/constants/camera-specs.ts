@@ -93,6 +93,23 @@ export const CAMERA_SPECS: PredefinedSpec[] = [
     ],
   },
   {
+    id: 'hdd',
+    keyKa: 'HDD',
+    keyRu: 'HDD',
+    keyEn: 'HDD',
+    type: 'multiselect',
+    options: [
+      { value: 'HDD 500GB' },
+      { value: 'HDD 1TB' },
+      { value: 'HDD 2TB' },
+      { value: 'HDD 3TB' },
+      { value: 'HDD 4TB' },
+      { value: 'HDD 6TB' },
+      { value: 'HDD 8TB' },
+      { value: 'HDD 12TB' },
+    ],
+  },
+  {
     id: 'viewing_angle',
     keyKa: 'ხედვის კუთხე',
     keyRu: 'Угол обзора',

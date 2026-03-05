@@ -15,19 +15,31 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>): Promise<void> {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
     setUploading(true);
     setError(null);
+    const errors: string[] = [];
+    const uploaded: string[] = [];
     try {
-      const fd = new FormData();
-      fd.append('file', file);
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
-      const data = (await res.json()) as { success: boolean; filename?: string; error?: string };
-      if (data.success && data.filename) {
-        setImages((imgs) => [...imgs, data.filename!]);
-      } else {
-        setError(data.error || `ატვირთვა ვერ მოხერხდა (${res.status})`);
+      await Promise.all(
+        files.map(async (file) => {
+          const fd = new FormData();
+          fd.append('file', file);
+          const res = await fetch('/api/upload', { method: 'POST', body: fd });
+          const data = (await res.json()) as { success: boolean; filename?: string; error?: string };
+          if (data.success && data.filename) {
+            uploaded.push(data.filename);
+          } else {
+            errors.push(data.error ?? `${file.name}: ატვირთვა ვერ მოხერხდა`);
+          }
+        })
+      );
+      if (uploaded.length > 0) {
+        setImages((imgs) => [...imgs, ...uploaded]);
+      }
+      if (errors.length > 0) {
+        setError(errors.join('; '));
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'ქსელის შეცდომა');
@@ -107,7 +119,7 @@ export function ImageManager({ images, setImages }: ImageManagerProps): React.Re
           )}
         </Button>
       </div>
-      <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleUpload} />
+      <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={handleUpload} />
       {error && (
         <p className="mt-2 text-xs text-destructive">{error}</p>
       )}
