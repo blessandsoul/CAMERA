@@ -95,6 +95,45 @@ export async function deleteProduct(id: string): Promise<void> {
   redirect('/admin/dashboard');
 }
 
+export async function batchDeleteProducts(ids: string[]): Promise<void> {
+  await requireAdmin();
+  for (const id of ids) {
+    const product = await getProductById(id);
+    if (product) {
+      for (const img of product.images) {
+        const imgPath = path.join(IMAGES_DIR, img);
+        if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
+      }
+      await deleteProductMdx(id);
+    }
+  }
+  revalidatePath('/');
+}
+
+export async function batchToggleActive(ids: string[], isActive: boolean): Promise<void> {
+  await requireAdmin();
+  for (const id of ids) {
+    const product = await getProductById(id);
+    if (!product) continue;
+    const frontmatter = {
+      id: product.id,
+      slug: product.slug,
+      categories: product.categories,
+      price: product.price,
+      currency: product.currency,
+      isActive,
+      isFeatured: product.isFeatured,
+      images: product.images,
+      name: product.name,
+      specs: product.specs,
+      relatedProducts: product.relatedProducts,
+      createdAt: product.createdAt,
+    };
+    await writeProductMdx(id, frontmatter, product.content || '');
+  }
+  revalidatePath('/');
+}
+
 export async function toggleProductActive(id: string, isActive: boolean): Promise<void> {
   await requireAdmin();
 

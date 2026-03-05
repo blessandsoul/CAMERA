@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { toggleProductActive } from '@/features/admin/actions/product.actions';
+import { toggleProductActive, batchDeleteProducts, batchToggleActive } from '@/features/admin/actions/product.actions';
 import { DeleteProductButton } from './DeleteProductButton';
 import { InfoTooltip } from './InfoTooltip';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -33,6 +34,8 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'hidden'>('all');
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [batchPending, setBatchPending] = useState(false);
 
   const filtered = products.filter((p) => {
     if (category !== 'all' && !p.categories.includes(category as ProductCategory)) return false;
@@ -45,6 +48,48 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
     }
     return true;
   });
+
+  const allFilteredIds = filtered.map((p) => p.id);
+  const allSelected = allFilteredIds.length > 0 && allFilteredIds.every((id) => selected.has(id));
+  const someSelected = allFilteredIds.some((id) => selected.has(id));
+  const selectedCount = allFilteredIds.filter((id) => selected.has(id)).length;
+
+  const toggleAll = useCallback(() => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (allSelected) {
+        allFilteredIds.forEach((id) => next.delete(id));
+      } else {
+        allFilteredIds.forEach((id) => next.add(id));
+      }
+      return next;
+    });
+  }, [allSelected, allFilteredIds]);
+
+  const toggleOne = useCallback((id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }, []);
+
+  async function handleBatchDelete(): Promise<void> {
+    const ids = allFilteredIds.filter((id) => selected.has(id));
+    if (!confirm(`წაიშალოს ${ids.length} პროდუქტი? ეს მოქმედება შეუქცევადია.`)) return;
+    setBatchPending(true);
+    await batchDeleteProducts(ids);
+    setSelected(new Set());
+    setBatchPending(false);
+  }
+
+  async function handleBatchActivate(isActive: boolean): Promise<void> {
+    const ids = allFilteredIds.filter((id) => selected.has(id));
+    setBatchPending(true);
+    await batchToggleActive(ids, isActive);
+    setSelected(new Set());
+    setBatchPending(false);
+  }
 
   return (
     <>
@@ -83,6 +128,55 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
         <span className="text-xs text-muted-foreground ml-auto">{filtered.length} შედეგი</span>
       </div>
 
+      {/* Batch action toolbar */}
+      {selectedCount > 0 && (
+        <div className="flex items-center gap-3 mb-3 px-4 py-2.5 rounded-xl bg-primary/5 border border-primary/20">
+          <span className="text-sm font-medium text-primary">{selectedCount} არჩეული</span>
+          <div className="flex items-center gap-2 ml-auto">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={batchPending}
+              onClick={() => handleBatchActivate(true)}
+              className="text-xs h-7"
+            >
+              გააქტიურება
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={batchPending}
+              onClick={() => handleBatchActivate(false)}
+              className="text-xs h-7"
+            >
+              დამალვა
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              disabled={batchPending}
+              onClick={handleBatchDelete}
+              className="text-xs h-7"
+            >
+              წაშლა
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              disabled={batchPending}
+              onClick={() => setSelected(new Set())}
+              className="text-xs h-7 text-muted-foreground"
+            >
+              გაუქმება
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Table */}
       {filtered.length === 0 ? (
         <div className="text-center py-12 text-muted-foreground text-sm">ფილტრებს პროდუქტები არ შეესაბამება.</div>
@@ -91,6 +185,14 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
           <Table className="min-w-160">
             <TableHeader>
               <TableRow className="bg-muted/50">
+                <TableHead className="w-10 px-3">
+                  <Checkbox
+                    checked={allSelected}
+                    data-state={someSelected && !allSelected ? 'indeterminate' : undefined}
+                    onCheckedChange={toggleAll}
+                    aria-label="ყველას არჩევა"
+                  />
+                </TableHead>
                 <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">სურათი <InfoTooltip text="პროდუქტის მთავარი სურათი" /></TableHead>
                 <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">სახელი <InfoTooltip text="პროდუქტის სახელი (ქართულად)" /></TableHead>
                 <TableHead className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">კატეგორია <InfoTooltip text="პროდუქტის კატეგორია კატალოგში" /></TableHead>
@@ -101,7 +203,14 @@ export function ProductTable({ products }: ProductTableProps): React.ReactElemen
             </TableHeader>
             <TableBody>
               {filtered.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className={selected.has(product.id) ? 'bg-primary/5' : ''}>
+                  <TableCell className="w-10 px-3 py-2">
+                    <Checkbox
+                      checked={selected.has(product.id)}
+                      onCheckedChange={() => toggleOne(product.id)}
+                      aria-label={`${product.name.ka}-ის არჩევა`}
+                    />
+                  </TableCell>
                   <TableCell className="px-3 py-2">
                     <div className="w-10 h-10 rounded-lg overflow-hidden bg-muted shrink-0">
                       {product.images[0] ? (
