@@ -12,7 +12,7 @@ export default async function SiteSettingsPage(): Promise<React.ReactElement> {
   return (
     <>
       <AdminHeader />
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
+      <div className="max-w-screen-2xl mx-auto px-4 md:px-6 py-8">
         <h1 className="text-xl font-semibold text-foreground mb-6">საიტის პარამეტრები</h1>
         <SiteSettingsEditor initialSettings={settings} />
       </div>

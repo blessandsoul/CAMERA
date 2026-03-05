@@ -20,7 +20,7 @@ export default async function AdminOrdersPage(): Promise<React.ReactElement> {
   return (
     <>
       <AdminHeader />
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
+      <div className="max-w-screen-2xl mx-auto px-4 md:px-6 py-8">
         <h1 className="text-xl font-semibold text-foreground mb-6">
           შეკვეთები ({orders.length}){newCount > 0 && <span className="ml-2 text-sm text-info">{newCount} ახალი</span>}
           <InfoTooltip text="საიტიდან შემოსული შეკვეთები. სტატუსები: New = ახალი, Contacted = დაკავშირებული, Completed = დასრულებული. დააწკაპუნეთ შეკვეთაზე დეტალებისთვის" />

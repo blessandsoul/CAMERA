@@ -42,7 +42,7 @@ export function AdminHeader(): React.ReactElement {
 
   return (
     <header className="border-b border-border bg-card px-4 md:px-6 py-3">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <div className="max-w-screen-2xl mx-auto flex items-center justify-between gap-4">
         <Link href="/admin/dashboard" className="flex items-center gap-2 shrink-0">
           <div className="w-7 h-7 bg-foreground rounded-lg flex items-center justify-center">
             <span className="text-background font-bold text-xs">TB</span>
