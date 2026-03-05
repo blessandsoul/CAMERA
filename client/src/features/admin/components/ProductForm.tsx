@@ -26,8 +26,22 @@ interface SpecRow {
   value: string;
 }
 
+function toUrlSlug(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function isValidSlug(slug: string): boolean {
+  return /^[a-z0-9][a-z0-9\-]*[a-z0-9]$|^[a-z0-9]$/.test(slug);
+}
+
 export function ProductForm({ product, allProducts = [], action }: ProductFormProps): React.ReactElement {
   const [images, setImages] = useState<string[]>(product?.images ?? []);
+  const [slugValue, setSlugValue] = useState<string>(product?.slug ?? '');
   const [isActiveChecked, setIsActiveChecked] = useState<boolean>(product?.isActive ?? true);
   const [isFeaturedChecked, setIsFeaturedChecked] = useState<boolean>(product?.isFeatured ?? false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(product?.categories ?? ['cameras']);
@@ -107,8 +121,31 @@ export function ProductForm({ product, allProducts = [], action }: ProductFormPr
         <div className="p-4">
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-3">
-              <Label className={labelClass}>სლაგი <InfoTooltip text="პროდუქტის უნიკალური URL იდენტიფიკატორი. მაგ: v380-pro-wifi" /></Label>
-              <Input name="slug" defaultValue={product?.slug ?? ''} placeholder="v380-pro-wifi" />
+              <Label className={labelClass}>სლაგი <InfoTooltip text="პროდუქტის უნიკალური URL იდენტიფიკატორი. მხოლოდ ლათინური ასოები, ციფრები და დეფისი. მაგ: xmarto-wifi-x4-nvr-kit" /></Label>
+              <div className="flex gap-2 mt-0.5">
+                <Input
+                  name="slug"
+                  value={slugValue}
+                  onChange={(e) => setSlugValue(e.target.value)}
+                  placeholder="xmarto-wifi-x4-nvr-kit"
+                  className={slugValue && !isValidSlug(slugValue) ? 'border-destructive focus-visible:ring-destructive/50' : ''}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 text-xs"
+                  onClick={() => {
+                    const nameInput = document.querySelector<HTMLInputElement>('input[name="name_en"]') ?? document.querySelector<HTMLInputElement>('input[name="name_ka"]');
+                    if (nameInput?.value) setSlugValue(toUrlSlug(nameInput.value));
+                  }}
+                >
+                  გენერაცია
+                </Button>
+              </div>
+              {slugValue && !isValidSlug(slugValue) && (
+                <p className="text-xs text-destructive mt-1">სლაგი უნდა შეიცავდეს მხოლოდ ლათინურ ასოებს (a-z), ციფრებს და დეფისს (-). პробელები და სხვა სიმბოლოები დაუშვებელია.</p>
+              )}
             </div>
             <div>
               <Label className={labelClass}>კატეგორიები <InfoTooltip text="პროდუქტის კატეგორიები — შეგიძლიათ აირჩიოთ ერთი ან რამდენიმე კატეგორია" /></Label>
