@@ -7,6 +7,24 @@ import { getArticleById, writeArticleMdx, deleteArticleMdx } from '@/lib/content
 import { requireAdmin } from '@/lib/admin-auth';
 import type { ArticleCategory } from '@/types/article.types';
 
+const KA_TO_LATIN: Record<string, string> = {
+  'ა': 'a', 'ბ': 'b', 'გ': 'g', 'დ': 'd', 'ე': 'e', 'ვ': 'v', 'ზ': 'z',
+  'თ': 't', 'ი': 'i', 'კ': 'k', 'ლ': 'l', 'მ': 'm', 'ნ': 'n', 'ო': 'o',
+  'პ': 'p', 'ჟ': 'zh', 'რ': 'r', 'ს': 's', 'ტ': 't', 'უ': 'u', 'ფ': 'f',
+  'ქ': 'q', 'ღ': 'gh', 'ყ': 'k', 'შ': 'sh', 'ჩ': 'ch', 'ც': 'ts', 'ძ': 'dz',
+  'წ': 'ts', 'ჭ': 'ch', 'ხ': 'kh', 'ჯ': 'j', 'ჰ': 'h',
+};
+
+function toUrlSlug(text: string): string {
+  return text
+    .split('')
+    .map((ch) => KA_TO_LATIN[ch] ?? ch)
+    .join('')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 export async function createArticle(formData: FormData): Promise<void> {
   await requireAdmin();
 
@@ -15,7 +33,7 @@ export async function createArticle(formData: FormData): Promise<void> {
 
   const frontmatter = {
     id,
-    slug: (formData.get('slug') as string) || id,
+    slug: toUrlSlug((formData.get('title') as string) || '') || id,
     title: (formData.get('title') as string) || '',
     excerpt: (formData.get('excerpt') as string) || '',
     category: (formData.get('category') as ArticleCategory) || 'guides',
@@ -41,7 +59,7 @@ export async function updateArticle(id: string, formData: FormData): Promise<voi
 
   const frontmatter = {
     id,
-    slug: (formData.get('slug') as string) || existing!.slug,
+    slug: existing!.slug,
     title: (formData.get('title') as string) || existing!.title,
     excerpt: (formData.get('excerpt') as string) || existing!.excerpt,
     category: (formData.get('category') as ArticleCategory) || existing!.category,

@@ -109,10 +109,6 @@ export function ArticleForm({ article, action }: ArticleFormProps): React.ReactE
               <Label className={labelClass}>სათაური <InfoTooltip text="სტატიის სათაური — გამოჩნდება საიტზე და SEO-ში" /></Label>
               <Input name="title" defaultValue={article?.title ?? ''} placeholder="სტატიის სათაური" required />
             </div>
-            <div className="col-span-2">
-              <Label className={labelClass}>სლაგი (URL) <InfoTooltip text="URL მისამართი ლათინურად. მაგ: rogor-aviron-kamera" /></Label>
-              <Input name="slug" defaultValue={article?.slug ?? ''} placeholder="rogor-aviron-kamera" />
-            </div>
             <div>
               <Label className={labelClass}>კატეგორია <InfoTooltip text="სტატიის კატეგორია — განსაზღვრავს რა სექციაში მოხვდება" /></Label>
               <Select value={categoryValue} onValueChange={setCategoryValue}>

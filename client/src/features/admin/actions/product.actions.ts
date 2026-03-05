@@ -9,6 +9,24 @@ import { getProductById, writeProductMdx, deleteProductMdx } from '@/lib/content
 import { requireAdmin } from '@/lib/admin-auth';
 import type { Product, ProductCategory } from '@/types/product.types';
 
+const KA_TO_LATIN: Record<string, string> = {
+  'ა': 'a', 'ბ': 'b', 'გ': 'g', 'დ': 'd', 'ე': 'e', 'ვ': 'v', 'ზ': 'z',
+  'თ': 't', 'ი': 'i', 'კ': 'k', 'ლ': 'l', 'მ': 'm', 'ნ': 'n', 'ო': 'o',
+  'პ': 'p', 'ჟ': 'zh', 'რ': 'r', 'ს': 's', 'ტ': 't', 'უ': 'u', 'ფ': 'f',
+  'ქ': 'q', 'ღ': 'gh', 'ყ': 'k', 'შ': 'sh', 'ჩ': 'ch', 'ც': 'ts', 'ძ': 'dz',
+  'წ': 'ts', 'ჭ': 'ch', 'ხ': 'kh', 'ჯ': 'j', 'ჰ': 'h',
+};
+
+function toUrlSlug(text: string): string {
+  return text
+    .split('')
+    .map((ch) => KA_TO_LATIN[ch] ?? ch)
+    .join('')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'products');
 
 export async function createProduct(formData: FormData): Promise<void> {
@@ -20,7 +38,7 @@ export async function createProduct(formData: FormData): Promise<void> {
 
   const frontmatter = {
     id,
-    slug: (formData.get('slug') as string) || id,
+    slug: toUrlSlug((formData.get('name_ka') as string) || '') || id,
     categories: JSON.parse((formData.get('categories') as string) || '["cameras"]') as ProductCategory[],
     price: Number(formData.get('price')) || 0,
     currency: 'GEL',
@@ -55,7 +73,7 @@ export async function updateProduct(id: string, formData: FormData): Promise<voi
 
   const frontmatter = {
     id,
-    slug: (formData.get('slug') as string) || existing.slug,
+    slug: existing.slug,
     categories: JSON.parse((formData.get('categories') as string) || JSON.stringify(existing.categories)) as ProductCategory[],
     price: Number(formData.get('price')) || existing.price,
     currency: existing.currency,
